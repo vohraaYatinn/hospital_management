@@ -1,0 +1,52 @@
+/*  Template Name: UJUR - Doctor Appointment Booking System
+   Author: Shreethemes
+   E-mail: support@shreethemes.in
+   Created: January 2021
+   Version: 1.4.0
+    File: Main Css File
+*/
+
+
+//Fonts
+@import "custom/fonts/fonts";
+
+//Core files
+@import "./node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap/scss/variables";
+@import "variables-dark";
+@import "./node_modules/bootstrap/scss/mixins.scss";
+
+
+// Structure
+@import "custom/structure/general";
+@import "custom/structure/topbar";
+@import "custom/structure/topbar-admin";
+@import "custom/structure/footer";
+
+// Components
+@import "custom/components/avatar";
+@import "custom/components/accordion";
+@import "custom/components/preloader";
+@import "custom/components/forms";
+
+// Pages
+@import "custom/pages/blog";
+@import "custom/pages/chat";
+@import "custom/pages/contact";
+@import "custom/pages/cta";
+@import "custom/pages/features";
+@import "custom/pages/home";
+@import "custom/pages/team";
+@import "custom/pages/helper";
+@import "custom/pages/shop";
+@import "custom/pages/switcher";
+
+// Plugins
+@import "custom/plugins/calendar";
+@import "custom/plugins/simplebar";
+@import "custom/plugins/testi";
+@import "custom/plugins/datepicker";
+@import "custom/plugins/apexchart";
+
+// Dark
+@import "custom/dark/common";

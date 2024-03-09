@@ -1,0 +1,43 @@
+// 
+// _pagination.scss
+// 
+
+//Pagination
+.pagination {
+    li{
+        margin-left: 0 !important;
+    }
+    .page-item {
+        &:first-child .page-link {
+            border-top-left-radius: 5px !important;
+            border-bottom-left-radius: 5px !important;
+        } 
+        &:last-child .page-link {
+            border-top-right-radius: 5px !important;
+            border-bottom-right-radius: 5px !important;
+        }
+        .page-link {
+            color: $dark;
+            border: 1px solid $gray-300;
+            border-radius: 0 !important;
+            padding: 8px 16px;
+            font-size: 14px;
+            &:focus {
+                box-shadow: none;
+            }
+            &:hover {
+                color: $white;
+                background: rgba($primary, 0.9);
+                border-color: rgba($primary, 0.9);
+            }
+        }
+        &.active {
+            .page-link {
+                color: $white;
+                background: $primary !important;
+                border-color: $primary;
+                cursor: not-allowed;
+            }
+        }
+    }
+}

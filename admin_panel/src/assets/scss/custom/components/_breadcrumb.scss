@@ -1,0 +1,41 @@
+
+// 
+// breadcrumb.scss
+//
+
+//Breadcrumb
+.breadcrumb {
+    letter-spacing: 0.5px;
+    padding: 8px 24px;
+    display: block;
+    .breadcrumb-item {
+        text-transform: uppercase;
+        font-size: 12px;
+        font-weight: 500;
+        padding-left: 0;
+        display: inline-block;
+        a {
+            color: $dark;
+            &:hover {
+                color: $primary;
+            }
+        }
+        &.active {
+            color: $primary;
+        }
+        &:before {
+            content: "";
+        }
+        &:after {
+            content: "\F0142" !important;
+            color: $dark; 
+            font-family: 'Material Design Icons';
+            padding-left: 5px;
+        }     
+        &:last-child {
+            &:after {
+                display: none;
+            }
+        }  
+    }
+}

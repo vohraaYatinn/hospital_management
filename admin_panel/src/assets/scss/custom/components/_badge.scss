@@ -1,0 +1,18 @@
+// 
+// _badge.scss
+// 
+
+//Badges
+.badge {
+    display: inline-block;
+    letter-spacing: 0.5px;
+    padding: 4px 8px;
+    font-weight: 600;
+    line-height: 1;
+    text-align: center;
+    &.badge-link {
+        &:hover {
+            color: $white !important;
+        }
+    }
+}
