@@ -46,22 +46,6 @@ export default function Sidebar({manuClass}){
         
                     <ul className="sidebar-menu">
                         <li className={`${manu === "index" || "" ? "active" : ""} ms-0`}><Link to="/index"><GrDashboard className="me-2 d-inline-block mb-0 icon"/>Dashboard</Link></li>
-
-                        <li className={`sidebar-dropdown ms-0 ${["index-dark","index-rtl","index-rtl-dark","index-sidebar-dark","index-sidebar-colored","layouts-item"].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === "layouts-item" ? "" : "layouts-item")}}><PiBrowsers className="me-2 d-inline-block mb-0 icon"/>Layouts</Link>
-                            <div className={`sidebar-submenu ${["index-dark","index-rtl","index-rtl-dark","index-sidebar-dark","index-sidebar-colored","layouts-item"].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    {/* <li className={`${manu === "index-dark" ? "active" : ""} ms-0`}><Link to="/index-dark">Dark Dashboard</Link></li>
-                                    <li className={`${manu === "index-rtl" ? "active" : ""} ms-0`}><Link to="/index-rtl">RTL Dashboard</Link></li>
-                                    <li className={`${manu === "index-rtl-dark" ? "active" : ""} ms-0`}><Link to="/index-rtl-dark">Dark RTL Dashboard</Link></li> */}
-                                    <li className={`${manu === "index-sidebar-dark" ? "active" : ""} ms-0`}><Link to="/index-sidebar-dark">Dark Sidebar</Link></li>
-                                    <li className={`${manu === "index-sidebar-colored" ? "active" : ""} ms-0`}><Link to="/index-sidebar-colored">Colored Sidebar</Link></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li className={`${manu === "appointment" ? "active" : ""} ms-0`}><Link to="/appointment"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Appointment</Link></li>
-                        <li className={`${manu === "departments" ? "active" : ""} ms-0`}><Link to="/departments"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Departments</Link></li>
-
                         <li className={`sidebar-dropdown ms-0 ${["doctors","add-doctor","dr-profile","doctors-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === "doctors-item" ? "" : "doctors-item")}}><LuUser2 className="me-2 d-inline-block mb-0 icon"/>Doctors</Link>
                             <div className={`sidebar-submenu ${["doctors","add-doctor","dr-profile","doctors-item"].includes(subManu)? "d-block" : ""}`}>
@@ -71,6 +55,13 @@ export default function Sidebar({manuClass}){
                                 </ul>
                             </div>
                         </li>
+                   
+                        <li className={`${manu === "appointment" ? "active" : ""} ms-0`}><Link to="/appointment"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Appointment</Link></li>
+                        <li className={`${manu === "departments" ? "active" : ""} ms-0`}><Link to="/departments"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Departments</Link></li>
+                        <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li>
+                        <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}><Link to="/doctor-leave"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Leave Request</Link></li>
+
+                       
 
                         <li className={`sidebar-dropdown ms-0 ${["patients","add-patient","patient-profile","patient-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'patient-item' ? '' : 'patient-item')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Patients</Link>
@@ -78,70 +69,14 @@ export default function Sidebar({manuClass}){
                                 <ul>
                                     <li className={`${manu === "patients" ? "active" : ""} ms-0`}><Link to="/patients">All Patients</Link></li>
                                     <li className={`${manu === "add-patient" ? "active" : ""} ms-0`}><Link to="/add-patient">Add Patients</Link></li>
-                                    <li className={`${manu === "patient-profile" ? "active" : ""} ms-0`}><Link to="/patient-profile">Profile</Link></li>
                                 </ul>
                             </div>
                         </li>
 
-                        <li className={`sidebar-dropdown ms-0 ${["chat","email","calendar","app-item"].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'app-item' ? '' : 'app-item')}}><AiOutlineAppstore className="me-2 d-inline-block mb-0 icon"/>Apps</Link>
-                            <div className={`sidebar-submenu ${["chat","email","calendar","app-item"].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    <li className={`${manu === "chat" ? "active" : ""} ms-0`}><Link to="/chat">Chat</Link></li>
-                                    <li className={`${manu === "email" ? "active" : ""} ms-0`}><Link to="/email">Email</Link></li>
-                                    <li className={`${manu === "calendar" ? "active" : ""} ms-0`}><Link to="/calendar">Calendar</Link></li>
-                                </ul>
-                            </div>
-                        </li>
+                        <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li>
 
-                        <li className={`sidebar-dropdown ms-0 ${["shop","product-detail","shopcart","checkout",'pharmacy-item'].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'pharmacy-item' ? '' : 'pharmacy-item')}}><PiShoppingCart className="me-2 d-inline-block mb-0 icon"/>Pharmacy</Link>
-                            <div className={`sidebar-submenu ${["shop","product-detail","shopcart","checkout",'pharmacy-item'].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    <li className={`${manu === "shop" ? "active" : ""} ms-0`}><Link to="/shop">Shop</Link></li>
-                                    <li className={`${manu === "product-detail" ? "active" : ""} ms-0`}><Link to="/product-detail">Shop Detail</Link></li>
-                                    <li className={`${manu === "shopcart" ? "active" : ""} ms-0`}><Link to="/shopcart">Shopcart</Link></li>
-                                    <li className={`${manu === "checkout" ? "active" : ""} ms-0`}><Link to="/checkout">Checkout</Link></li>
-                                </ul>
-                            </div>
-                        </li>
+                        <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}><Link to="/reset-password"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reset Password</Link></li>
 
-                        <li className={`sidebar-dropdown ms-0 ${["blog-detail","blogs",'blog-item'].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'blog-item' ? '' : 'blog-item')}}><MdFlip className="me-2 d-inline-block mb-0 icon"/>Blogs</Link>
-                            <div className={`sidebar-submenu ${["blog-detail","blogs",'blog-item'].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    <li className={`${manu === "blogs" ? "active" : ""} ms-0`}><Link to="/blogs">Blogs</Link></li>
-                                    <li className={`${manu === "blog-detail" ? "active" : ""} ms-0`}><Link to="/blog-detail">Blog Detail</Link></li>
-                                </ul>
-                            </div>
-                        </li>
-
-                        <li className={`sidebar-dropdown ms-0 ${["faqs","review","invoice-list", "invoice", "terms",  "privacy", "blank-page", 'page-item'].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'page-item' ? '' : 'page-item')}}><FaRegFile className="me-2 d-inline-block mb-0 icon"/>Pages</Link>
-                            <div className={`sidebar-submenu ${["faqs","review","invoice-list", "invoice", "terms",  "privacy", "blank-page", 'page-item'].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    <li className={`${manu === "faqs" ? "active" : ""} ms-0`}><Link to="/faqs">FAQs</Link></li>
-                                    <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review">Reviews</Link></li>
-                                    <li className={`${manu === "invoice-list" ? "active" : ""} ms-0`}><Link to="/invoice-list">Invoice List</Link></li>
-                                    <li className={`${manu === "invoice" ? "active" : ""} ms-0`}><Link to="/invoice">Invoice</Link></li>
-                                    <li className={`${manu === "terms" ? "active" : ""} ms-0`}><Link to="/terms">Terms & Policy</Link></li>
-                                    <li className={`${manu === "privacy" ? "active" : ""} ms-0`}><Link to="/privacy">Privacy Policy</Link></li>
-                                    <li className={`${manu === "blank-page" ? "active" : ""} ms-0`}><Link to="/blank-page">Blank Page</Link></li>
-                                </ul>
-                            </div>
-                        </li>
-            
-                        <li className={`sidebar-dropdown ms-0 ${["email-confirmation","email-password-reset",'email-alert',"email-invoice", "mail-item"].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'mail-item' ? '' : 'mail-item')}}><BsEnvelopeOpen className="me-2 d-inline-block mb-0 icon"/>Email Template </Link>
-                            <div className={`sidebar-submenu ${["email-confirmation","email-password-reset",'email-alert',"email-invoice", "mail-item"].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    <li className={`${manu === "email-confirmation" ? "active" : ""} ms-0`}><Link to="/email-confirmation">Confirmation</Link></li>
-                                    <li className={`${manu === "email-password-reset" ? "active" : ""} ms-0`}><Link to="/email-password-reset">Reset Password</Link></li>
-                                    <li className={`${manu === "email-alert" ? "active" : ""} ms-0`}><Link to="/email-alert">Alert</Link></li>
-                                    <li className={`${manu === "email-invoice" ? "active" : ""} ms-0`}><Link to="/email-invoice">Invoice</Link></li>
-                                </ul>
-                            </div>
-                        </li>
 
                         <li className={`sidebar-dropdown ms-0 ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'auth-item' ? '' : 'auth-item')}}><BiLogOutCircle className="me-2 d-inline-block mb-0 icon"/>Authentication</Link>
@@ -177,8 +112,9 @@ export default function Sidebar({manuClass}){
                                 </ul>
                             </div>
                         </li>
+                        <li className={`${manu === "logout" ? "active" : ""} ms-0`}><Link to="/logout"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>logout</Link></li>
 
-                        <li className={`sidebar-dropdown ms-0 ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(manu)? "active" : ""}`}>
+                        {/* <li className={`sidebar-dropdown ms-0 ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'miscellaneous-item' ? '' : 'miscellaneous-item')}}><BsPostcard className="me-2 d-inline-block mb-0 icon"/>Miscellaneous </Link>
                             <div className={`sidebar-submenu ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(subManu)? "d-block" : ""}`}>
                                 <ul>
@@ -188,7 +124,7 @@ export default function Sidebar({manuClass}){
                                     <li className="ms-0"><Link to="/thankyou">Thank you...!</Link></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                     </ul>
                     
                 </SimpleBar>

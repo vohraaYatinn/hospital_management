@@ -8,7 +8,7 @@ export default function Footer(){
                 <div className="row align-items-center">
                     <div className="col">
                         <div className="text-sm-start text-center">
-                            <p className="mb-0 text-muted">{new Date().getFullYear()} © Doctris. Design with <i className="mdi mdi-heart text-danger"></i> by <Link to="https://UJUR.in/" target="_blank" className="text-reset">UJUR</Link>.</p>
+                            <p className="mb-0 text-muted">{new Date().getFullYear()} © UJUR.</p>
                         </div>
                     </div>
                 </div>

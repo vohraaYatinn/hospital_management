@@ -60,6 +60,8 @@ import Error from "./page/error";
 import ThankYou from "./page/thankyou";
 import Departments from "./page/departments";
 import Drugs from "./page/pharmacy/drugs";
+import ResetPassword from "./page/resetPassword";
+import DoctorLeave from "./page/doctorLeave";
 
 
 function App() {
@@ -73,15 +75,18 @@ function App() {
     <Route path="/appointment" element={<Appointment/>}/>
     <Route path="/departments" element={<Departments/>}/>
     <Route path="/doctors" element={<Doctors/>}/>
+    <Route path="/doctor-leave" element={<DoctorLeave/>}/>
     <Route path="/add-doctor" element={<AddDoctor/>}/>
     <Route path="/dr-profile" element={<DrProfile/>}/>
     <Route path="/dr-profile/:id" element={<DrProfile/>}/>
     <Route path="/patients" element={<Patients/>}/>
     <Route path="/add-patient" element={<AddPatient/>}/>
     <Route path="/patient-profile" element={<PatientProfile/>}/>
+    <Route path="/patient-profile/:id" element={<PatientProfile/>}/>
     <Route path="/chat" element={<Chats/>}/>
     <Route path="/email" element={<Email/>}/>
     <Route path="/calendar" element={<Calendar/>}/>
+    <Route path="/reset-password" element={<ResetPassword/>}/>
     <Route path="/drugs" element={<Drugs/>}/>
     <Route path="/shop" element={<Shop/>}/>
     <Route path="/product-detail" element={<ProductDetail/>}/>

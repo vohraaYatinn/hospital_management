@@ -606,6 +606,44 @@ export const drTimetable = [
         time:' 8.00 - 14.00'
     },
 ]
+export const resetPassword = [
+    {
+        id: '1',
+        image: client1,
+        name: 'Howard Tanner',
+        comment: 'Please Reset the password I forgot',
+        status: 'Approved'
+    },
+    {
+        id: '2',
+        image: client2,
+        name: 'Elena Gilbert',
+        comment: 'Forgot my password, need a reset asap, thanks!',
+        status: 'Pending'
+    },
+    {
+        id: '3',
+        image: client3,
+        name: 'Raj Patel',
+        comment: 'I can’t remember my password, can you help with resetting it?',
+        status: 'In Review'
+    },
+    {
+        id: '4',
+        image: client4,
+        name: 'Lucy Liu',
+        comment: 'Lost track of my password, need assistance to reset it, please.',
+        status: 'Approved'
+    },
+    {
+        id: '5',
+        image: client5,
+        name: 'Omar Hassan',
+        comment: 'My password is gone from my memory, need a new one.',
+        status: 'Denied'
+    }
+]
+
 export const patientData = [
     {
         id:'1',
