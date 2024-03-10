@@ -1,10 +1,10 @@
 import React from "react";
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 
-import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./assets/scss/style.scss";
 import "./assets/scss/bootstrap.scss";
-import "./assets/css/materialdesignicons.min.css"
+import "./assets/css/materialdesignicons.min.css";
 import Index from "./page";
 import IndexDarkSidebar from "./page/index-sidebar-dark";
 import IndexSidebarColored from "./page/index-sidebar-colored";
@@ -12,6 +12,9 @@ import Appointment from "./page/appointment";
 import Doctors from "./page/doctors/doctors";
 import AddDoctor from "./page/doctors/add-doctor";
 import DrProfile from "./page/doctors/dr-profile";
+import Hospital from "./page/hospitals/hospitals";
+import AddHospital from "./page/hospitals/add-hospital";
+import HospitalProfile from "./page/hospitals/hospital-profile";
 import Patients from "./page/patients/patients";
 import AddPatient from "./page/patients/add-patient";
 import PatientProfile from "./page/patients/patient-profile";
@@ -61,75 +64,80 @@ import ThankYou from "./page/thankyou";
 import Departments from "./page/departments";
 import Drugs from "./page/pharmacy/drugs";
 
-
 function App() {
-  return (
-   <>
-   <Routes>
-    <Route path="/" element={<Index/>}/>
-    <Route path="/index" element={<Index/>}/>
-    <Route path="/index-sidebar-dark" element={<IndexDarkSidebar/>}/>
-    <Route path="/index-sidebar-colored" element={<IndexSidebarColored/>}/>
-    <Route path="/appointment" element={<Appointment/>}/>
-    <Route path="/departments" element={<Departments/>}/>
-    <Route path="/doctors" element={<Doctors/>}/>
-    <Route path="/add-doctor" element={<AddDoctor/>}/>
-    <Route path="/dr-profile" element={<DrProfile/>}/>
-    <Route path="/dr-profile/:id" element={<DrProfile/>}/>
-    <Route path="/patients" element={<Patients/>}/>
-    <Route path="/add-patient" element={<AddPatient/>}/>
-    <Route path="/patient-profile" element={<PatientProfile/>}/>
-    <Route path="/chat" element={<Chats/>}/>
-    <Route path="/email" element={<Email/>}/>
-    <Route path="/calendar" element={<Calendar/>}/>
-    <Route path="/drugs" element={<Drugs/>}/>
-    <Route path="/shop" element={<Shop/>}/>
-    <Route path="/product-detail" element={<ProductDetail/>}/>
-    <Route path="/product-detail/:id" element={<ProductDetail/>}/>
-    <Route path="/shopcart" element={<ShopCart/>}/>
-    <Route path="/checkout" element={<Checkout/>}/>
-    <Route path="/blogs" element={<Blogs/>}/>
-    <Route path="/blog-detail" element={<BlogDetail/>}/>
-    <Route path="/blog-detail/:id" element={<BlogDetail/>}/>
-    <Route path="/faqs" element={<Faqs/>}/>
-    <Route path="/review" element={<Review/>}/>
-    <Route path="/invoice-list" element={<InvoiceList/>}/>
-    <Route path="/invoice" element={<Invoice/>}/>
-    <Route path="/terms" element={<Terms/>}/>
-    <Route path="/privacy" element={<Privacy/>}/>
-    <Route path="/blank-page" element={<BlankPage/>}/>
-    <Route path="/email-confirmation" element={<EmailConfirmation/>}/>
-    <Route path="/email-password-reset" element={<EmailPasswordReset/>}/>
-    <Route path="/email-alert" element={<EmailAlert/>}/>
-    <Route path="/email-invoice" element={<EmailInvoice/>}/>
-    <Route path="/login" element={<Login/>}/>
-    <Route path="/signup" element={<Signup/>}/>
-    <Route path="/forgot-password" element={<ForgotPassword/>}/>
-    <Route path="/lock-screen" element={<LockScreen/>}/>
-    <Route path="/ui-button" element={<UiButton/>}/>
-    <Route path="/ui-badges" element={<UiBadges/>}/>
-    <Route path="/ui-alert" element={<UiAlert/>}/>
-    <Route path="/ui-dropdown" element={<UiDropDown/>}/>
-    <Route path="/ui-typography" element={<UiTypography/>}/>
-    <Route path="/ui-background" element={<UiBackground/>}/>
-    <Route path="/ui-text" element={<UiText/>}/>
-    <Route path="/ui-tooltip-popover" element={<UiTooltipPopover/>}/>
-    <Route path="/ui-shadow" element={<UiShadow/>}/>
-    <Route path="/ui-border" element={<UiBorder/>}/>
-    <Route path="/ui-form" element={<UiForm/>}/>
-    <Route path="/ui-pagination" element={<UiPagination/>}/>
-    <Route path="/ui-avatar" element={<UiAvatar/>}/>
-    <Route path="/ui-modals" element={<UiModals/>}/>
-    <Route path="/ui-icons" element={<UiIcon/>}/>
-    <Route path="/comingsoon" element={<Comingsoon/>}/>
-    <Route path="/maintenance" element={<Maintenance/>}/>
-    <Route path="/error" element={<Error/>}/>
-    <Route path="*" element={<Error/>}/>
-    <Route path="thankyou" element={<ThankYou/>}/>
-  </Routes>
-   
-   </>
-  );
+	return (
+		<>
+			<Routes>
+				<Route path="/" element={<Index />} />
+				<Route path="/index" element={<Index />} />
+				<Route path="/index-sidebar-dark" element={<IndexDarkSidebar />} />
+				<Route
+					path="/index-sidebar-colored"
+					element={<IndexSidebarColored />}
+				/>
+				<Route path="/appointment" element={<Appointment />} />
+				<Route path="/departments" element={<Departments />} />
+				<Route path="/doctors" element={<Doctors />} />
+				<Route path="/add-doctor" element={<AddDoctor />} />
+				<Route path="/dr-profile" element={<DrProfile />} />
+				<Route path="/dr-profile/:id" element={<DrProfile />} />
+				<Route path="/hospitals" element={<Hospital />} />
+				<Route path="/add-hospital" element={<AddHospital />} />
+				<Route path="/hospital-profile" element={<HospitalProfile />} />
+				<Route path="/hospital-profile/:id" element={<HospitalProfile />} />
+				<Route path="/patients" element={<Patients />} />
+				<Route path="/add-patient" element={<AddPatient />} />
+				<Route path="/patient-profile" element={<PatientProfile />} />
+				<Route path="/chat" element={<Chats />} />
+				<Route path="/email" element={<Email />} />
+				<Route path="/calendar" element={<Calendar />} />
+				<Route path="/drugs" element={<Drugs />} />
+				<Route path="/shop" element={<Shop />} />
+				<Route path="/product-detail" element={<ProductDetail />} />
+				<Route path="/product-detail/:id" element={<ProductDetail />} />
+				<Route path="/shopcart" element={<ShopCart />} />
+				<Route path="/checkout" element={<Checkout />} />
+				<Route path="/blogs" element={<Blogs />} />
+				<Route path="/blog-detail" element={<BlogDetail />} />
+				<Route path="/blog-detail/:id" element={<BlogDetail />} />
+				<Route path="/faqs" element={<Faqs />} />
+				<Route path="/review" element={<Review />} />
+				<Route path="/invoice-list" element={<InvoiceList />} />
+				<Route path="/invoice" element={<Invoice />} />
+				<Route path="/terms" element={<Terms />} />
+				<Route path="/privacy" element={<Privacy />} />
+				<Route path="/blank-page" element={<BlankPage />} />
+				<Route path="/email-confirmation" element={<EmailConfirmation />} />
+				<Route path="/email-password-reset" element={<EmailPasswordReset />} />
+				<Route path="/email-alert" element={<EmailAlert />} />
+				<Route path="/email-invoice" element={<EmailInvoice />} />
+				<Route path="/login" element={<Login />} />
+				<Route path="/signup" element={<Signup />} />
+				<Route path="/forgot-password" element={<ForgotPassword />} />
+				<Route path="/lock-screen" element={<LockScreen />} />
+				<Route path="/ui-button" element={<UiButton />} />
+				<Route path="/ui-badges" element={<UiBadges />} />
+				<Route path="/ui-alert" element={<UiAlert />} />
+				<Route path="/ui-dropdown" element={<UiDropDown />} />
+				<Route path="/ui-typography" element={<UiTypography />} />
+				<Route path="/ui-background" element={<UiBackground />} />
+				<Route path="/ui-text" element={<UiText />} />
+				<Route path="/ui-tooltip-popover" element={<UiTooltipPopover />} />
+				<Route path="/ui-shadow" element={<UiShadow />} />
+				<Route path="/ui-border" element={<UiBorder />} />
+				<Route path="/ui-form" element={<UiForm />} />
+				<Route path="/ui-pagination" element={<UiPagination />} />
+				<Route path="/ui-avatar" element={<UiAvatar />} />
+				<Route path="/ui-modals" element={<UiModals />} />
+				<Route path="/ui-icons" element={<UiIcon />} />
+				<Route path="/comingsoon" element={<Comingsoon />} />
+				<Route path="/maintenance" element={<Maintenance />} />
+				<Route path="/error" element={<Error />} />
+				<Route path="*" element={<Error />} />
+				<Route path="thankyou" element={<ThankYou />} />
+			</Routes>
+		</>
+	);
 }
 
 export default App;
