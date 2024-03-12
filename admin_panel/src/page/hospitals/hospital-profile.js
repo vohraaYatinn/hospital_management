@@ -1,34 +1,27 @@
 import React, { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
-import doctor1 from "../../assets/images/client/01.jpg";
 import hospital from "../../assets/images/hospitals/01.jpg";
 import Wrapper from "../../components/wrapper";
 import {
 	clientReview,
 	companyLogo,
 	doctorData,
-	drTimetable,
-	experienceData,
 	hospitalData,
+	patientData,
 } from "../../data/data";
 
-import TinySlider from "tiny-slider-react";
 import "tiny-slider/dist/tiny-slider.css";
 
 import {
-	FiArrowRight,
-	FiHeart,
-	RiMapPinLine,
-	RiTimeLine,
-	RiMoneyDollarCircleLine,
+	FaStar,
+	BsLink45Deg,
 	FiFacebook,
 	FiLinkedin,
-	FiGithub,
 	FiTwitter,
-	RiTimeFill,
 	FiPhone,
 	FiMail,
+	FiInstagram,
 } from "../../assets/icons/vander";
 
 export default function HospitalProfile() {
@@ -116,10 +109,8 @@ export default function HospitalProfile() {
 								<h5 className="mt-3 mb-1">
 									{data?.name ? data.name : "City Hospital"}
 								</h5>
-								<p className="text-muted mb-0">
-									{data?.departments
-										? data.departments + " "
-										: "Orthopedic, Cardiology, Pediatrics"}
+								<p className="text-muted mb-0 ">
+									Ratings: {data?.rating ? data.rating + " " : "4.5"} <FaStar />
 								</p>
 							</div>
 						</div>
@@ -149,11 +140,10 @@ export default function HospitalProfile() {
 												to="#"
 												onClick={() => setActiveIndex(2)}>
 												<div className="text-center pt-1 pb-1">
-													<h5 className="mb-0">Experience</h5>
+													<h5 className="mb-0">Doctors</h5>
 												</div>
 											</Link>
 										</li>
-
 										<li className="nav-item">
 											<Link
 												className={`${
@@ -162,7 +152,7 @@ export default function HospitalProfile() {
 												to="#"
 												onClick={() => setActiveIndex(3)}>
 												<div className="text-center pt-1 pb-1">
-													<h5 className="mb-0">Reviews</h5>
+													<h5 className="mb-0">Patients</h5>
 												</div>
 											</Link>
 										</li>
@@ -175,7 +165,7 @@ export default function HospitalProfile() {
 												to="#"
 												onClick={() => setActiveIndex(4)}>
 												<div className="text-center pt-1 pb-1">
-													<h5 className="mb-0">Time Table</h5>
+													<h5 className="mb-0">Reviews</h5>
 												</div>
 											</Link>
 										</li>
@@ -188,6 +178,19 @@ export default function HospitalProfile() {
 												to="#"
 												onClick={() => setActiveIndex(5)}>
 												<div className="text-center pt-1 pb-1">
+													<h5 className="mb-0">Contact</h5>
+												</div>
+											</Link>
+										</li>
+
+										<li className="nav-item">
+											<Link
+												className={`${
+													activeIndex === 6 ? "active" : ""
+												} nav-link rounded-0`}
+												to="#"
+												onClick={() => setActiveIndex(6)}>
+												<div className="text-center pt-1 pb-1">
 													<h5 className="mb-0">Settings</h5>
 												</div>
 											</Link>
@@ -198,134 +201,59 @@ export default function HospitalProfile() {
 										{activeIndex === 1 ? (
 											<div className="tab-pane fade show active">
 												<p className="text-muted">
-													A gynecologist is a surgeon who specializes in the
-													female reproductive system, which includes the cervix,
-													fallopian tubes, ovaries, uterus, vagina and vulva.
-													Menstrual problems, contraception, sexuality,
-													menopause and infertility issues are diagnosed and
-													treated by a gynecologist; most gynecologists also
-													provide prenatal care, and some provide primary care.
+													Description:{" "}
+													{data?.description
+														? data.description
+														: `A gynecologist is a surgeon who specializes in the
+														female reproductive system, which includes the cervix,
+														fallopian tubes, ovaries, uterus, vagina and vulva.
+														Menstrual problems, contraception, sexuality,
+														menopause and infertility issues are diagnosed and
+														treated by a gynecologist; most gynecologists also
+														provide prenatal care, and some provide primary care.`}
 												</p>
-
-												<h6 className="mb-0">Specialties: </h6>
-
-												<ul className="list-unstyled mt-4">
-													<li className="mt-1 ms-0">
-														<FiArrowRight className="text-primary" /> Women's
-														health services
-													</li>
-													<li className="mt-1 ms-0">
-														<FiArrowRight className="text-primary" /> Pregnancy
-														care
-													</li>
-													<li className="mt-1 ms-0">
-														<FiArrowRight className="text-primary" /> Surgical
-														procedures
-													</li>
-													<li className="mt-1 ms-0">
-														<FiArrowRight className="text-primary" /> Specialty
-														care
-													</li>
-													<li className="mt-1 ms-0">
-														<FiArrowRight className="text-primary" /> Conclusion
-													</li>
-												</ul>
-
-												<h6 className="mb-0">My Team: </h6>
+											</div>
+										) : (
+											""
+										)}
+										{activeIndex === 2 ? (
+											<div className="tab-pane fade show active">
+												<h5 className="mb-1">Doctors Teams:</h5>
 
 												<div className="row row-cols-md-2 row-cols-lg-5">
-													{hospitalData.slice(0, 5).map((item, index) => {
+													{doctorData.map((item, index) => {
 														return (
 															<div className="col mt-4" key={index}>
-																<div className="card team border-0 rounded shadow overflow-hidden">
-																	<div className="team-person position-relative overflow-hidden">
+																<div className="card team border-0 rounded shadow overflow-hidden h-100">
+																	<div className="team-img position-relative">
 																		<img
 																			src={item.image}
 																			className="img-fluid"
 																			alt=""
 																		/>
-																		<ul className="list-unstyled team-like">
+																		<ul className="list-unstyled team-social mb-0">
 																			<li>
-																				<Link
-																					to="#"
-																					className="btn btn-icon btn-pills btn-soft-danger">
-																					<FiHeart className="icons" />
-																				</Link>
-																			</li>
-																		</ul>
-																	</div>
-																	<div className="card-body">
-																		<Link
-																			to="#"
-																			className="title text-dark h5 d-block mb-0">
-																			{item.name}
-																		</Link>
-																		<small className="text-muted speciality">
-																			{item.departments + " "}
-																		</small>
-																		<div className="d-flex justify-content-between align-items-center mt-2">
-																			<ul className="list-unstyled mb-0">
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																			</ul>
-																			<p className="text-muted mb-0">5 Star</p>
-																		</div>
-																		<ul className="list-unstyled mt-2 mb-0">
-																			<li className="d-flex ms-0 align-items-center">
-																				<RiMapPinLine className="text-primary align-middle" />
-																				<small className="text-muted ms-2">
-																					{item.location}
-																				</small>
-																			</li>
-																			<li className="d-flex ms-0 align-items-center mt-2">
-																				<RiTimeLine className="text-primary align-middle" />
-																				<small className="text-muted ms-2">
-																					Mon: 2:00PM - 6:00PM
-																				</small>
-																			</li>
-																			<li className="d-flex ms-0 align-items-center mt-2">
-																				<RiMoneyDollarCircleLine className="text-primary align-middle" />
-																				<small className="text-muted ms-2">
-																					$ 75 USD / Visit
-																				</small>
-																			</li>
-																		</ul>
-																		<ul className="list-unstyled mt-2 mb-0">
-																			<li className="list-inline-item">
 																				<Link
 																					to="#"
 																					className="btn btn-icon btn-pills btn-soft-primary">
 																					<FiFacebook className="icons" />
 																				</Link>
 																			</li>
-																			<li className="mt-2 list-inline-item">
+																			<li className="mt-2">
 																				<Link
 																					to="#"
 																					className="btn btn-icon btn-pills btn-soft-primary">
 																					<FiLinkedin className="icons" />
 																				</Link>
 																			</li>
-																			<li className="mt-2 list-inline-item">
+																			<li className="mt-2">
 																				<Link
 																					to="#"
 																					className="btn btn-icon btn-pills btn-soft-primary">
-																					<FiGithub className="icons" />
+																					<FiInstagram className="icons" />
 																				</Link>
 																			</li>
-																			<li className="mt-2 list-inline-item">
+																			<li className="mt-2">
 																				<Link
 																					to="#"
 																					className="btn btn-icon btn-pills btn-soft-primary">
@@ -333,6 +261,16 @@ export default function HospitalProfile() {
 																				</Link>
 																			</li>
 																		</ul>
+																	</div>
+																	<div className="card-body content text-center">
+																		<Link
+																			to={`/dr-profile/${item.id}`}
+																			className="title text-dark h5 d-block mb-0">
+																			{item.name}
+																		</Link>
+																		<small className="text-muted speciality">
+																			{item.title}
+																		</small>
 																	</div>
 																</div>
 															</div>
@@ -343,105 +281,62 @@ export default function HospitalProfile() {
 										) : (
 											""
 										)}
-										{activeIndex === 2 ? (
+										{activeIndex === 3 ? (
 											<div className="tab-pane fade show active">
-												<h5 className="mb-1">Experience:</h5>
+												<h5 className="mb-1">Doctors Teams:</h5>
 
-												<p className="text-muted mt-4">
-													The most well-known dummy text is the 'Lorem Ipsum',
-													which is said to have originated in the 16th century.
-													Lorem Ipsum is composed in a pseudo-Latin language
-													which more or less corresponds to 'proper' Latin. It
-													contains a series of real Latin words. This ancient
-													dummy text is also incomprehensible, but it imitates
-													the rhythm of most European languages in Latin script.
-													The advantage of its Latin origin and the relative
-													meaninglessness of Lorum Ipsum is that the text does
-													not attract attention to itself or distract the
-													viewer's attention from the layout.
-												</p>
-
-												<h6 className="mb-0">Professional Experience:</h6>
-
-												<div className="row">
-													<div className="col-12 mt-4">
-														<div className="col-md-12">
-															<div className="slider-range-four tiny-timeline">
-																<TinySlider settings={settings}>
-																	{experienceData.map((item, index) => {
-																		return (
-																			<div
-																				className="tiny-slide text-center"
-																				key={index}>
-																				<div className="card border-0 p-4 item-box mb-2 shadow rounded">
-																					<p className="text-muted mb-0">
-																						{item.year}
-																					</p>
-																					<h6 className="mt-1">{item.name}</h6>
-																					<p className="text-muted mb-0">
-																						{item.place}
-																					</p>
-																				</div>
-																			</div>
-																		);
-																	})}
-																</TinySlider>
+												<div className="row row-cols-md-2 row-cols-lg-5">
+													{patientData.map((item, index) => {
+														return (
+															<div className="col mt-4" key={index}>
+																<div className="card team border-0 rounded shadow overflow-hidden h-100">
+																	<div className="team-img position-relative">
+																		<img
+																			src={item.image}
+																			className="img-fluid"
+																			alt=""
+																		/>
+																	</div>
+																	<div className="card-body content text-center">
+																		<div className="title text-dark h5 d-block mb-0">
+																			{item.name}
+																		</div>
+																		<small className="text-muted speciality">
+																			{item.title}
+																		</small>
+																	</div>
+																</div>
 															</div>
-														</div>
-													</div>
+														);
+													})}
 												</div>
 											</div>
 										) : (
 											""
 										)}
-										{activeIndex === 3 ? (
+										{activeIndex === 4 ? (
 											<div className="tab-pane fade show active">
-												<div className="row justify-content-center">
-													<div className="col-lg-8 text-center">
-														<div className="client-review-slider">
-															<TinySlider settings={settings2}>
-																{clientReview.map((item, index) => {
-																	return (
-																		<div
-																			className="tiny-slide text-center"
-																			key={index}>
-																			<p className="text-muted fw-normal fst-italic">
-																				{item.desc}
-																			</p>
-																			<img
-																				src={item.image}
-																				className="img-fluid avatar avatar-small rounded-circle mx-auto shadow my-3"
-																				alt=""
-																			/>
-																			<ul className="list-unstyled mb-0">
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																				<li className="list-inline-item">
-																					<i className="mdi mdi-star text-warning"></i>
-																				</li>
-																			</ul>
-																			<h6 className="text-primary">
-																				{item.name}{" "}
-																				<small className="text-muted">
-																					{item.title}
-																				</small>
-																			</h6>
+												<h5 className="mb-1">Client Reviews:</h5>
+												<div className="row row-cols-md-2 row-cols-lg-4">
+													{clientReview.map((item, index) => {
+														return (
+															<div className="col mt-4" key={index}>
+																<div className="card team border-0 rounded shadow overflow-hidden h-100">
+																	<div className="card-body content text-center">
+																		<div className="title text-dark h5 d-block mb-0">
+																			{item.name}
 																		</div>
-																	);
-																})}
-															</TinySlider>
-														</div>
-													</div>
+																		<small className="text-muted speciality">
+																			{item.title}
+																		</small>
+																		<p className="text-muted speciality flex-grow-1 mt-2">
+																			{item.desc}
+																		</p>
+																	</div>
+																</div>
+															</div>
+														);
+													})}
 												</div>
 
 												<div className="row justify-content-center">
@@ -463,32 +358,28 @@ export default function HospitalProfile() {
 										) : (
 											""
 										)}
-										{activeIndex === 4 ? (
+										{activeIndex === 5 ? (
 											<div className="tab-pane fade show active">
 												<div className="row">
-													<div className="col-lg-4 col-md-12">
-														<div className="card border-0 p-3 pt-0 rounded shadow">
-															<ul className="list-unstyled mb-0">
-																{drTimetable.map((item, index) => {
-																	return (
-																		<li
-																			className="d-flex justify-content-between mt-2 ms-0 mt-3"
-																			key={index}>
-																			<p className="text-muted mb-0">
-																				<RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
-																				{item.day}
-																			</p>
-																			<p className="text-primary mb-0">
-																				<span className="text-dark">Time:</span>
-																				{item.time}
-																			</p>
-																		</li>
-																	);
-																})}
-															</ul>
+													<div className="col-lg-4 col-md-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
+														<div className="card border-0 text-center features feature-primary">
+															<div className="icon text-center mx-auto rounded-md">
+																<i className="uil uil-phone h3 mb-0"></i>
+																<BsLink45Deg className="h3 mb-0" />
+															</div>
+
+															<div className="card-body p-0 mt-4">
+																<h5 className="title fw-bold">Website</h5>
+																<p className="text-muted">
+																	Great doctor if you need your family member to
+																	get effective immediate assistance
+																</p>
+																<Link to="tel:+152534-468" className="link">
+																	website.example.com
+																</Link>
+															</div>
 														</div>
 													</div>
-
 													<div className="col-lg-4 col-md-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
 														<div className="card border-0 text-center features feature-primary">
 															<div className="icon text-center mx-auto rounded-md">
@@ -535,14 +426,14 @@ export default function HospitalProfile() {
 										) : (
 											""
 										)}
-										{activeIndex === 5 ? (
+										{activeIndex === 6 ? (
 											<div className="tab-pane fade show active">
 												<h5 className="mb-1">Settings</h5>
 												<div className="row">
-													<div className="col-lg-6">
+													<div className="col-lg-8">
 														<div className="rounded shadow mt-4">
 															<div className="p-4 border-bottom">
-																<h6 className="mb-0">Personal Information :</h6>
+																<h6 className="mb-0">Hospital Information :</h6>
 															</div>
 
 															<div className="p-4">
@@ -556,7 +447,9 @@ export default function HospitalProfile() {
 																	</div>
 
 																	<div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
-																		<h6 className="">Upload your picture</h6>
+																		<h6 className="">
+																			Upload hospital picture
+																		</h6>
 																		<p className="text-muted mb-0">
 																			For best results, use an image at least
 																			256px by 256px in either .jpg or .png
@@ -581,7 +474,7 @@ export default function HospitalProfile() {
 																		<div className="col-md-6">
 																			<div className="mb-3">
 																				<label className="form-label">
-																					First Name
+																					Hospital Name
 																				</label>
 																				<input
 																					name="name"
@@ -596,22 +489,7 @@ export default function HospitalProfile() {
 																		<div className="col-md-6">
 																			<div className="mb-3">
 																				<label className="form-label">
-																					Last Name
-																				</label>
-																				<input
-																					name="name"
-																					id="name2"
-																					type="text"
-																					className="form-control"
-																					placeholder="Last Name :"
-																				/>
-																			</div>
-																		</div>
-
-																		<div className="col-md-6">
-																			<div className="mb-3">
-																				<label className="form-label">
-																					Your Email
+																					Hospital Email
 																				</label>
 																				<input
 																					name="email"
@@ -626,7 +504,7 @@ export default function HospitalProfile() {
 																		<div className="col-md-6">
 																			<div className="mb-3">
 																				<label className="form-label">
-																					Phone no.
+																					Hospital Phone no.
 																				</label>
 																				<input
 																					name="number"
@@ -637,101 +515,58 @@ export default function HospitalProfile() {
 																				/>
 																			</div>
 																		</div>
+																		<div className="col-md-6">
+																			<div className="mb-3">
+																				<label className="form-label">
+																					Hospital Website
+																				</label>
+																				<input
+																					name="website"
+																					id="website"
+																					type="text"
+																					className="form-control"
+																					placeholder="website link :"
+																				/>
+																			</div>
+																		</div>
 
 																		<div className="col-md-12">
 																			<div className="mb-3">
 																				<label className="form-label">
-																					Your Bio Here
+																					Hospital Address
 																				</label>
 																				<textarea
-																					name="comments"
-																					id="comments"
-																					rows="4"
+																					name="address"
+																					id="address"
+																					rows="2"
 																					className="form-control"
-																					placeholder="Bio :"></textarea>
+																					placeholder="Address :"></textarea>
+																			</div>
+																		</div>
+																		<div className="col-md-12">
+																			<div className="mb-3">
+																				<label className="form-label">
+																					Hospital Description
+																				</label>
+																				<textarea
+																					name="description"
+																					id="description"
+																					rows="3"
+																					className="form-control"
+																					placeholder="Description :"></textarea>
 																			</div>
 																		</div>
 																	</div>
 
-																	<div className="row">
-																		<div className="col-sm-12">
-																			<input
-																				type="submit"
-																				id="submit"
-																				name="send"
-																				className="btn btn-primary"
-																				defaultValue="Save changes"
-																			/>
-																		</div>
-																	</div>
-																</form>
-															</div>
-														</div>
-
-														<div className="rounded shadow mt-4">
-															<div className="p-4 border-bottom">
-																<h6 className="mb-0">
-																	Account Notifications :
-																</h6>
-															</div>
-
-															<div className="p-4">
-																<form>
-																	<div className="row">
-																		<div className="col-lg-12">
-																			<div className="mb-3">
-																				<label className="form-label">
-																					Old password :
-																				</label>
-																				<input
-																					type="password"
-																					className="form-control"
-																					placeholder="Old password"
-																					required=""
-																				/>
-																			</div>
-																		</div>
-
-																		<div className="col-lg-12">
-																			<div className="mb-3">
-																				<label className="form-label">
-																					New password :
-																				</label>
-																				<input
-																					type="password"
-																					className="form-control"
-																					placeholder="New password"
-																					required=""
-																				/>
-																			</div>
-																		</div>
-
-																		<div className="col-lg-12">
-																			<div className="mb-3">
-																				<label className="form-label">
-																					Re-type New password :
-																				</label>
-																				<input
-																					type="password"
-																					className="form-control"
-																					placeholder="Re-type New password"
-																					required=""
-																				/>
-																			</div>
-																		</div>
-
-																		<div className="col-lg-12 mt-2 mb-0">
-																			<button className="btn btn-primary">
-																				Save password
-																			</button>
-																		</div>
-																	</div>
+																	<button className="btn btn-primary">
+																		Add Hospital
+																	</button>
 																</form>
 															</div>
 														</div>
 													</div>
 
-													<div className="col-lg-6">
+													<div className="col-lg-4">
 														<div className="rounded shadow mt-4">
 															<div className="p-4 border-bottom">
 																<h6 className="mb-0">

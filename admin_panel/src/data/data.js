@@ -536,12 +536,13 @@ export const hospitalData = [
 			email: "info@cityhospital.com",
 		},
 		rating: 4.3,
-		doctors: [1, 4, 7], // Refers to the IDs of doctors working at this hospital
+		description:
+			"City Hospital is committed to providing high-quality healthcare services to the community. With a focus on innovation and patient-centered care, our team of skilled professionals strives to meet the diverse needs of our patients.",
 	},
 	{
 		id: 2,
 		image: hospital1,
-		name: "Central Medical Center",
+		name: "Central Hospital",
 		location: "456 Oak Avenue, Lakeside, USA",
 		departments: ["Emergency Medicine", "Oncology", "Neurology"],
 		contact: {
@@ -549,7 +550,8 @@ export const hospitalData = [
 			email: "info@centralmedicalcenter.com",
 		},
 		rating: 4.5,
-		doctors: [2, 5, 8],
+		description:
+			"Central Medical Center is dedicated to providing comprehensive medical services to the residents of Lakeside and surrounding areas. Our skilled healthcare professionals are committed to excellence, ensuring the highest standards of care for our patients.",
 	},
 	{
 		id: 3,
@@ -562,12 +564,13 @@ export const hospitalData = [
 			email: "info@sunshinehospital.com",
 		},
 		rating: 4.7,
-		doctors: [3, 6, 9],
+		description:
+			"Sunshine Hospital is dedicated to providing compassionate and comprehensive healthcare services to women of all ages. Our expert team of physicians and staff are committed to delivering personalized care in a supportive and nurturing environment.",
 	},
 	{
 		id: 4,
 		image: hospital1,
-		name: "Unity Medical Center",
+		name: "Unity Hospital ",
 		location: "101 Pine Street, Hillside, USA",
 		departments: ["Psychiatry", "Radiology", "Dentistry"],
 		contact: {
@@ -575,7 +578,8 @@ export const hospitalData = [
 			email: "info@unitymedicalcenter.com",
 		},
 		rating: 4.2,
-		doctors: [10, 13, 16],
+		description:
+			"Unity Medical Center is dedicated to providing comprehensive mental health and dental care services to individuals and families in Hillside and surrounding communities. Our compassionate team of professionals is committed to promoting mental wellness and oral health.",
 	},
 	{
 		id: 5,
@@ -588,12 +592,13 @@ export const hospitalData = [
 			email: "info@greenwoodclinic.com",
 		},
 		rating: 4.6,
-		doctors: [11, 14, 17],
+		description:
+			"Greenwood Clinic specializes in the diagnosis and treatment of endocrine and rheumatic disorders, as well as ear, nose, and throat conditions. Our expert physicians provide personalized care tailored to meet the unique needs of each patient.",
 	},
 	{
 		id: 6,
 		image: hospital1,
-		name: "Hilltop Medical Center",
+		name: "Hilltop Hospital",
 		location: "303 Walnut Lane, Hilltop, USA",
 		departments: ["Allergy and Immunology", "Ophthalmology", "Hematology"],
 		contact: {
@@ -601,7 +606,8 @@ export const hospitalData = [
 			email: "info@hilltopmedicalcenter.com",
 		},
 		rating: 4.4,
-		doctors: [12, 15, 18],
+		description:
+			"Hilltop Medical Center is committed to providing exceptional care in allergy and immunology, ophthalmology, and hematology services. Our dedicated team of specialists utilizes the latest advancements in medical technology to deliver comprehensive and personalized treatment to our patients.",
 	},
 	{
 		id: 7,
@@ -614,12 +620,13 @@ export const hospitalData = [
 			email: "info@riverfronthospital.com",
 		},
 		rating: 4.8,
-		doctors: [19, 22, 25],
+		description:
+			"Riverfront Hospital is dedicated to providing compassionate care and innovative treatments to patients with kidney, lung, and mobility-related conditions. Our multidisciplinary team of experts works collaboratively to improve the health and well-being of our community.",
 	},
 	{
 		id: 8,
 		image: hospital1,
-		name: "Valley Medical Center",
+		name: "Valley Hospital",
 		location: "505 Peach Avenue, Valleyville, USA",
 		departments: ["Oncology", "Neurology", "Gastroenterology"],
 		contact: {
@@ -627,7 +634,8 @@ export const hospitalData = [
 			email: "info@valleymedicalcenter.com",
 		},
 		rating: 4.1,
-		doctors: [20, 23, 26],
+		description:
+			"Valley Medical Center offers comprehensive oncology, neurology, and gastroenterology services to patients in Valleyville and neighboring areas. Our dedicated team of specialists is committed to providing personalized and compassionate care to support patients through their medical journeys.",
 	},
 	{
 		id: 9,
@@ -640,12 +648,13 @@ export const hospitalData = [
 			email: "info@evergreenhospital.com",
 		},
 		rating: 4.9,
-		doctors: [21, 24, 27],
+		description:
+			"Evergreen Hospital is committed to promoting health and wellness in the elderly population, managing chronic pain, and treating infectious diseases. Our interdisciplinary team of healthcare professionals is dedicated to providing comprehensive, patient-centered care to enhance the quality of life for our patients.",
 	},
 	{
 		id: 10,
 		image: hospital1,
-		name: "Pineview Medical Clinic",
+		name: "Pineview Hospital",
 		location: "707 Spruce Avenue, Pinetown, USA",
 		departments: ["Hematology", "Ophthalmology", "Psychiatry"],
 		contact: {
@@ -653,7 +662,8 @@ export const hospitalData = [
 			email: "info@pineviewclinic.com",
 		},
 		rating: 4.0,
-		doctors: [28, 31, 34],
+		description:
+			"Pineview Medical Clinic specializes in the diagnosis and treatment of hematologic disorders, eye diseases, and mental health conditions. Our experienced team of healthcare professionals is dedicated to providing compassionate care tailored to the unique needs of each patient.",
 	},
 ];
 
