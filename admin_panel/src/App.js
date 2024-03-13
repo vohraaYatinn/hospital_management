@@ -62,6 +62,8 @@ import Departments from "./page/departments";
 import Drugs from "./page/pharmacy/drugs";
 import ResetPassword from "./page/resetPassword";
 import DoctorLeave from "./page/doctorLeave";
+import HospitalUsers from "./page/hospitalUsers/hospital-users";
+import AddHospitalUsers from "./page/hospitalUsers/add-hospital-user";
 
 
 function App() {
@@ -79,6 +81,8 @@ function App() {
     <Route path="/add-doctor" element={<AddDoctor/>}/>
     <Route path="/dr-profile" element={<DrProfile/>}/>
     <Route path="/dr-profile/:id" element={<DrProfile/>}/>
+    <Route path="//add-hospital-user" element={<AddHospitalUsers/>}/>
+    <Route path="/hospital-user" element={<HospitalUsers/>}/>
     <Route path="/patients" element={<Patients/>}/>
     <Route path="/add-patient" element={<AddPatient/>}/>
     <Route path="/patient-profile" element={<PatientProfile/>}/>

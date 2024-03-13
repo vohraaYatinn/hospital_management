@@ -144,11 +144,7 @@ export const aboutData = [
         title:'558',
         desc:'Patients' 
     },
-    {
-        icon : LiaFileMedicalAltSolid,
-        title:'$2164',
-        desc:'Avg. costs' 
-    },
+
     {
         icon : TbUsersGroup,
         title:'112',

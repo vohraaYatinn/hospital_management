@@ -63,6 +63,15 @@ export default function Sidebar({manuClass}){
 
                        
 
+                        <li className={`sidebar-dropdown ms-0 ${["hospital-users","add-hospital-users"].includes(manu)? "active" : ""}`}>
+                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'hospital-users' ? '' : 'hospital-users')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Hospital Users</Link>
+                            <div className={`sidebar-submenu ${["hospital-users","add-hospital-users"].includes(subManu)? "d-block" : ""}`}>
+                                <ul>
+                                    <li className={`${manu === "hospital-user" ? "active" : ""} ms-0`}><Link to="/hospital-user">Hospital Users</Link></li>
+                                    <li className={`${manu === "add-hospital-user" ? "active" : ""} ms-0`}><Link to="/add-hospital-user">Add Hospital Users</Link></li>
+                                </ul>
+                            </div>
+                        </li>
                         <li className={`sidebar-dropdown ms-0 ${["patients","add-patient","patient-profile","patient-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'patient-item' ? '' : 'patient-item')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Patients</Link>
                             <div className={`sidebar-submenu ${["patients","add-patient","patient-profile","patient-item"].includes(subManu)? "d-block" : ""}`}>
