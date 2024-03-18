@@ -78,7 +78,7 @@ export default function Sidebar({manuClass}){
                         <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}><Link to="/reset-password"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reset Password</Link></li>
 
 
-                        <li className={`sidebar-dropdown ms-0 ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(manu)? "active" : ""}`}>
+                        {/* <li className={`sidebar-dropdown ms-0 ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'auth-item' ? '' : 'auth-item')}}><BiLogOutCircle className="me-2 d-inline-block mb-0 icon"/>Authentication</Link>
                             <div className={`sidebar-submenu ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(subManu)? "d-block" : ""}`}>
                                 <ul>
@@ -88,9 +88,9 @@ export default function Sidebar({manuClass}){
                                     <li className={`${manu === "lock-screen" ? "active" : ""} ms-0`}><Link to="/lock-screen">Lock Screen</Link></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
 
-                        <li className={`sidebar-dropdown ms-0 ${["ui-button","ui-badges",'ui-alert',"ui-dropdown", "ui-typography", "ui-background", "ui-text", "ui-tooltip-popover","ui-shadow", "ui-border", "ui-form", "ui-pagination", "ui-avatar", "ui-modals", "ui-icons", 'ui-item'].includes(manu)? "active" : ""}`}>
+                        {/* <li className={`sidebar-dropdown ms-0 ${["ui-button","ui-badges",'ui-alert',"ui-dropdown", "ui-typography", "ui-background", "ui-text", "ui-tooltip-popover","ui-shadow", "ui-border", "ui-form", "ui-pagination", "ui-avatar", "ui-modals", "ui-icons", 'ui-item'].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'ui-item' ? '' : 'ui-item')}}><TbFileInfo className="me-2 d-inline-block mb-0 icon"/>UI Components </Link>
                             <div className={`sidebar-submenu ${["ui-button","ui-badges",'ui-alert',"ui-dropdown", "ui-typography", "ui-background", "ui-text", "ui-tooltip-popover","ui-shadow", "ui-border", "ui-form", "ui-pagination", "ui-avatar", "ui-modals", "ui-icons", 'ui-item'].includes(subManu)? "d-block" : ""}`}>
                                 <ul>
@@ -111,7 +111,7 @@ export default function Sidebar({manuClass}){
                                     <li className={`${manu === "ui-icons" ? "active" : ""} ms-0`}><Link to="/ui-icons">Icons</Link></li>
                                 </ul>
                             </div>
-                        </li>
+                        </li> */}
                         <li className={`${manu === "logout" ? "active" : ""} ms-0`}><Link to="/logout"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>logout</Link></li>
 
                         {/* <li className={`sidebar-dropdown ms-0 ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(manu)? "active" : ""}`}>

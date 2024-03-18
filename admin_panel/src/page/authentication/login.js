@@ -1,12 +1,36 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import logoDark from '../../assets/images/logo-dark.png'
 
 import bg1 from '../../assets/images/bg/bg-lines-one.png'
 
 import { FiHome, AiFillFacebook, SlSocialGoogle } from '../../assets/icons/vander'
+import { useRouter } from "../../hooks/use-router";
+import { useDispatch } from "react-redux";
+import useAxios from "../../network/useAxios";
+import { loginHospitalAdmin } from "../../../src/urls/urls";
+import { updateToken } from "../../redux/reducers/functionalities.reducer";
 
 export default function Login(){
+const [formValues, setFormValues] = useState()
+    const [authDetailsResponse, authDetailsError, authDetailsLoading, authDetailsFetch] = useAxios();
+    const router = useRouter();
+    const dispatch = useDispatch();
+    const LoginFunction = () =>{
+        if(formValues?.email && formValues?.password){
+        authDetailsFetch(loginHospitalAdmin({
+            email:formValues.email,
+            password:formValues.password
+        }))
+    }
+    }
+    useEffect(()=>{
+        if(authDetailsResponse?.result == "success"){
+            localStorage.setItem('storedToken', authDetailsResponse?.token);
+            dispatch(updateToken(authDetailsResponse?.token))
+            router.push("/hospital-dashboard")
+        }
+    },[authDetailsResponse])
     return(
         <>
         <div className="back-to-home rounded d-none d-sm-block">
@@ -21,19 +45,26 @@ export default function Login(){
                         <div className="card login-page shadow mt-4 rounded border-0">
                             <div className="card-body">
                                 <h4 className="text-center">Sign In</h4>  
-                                <form className="login-form mt-4">
-                                    <div className="row">
+                                <div className="row mt-4">
                                         <div className="col-lg-12">
                                             <div className="mb-3">
                                                 <label className="form-label">Your Email <span className="text-danger">*</span></label>
-                                                <input type="email" className="form-control" placeholder="Email" name="email" required=""/>
+                                                <input type="email" className="form-control" placeholder="Email" name="email" required=""
+                                                                                                onChange={(e)=>{
+                                                                                                    setFormValues((prev)=>({...prev, 'email':e.target.value}))
+                                                                                                }}
+                                                />
                                             </div>
                                         </div>
 
                                         <div className="col-lg-12">
                                             <div className="mb-3">
                                                 <label className="form-label">Password <span className="text-danger">*</span></label>
-                                                <input type="password" className="form-control" placeholder="Password" required=""/>
+                                                <input type="password" className="form-control" placeholder="Password" required=""
+                                                                                                onChange={(e)=>{
+                                                                                                    setFormValues((prev)=>({...prev, 'password':e.target.value}))
+                                                                                                }}
+                                                />
                                             </div>
                                         </div>
 
@@ -50,7 +81,11 @@ export default function Login(){
                                         </div>
                                         <div className="col-lg-12 mb-0">
                                             <div className="d-grid">
-                                                <button className="btn btn-primary">Sign in</button>
+                                                <button className="btn btn-primary"
+                                                onClick={()=>{
+                                                    LoginFunction()
+                                                }}
+                                                >Sign in</button>
                                             </div>
                                         </div>
 
@@ -74,7 +109,7 @@ export default function Login(){
                                             <p className="mb-0 mt-3"><small className="text-dark me-2">Don't have an account ?</small> <Link to="/signup" className="text-dark fw-bold">Sign Up</Link></p>
                                         </div>
                                     </div>
-                                </form>
+                                
                             </div>
                         </div>
                     </div> 

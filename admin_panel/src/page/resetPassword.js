@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import client from "../assets/images/client/01.jpg";
@@ -9,10 +9,37 @@ import { resetPassword } from "../data/data";
 import { FiEye, BsPencil, FiTrash } from "../assets/icons/vander";
 
 import Modal from "react-bootstrap/Modal";
+import useAxios from "../network/useAxios";
+import { fetchResetPasswords } from "../urls/urls";
 
 export default function ResetPassword() {
   let [editProfile, setEditProfile] = useState(false);
   let [show, setShow] = useState(false);
+  const [requestData, setRequestData] = useState([]);
+  const [
+    resetPassRequestResponse,
+    resetPassRequestError,
+    resetPassRequestLoading,
+    resetPassRequestFetch,
+  ] = useAxios();
+  const [
+    resetPassChangeResponse,
+    resetPassChangeError,
+    resetPassChangeLoading,
+    resetPassChangeFetch,
+  ] = useAxios();
+  const fetchRequests = () => {
+    resetPassRequestFetch(fetchResetPasswords())
+  }
+  useEffect(()=>{
+    fetchRequests()
+  },[])
+  useEffect(()=>{
+    if(resetPassRequestResponse?.result == "success"){
+      setRequestData(resetPassRequestResponse?.data)
+    }
+  },[resetPassRequestResponse])
+
   return (
     <Wrapper>
                         <div className="modal fade" id="LoginForm">

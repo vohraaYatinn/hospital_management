@@ -1,2 +1,4 @@
 admin_panel/node_modules/
 doctor_panel/node_modules/
+doctor_panel/build
+admin_panel/build

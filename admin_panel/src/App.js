@@ -68,7 +68,7 @@ function App() {
   return (
    <>
    <Routes>
-    <Route path="/" element={<Index/>}/>
+    <Route path="/hospital-dashboard" element={<Index/>}/>
     <Route path="/index" element={<Index/>}/>
     <Route path="/index-sidebar-dark" element={<IndexDarkSidebar/>}/>
     <Route path="/index-sidebar-colored" element={<IndexSidebarColored/>}/>
@@ -107,6 +107,7 @@ function App() {
     <Route path="/email-password-reset" element={<EmailPasswordReset/>}/>
     <Route path="/email-alert" element={<EmailAlert/>}/>
     <Route path="/email-invoice" element={<EmailInvoice/>}/>
+    <Route path="/" element={<Login/>}/>
     <Route path="/login" element={<Login/>}/>
     <Route path="/signup" element={<Signup/>}/>
     <Route path="/forgot-password" element={<ForgotPassword/>}/>

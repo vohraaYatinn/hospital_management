@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import client from "../assets/images/client/01.jpg";
@@ -6,37 +6,82 @@ import doctor from "../assets/images/doctors/01.jpg";
 import Wrapper from "../components/wrapper";
 import { resetPassword } from "../data/data";
 
-import { FiEye, BsPencil, FiTrash } from "../assets/icons/vander";
+import { FiEye, BsPencil, FiTrash, FiToggleRight } from "../assets/icons/vander";
 
 import Modal from "react-bootstrap/Modal";
+import useAxios from "../network/useAxios";
+import { fetchLeaveRequest, performLeaveAction } from "../urls/urls";
+import { test_url_images } from "../config/environment";
+import { Button } from "antd";
 
 export default function DoctorLeave() {
   let [editProfile, setEditProfile] = useState(false);
   let [show, setShow] = useState(false);
+  const [formValues, setFormValues] = useState({});
+
+  const [requestData, setRequestData] = useState([]);
+  const [
+    leaveDoctorResponse,
+    leaveDoctorError,
+    leaveDoctorLoading,
+    leaveDoctorFetch,
+  ] = useAxios();
+  const [
+    performActionResponse,
+    performActionError,
+    performActionLoading,
+    performActionFetch,
+  ] = useAxios();
+  const fetchLeaveRequestFunc = () => {
+    leaveDoctorFetch(fetchLeaveRequest())
+  }
+  const performActionRequest = () => {
+    performActionFetch(performLeaveAction(formValues))
+  }
+  useEffect(()=>{
+    fetchLeaveRequestFunc()
+  },[])
+  useEffect(()=>{
+    if(performActionResponse?.result == "success"){
+      fetchLeaveRequestFunc()
+    }
+  },[performActionResponse])
+  useEffect(()=>{
+if(leaveDoctorResponse?.result == "success"){
+  setRequestData(leaveDoctorResponse?.data)
+}
+  },[leaveDoctorResponse])
   return (
     <Wrapper>
                         <div className="modal fade" id="LoginForm">
                                     <Modal show={show} onHide={() =>setShow(false)} centered>
                                         <Modal.Header closeButton>
-                                            <h5 className="modal-title" id="LoginForm-title">Delete Reset Request?</h5>
+                                            <h5 className="modal-title" id="LoginForm-title">Are You Sure To {formValues?.action}?</h5>
                                         </Modal.Header>
                                         <Modal.Body>
                                             <div className="p-3 rounded box-shadow">
                                                 <p className="text-muted mb-0">
-                                                    Are you sure to delete this request?
+                                                    Are you sure to perform action on this request?
                                                     </p>                                                        
                                             </div>
                                         </Modal.Body>
                                         <Modal.Footer>
                                             <button type="button" className="btn btn-secondary" onClick={() =>setShow(false)}>Close</button>
-                                            <button type="button" className="btn btn-primary" onClick={() =>setShow(false)}>Save</button>
+                                            <button type="button" className="btn btn-primary" onClick={() =>{
+                                            performActionRequest()
+                                            setShow(false)
+                                          }
+                                          
+                                          }
+                                            
+                                            >Confirm</button>
                                         </Modal.Footer>
                                     </Modal>
                                 </div>
       <div className="container-fluid">
         <div className="layout-specing">
           <div className="d-md-flex justify-content-between">
-            <h5 className="mb-0">Reset Password</h5>
+            <h5 className="mb-0">Doctor Leaves</h5>
 
             <nav
               aria-label="breadcrumb"
@@ -71,6 +116,8 @@ export default function DoctorLeave() {
                       >
                         Name
                       </th>
+                      <th className="border-bottom p-3">Dates</th>
+
                       <th className="border-bottom p-3">Comments</th>
                       <th className="border-bottom p-3">Status</th>
                       <th className="border-bottom p-3">Action</th>
@@ -81,7 +128,7 @@ export default function DoctorLeave() {
                     </tr>
                   </thead>
                   <tbody>
-                    {resetPassword.map((item, index) => {
+                    {requestData.map((item, index) => {
                       return (
                         <tr key={index}>
                           <th className="p-3">{item.id}</th>
@@ -89,19 +136,25 @@ export default function DoctorLeave() {
                             <Link to="#" className="text-dark">
                               <div className="d-flex align-items-center">
                                 <img
-                                  src={item.image}
+                                  src={test_url_images+item.doctor.profile_picture}
                                   className="avatar avatar-md-sm rounded-circle shadow"
                                   alt=""
                                 />
-                                <span className="ms-2">{item.name}</span>
+                                <span className="ms-2">{item.doctor.full_name}</span>
                               </div>
                             </Link>
                           </td>
+                          <td className="p-3">{item.from_date} | {item.to_date}</td>
                           <td className="p-3">{item.comment}</td>
+
                           <td className="p-3">
-                            {item.status === "Approved" ? (
+                            {item.status === "APPROVED" ? (
                               <span className="badge bg-soft-success">
                                 Approved
+                              </span>
+                            ) : item.status === "REJECTED" ? (
+                              <span className="badge bg-soft-danger">
+                                Cancelled
                               </span>
                             ) : (
                               <span className="badge bg-soft-warning">
@@ -111,21 +164,30 @@ export default function DoctorLeave() {
                           </td>
                           <td className="text-end p-3">
                          
+                            
                             <Link
-                              to="#"
-                              className="btn btn-icon btn-pills btn-soft-success mx-1"
-                              onClick={() => setEditProfile(true)}
+                              onClick={()=>
+                                {
+                                  setFormValues((prev)=>({...prev, 
+                                    id:item.id,
+                                    action:"Approve"}))
+                                  setShow(true)
+                            }
+                            }
+                              className="btn btn-icon btn-pills btn-soft-success"
                             >
-                              <BsPencil />
+                              <FiToggleRight />
                             </Link>
                             <Link
                               onClick={()=>
                                 {
-                                    console.log("hello")
+                                  setFormValues((prev)=>({...prev, 
+                                    id:item.id,
+                                    action:"Reject"}))
                                 setShow(true)
                             }
                             }
-                              className="btn btn-icon btn-pills btn-soft-danger"
+                              className="btn btn-icon btn-pills btn-soft-warning"
                             >
                               <FiTrash />
                             </Link>
@@ -172,13 +234,16 @@ export default function DoctorLeave() {
 
                 <div className="row">
                   <div className="col-sm-12">
-                    <input
+                    <Button
                       type="submit"
                       id="submit"
                       name="send"
                       className="btn btn-primary"
+                      onSubmit={performActionRequest}
                       value="Save"
-                    />
+                    >
+                      Submit
+                      </Button>
                   </div>
                 </div>
                 </div>
