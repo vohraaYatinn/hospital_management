@@ -32,7 +32,14 @@ export const performLeaveAction = (payload_data) => {
 export const changeResetPassword = (payload_data) => {
   return project.post(Urls.CHANGE_DOCTORS_PASSWORD, payload_data);
 };
-export const fetchPatients = (payload_data) => {
-  return project.post(Urls.CHANGE_DOCTORS_PASSWORD, payload_data);
+export const fetchPatientsHospitals = (payload_data) => {
+  return project.get(Urls.FETCH_HOSPITAL_PATIENTS, payload_data);
+};
+
+export const addPatientsHospital = (payload_data) => {
+  return project.post(Urls.ADD_HOSPITAL_PATIENT, payload_data);
+};
+export const fetchDepartmentHospital = (payload_data) => {
+  return project.get(Urls.FETCH_HOSPITAL_DEPARTMENTS, payload_data);
 };
 

@@ -1,20 +1,37 @@
 import React,{useState} from "react";
 import { Link } from "react-router-dom";
-
-import client1 from "../assets/images/client/01.jpg"
-
+import client1 from "../assets/images/client/01.jpg";
 import Wrapper from "../components/wrapper";
 import { departmentData } from "../data/data";
-
-import {FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircleSolid} from '../assets/icons/vander'
-
+import {MdOutlineCheckCircleOutline, LiaTimesCircleSolid} from '../assets/icons/vander';
 import Modal from 'react-bootstrap/Modal';
+import { useEffect } from "react";
+import { fetchDepartmentHospital } from "../urls/urls";
+import useAxios from "../network/useAxios";
 
 export default function Departments(){
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
     let [acceptsDepartments, setAcceptsDepartments] = useState(false);
     let [cancle, setCancle] = useState(false);
+    const [departmentsValues, setDepartmentValues] = useState([]);
+    const [
+        departmentsResponse,
+        departmentsError,
+        departmentsLoading,
+        departmentsFetch,
+      ] = useAxios();
+    const fetchDepartmentFunc = () => {
+        departmentsFetch(fetchDepartmentHospital())
+    }
+    useEffect(()=>{
+        fetchDepartmentFunc()
+    },[])
+    useEffect(()=>{
+        if(departmentsResponse?.result == "success" && departmentsResponse?.data){
+            setDepartmentValues(departmentsResponse?.data)
+        }
+    },[departmentsResponse])
     return(
         <>
         <Wrapper>
@@ -110,7 +127,7 @@ export default function Departments(){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {departmentData.map((item, index) =>{
+                                        {departmentsValues.map((item, index) =>{
                                             return(
                                                 <tr key={index}>
                                                 <td className="p-3">{item.id}</td> {/* ID */}
@@ -118,11 +135,11 @@ export default function Departments(){
                                                     <Link to="#" className="text-dark">
                                                         <div className="d-flex align-items-center">
                                                             {/* Assuming you want to show some avatar/name related to the department or client, adjust as needed */}
-                                                            <span className="ms-2">{item.name}</span> {/* Department Name */}
+                                                            <span className="ms-2">{item.department.name}</span> {/* Department Name */}
                                                         </div>
                                                     </Link>
                                                 </td>
-                                                <td className="p-3">{item.description}</td> {/* Department Description */}
+                                                <td className="p-3">{item.department.description}</td> {/* Department Description */}
                                                 {/* Removed other <td>'s as they are not defined in your <th>'s */}
                                             </tr>
                                             )

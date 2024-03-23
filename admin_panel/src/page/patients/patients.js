@@ -9,8 +9,11 @@ import {FiEye, BsPencil, FiTrash} from '../../assets/icons/vander'
 
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
-import { fetchPatients } from "../../urls/urls";
+import { fetchPatientsHospitals } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
+import { calculateAge } from "../../utils/commonFunctions";
+import moment from "moment";
+
 
 export default function Patients(){
     let [viewProfile, setViewProfile] = useState(false)
@@ -23,8 +26,13 @@ export default function Patients(){
       patientListFetch,
     ] = useAxios();
     useEffect(()=>{
-        patientListFetch(fetchPatients())
+        patientListFetch(fetchPatientsHospitals())
     },[])
+    useEffect(()=>{
+        if(patientListResponse?.result == "success"){
+            setPatientsData(patientListResponse?.data)
+        }
+    },[patientListResponse])
     return(
         <Wrapper>
             <div className="container-fluid">
@@ -51,11 +59,10 @@ export default function Patients(){
                                             <th className="border-bottom p-3">Age</th>
                                             <th className="border-bottom p-3">Gender</th>
                                             <th className="border-bottom p-3">Address</th>
-                                            <th className="border-bottom p-3">Mobile No.</th>
-                                            <th className="border-bottom p-3">Department</th>
-                                            <th className="border-bottom p-3" style={{minWidth:'150px'}}>Date</th>
-                                            <th className="border-bottom p-3">Time</th>
-                                            <th className="border-bottom p-3">Status</th>
+                                            <th className="border-bottom p-3">District</th>
+                                            <th className="border-bottom p-3">Blood Group</th>
+                                            <th className="border-bottom p-3">Weight</th>
+                                            <th className="border-bottom p-3">Created At</th>
                                             <th className="border-bottom p-3" style={{minWidth:'100px'}}></th>
                                         </tr>
                                     </thead>
@@ -67,29 +74,19 @@ export default function Patients(){
                                                     <td className="py-3">
                                                         <Link to="#" className="text-dark">
                                                             <div className="d-flex align-items-center">
-                                                                <img src={item.image} className="avatar avatar-md-sm rounded-circle shadow" alt=""/>
-                                                                <span className="ms-2">{item.name}</span>
+                                                                {/* <img src={item.image} className="avatar avatar-md-sm rounded-circle shadow" alt=""/> */}
+                                                                <span className="ms-2">{item.full_name}</span>
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="p-3">{item.age}</td>
+                                                    <td className="p-3">{calculateAge(item.date_of_birth)}</td>
                                                     <td className="p-3">{item.gender}</td>
                                                     <td className="p-3">{item.address}</td>
-                                                    <td className="p-3">{item.mobileNo}</td>
-                                                    <td className="p-3">{item.Department}</td>
-                                                    <td className="p-3">{item.date}</td>
-                                                    <td className="p-3">{item.time}</td>
-                                                    <td className="p-3">
-                                                        {item.status === 'Approved' ? 
-                                                            <span className="badge bg-soft-success">Approved</span>:
-                                                            <span className="badge bg-soft-warning">Pending</span>
-                                                        }
-                                                    </td>
-                                                    <td className="text-end p-3">
-                                                        <Link to="#" className="btn btn-icon btn-pills btn-soft-primary" onClick={()=>setViewProfile(true)}><FiEye /></Link>
-                                                        <Link to="#" className="btn btn-icon btn-pills btn-soft-success mx-1" onClick={()=>setEditProfile(true)}><BsPencil /></Link>
-                                                        <Link to="#" className="btn btn-icon btn-pills btn-soft-danger"><FiTrash /></Link>
-                                                    </td>
+                                                    <td className="p-3">{item.district}</td>
+                                                    <td className="p-3">{item.blood_group}</td>
+                                                    <td className="p-3">{item.weight}</td>
+                                                    <td className="p-3">{moment(item.created_at).format('YYYY-MM-DD')}</td>
+
                                                 </tr>
                                             )
                                         })}
