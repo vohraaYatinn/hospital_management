@@ -25,7 +25,7 @@ export default function UiModals(){
 
                         <nav aria-label="breadcrumb" className="d-inline-block mt-2 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-                                <li className="breadcrumb-item text-capitalize"><Link to="/index">Doctris</Link></li>
+                                <li className="breadcrumb-item text-capitalize"><Link to="/index">UJUR</Link></li>
                                 <li className="breadcrumb-item text-capitalize"><Link to="">Components</Link></li>
                                 <li className="breadcrumb-item text-capitalize active" aria-current="page">Modals</li>
                             </ul>
@@ -135,7 +135,7 @@ export default function UiModals(){
                                                                     <h6 className="text-muted">Be the first to know daily updates</h6>
 
                                                                     <h4>Signup for daily updates</h4>
-                                                                    <p className="text-muted mb-0">Subscribe to the Doctris mailing list to receive updates on new arrivals, special offers and our promotions.</p>
+                                                                    <p className="text-muted mb-0">Subscribe to the UJUR mailing list to receive updates on new arrivals, special offers and our promotions.</p>
                                                                     <form className="mt-4">
                                                                         <div className="row">
                                                                             <div className="col-lg-12">

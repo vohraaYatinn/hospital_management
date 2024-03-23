@@ -164,7 +164,7 @@ export default function PersonChatTwo(){
                                 </div>
                                     
                                 <div className="flex-1 chat-msg" style={{maxWidth:'500px'}}>
-                                    <p className="text-muted small shadow px-3 py-2 bg-light rounded mb-1">Sure please check below link to find more useful information <Link to="https://1.envato.market/doctris-template" target="_blank" className="text-primary">https://UJUR.in/Doctris/</Link></p>
+                                    <p className="text-muted small shadow px-3 py-2 bg-light rounded mb-1">Sure please check below link to find more useful information <Link to="https://1.envato.market/UJUR-template" target="_blank" className="text-primary">https://UJUR.in/UJUR/</Link></p>
                                     <small className="text-muted msg-time"><FiClock className="me-1 mb-0"/>25 min ago</small>
                                 </div>
                             </div>

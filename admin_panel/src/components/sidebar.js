@@ -73,7 +73,7 @@ export default function Sidebar({manuClass}){
                             </div>
                         </li>
 
-                        <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li>
+                        {/* <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li> */}
 
                         <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}><Link to="/reset-password"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reset Password</Link></li>
 

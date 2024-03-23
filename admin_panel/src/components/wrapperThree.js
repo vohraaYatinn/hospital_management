@@ -7,7 +7,7 @@ export default function WrapperThree(props){
     let [toggle, setToggle] = useState(false)
 
     return(
-        <div className={`${toggle ? '' : 'toggled'} page-wrapper doctris-theme`}>
+        <div className={`${toggle ? '' : 'toggled'} page-wrapper UJUR-theme`}>
             <Sidebar manuClass= "sidebar-wrapper sidebar-dark"/>
             <main className="page-content bg-light">
                 <TopHeader toggle={toggle} setToggle={setToggle}/>

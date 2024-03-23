@@ -27,7 +27,7 @@ export default function Blogs(){
 
                             <nav aria-label="breadcrumb" className="d-inline-block mt-1">
                                 <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
-                                    <li className="breadcrumb-item"><Link to="/index">Doctris</Link></li>
+                                    <li className="breadcrumb-item"><Link to="/index">UJUR</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Blogs</li>
                                 </ul>
                             </nav>

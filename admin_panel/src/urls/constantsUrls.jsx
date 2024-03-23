@@ -8,6 +8,8 @@ export class Urls {
     static FETCH_RESET_PASSWORD_REQUEST = Urls.MPHRMS_API_PREFIX + 'hospitals/reset-password-requests/';
     static FETCH_LEAVE_REQUEST = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-leave-requests/';
     static PERFORM_LEAVE_ACTION = Urls.MPHRMS_API_PREFIX + 'hospitals/perform-leave-action/';
+    static CHANGE_DOCTORS_PASSWORD = Urls.MPHRMS_API_PREFIX + 'hospitals/change-doctors-passwword/';
+    static FETCH_HOSPITAL_PATIENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-patients-for-hospitals/';
 
 
 

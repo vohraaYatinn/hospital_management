@@ -25,7 +25,7 @@ export default function Faqs(){
 
                             <nav aria-label="breadcrumb" className="d-inline-block mt-1">
                                 <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
-                                    <li className="breadcrumb-item"><Link to="/index">Doctris</Link></li>
+                                    <li className="breadcrumb-item"><Link to="/index">UJUR</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">FAQs</li>
                                 </ul>
                             </nav>
@@ -67,7 +67,7 @@ export default function Faqs(){
                     <div className="row">
                         <div className="col-lg-6 mt-4">
                             <div className="card p-4 rounded shadow border-0">
-                                <h6 className="mb-0">Doctris Practice Questions</h6>
+                                <h6 className="mb-0">UJUR Practice Questions</h6>
 
                                 <div className="accordion mt-4" id="buying">
                                     {faqData.slice(0,4).map((item,index) =>{
@@ -142,7 +142,7 @@ export default function Faqs(){
 
                         <div className="col-lg-6 mt-4">
                             <div className="card p-4 rounded shadow border-0">
-                                <h6 className="mb-0">About the Doctris Practice Questions</h6>
+                                <h6 className="mb-0">About the UJUR Practice Questions</h6>
 
                                 <div className="accordion mt-4" id="support">
                                     {faqData.slice(12,16).map((item,index) =>{

@@ -4,15 +4,26 @@ import { Link } from "react-router-dom";
 import client from '../../assets/images/client/01.jpg'
 import doctor from '../../assets/images/doctors/01.jpg'
 import Wrapper from "../../components/wrapper";
-import { patientData } from "../../data/data";
 
 import {FiEye, BsPencil, FiTrash} from '../../assets/icons/vander'
 
 import Modal from 'react-bootstrap/Modal';
+import { useEffect } from "react";
+import { fetchPatients } from "../../urls/urls";
 
 export default function Patients(){
     let [viewProfile, setViewProfile] = useState(false)
     let [editProfile, setEditProfile] = useState(false)
+    const [patientData, setPatientsData] = useState([]);
+    const [
+      patientListResponse,
+      patientListError,
+      patientListLoading,
+      patientListFetch,
+    ] = useAxios();
+    useEffect(()=>{
+        patientListFetch(fetchPatients())
+    },[])
     return(
         <Wrapper>
             <div className="container-fluid">
@@ -22,7 +33,7 @@ export default function Patients(){
 
                         <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-                                <li className="breadcrumb-item"><Link to="/">Doctris</Link></li>
+                                <li className="breadcrumb-item"><Link to="/">UJUR</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Patients</li>
                             </ul>
                         </nav>

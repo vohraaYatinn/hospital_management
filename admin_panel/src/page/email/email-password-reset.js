@@ -40,13 +40,13 @@ export default function EmailPasswordReset(){
     
                     <tr>
                         <td style={{padding: '15px 24px 15px', color: '#8492a6'}}>
-                            Doctris <br/> Support Team
+                            UJUR <br/> Support Team
                         </td>
                     </tr>
     
                     <tr>
                         <td style={{padding: '16px 8px', color:' #8492a6', backgroundColor: '#f8f9fc', textAlign: 'center'}}>
-                            © {new Date().getFullYear()} Doctris.
+                            © {new Date().getFullYear()} UJUR.
                         </td>
                     </tr>
                 </tbody>

@@ -10,12 +10,18 @@ import { FiEye, BsPencil, FiTrash } from "../assets/icons/vander";
 
 import Modal from "react-bootstrap/Modal";
 import useAxios from "../network/useAxios";
-import { fetchResetPasswords } from "../urls/urls";
+import { changeResetPassword, fetchResetPasswords } from "../urls/urls";
+import { test_url_images } from "../config/environment";
 
 export default function ResetPassword() {
   let [editProfile, setEditProfile] = useState(false);
   let [show, setShow] = useState(false);
   const [requestData, setRequestData] = useState([]);
+  const [formValues, setFormValues] = useState({
+    action:"",
+    password_id:"",
+    password:""
+  });
   const [
     resetPassRequestResponse,
     resetPassRequestError,
@@ -29,7 +35,10 @@ export default function ResetPassword() {
     resetPassChangeFetch,
   ] = useAxios();
   const fetchRequests = () => {
-    resetPassRequestFetch(fetchResetPasswords())
+    resetPassRequestFetch(fetchResetPasswords(formValues))
+  }
+  const changePassword = () => {
+    resetPassChangeFetch(changeResetPassword(formValues))
   }
   useEffect(()=>{
     fetchRequests()
@@ -39,6 +48,15 @@ export default function ResetPassword() {
       setRequestData(resetPassRequestResponse?.data)
     }
   },[resetPassRequestResponse])
+  useEffect(()=>{
+    if(resetPassChangeResponse?.result == "success"){
+      setShow(false)
+      setEditProfile(false)
+      fetchRequests()
+
+
+    }
+  },[resetPassChangeResponse])
 
   return (
     <Wrapper>
@@ -56,7 +74,14 @@ export default function ResetPassword() {
                                         </Modal.Body>
                                         <Modal.Footer>
                                             <button type="button" className="btn btn-secondary" onClick={() =>setShow(false)}>Close</button>
-                                            <button type="button" className="btn btn-primary" onClick={() =>setShow(false)}>Save</button>
+                                            <button type="button" className="btn btn-primary" onClick={() =>
+                                              {
+                                                changePassword()
+                                                setShow(false)
+
+                                              }
+                                              
+                                              }>Save</button>
                                         </Modal.Footer>
                                     </Modal>
                                 </div>
@@ -71,7 +96,7 @@ export default function ResetPassword() {
             >
               <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
                 <li className="breadcrumb-item">
-                  <Link to="/">Doctris</Link>
+                  <Link to="/">UJUR</Link>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   Reset Password
@@ -101,54 +126,63 @@ export default function ResetPassword() {
                       <th className="border-bottom p-3">Comments</th>
                       <th className="border-bottom p-3">Status</th>
                       <th className="border-bottom p-3">Action</th>
-                      <th
-                        className="border-bottom p-3"
-                        style={{ minWidth: "100px" }}
-                      ></th>
+
                     </tr>
                   </thead>
                   <tbody>
-                    {resetPassword.map((item, index) => {
+                    {requestData.map((item, index) => {
                       return (
                         <tr key={index}>
-                          <th className="p-3">{item.id}</th>
+                          <td className="p-3">{item.id}</td>
                           <td className="py-3">
                             <Link to="#" className="text-dark">
                               <div className="d-flex align-items-center">
                                 <img
-                                  src={item.image}
+                                  src={ test_url_images+item.doctor?.profile_picture}
                                   className="avatar avatar-md-sm rounded-circle shadow"
                                   alt=""
                                 />
-                                <span className="ms-2">{item.name}</span>
+                                <span className="ms-2">{item?.doctor?.full_name}</span>
                               </div>
                             </Link>
                           </td>
                           <td className="p-3">{item.comment}</td>
                           <td className="p-3">
-                            {item.status === "Approved" ? (
-                              <span className="badge bg-soft-success">
-                                Approved
-                              </span>
-                            ) : (
-                              <span className="badge bg-soft-warning">
-                                Pending
-                              </span>
-                            )}
+                          {item.status === "APPROVED" ? (
+  <span className="badge bg-soft-success">
+    Approved
+  </span>
+) : item.status === "CANCELLED" ? (
+  <span className="badge bg-soft-danger">
+    Cancelled
+  </span>
+) : (
+  <span className="badge bg-soft-warning">
+    Pending
+  </span>
+)}
                           </td>
-                          <td className="text-end p-3">
+                          <td className="p-3">
                          
                             <Link
                               to="#"
                               className="btn btn-icon btn-pills btn-soft-success mx-1"
-                              onClick={() => setEditProfile(true)}
+                              onClick={() => {
+                                setFormValues((prev)=>({...prev, 
+                                  action:"approve",
+                                  password_id:item.id}))
+                                setEditProfile(true)
+                              }
+                              }
                             >
                               <BsPencil />
                             </Link>
                             <Link
                               onClick={()=>
                                 {
-                                    console.log("hello")
+                                  setFormValues((prev)=>({...prev, 
+                                    action:"reject",
+                                    password_id:item.id}))
                                 setShow(true)
                             }
                             }
@@ -186,6 +220,12 @@ export default function ResetPassword() {
                       <label className="form-label">Enter New Password</label>
                       <input
                         name="name"
+                        onChange={(e)=>
+                          {
+                            setFormValues((prev)=>({...prev, 
+                              password:e.target.value}))
+                      }
+                      }
                         id="name"
                         type="text"
                         className="form-control"
@@ -204,6 +244,7 @@ export default function ResetPassword() {
                       id="submit"
                       name="send"
                       className="btn btn-primary"
+                      onClick={changePassword}
                       value="Save"
                     />
                   </div>

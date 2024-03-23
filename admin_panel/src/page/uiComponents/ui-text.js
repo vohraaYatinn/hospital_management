@@ -12,7 +12,7 @@ export default function UiText(){
 
                             <nav aria-label="breadcrumb" className="d-inline-block mt-2 mt-sm-0">
                                 <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-                                    <li className="breadcrumb-item text-capitalize"><Link to="/">Doctris</Link></li>
+                                    <li className="breadcrumb-item text-capitalize"><Link to="/">UJUR</Link></li>
                                     <li className="breadcrumb-item text-capitalize"><Link to="">Components</Link></li>
                                     <li className="breadcrumb-item text-capitalize active" aria-current="page">Text Color</li>
                                 </ul>
@@ -27,7 +27,7 @@ export default function UiText(){
                                     </div>
         
                                     <div className="p-4">
-                                        <h6 className="text-muted mb-4 pb-2">Ex. <code className="text-danger">&lt;div className="text-primary"&gt; Doctris Saas & Software Template &lt;/div&gt;</code></h6>
+                                        <h6 className="text-muted mb-4 pb-2">Ex. <code className="text-danger">&lt;div className="text-primary"&gt; UJUR Saas & Software Template &lt;/div&gt;</code></h6>
 
                                         <h6 className="text-primary">.text-primary</h6>
                                         <h6 className="text-secondary">.text-secondary</h6>

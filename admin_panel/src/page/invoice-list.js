@@ -20,7 +20,7 @@ export default function InvoiceList(){
 
                         <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-                                <li className="breadcrumb-item"><Link to="/index">Doctris</Link></li>
+                                <li className="breadcrumb-item"><Link to="/index">UJUR</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Invoice List</li>
                             </ul>
                         </nav>
@@ -112,7 +112,7 @@ export default function InvoiceList(){
                                 </li>
                                 <li className="d-flex ms-0 mt-2">
                                     <small className="mb-0 text-muted">Email : </small>
-                                    <small className="mb-0">&nbsp;&nbsp;<Link to="mailto:contact@example.com" className="text-dark">info@doctris.com</Link></small>
+                                    <small className="mb-0">&nbsp;&nbsp;<Link to="mailto:contact@example.com" className="text-dark">info@UJUR.com</Link></small>
                                 </li>
                                 <li className="d-flex ms-0 mt-2">
                                     <small className="mb-0 text-muted">Phone : </small>
@@ -120,7 +120,7 @@ export default function InvoiceList(){
                                 </li>
                                 <li className="d-flex ms-0 mt-2">
                                     <small className="mb-0 text-muted">Website : </small>
-                                    <small className="mb-0">&nbsp;&nbsp;<Link to="#" className="text-dark">www.doctris.com</Link></small>
+                                    <small className="mb-0">&nbsp;&nbsp;<Link to="#" className="text-dark">www.UJUR.com</Link></small>
                                 </li>
                                 <li className="d-flex ms-0 mt-2">
                                     <small className="mb-0 text-muted">Patient Name : </small>

@@ -52,7 +52,7 @@ export default function EmailInvoice(){
                                     <tbody>
                                         <tr>
                                             <th scope="row" style={{textAlign: 'left', padding: '12px', borderTop: '1px solid #dee2e6'}}>1</th>
-                                            <td style={{textAlign: 'left', padding: '12px', borderTop: '1px solid #dee2e6'}}>Doctris Template</td>
+                                            <td style={{textAlign: 'left', padding: '12px', borderTop: '1px solid #dee2e6'}}>UJUR Template</td>
                                             <td style={{textAlign: 'end', padding: '12px', borderTop: '1px solid #dee2e6'}}>$ 5200</td>
                                         </tr>
                                         <tr>
@@ -78,7 +78,7 @@ export default function EmailInvoice(){
     
                     <tr>
                         <td style={{padding: '16px 8px', color:' #8492a6', backgroundColor: '#f8f9fc', textAlign: 'center'}}>
-                            © {new Date().getFullYear()} Doctris.
+                            © {new Date().getFullYear()} UJUR.
                         </td>
                     </tr>
                 </tbody>

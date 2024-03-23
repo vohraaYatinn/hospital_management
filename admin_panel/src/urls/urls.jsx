@@ -29,4 +29,10 @@ export const fetchLeaveRequest = (payload_data) => {
 export const performLeaveAction = (payload_data) => {
   return project.post(Urls.PERFORM_LEAVE_ACTION, payload_data);
 };
+export const changeResetPassword = (payload_data) => {
+  return project.post(Urls.CHANGE_DOCTORS_PASSWORD, payload_data);
+};
+export const fetchPatients = (payload_data) => {
+  return project.post(Urls.CHANGE_DOCTORS_PASSWORD, payload_data);
+};
 

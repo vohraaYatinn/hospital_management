@@ -1310,7 +1310,7 @@ export const recentBlog = [
 export const faqData = [
     {
         id:1,
-        title:'Getting Started With Your Doctris Practice',
+        title:'Getting Started With Your UJUR Practice',
         desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
     },
     {
@@ -1335,7 +1335,7 @@ export const faqData = [
     },
     {
         id:6,
-        title:'Setting up the Doctris Practice for Text Consultations',
+        title:'Setting up the UJUR Practice for Text Consultations',
         desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
     },
     {
@@ -1350,7 +1350,7 @@ export const faqData = [
     },
     {
         id:9,
-        title:'Managing Patient Data in Your Doctris Practice',
+        title:'Managing Patient Data in Your UJUR Practice',
         desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
     },
     {
@@ -1370,22 +1370,22 @@ export const faqData = [
     },
     {
         id:13,
-        title:'Doctris Practice Overview',
+        title:'UJUR Practice Overview',
         desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
     },
     {
         id:14,
-        title:'Creating Your Own Doctris Practice',
+        title:'Creating Your Own UJUR Practice',
         desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
     },
     {
         id:15,
-        title:'Features of the Doctris Practice',
+        title:'Features of the UJUR Practice',
         desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
     },
     {
         id:16,
-        title:'Doctris Practice Widget Integrations',
+        title:'UJUR Practice Widget Integrations',
         desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
     },
 ]

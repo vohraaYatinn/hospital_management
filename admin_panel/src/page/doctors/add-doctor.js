@@ -71,7 +71,7 @@ export default function AddDoctor() {
 
               <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
                 <li className="breadcrumb-item">
-                  <Link to="/index">Doctris</Link>
+                  <Link to="/index">UJUR</Link>
                 </li>
                 <li className="breadcrumb-item">
                   <Link to="/doctors">Doctors</Link>

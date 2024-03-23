@@ -52,3 +52,6 @@ export const doctorLeaveFunction = (payload_data) => {
 export const doctorApplyFunction = (payload_data) => {
   return project.post(Urls.DOCTOR_APPLY_LEAVE, payload_data);
 };
+export const forgotPasswordRequest = (payload_data) => {
+  return project.post(Urls.RECOVER_PASSWORD_REQUEST, payload_data);
+};

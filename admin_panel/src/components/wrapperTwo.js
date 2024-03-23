@@ -7,7 +7,7 @@ export default function WrapperTwo(props){
     let [toggle, setToggle] = useState(false)
 
     return(
-        <div className={`${toggle ? '' : 'toggled'} page-wrapper doctris-theme`}>
+        <div className={`${toggle ? '' : 'toggled'} page-wrapper UJUR-theme`}>
             <Sidebar manuClass= "sidebar-wrapper sidebar-colored"/>
             <main className="page-content bg-light">
                 <TopHeader toggle={toggle} setToggle={setToggle}/>

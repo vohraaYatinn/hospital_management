@@ -15,7 +15,7 @@ export default function UiBackground(){
 
                         <nav aria-label="breadcrumb" className="d-inline-block mt-2 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-                                <li className="breadcrumb-item text-capitalize"><Link to="/index">Doctris</Link></li>
+                                <li className="breadcrumb-item text-capitalize"><Link to="/index">UJUR</Link></li>
                                 <li className="breadcrumb-item text-capitalize"><Link to="">Components</Link></li>
                                 <li className="breadcrumb-item text-capitalize active" aria-current="page">Background</li>
                             </ul>
@@ -30,7 +30,7 @@ export default function UiBackground(){
                                 </div>
 
                                 <div className="p-4">
-                                    <h6 className="text-muted mb-2 pb-2">Ex. <code className="text-danger">&lt;div className="bg-primary"&gt; Doctris Saas & Software Template &lt;/div&gt;</code></h6>
+                                    <h6 className="text-muted mb-2 pb-2">Ex. <code className="text-danger">&lt;div className="bg-primary"&gt; UJUR Saas & Software Template &lt;/div&gt;</code></h6>
                                     <div className="d-inline-block me-1 mt-2">
                                         <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }}  overlay={<Tooltip id="button-tooltip-2">.bg-primary</Tooltip>}>
                                             <p className="avatar avatar-small bg-primary rounded mb-0"></p>
@@ -97,7 +97,7 @@ export default function UiBackground(){
                                 </div>
 
                                 <div className="p-4">
-                                    <h6 className="text-muted mb-2 pb-2">Ex. <code className="text-danger">&lt;div className="bg-primary bg-gradient"&gt; Doctris Saas & Software Template &lt;/div&gt;</code></h6>
+                                    <h6 className="text-muted mb-2 pb-2">Ex. <code className="text-danger">&lt;div className="bg-primary bg-gradient"&gt; UJUR Saas & Software Template &lt;/div&gt;</code></h6>
                                     
                                     <div className="d-inline-block me-1 mt-2">
                                         <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }}  overlay={<Tooltip id="button-tooltip-2">.bg-primary .bg-gradient</Tooltip>}>
@@ -165,7 +165,7 @@ export default function UiBackground(){
                                 </div>
 
                                 <div className="p-4">
-                                    <h6 className="text-muted mb-2 pb-2">Ex. <code className="text-danger">&lt;div className="bg-soft-primary"&gt; Doctris Saas & Software Template &lt;/div&gt;</code></h6>
+                                    <h6 className="text-muted mb-2 pb-2">Ex. <code className="text-danger">&lt;div className="bg-soft-primary"&gt; UJUR Saas & Software Template &lt;/div&gt;</code></h6>
                                     
                                     <div className="d-inline-block me-1 mt-2">
                                         <OverlayTrigger placement="top" delay={{ show: 250, hide: 400 }}  overlay={<Tooltip id="button-tooltip-2">.bg-soft-primary</Tooltip>}>

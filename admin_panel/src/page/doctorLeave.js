@@ -89,7 +89,7 @@ if(leaveDoctorResponse?.result == "success"){
             >
               <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
                 <li className="breadcrumb-item">
-                  <Link to="/">Doctris</Link>
+                  <Link to="/">UJUR</Link>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   Reset Password
