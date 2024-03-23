@@ -1,7 +1,7 @@
 /* eslint-disable */
 
 import { HttpAxiosService } from './httpService';
-import { Urls } from './constantsUrls';
+import { Urls } from './constantsUrls.jsx';
 import { test_url } from "../../src/config/environment.js"
 
 const project = new HttpAxiosService(test_url);
