@@ -10,6 +10,7 @@ import {FiEye, BsPencil, FiTrash} from '../../assets/icons/vander'
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
 import { fetchPatients } from "../../urls/urls";
+import useAxios from "../../network/useAxios";
 
 export default function Patients(){
     let [viewProfile, setViewProfile] = useState(false)
