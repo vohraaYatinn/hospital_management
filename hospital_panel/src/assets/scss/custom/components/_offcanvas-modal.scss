@@ -1,0 +1,52 @@
+
+//
+// offcanvas-modal.scss
+//
+//Offcanvas
+.offcanvas {
+    .offcanvas-header {
+        .dark-version {
+            display: none;
+        }
+        .light-version {
+            display: inline-block;
+        }
+        .btn-close {
+            color: $dark;
+            background: block;
+            &:focus {
+                box-shadow: none;
+            }
+        }
+    }
+    &.offcanvas-end,
+    &.offcanvas-start {
+        width: 350px;
+    }
+}
+
+//Modal
+
+//Modal
+.modal {
+    .modal-dialog {
+        .modal-content {
+            background-color: $modal-content-bg;
+            .modal-header {
+                button {
+                    &.btn-close {
+                        background: block;
+                    }
+                }
+            }
+            button {
+                &.btn-close {
+                    background: block;
+                }
+            }
+        }
+        &.modal-sm {
+            max-width: 450px;
+        }
+    }
+}

@@ -17,6 +17,7 @@ export class Urls {
     static UPLOAD_DOCUMENT_PRESCRIPTION = Urls.MPHRMS_API_PREFIX + 'doctors/upload_document_prescription/';
     static DOCTOR_FETCH_LEAVE = Urls.MPHRMS_API_PREFIX + 'doctors/doctor-fetch-leave/';
     static DOCTOR_APPLY_LEAVE = Urls.MPHRMS_API_PREFIX + 'doctors/doctor-apply-leave/';
+    static RECOVER_PASSWORD_REQUEST = Urls.MPHRMS_API_PREFIX + 'doctors/forgot-password-request/';
 
 
 }

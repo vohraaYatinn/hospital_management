@@ -1,0 +1,60 @@
+
+//Shopping
+.shop-list {
+    .shop-image {
+        .shop-icons,
+        .qty-icons { 
+            position: absolute;
+            opacity: 0; 
+            transition: all 0.5s ease;
+        }
+        .shop-icons  {
+            li{
+                margin-left: 0 !important;
+            }
+            top: 15px;
+            left: 15px;
+            z-index: 2;
+        }
+        .qty-icons {
+            bottom: 15px;
+            text-align: center;
+            right: 0;
+            left: 0;
+            z-index: 2;
+            transform: translateY(100px);
+        }
+        &:hover {
+            .shop-icons,
+            .qty-icons {
+                opacity: 1;
+            }
+            .qty-icons {
+                transform: translateY(0);
+            }
+        }
+    }
+    .content {
+        .product-name {
+            transition: all 0.5s ease;
+            &:hover {
+                color: $primary !important;
+            }
+        }
+    }
+    .label {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        z-index: 2;
+    }
+    .qty-btn {
+        pointer-events: none; 
+        width: 65px !important;
+        padding-left: 16px !important;
+        margin: 0 4px;
+        @media (max-width: 1024px) {
+            padding-left: 0;
+        }
+    }
+}

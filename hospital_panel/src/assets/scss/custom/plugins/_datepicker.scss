@@ -1,0 +1,41 @@
+//
+// _calendar.scss
+//
+
+.qs-datepicker-container {
+    background-color: $datepicker-bg;
+    border-color: $border-color;
+    color: $datepicker-text;
+    box-shadow: $shadow;
+    .qs-controls {
+        background-color: $gray-200;
+        color: $datepicker-text;
+        .qs-month-year {
+            font-weight: 600;
+            font-size: 15px;
+            &:hover {
+                border-bottom: 1px solid $border-color;
+            }
+        }
+    }
+    .qs-squares {
+        .qs-square {
+            font-size: 15px;
+            height: 34px;
+            width: 34px;
+            &:not(.qs-empty):not(.qs-disabled):not(.qs-day):not(.qs-active):hover,
+            &.qs-current {
+                background: $primary;
+                color: $white;
+                border-radius: 30px;
+                font-weight: 500;
+                text-decoration: none;
+                border-radius: 30px;
+            }
+        }
+        .qs-day {
+            font-weight: 500;
+            color: $muted;
+        }
+    }
+}

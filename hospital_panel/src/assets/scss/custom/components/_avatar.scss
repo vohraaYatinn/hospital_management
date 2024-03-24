@@ -1,0 +1,42 @@
+//
+// avatar.scss
+//
+
+//Avatar
+.avatar {
+    &.avatar-ex-sm {
+        height: 30px;
+        width: 30px;
+    }
+    &.avatar-ex-small {
+        height: 36px;
+        width: 36px;
+    }
+    &.avatar-md-sm {
+        height: 45px;
+        width: 45px;
+    }
+    &.avatar-small {
+        height: 65px;
+        width: 65px;
+    }
+    &.avatar-md-md {
+        height: 80px;
+        width: 80px;
+    }
+    &.avatar-medium {
+        height: 110px;
+        width: 110px;
+    }
+    &.avatar-large {
+        height: 140px;
+        width: 140px;
+    }
+    &.avatar-ex-large {
+        height: 180px;
+        width: 180px;
+    }
+    &.avatar-client {
+        max-height: 25px;
+    }
+}

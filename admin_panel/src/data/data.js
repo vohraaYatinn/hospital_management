@@ -734,35 +734,73 @@ export const clientReview = [
 ];
 export const companyLogo = [amazon, google, lenovo, paypal, shopify, spotify];
 export const drTimetable = [
-	{
-		day: "Monday",
-		time: " 8.00 - 20.00",
-	},
-	{
-		day: "Tuesday",
-		time: " 8.00 - 20.00",
-	},
-	{
-		day: "Wednesday",
-		time: " 8.00 - 20.00",
-	},
-	{
-		day: "Thursday",
-		time: " 8.00 - 20.00",
-	},
-	{
-		day: "Friday",
-		time: " 8.00 - 20.00",
-	},
-	{
-		day: "Saturday",
-		time: " 8.00 - 18.00",
-	},
-	{
-		day: "Sunday",
-		time: " 8.00 - 14.00",
-	},
-];
+    {
+        day:'Monday',
+        time:' 8.00 - 20.00'
+    },
+    {
+        day:'Tuesday',
+        time:' 8.00 - 20.00'
+    },
+    {
+        day:'Wednesday',
+        time:' 8.00 - 20.00'
+    },
+    {
+        day:'Thursday',
+        time:' 8.00 - 20.00'
+    },
+    {
+        day:'Friday',
+        time:' 8.00 - 20.00'
+    },
+    {
+        day:'Saturday',
+        time:' 8.00 - 18.00'
+    },
+    {
+        day:'Sunday',
+        time:' 8.00 - 14.00'
+    },
+]
+export const resetPassword = [
+    {
+        id: '1',
+        image: client1,
+        name: 'Howard Tanner',
+        comment: 'Please Reset the password I forgot',
+        status: 'Approved'
+    },
+    {
+        id: '2',
+        image: client2,
+        name: 'Elena Gilbert',
+        comment: 'Forgot my password, need a reset asap, thanks!',
+        status: 'Pending'
+    },
+    {
+        id: '3',
+        image: client3,
+        name: 'Raj Patel',
+        comment: 'I can’t remember my password, can you help with resetting it?',
+        status: 'In Review'
+    },
+    {
+        id: '4',
+        image: client4,
+        name: 'Lucy Liu',
+        comment: 'Lost track of my password, need assistance to reset it, please.',
+        status: 'Approved'
+    },
+    {
+        id: '5',
+        image: client5,
+        name: 'Omar Hassan',
+        comment: 'My password is gone from my memory, need a new one.',
+        status: 'Denied'
+    }
+]
+
 export const patientData = [
 	{
 		id: "1",
@@ -1427,87 +1465,87 @@ export const recentBlog = [
 	},
 ];
 export const faqData = [
-	{
-		id: 1,
-		title: "Getting Started With Your Doctris Practice",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 2,
-		title: "Managing Your Practice Locations",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 3,
-		title: "Setting Up Your Clinic Services",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 4,
-		title: "Appointment Calendar Settings",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 5,
-		title: "Configuring Tax Rates for services",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 6,
-		title: "Setting up the Doctris Practice for Text Consultations",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 7,
-		title: "Configuring Tax Rates for services",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 8,
-		title: "Setting Up Your Clinic Services",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 9,
-		title: "Managing Patient Data in Your Doctris Practice",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 10,
-		title: "Choosing Measurement Units for Health Data",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 11,
-		title: "Uploading and Accessing Medical Reports",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 12,
-		title: "Comprehensive Health Profile",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 13,
-		title: "Doctris Practice Overview",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 14,
-		title: "Creating Your Own Doctris Practice",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 15,
-		title: "Features of the Doctris Practice",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-	{
-		id: 16,
-		title: "Doctris Practice Widget Integrations",
-		desc: "There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.",
-	},
-];
+    {
+        id:1,
+        title:'Getting Started With Your UJUR Practice',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:2,
+        title:'Managing Your Practice Locations',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:3,
+        title:'Setting Up Your Clinic Services',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:4,
+        title:'Appointment Calendar Settings',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:5,
+        title:'Configuring Tax Rates for services',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:6,
+        title:'Setting up the UJUR Practice for Text Consultations',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:7,
+        title:'Configuring Tax Rates for services',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:8,
+        title:'Setting Up Your Clinic Services',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:9,
+        title:'Managing Patient Data in Your UJUR Practice',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:10,
+        title:'Choosing Measurement Units for Health Data',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:11,
+        title:'Uploading and Accessing Medical Reports',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:12,
+        title:'Comprehensive Health Profile',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:13,
+        title:'UJUR Practice Overview',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:14,
+        title:'Creating Your Own UJUR Practice',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:15,
+        title:'Features of the UJUR Practice',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+    {
+        id:16,
+        title:'UJUR Practice Widget Integrations',
+        desc:'There are many variations of passages of Lorem Ipsum available, but the majority have suffered alteration in some form.',
+    },
+]
 export const reviewData = [
 	{
 		id: 1,

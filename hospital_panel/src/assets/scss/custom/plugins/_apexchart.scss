@@ -1,0 +1,36 @@
+//Apexcharts
+.apexcharts-tooltip {
+    background: $apex-tooltip-bg !important;
+    color: $apex-tooltip-color;
+    border-color: $apex-tooltip-bg !important;
+}
+
+.apexcharts-gridlines-horizontal,
+.apexcharts-gridlines-vertical,
+.apexcharts-grid,
+.apexcharts-gridline,
+.apexcharts-xaxis-tick,
+.apexcharts-xaxis line,
+.apexcharts-gridline line,
+.apexcharts-radar-series line,
+.apexcharts-area-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events, 
+.apexcharts-line-series .apexcharts-series-markers .apexcharts-marker.no-pointer-events, 
+.apexcharts-radar-series path, 
+.apexcharts-radar-series polygon {
+    pointer-events: none;
+    stroke: $border-color;
+}
+.apexcharts-tooltip-title{
+    background: $apex-tooltip-bg !important;
+    color: $apex-tooltip-color;
+    border-color: $apex-tooltip-bg !important;
+}
+
+.apexcharts-data-labels, .apexcharts-datalabels text, .apexcharts-xaxis text, .apexcharts-yaxis text {
+    fill: $dark !important;
+}
+
+.apexcharts-legend-text {
+    color: $dark !important;
+    font-family: $font-family-base !important;
+}
