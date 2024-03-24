@@ -6,13 +6,19 @@ import { departmentData } from "../data/data";
 import {MdOutlineCheckCircleOutline, LiaTimesCircleSolid} from '../assets/icons/vander';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
-import { fetchDepartmentHospital } from "../urls/urls";
+import { addDepartmentHospital, fetchDepartmentHospital, fetchSoftwareDepartmentHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
+import { Alert } from 'antd';
+
 
 export default function Departments(){
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
     let [acceptsDepartments, setAcceptsDepartments] = useState(false);
+    const [departmentsSoftware, setSoftwaresData] = useState([])
+    const [formValues, setFormValues] = useState({
+        departmentId:"new"
+    })
     let [cancle, setCancle] = useState(false);
     const [departmentsValues, setDepartmentValues] = useState([]);
     const [
@@ -21,17 +27,56 @@ export default function Departments(){
         departmentsLoading,
         departmentsFetch,
       ] = useAxios();
+    const [
+        getSoftwareDepartmentsResponse,
+        getSoftwareDepartmentssError,
+        getSoftwareDepartmentssLoading,
+        getSoftwareDepartmentssFetch,
+      ] = useAxios();
+    const [
+        addDepartmentsResponse,
+        addDepartmentssError,
+        addDepartmentssLoading,
+        addDepartmentssFetch,
+      ] = useAxios();
     const fetchDepartmentFunc = () => {
         departmentsFetch(fetchDepartmentHospital())
     }
+    const fetchSoftwaresDepartmentFunc = () => {
+        getSoftwareDepartmentssFetch(fetchSoftwareDepartmentHospital())
+    }
+    const addDepartmentSoftware = () => {
+        addDepartmentssFetch(addDepartmentHospital(formValues))
+    }
     useEffect(()=>{
         fetchDepartmentFunc()
+        fetchSoftwaresDepartmentFunc()
     },[])
     useEffect(()=>{
         if(departmentsResponse?.result == "success" && departmentsResponse?.data){
             setDepartmentValues(departmentsResponse?.data)
         }
     },[departmentsResponse])
+    useEffect(()=>{
+        if(getSoftwareDepartmentsResponse?.result == "success" && getSoftwareDepartmentsResponse?.data){
+            setSoftwaresData(getSoftwareDepartmentsResponse?.data)
+        }
+    },[getSoftwareDepartmentsResponse])
+    const[message, setMessage] = useState({
+        message:"",
+        showMessage:""
+      })
+    useEffect(()=>{
+        if(addDepartmentsResponse?.result == "success"){
+            setMessage({
+                message:addDepartmentsResponse?.message,
+                showMessage:true
+              })
+            setShow(!show)
+        }
+    },[addDepartmentsResponse])
+
+
     return(
         <>
         <Wrapper>
@@ -50,13 +95,13 @@ export default function Departments(){
 
                         <div className="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
                             <div className="justify-content-md-end">
-                                <form>
                                     <div className="row justify-content-between align-items-center">
                                         <div className="col-sm-12 col-md-5">
                                            
                                         </div>
                                         
                                         <div className="col-sm-12 col-md-7 mt-4 mt-sm-0">
+                        
                                             <div className="d-grid">
                                                 <Link to="#" className="btn btn-primary" onClick={() =>setShow(!show)}>Add New</Link>
                                             </div>
@@ -66,21 +111,20 @@ export default function Departments(){
                                                 </Modal.Header>
                                                 <Modal.Body>
                                                     <div className="modal-body p-3 pt-4">
-                                                        <form>
                                                             <div className="row">
                                                                 <div className="col-lg-12">
                                                                 <div className="mb-3">
                                                                         <label className="form-label">Departments</label>
-                                                                        <select className="form-select form-control">
-                                                                            <option defaultValue="EY">Add New Department</option>
-                                                                            <option defaultValue="EY">Eye Care</option>
-                                                                            <option defaultValue="GY">Gynecologist</option>
-                                                                            <option defaultValue="PS">Psychotherapist</option>
-                                                                            <option defaultValue="OR">Orthopedic</option>
-                                                                            <option defaultValue="DE">Dentist</option>
-                                                                            <option defaultValue="GA">Gastrologist</option>
-                                                                            <option defaultValue="UR">Urologist</option>
-                                                                            <option defaultValue="NE">Neurologist</option>
+                                                                        <select className="form-select form-control"
+                                                                        onChange={(e)=>{
+                                                                            setFormValues((prev)=>({...prev, departmentId:e.target.value}))
+                                                                        }}
+                                                                        >
+                                                                            <option value="new">Add New Department</option>
+                                                                            {departmentsSoftware.map((items)=>{return(
+                                                                            <option value={items.id}>{items.name}</option>
+
+                                                                            )})}
                                                                         </select>
                                                                     </div>
                                                                 </div>
@@ -88,34 +132,51 @@ export default function Departments(){
                                                                 <div className="col-lg-12">
                                                                     <div className="mb-3">
                                                                         <label className="form-label">Add New Department <span className="text-danger">*</span></label>
-                                                                        <input name="department" id="comments" rows="4" className="form-control" placeholder="New Department Name :"></input>
+                                                                        <input name="department" id="comments" rows="4" className="form-control" placeholder="New Department Name :" disabled={formValues?.departmentId != "new"}
+                                                                                                                                                onChange={(e)=>{
+                                                                                                                                                    setFormValues((prev)=>({...prev, departmentName:e.target.value}))
+                                                                                                                                                }}
+                                                                        ></input>
                                                                     </div>
                                                                 </div>
                                                                 <div className="col-lg-12">
                                                                     <div className="mb-3">
                                                                         <label className="form-label">Comments <span className="text-danger">*</span></label>
-                                                                        <textarea name="comments" id="comments" rows="4" className="form-control" placeholder="Your Message :"></textarea>
+                                                                        <textarea name="comments" id="comments" rows="4" className="form-control" placeholder="Your Message :" disabled={formValues?.departmentId != "new"}
+                                                                          onChange={(e)=>{
+                                                                            setFormValues((prev)=>({...prev, departmentComments:e.target.value}))
+                                                                        }}
+                                                                        ></textarea>
                                                                     </div>
                                                                 </div>
 
                                                                 <div className="col-lg-12">
                                                                     <div className="d-grid">
-                                                                        <button type="submit" className="btn btn-primary">Add An Department</button>
+                                                                        <button type="submit" onClick={addDepartmentSoftware} className="btn btn-primary">Add An Department</button>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </form>
                                                     </div>
                                                 </Modal.Body>
                                             </Modal>
                                         </div>
                                     </div>
-                                </form>
                             </div>
                         </div>
                     </div>
                     
                     <div className="row">
+                    {message?.showMessage &&  <Alert 
+       style={{marginTop:"1rem"}}
+       message={message?.message} type="success" 
+                closable
+                onClose={()=>{
+                  setMessage({
+                    message:"",
+                    showMessage:false
+                  })
+                }}
+          />}
                         <div className="col-12 mt-4">
                             <div className="table-responsive bg-white shadow rounded">
                                 <table className="table mb-0 table-center">

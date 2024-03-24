@@ -62,6 +62,7 @@ import Departments from "./page/departments";
 import Drugs from "./page/pharmacy/drugs";
 import ResetPassword from "./page/resetPassword";
 import DoctorLeave from "./page/doctorLeave";
+import Logout from "./page/logout";
 
 
 function App() {
@@ -132,6 +133,7 @@ function App() {
     <Route path="/error" element={<Error/>}/>
     <Route path="*" element={<Error/>}/>
     <Route path="thankyou" element={<ThankYou/>}/>
+    <Route path="/logout" element={<Logout/>}/>
   </Routes>
    
    </>

@@ -10,9 +10,16 @@ import { useDispatch } from "react-redux";
 import useAxios from "../../network/useAxios";
 import { loginHospitalAdmin } from "../../../src/urls/urls";
 import { updateToken } from "../../redux/reducers/functionalities.reducer";
+import { Alert } from 'antd';
+
 
 export default function Login(){
 const [formValues, setFormValues] = useState()
+const[message, setMessage] = useState({
+    message:"",
+    showMessage:"",
+    type:"error"
+  })
     const [authDetailsResponse, authDetailsError, authDetailsLoading, authDetailsFetch] = useAxios();
     const router = useRouter();
     const dispatch = useDispatch();
@@ -29,6 +36,13 @@ const [formValues, setFormValues] = useState()
             localStorage.setItem('storedToken', authDetailsResponse?.token);
             dispatch(updateToken(authDetailsResponse?.token))
             router.push("/hospital-dashboard")
+        }
+        else{
+            setMessage({
+                message:"The email or password entered is invalid",
+                showMessage:true,
+                type:"error"
+              })
         }
     },[authDetailsResponse])
     return(
@@ -67,7 +81,18 @@ const [formValues, setFormValues] = useState()
                                                 />
                                             </div>
                                         </div>
-
+                                        {message?.showMessage &&  <Alert 
+       style={{marginTop:"1rem", marginBottom:"1rem"}}
+       message={message?.message} type={message?.type}
+                closable
+                
+                onClose={()=>{
+                  setMessage({
+                    message:"",
+                    showMessage:false
+                  })
+                }}
+          />}
                                         <div className="col-lg-12">
                                             <div className="d-flex justify-content-between">
                                                 <div className="mb-3">
@@ -89,31 +114,13 @@ const [formValues, setFormValues] = useState()
                                             </div>
                                         </div>
 
-                                        <div className="col-lg-12 mt-3 text-center">
-                                            <h6 className="text-muted">Or</h6>
-                                        </div>
                                         
-                                        <div className="col-6 mt-3">
-                                            <div className="d-grid">
-                                                <Link to="#" className="btn btn-soft-primary"><AiFillFacebook /> Facebook</Link>
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="col-6 mt-3">
-                                            <div className="d-grid">
-                                                <Link to="#" className="btn btn-soft-primary"><SlSocialGoogle /> Google</Link>
-                                            </div>
-                                        </div>
-
-                                        <div className="col-12 text-center">
-                                            <p className="mb-0 mt-3"><small className="text-dark me-2">Don't have an account ?</small> <Link to="/signup" className="text-dark fw-bold">Sign Up</Link></p>
-                                        </div>
                                     </div>
                                 
                             </div>
                         </div>
                     </div> 
-                </div>
+                </div> 
             </div> 
         </section>
         </>

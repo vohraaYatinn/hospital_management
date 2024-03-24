@@ -42,4 +42,12 @@ export const addPatientsHospital = (payload_data) => {
 export const fetchDepartmentHospital = (payload_data) => {
   return project.get(Urls.FETCH_HOSPITAL_DEPARTMENTS, payload_data);
 };
-
+export const fetchAppointmentsHospital = (payload_data) => {
+  return project.get(Urls.FETCH_HOSPITAL_APPOINTMENTS, payload_data);
+};
+export const fetchSoftwareDepartmentHospital = (payload_data) => {
+  return project.get(Urls.FETCH_SOFTWARE_DEPARTMENTS, payload_data);
+};
+export const addDepartmentHospital = (payload_data) => {
+  return project.post(Urls.ADD_DEPARTMENTS_HOSPITAL, payload_data);
+};

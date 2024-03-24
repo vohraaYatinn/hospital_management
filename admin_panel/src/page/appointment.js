@@ -1,20 +1,43 @@
-import React,{useState} from "react";
+import React,{useEffect, useState} from "react";
 import { Link } from "react-router-dom";
 
 import client1 from "../assets/images/client/01.jpg"
 
 import Wrapper from "../components/wrapper";
-import { appointmentData } from "../data/data";
 
 import {FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircleSolid} from '../assets/icons/vander'
 
 import Modal from 'react-bootstrap/Modal';
+import { fetchAppointmentsHospital } from "../urls/urls";
+import useAxios from "../network/useAxios";
+import { calculateAge } from "../utils/commonFunctions";
+import { test_url_images } from "../config/environment";
+import moment from "moment";
+
 
 export default function Appointment(){
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
     let [acceptsAppointment, setAcceptsAppointment] = useState(false);
+    const [appointmentData, setAppointmentsData] = useState([])
     let [cancle, setCancle] = useState(false);
+    const [
+        appointmentsResponse,
+        appointmentsError,
+        appointmentsLoading,
+        appointmentsFetch,
+      ] = useAxios();
+    const fetchAppointmentsData = () =>{
+        appointmentsFetch(fetchAppointmentsHospital())
+    }
+    useState(()=>{
+        fetchAppointmentsData()
+    },[])
+    useEffect(()=>{
+        if(appointmentsResponse?.result == "success" && appointmentsResponse?.data){
+            setAppointmentsData(appointmentsResponse?.data)
+        }
+    },[appointmentsResponse])
     return(
         <>
         <Wrapper>
@@ -156,14 +179,12 @@ export default function Appointment(){
                                         <tr>
                                             <th className="border-bottom p-3" style={{minWidth:'50px'}}>#</th>
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Name</th>
-                                            <th className="border-bottom p-3" style={{minWidth:'150px'}}>Email</th>
                                             <th className="border-bottom p-3">Age</th>
                                             <th className="border-bottom p-3">Gender</th>
-                                            <th className="border-bottom p-3">Department</th>
                                             <th className="border-bottom p-3" style={{minWidth:'150px'}}>Date</th>
                                             <th className="border-bottom p-3">Time</th>
                                             <th className="border-bottom p-3" style={{minWidth:'200px'}}>Doctor</th>
-                                            <th className="border-bottom p-3">Fees</th>
+                                            <th className="border-bottom p-3">Status</th>
                                             <th className="border-bottom p-3" style={{minWidth:'150px'}}></th>
                                         </tr>
                                     </thead>
@@ -175,29 +196,26 @@ export default function Appointment(){
                                                     <td className="p-3">
                                                         <Link to="#" className="text-dark">
                                                             <div className="d-flex align-items-center">
-                                                                <img src={item.client} className="avatar avatar-md-sm rounded-circle shadow" alt=""/>
-                                                                <span className="ms-2">{item.clientName}</span>
+                                                                <span className="ms-2">{item.patient.full_name}</span>
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="p-3">{item.email}</td>
-                                                    <td className="p-3">{item.age}</td>
-                                                    <td className="p-3">{item.gender}</td>
-                                                    <td className="p-3">{item.department}</td>
-                                                    <td className="p-3">{item.date}</td>
-                                                    <td className="p-3">{item.time}</td>
+                                                    <td className="p-3">{calculateAge(item.patient.date_of_birth)}</td>
+                                                    <td className="p-3">{item.patient.gender}</td>
+                                                    <td className="p-3">{moment(item.date_appointment).format('YYYY-MM-DD')}</td>
+                                                    <td className="p-3">{item.slot}</td>
                                                     <td className="p-3">
                                                         <Link to="#" className="text-dark">
                                                             <div className="d-flex align-items-center">
-                                                                <img src={item.doctor} className="avatar avatar-md-sm rounded-circle border shadow" alt=""/>
-                                                                <span className="ms-2">{item.doctorName}</span>
+                                                                <img src={test_url_images + item.doctor.profile_picture} className="avatar avatar-md-sm rounded-circle border shadow" alt=""/>
+                                                                <span className="ms-2">{item.doctor.full_name}</span>
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="p-3">{item.fees}</td>
+                                                    <td className="p-3">{item.status}</td>
                                                     <td className="text-end p-3">
-                                                        <Link to="#" className="btn btn-icon btn-pills btn-soft-primary" onClick={() =>setShowDetail(!showDetail)}><FiEye /></Link>
-                                                        <Link to="#" className="btn btn-icon btn-pills btn-soft-success mx-1" onClick={() =>setAcceptsAppointment(!acceptsAppointment)}><MdOutlineCheckCircleOutline /></Link>
+                                                        {/* <Link to="#" className="btn btn-icon btn-pills btn-soft-primary" onClick={() =>setShowDetail(!showDetail)}><FiEye /></Link>
+                                                        <Link to="#" className="btn btn-icon btn-pills btn-soft-success mx-1" onClick={() =>setAcceptsAppointment(!acceptsAppointment)}><MdOutlineCheckCircleOutline /></Link> */}
                                                         <Link to="#" className="btn btn-icon btn-pills btn-soft-danger" onClick={() =>setCancle(!cancle)}><AiOutlineCloseCircle /></Link>
                                                     </td>
                                                 </tr>
