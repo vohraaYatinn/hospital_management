@@ -1,0 +1,125 @@
+//
+// _blog.scss
+//
+
+.blog {
+    .title {
+        transition: all 0.5s ease;
+        font-weight: 500 !important;
+        &:hover {
+            color: $primary !important;
+        }
+    }
+
+    .tag {
+        background: $primary !important;
+    }
+    .link {
+        color: $primary !important;
+    }
+    .post-meta {
+        .like,
+        .comments {
+            &:hover {
+                color: $primary !important;
+            }
+        }
+    }
+}
+
+//Sidebar
+.sidebar {
+    .widget {
+        .widget-search {
+            form {
+                position: relative;
+            }
+        }
+        .widget-search, .searchform { 
+            input[type="text"] {
+                box-shadow: none;
+                padding: 12px 15px;
+                height: 45px;
+                font-size: 14px;
+                display: block;
+                width: 100%;
+                outline: none !important;
+                padding-right: 45px;
+            }
+            input[type="submit"] {
+                position: absolute;
+                top: 5px;
+                right: 10px;
+                opacity: 0;
+                width: 40px;
+                height: 40px;
+            }
+        }
+        .widget-search {
+            .searchform:after {
+                content: "\F0349";
+                position: absolute;
+                font-family: "Material Design Icons";
+                right: 16px;
+                top: 15px;
+                font-size: 20px;
+                line-height: 20px;
+                pointer-events: none;
+            }
+        }
+        .post-recent {
+            padding-bottom: 15px;
+            &:last-child {
+                padding-bottom: 0;
+            }
+            .post-recent-thumb {
+                width: 25%;
+            }
+            
+            .post-recent-content {
+                width: 75%;
+                padding-left: 10px;
+                a {
+                    display: block;
+                    color: $dark;
+                    font-size: 15px;
+                    transition: all 0.5s ease;
+                    &:hover {
+                        color: $primary;
+                    }
+                }
+                span {
+                    font-size: 13px;
+                }
+            }
+        }
+        .tagcloud {
+            > a {
+                background: $gray-100;
+                color: $dark;
+                display: inline-block;
+                font-size: 9px;
+                letter-spacing: 1px;
+                margin: 5px 10px 5px 0;
+                padding: 8px 12px 7px;
+                text-transform: uppercase;
+                transition: all 0.5s ease;
+                font-weight: 600;
+                &:hover {
+                    background: $primary;
+                    color: $white;
+                }
+            }
+        }
+    }
+}
+
+//Pharmacy
+.pharpachy-categories {
+    .category-title {
+        position: absolute;
+        top: 20px;
+        left: 20px;
+        z-index: 1;
+    }
+}

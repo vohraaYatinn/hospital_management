@@ -1,0 +1,42 @@
+//
+// _footer.scss
+//
+footer {
+    background: $footer;
+    padding: 60px 0 24px;
+    position: relative;
+    color: $footer-text;
+    .text-foot {
+        color: $footer-text;
+    }
+    .footer-head {
+        font-size: 18px !important; 
+        letter-spacing: 1px;         
+        font-weight: 500;
+        color: $footer-head-color;
+    }
+    .footer-list {
+        margin-bottom: 0;
+        li {
+            margin-bottom: 10px;
+            margin-left: 0 !important;
+            a{
+                transition: all 0.5s ease;
+                &:hover {
+                    color: lighten($footer-text, 20%);
+                }
+            }   
+            &:last-child{
+                margin-bottom: 0;
+            }         
+        }
+    } 
+    .footer-bar,
+    &.footer-bar {
+        border-top: 1px solid lighten($footer, 6%);
+    }
+}
+
+.bg-footer-color {
+    background-color: $body-bg !important;
+}

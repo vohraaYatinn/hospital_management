@@ -1,0 +1,59 @@
+//
+// _team.scss
+//
+.team {
+    transition: all 0.5s;
+    .team-img {
+        .team-social {
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+            opacity: 0;
+            transition: all 0.5s;
+            transform: translateX(-50px);
+            li{
+                margin-left: 0 !important;
+            }
+        }
+    }
+    .title {
+        font-weight: 500;
+    }
+    .content, 
+    .content .title, 
+    .content .speciality {
+        transition: all 0.5s;
+    }
+    .team-person {
+        img {
+            transition: all 0.5s;
+        }
+        .team-like {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        &:hover {
+            img {
+                transform: scale(1.05);
+            }
+        }
+    }
+    &:hover {
+        .team-img {
+            .team-social {
+                opacity: 1;
+                transform: translateX(0px);
+            }
+        }
+        .content {
+            background: $primary !important;
+            .title {
+                color: $white !important;
+            }
+            .speciality {
+                color: rgba($white, 0.5) !important;
+            }
+        }
+    }
+}

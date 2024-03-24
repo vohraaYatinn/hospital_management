@@ -1,0 +1,46 @@
+// 
+// _dropdown.scss
+// 
+
+//Dropdowns
+@each $name,
+$value in $theme-colors {
+    .dropdown-#{$name} {
+        .dropdown-menu {
+            .dropdown-item {
+                &:hover,
+                &.active,
+                &:active,
+                &.focus,
+                &:focus {
+                    background-color: transparent;
+                    color: #{$value} !important;
+                }
+            }
+        }
+    }
+}
+
+.dropdown-menu {
+    margin-top: 10px;
+    border: 0;
+    border-radius: 5px;
+    box-shadow: $shadow;
+    top: 30px !important;
+    .dropdown-item {
+        padding: 5px 20px;
+        clear: both;
+        white-space: nowrap;
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.04em;
+        font-weight: 600;
+    }
+}
+.dropdown {
+    .dropdown-toggle {
+        &:after {
+            display: none !important;
+        }
+    }
+}
