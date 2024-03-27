@@ -8,7 +8,7 @@ import { FiHome, AiFillFacebook, SlSocialGoogle } from '../../assets/icons/vande
 import { useRouter } from "../../hooks/use-router";
 import { useDispatch } from "react-redux";
 import useAxios from "../../network/useAxios";
-import { loginHospitalAdmin } from "../../../src/urls/urls";
+import { loginMainAdmin } from "../../../src/urls/urls";
 import { updateToken } from "../../redux/reducers/functionalities.reducer";
 import { Alert } from 'antd';
 
@@ -25,7 +25,7 @@ const[message, setMessage] = useState({
     const dispatch = useDispatch();
     const LoginFunction = () =>{
         if(formValues?.email && formValues?.password){
-        authDetailsFetch(loginHospitalAdmin({
+        authDetailsFetch(loginMainAdmin({
             email:formValues.email,
             password:formValues.password
         }))
@@ -35,9 +35,9 @@ const[message, setMessage] = useState({
         if(authDetailsResponse?.result == "success"){
             localStorage.setItem('storedToken', authDetailsResponse?.token);
             dispatch(updateToken(authDetailsResponse?.token))
-            router.push("/hospital-dashboard")
+            router.push("/admin-dashboard")
         }
-        else{
+        else if(authDetailsResponse?.result == "failure"){
             setMessage({
                 message:"The email or password entered is invalid",
                 showMessage:true,

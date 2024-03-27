@@ -63,13 +63,16 @@ import Drugs from "./page/pharmacy/drugs";
 import ResetPassword from "./page/resetPassword";
 import DoctorLeave from "./page/doctorLeave";
 import Logout from "./page/logout";
+import Hospital from "./page/hospitals/hospitals";
+import AddHospital from "./page/hospitals/add-hospital";
+import HospitalProfile from "./page/hospitals/hospital-profile";
 
 
 function App() {
   return (
    <>
    <Routes>
-    <Route path="/hospital-dashboard" element={<Index/>}/>
+    <Route path="/admin-dashboard" element={<Index/>}/>
     <Route path="/index" element={<Index/>}/>
     <Route path="/index-sidebar-dark" element={<IndexDarkSidebar/>}/>
     <Route path="/index-sidebar-colored" element={<IndexSidebarColored/>}/>
@@ -97,6 +100,10 @@ function App() {
     <Route path="/blogs" element={<Blogs/>}/>
     <Route path="/blog-detail" element={<BlogDetail/>}/>
     <Route path="/blog-detail/:id" element={<BlogDetail/>}/>
+					<Route path="/hospitals" element={<Hospital />} />
+				<Route path="/add-hospital" element={<AddHospital />} />
+				<Route path="/hospital-profile" element={<HospitalProfile />} />
+				<Route path="/hospital-profile/:id" element={<HospitalProfile />} />
     <Route path="/faqs" element={<Faqs/>}/>
     <Route path="/review" element={<Review/>}/>
     <Route path="/invoice-list" element={<InvoiceList/>}/>

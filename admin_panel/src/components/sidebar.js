@@ -3,7 +3,7 @@ import { Link,useLocation } from "react-router-dom";
 import logoDark from '../assets/images/logo-dark.png'
 import logoLight from '../assets/images/logo-light.png'
 
-import {GrDashboard, PiBrowsers, RiStethoscopeLine, LuUser2, PiWheelchairFill, AiOutlineAppstore, PiShoppingCart, MdFlip, FaRegFile, BsEnvelopeOpen, BiLogOutCircle, TbFileInfo, BsPostcard, FaRegComment} from '../assets/icons/vander'
+import {GrDashboard, PiBrowsers, RiStethoscopeLine, LuUser2, PiWheelchairFill, AiOutlineAppstore, PiShoppingCart, MdFlip, FaRegFile, BsEnvelopeOpen, BiLogOutCircle, TbFileInfo, BsPostcard, FaRegComment, CiHospital1} from '../assets/icons/vander'
 
 import SimpleBar from 'simplebar-react';
 import 'simplebar-react/dist/simplebar.min.css';
@@ -46,6 +46,47 @@ export default function Sidebar({manuClass}){
         
                     <ul className="sidebar-menu">
                         <li className={`${manu === "index" || "" ? "active" : ""} ms-0`}><Link to="/index"><GrDashboard className="me-2 d-inline-block mb-0 icon"/>Dashboard</Link></li>
+                        <li
+						className={`sidebar-dropdown ms-0 ${
+							[
+								"hospitals",
+								"add-hospital",
+								"hospital-profile",
+								"hospital-item",
+							].includes(manu)
+								? "active"
+								: ""
+						}`}>
+						<Link
+							to="#"
+							onClick={(e) => {
+								setSubManu(subManu === "hospital-item" ? "" : "hospital-item");
+							}}>
+							<CiHospital1 className="me-2 d-inline-block mb-0 icon" />
+							Hospitals
+						</Link>
+						<div
+							className={`sidebar-submenu ${
+								[
+									"hospitals",
+									"add-hospital",
+									"hospital-profile",
+									"hospital-item",
+								].includes(subManu)
+									? "d-block"
+									: ""
+							}`}>
+							<ul>
+								<li className={`${manu === "hospitals" ? "active" : ""} ms-0`}>
+									<Link to="/hospitals">Hospitals</Link>
+								</li>
+								<li
+									className={`${manu === "add-hospital" ? "active" : ""} ms-0`}>
+									<Link to="/add-hospital">Add Hospital</Link>
+								</li>
+							</ul>
+						</div>
+					</li>
                         <li className={`sidebar-dropdown ms-0 ${["doctors","add-doctor","dr-profile","doctors-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === "doctors-item" ? "" : "doctors-item")}}><LuUser2 className="me-2 d-inline-block mb-0 icon"/>Doctors</Link>
                             <div className={`sidebar-submenu ${["doctors","add-doctor","dr-profile","doctors-item"].includes(subManu)? "d-block" : ""}`}>
@@ -55,11 +96,11 @@ export default function Sidebar({manuClass}){
                                 </ul>
                             </div>
                         </li>
-                   
+                    
                         <li className={`${manu === "appointment" ? "active" : ""} ms-0`}><Link to="/appointment"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Appointment</Link></li>
                         <li className={`${manu === "departments" ? "active" : ""} ms-0`}><Link to="/departments"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Departments</Link></li>
-                        <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li>
-                        <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}><Link to="/doctor-leave"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Leave Request</Link></li>
+                        {/* <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li> */}
+                        {/* <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}><Link to="/doctor-leave"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Leave Request</Link></li> */}
 
                        
 
@@ -73,11 +114,11 @@ export default function Sidebar({manuClass}){
                             </div>
                         </li>
 
-                        {/* <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li> */}
+                        <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li>
 
-                        <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}><Link to="/reset-password"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reset Password</Link></li>
+                        {/* <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}><Link to="/reset-password"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reset Password</Link></li> */}
 
-
+                    
                         {/* <li className={`sidebar-dropdown ms-0 ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'auth-item' ? '' : 'auth-item')}}><BiLogOutCircle className="me-2 d-inline-block mb-0 icon"/>Authentication</Link>
                             <div className={`sidebar-submenu ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(subManu)? "d-block" : ""}`}>

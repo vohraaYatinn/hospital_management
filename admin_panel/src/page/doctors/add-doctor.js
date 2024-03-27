@@ -4,7 +4,7 @@ import Wrapper from "../../components/wrapper";
 
 import doctor from "../../assets/images/doctors/01.jpg";
 import useAxios from "../../network/useAxios";
-import { addDoctorByHospital } from "../../urls/urls.jsx";
+import { addDoctorByHospital, fetchAllHospital } from "../../urls/urls.jsx";
 import { Alert } from 'antd';
 
 
@@ -12,6 +12,18 @@ export default function AddDoctor() {
   const [formValues, setFormValues] = useState({});
   const [isUploaded, setIsUploaded] = useState(false);
   const fileInputRef = React.useRef(null);
+  const [
+    hospitalDataResponse,
+    hospitalDataError,
+    hospitalDataLoading,
+    hospitalDataFetch,
+  ] = useAxios();
+  // const [
+  //   departmentResponse,
+  //   departmentError,
+  //   departmentLoading,
+  //   departmentFetch,
+  // ] = useAxios();
   const [
     doctorProfileResponse,
     doctorProfileError,
@@ -49,6 +61,12 @@ export default function AddDoctor() {
   const submitValues = () => {
     doctorProfileFetch(addDoctorByHospital(formValues))
   }
+  const fetchAllHospitalFunc = () => {
+    hospitalDataFetch(fetchAllHospital())
+  }
+  useEffect(()=>{
+    fetchAllHospitalFunc()
+  },[])
   useEffect(()=>{
     if(doctorProfileResponse?.result == "success"){
       setMessage({
@@ -196,7 +214,24 @@ export default function AddDoctor() {
                         />
                       </div>
                     </div>
-
+                    <div className="col-md-12">
+                      <div className="mb-3">
+                        <label className="form-label">Hospitals</label>
+                        <select
+                          className="form-select form-control"
+                          onChange={(e) => {
+                            setFormValues((prev) => ({
+                              ...prev,
+                              HospitalsId: e.target.value,
+                            }));
+                          }}
+                        >
+                          {hospitalDataResponse?.data?.map((item)=>{return(
+                          <option value={item?.id}>{item?.name}</option>
+                          )})}
+                        </select>
+                      </div>
+                    </div>
                     <div className="col-md-6">
                       <div className="mb-3">
                         <label className="form-label">Departments</label>

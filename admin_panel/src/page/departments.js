@@ -6,7 +6,7 @@ import { departmentData } from "../data/data";
 import {MdOutlineCheckCircleOutline, LiaTimesCircleSolid} from '../assets/icons/vander';
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
-import { addDepartmentHospital, fetchDepartmentHospital, fetchSoftwareDepartmentHospital } from "../urls/urls";
+import { addDepartmentAdmin, addDepartmentHospital, fetchDepartmentAll, fetchSoftwareDepartmentHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { Alert } from 'antd';
 
@@ -40,13 +40,13 @@ export default function Departments(){
         addDepartmentssFetch,
       ] = useAxios();
     const fetchDepartmentFunc = () => {
-        departmentsFetch(fetchDepartmentHospital())
+        departmentsFetch(fetchDepartmentAll())
     }
     const fetchSoftwaresDepartmentFunc = () => {
         getSoftwareDepartmentssFetch(fetchSoftwareDepartmentHospital())
     }
     const addDepartmentSoftware = () => {
-        addDepartmentssFetch(addDepartmentHospital(formValues))
+        addDepartmentssFetch(addDepartmentAdmin())
     }
     useEffect(()=>{
         fetchDepartmentFunc()
@@ -107,27 +107,11 @@ export default function Departments(){
                                             </div>
                                             <Modal show={show} onHide={() =>setShow(!show)} size="lg" centered>
                                                 <Modal.Header closeButton>
-                                                <Modal.Title className='h5'>Book an Departments</Modal.Title>
+                                                <Modal.Title className='h5'>Add A New Department</Modal.Title>
                                                 </Modal.Header>
                                                 <Modal.Body>
                                                     <div className="modal-body p-3 pt-4">
                                                             <div className="row">
-                                                                <div className="col-lg-12">
-                                                                <div className="mb-3">
-                                                                        <label className="form-label">Departments</label>
-                                                                        <select className="form-select form-control"
-                                                                        onChange={(e)=>{
-                                                                            setFormValues((prev)=>({...prev, departmentId:e.target.value}))
-                                                                        }}
-                                                                        >
-                                                                            <option value="new">Add New Department</option>
-                                                                            {departmentsSoftware.map((items)=>{return(
-                                                                            <option value={items.id}>{items.name}</option>
-
-                                                                            )})}
-                                                                        </select>
-                                                                    </div>
-                                                                </div>
                                                          
                                                                 <div className="col-lg-12">
                                                                     <div className="mb-3">
@@ -196,11 +180,11 @@ export default function Departments(){
                                                     <Link to="#" className="text-dark">
                                                         <div className="d-flex align-items-center">
                                                             {/* Assuming you want to show some avatar/name related to the department or client, adjust as needed */}
-                                                            <span className="ms-2">{item.department.name}</span> {/* Department Name */}
+                                                            <span className="ms-2">{item.name}</span> {/* Department Name */}
                                                         </div>
                                                     </Link>
                                                 </td>
-                                                <td className="p-3">{item.department.description}</td> {/* Department Description */}
+                                                <td className="p-3">{item.description}</td> {/* Department Description */}
                                                 {/* Removed other <td>'s as they are not defined in your <th>'s */}
                                             </tr>
                                             )

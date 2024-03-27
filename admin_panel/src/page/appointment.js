@@ -8,7 +8,7 @@ import Wrapper from "../components/wrapper";
 import {FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircleSolid} from '../assets/icons/vander'
 
 import Modal from 'react-bootstrap/Modal';
-import { fetchAppointmentsHospital } from "../urls/urls";
+import { fetchAppointmentsAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { calculateAge } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
@@ -28,7 +28,7 @@ export default function Appointment(){
         appointmentsFetch,
       ] = useAxios();
     const fetchAppointmentsData = () =>{
-        appointmentsFetch(fetchAppointmentsHospital())
+        appointmentsFetch(fetchAppointmentsAllHospital())
     }
     useState(()=>{
         fetchAppointmentsData()
