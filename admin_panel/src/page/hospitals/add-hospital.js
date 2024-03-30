@@ -1,100 +1,99 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 
 import hospital from "../../assets/images/hospitals/01.jpg";
 import Wrapper from "../../components/wrapper";
-import {
-	clientReview,
-	companyLogo,
-	doctorData,
-	hospitalData,
-	patientData,
-} from "../../data/data";
+import useAxios from "../../network/useAxios";
+import { addAdminHospital } from "../../urls/urls";
+import { test_url_images } from "../../config/environment";
+import { Alert } from "antd";
 
-import "tiny-slider/dist/tiny-slider.css";
 
-import {
-	FaStar,
-	BsLink45Deg,
-	FiFacebook,
-	FiLinkedin,
-	FiTwitter,
-	FiPhone,
-	FiMail,
-	FiInstagram,
-} from "../../assets/icons/vander";
+export default function AddHospitalProfile() {
+	const [formValue, setFormValue] = useState([]);
+	const [
+	  addHospitalResponse,
+	  addHospitalError,
+	  addHospitalLoading,
+	  addHospitalFetch,
+	] = useAxios();
+	const[message, setMessage] = useState({
+		message:"",
+		showMessage:""
+	  })
 
-export default function HospitalProfile() {
-	let params = useParams();
-	let id = params.id;
-	let data = hospitalData.find((doctor) => doctor.id === parseInt(id));
+	useEffect(() => {
+	  if (addHospitalResponse?.result == "success") {
+		setMessage({
+			message:addHospitalResponse?.message,
+			showMessage:true
+		})
+		// setDoctorsData(addHospitalResponse?.data);
+	  }
+	}, [addHospitalResponse]);
+	const addHospitalFunc = () => {
+		addHospitalFetch(addAdminHospital(formValue));
+	}
+	const fileInputRef = React.useRef(null);
+	const [isUploaded, setIsUploaded] = useState(false);
 
-	let [activeIndex, setActiveIndex] = useState(1);
-
-	let settings = {
-		container: ".slider-range-four",
-		items: 4,
-		controls: false,
-		mouseDrag: true,
-		loop: true,
-		rewind: true,
-		autoplay: true,
-		autoplayButtonOutput: false,
-		autoplayTimeout: 3000,
-		navPosition: "bottom",
-		speed: 400,
-		gutter: 24,
-		responsive: {
-			992: {
-				items: 4,
-			},
-
-			767: {
-				items: 2,
-			},
-
-			320: {
-				items: 1,
-			},
-		},
-	};
-	let settings2 = {
-		container: ".client-review-slider",
-		items: 1,
-		controls: false,
-		mouseDrag: true,
-		loop: true,
-		rewind: true,
-		autoplay: true,
-		autoplayButtonOutput: false,
-		autoplayTimeout: 3000,
-		navPosition: "bottom",
-		speed: 400,
-		gutter: 16,
-	};
-
+	const openFile = () =>{
+		fileInputRef.current.click();
+	
+	  }
+	const handleUpload = (e) => {
+		const file = e.target.files[0];
+		if (file) {
+		  console.log("Selected file:", file);
+		  setFormValue((prev) => ({
+			...prev,
+			logo: file
+		  }));      
+		  setIsUploaded(true);
+		}
+	  };
+	
+	  const handleRemove = () => {
+		setIsUploaded(false);
+		console.log("Remove button clicked");
+		setFormValue((prev) => ({
+			...prev,
+			logo: ""
+		  }));  
+	  };
 	return (
 		<Wrapper>
 			<div className="container-fluid">
+			<input
+            type="file"
+            ref={fileInputRef}
+            style={{ display: 'none' }}
+            onChange={handleUpload}
+          />
 				<div className="layout-specing">
 					<div className="d-md-flex justify-content-between">
 						<h5 className="mb-0">Add New Hospital</h5>
 
 					</div>
+					
 					<div className="col-lg-10">
+					{message?.showMessage &&  <Alert 
+       style={{marginTop:"1rem"}}
+       message={message?.message} type="success" 
+                closable
+                onClose={()=>{
+                  setMessage({
+                    message:"",
+                    showMessage:false
+                  })
+                }}
+          />}
 														<div className="rounded shadow mt-4">
 														
 
 															<div className="p-4">
 																<div className="row align-items-center">
-																	<div className="col-lg-2 col-md-4">
-																		<img
-																			src={data?.image ? data.image : hospital}
-																			className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
-																			alt=""
-																		/>
-																	</div>
-
+												
 																	<div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
 																		<h6 className="">
 																			Upload hospital picture
@@ -107,18 +106,20 @@ export default function HospitalProfile() {
 																	</div>
 
 																	<div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
-																		<Link to="#" className="btn btn-primary">
+																		{!isUploaded && 
+																		<Link className="btn btn-primary" onClick={openFile}>
 																			Upload
 																		</Link>
+																		}
+																		{isUploaded && 
 																		<Link
-																			to="#"
-																			className="btn btn-soft-primary ms-2">
+																			
+																			className="btn btn-soft-primary ms-2" onClick={handleRemove}>
 																			Remove
-																		</Link>
+																		</Link>}
 																	</div>
 																</div>
 
-																<form className="mt-4">
 																	<div className="row">
 																		<div className="col-md-6">
 																			<div className="mb-3">
@@ -131,7 +132,9 @@ export default function HospitalProfile() {
 																					type="text"
 																					className="form-control"
 																					placeholder="First Name :"
-																				/>
+																					onChange={(e)=>{
+																						setFormValue((prev)=>({...prev, hospitalName:e.target.value}))
+																					}}																				/>
 																			</div>
 																		</div>
 
@@ -146,6 +149,9 @@ export default function HospitalProfile() {
 																					type="email"
 																					className="form-control"
 																					placeholder="Your email :"
+																					onChange={(e)=>{
+																						setFormValue((prev)=>({...prev, email:e.target.value}))
+																					}}	
 																				/>
 																			</div>
 																		</div>
@@ -161,6 +167,9 @@ export default function HospitalProfile() {
 																					type="text"
 																					className="form-control"
 																					placeholder="Phone no. :"
+																					onChange={(e)=>{
+																						setFormValue((prev)=>({...prev, phoneNumber:e.target.value}))
+																					}}	
 																				/>
 																			</div>
 																		</div>
@@ -175,6 +184,9 @@ export default function HospitalProfile() {
 																					type="text"
 																					className="form-control"
 																					placeholder="website link :"
+																					onChange={(e)=>{
+																						setFormValue((prev)=>({...prev, website:e.target.value}))
+																					}}	
 																				/>
 																			</div>
 																		</div>
@@ -189,7 +201,11 @@ export default function HospitalProfile() {
 																					id="address"
 																					rows="2"
 																					className="form-control"
-																					placeholder="Address :"></textarea>
+																					placeholder="Address :"
+																					onChange={(e)=>{
+																						setFormValue((prev)=>({...prev, address:e.target.value}))
+																					}}	
+																					></textarea>
 																			</div>
 																		</div>
 																		<div className="col-md-12">
@@ -202,15 +218,20 @@ export default function HospitalProfile() {
 																					id="description"
 																					rows="3"
 																					className="form-control"
-																					placeholder="Description :"></textarea>
+																					placeholder="Description :"
+																					onChange={(e)=>{
+																						setFormValue((prev)=>({...prev, description:e.target.value}))
+																					}}	
+																					></textarea>
 																			</div>
 																		</div>
 																	</div>
 
-																	<button className="btn btn-primary">
+																	<button className="btn btn-primary"
+																	onClick={addHospitalFunc}
+																	>
 																		Add Hospital
 																	</button>
-																</form>
 															</div>
 														</div>
 													</div>

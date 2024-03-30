@@ -1,3 +1,5 @@
+import moment from "moment";
+
 export function isNumber(value) {
     return !isNaN(Number(value)) && value !== '';
   }
@@ -15,3 +17,19 @@ export function isNumber(value) {
 
     return age;
   };
+
+export const changeDateFormat = (date) =>{
+  return moment(date).format('YYYY-MM-DD')
+}
+
+export const designStarsReviews = (stars) => {
+  let starsArray = [];
+  for (let i = 0; i < stars; i++) {
+      starsArray.push(
+          <li key={i} className="list-inline-item">
+              <i className="mdi mdi-star text-warning"></i>
+          </li>
+      );
+  }
+  return starsArray;
+}

@@ -4,20 +4,23 @@ import { Link } from "react-router-dom";
 import client from '../../assets/images/client/01.jpg'
 import doctor from '../../assets/images/doctors/01.jpg'
 import Wrapper from "../../components/wrapper";
-
-import {FiEye, BsPencil, FiTrash} from '../../assets/icons/vander'
-
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
-import { fetchPatientsHospitals } from "../../urls/urls";
+import { fetchPatientsAdmin } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { calculateAge } from "../../utils/commonFunctions";
 import moment from "moment";
+import PatientName from "../../common-components/PatientName";
+import DoctorSearch from "../../common-components/DoctorsSearch";
+import HospitalNameSearch from "../../common-components/HospitalName";
+import DepartmentSearch from "../../common-components/DepartmentSearch";
 
 
 export default function Patients(){
     let [viewProfile, setViewProfile] = useState(false)
     let [editProfile, setEditProfile] = useState(false)
+    const [filters, setFilters] = useState({
+    })
     const [patientData, setPatientsData] = useState([]);
     const [
       patientListResponse,
@@ -26,8 +29,8 @@ export default function Patients(){
       patientListFetch,
     ] = useAxios();
     useEffect(()=>{
-        patientListFetch(fetchPatientsHospitals())
-    },[])
+        patientListFetch(fetchPatientsAdmin(filters))
+    },[filters])
     useEffect(()=>{
         if(patientListResponse?.result == "success"){
             setPatientsData(patientListResponse?.data)
@@ -49,6 +52,40 @@ export default function Patients(){
                     </div>
                     
                     <div className="row">
+                    <div className="row" style={{ marginTop: "1rem" }}>
+                                <div className="col-sm-6 col-lg-3">
+                                    <PatientName filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                    <DoctorSearch filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                        <HospitalNameSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-3">
+                                        <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    </div>
+                                    <div className="row" style={{ marginTop: "1rem" }}>
+
+                                    <div className="col-sm-6 col-lg-1">
+                                       <button
+                                        className="form-control btn-check-reset"
+                                        onClick={()=>{
+                                            setFilters({
+                                                department:"",
+                                                hospitalSearch:"",
+                                                doctorName:"",
+                                                patientName:""
+                                            })
+                                        }}
+                                        style={{backgroundColor:"red"}}
+                                       >Reset</button>
+
+                                    </div>
+                                </div>
                         <div className="col-12 mt-4">
                             <div className="table-responsive shadow rounded">
                                 <table className="table table-center bg-white mb-0">

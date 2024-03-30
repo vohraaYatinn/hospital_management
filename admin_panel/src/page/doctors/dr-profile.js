@@ -12,6 +12,7 @@ import {RiTimeFill, FiPhone, FiMail} from '../../assets/icons/vander'
 import { fetchHospitalDoctorsProfile } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
+import { designStarsReviews } from "../../utils/commonFunctions";
 
 
 export default function DrProfile(){
@@ -40,17 +41,7 @@ export default function DrProfile(){
       }
     }, [doctorProfileResponse]);
     
-    const designStarsReviews = (stars) => {
-        let starsArray = [];
-        for (let i = 0; i < stars; i++) {
-            starsArray.push(
-                <li key={i} className="list-inline-item">
-                    <i className="mdi mdi-star text-warning"></i>
-                </li>
-            );
-        }
-        return starsArray;
-    }
+
 
 
 

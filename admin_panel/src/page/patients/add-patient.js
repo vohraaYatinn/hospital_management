@@ -40,6 +40,8 @@ export default function AddPatient() {
       });
     }
   }, [hospitalPatientAddResponse]);
+  const [errors, setErrors] = useState({});
+
   return (
     <Wrapper>
       <div className="container-fluid">

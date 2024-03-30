@@ -10,8 +10,15 @@ import {
   FiTwitter,
 } from "../../assets/icons/vander";
 import useAxios from "../../network/useAxios";
-import { fetchHospitalDoctors } from "../../urls/urls";
+import { fetchAllDoctors } from "../../urls/urls";
 import { test_url_images } from "../../config/environment";
+import DepartmentSearch from "../../common-components/DepartmentSearch";
+import HospitalNameSearch from "../../common-components/HospitalName";
+import StatusSearch from "../../common-components/StatusSearch";
+import AppointmentSlots from "../../common-components/SlotsSearch";
+import DateSearchComponent from "../../common-components/DateSearch";
+import DoctorSearch from "../../common-components/DoctorsSearch";
+import PatientName from "../../common-components/PatientName";
 
 export default function Doctors() {
   const [doctorsData, setDoctorsData] = useState([]);
@@ -21,9 +28,11 @@ export default function Doctors() {
     patientListLoading,
     patientListFetch,
   ] = useAxios();
+  const [filters, setFilters] = useState({
+  })
   useEffect(() => {
-    patientListFetch(fetchHospitalDoctors());
-  }, []);
+    patientListFetch(fetchAllDoctors(filters));
+  }, [filters]);
   useEffect(() => {
     if (patientListResponse?.result == "success" && patientListResponse?.data) {
       setDoctorsData(patientListResponse?.data);
@@ -55,9 +64,39 @@ export default function Doctors() {
               </Link>
                         </div>
                     </div>
-                    
+                    <div className="row" style={{ marginTop: "1rem" }}>
+
+                                <div className="col-sm-6 col-lg-3">
+                                    <DoctorSearch filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                        <HospitalNameSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-3">
+                                        <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-1">
+                                       <button
+                                        className="form-control btn-check-reset"
+                                        onClick={()=>{
+                                            setFilters({
+                                                department:"",
+                                                hospitalSearch:"",
+                                                doctorName:"",
+                                            })
+                                        }}
+                                        style={{backgroundColor:"red"}}
+                                       >Reset</button>
+
+                                    </div>
+                                </div>
+                                
+                             
                     <div className="row row-cols-md-2 row-cols-lg-5">
-                        {doctorsData?.hospital_doctors?.map((item, index) => {
+
+                        {doctorsData?.map((item, index) => {
                             return (
                                 <div className="col mt-4" key={index}>
                                     <div className="card team border-0 rounded shadow overflow-hidden">

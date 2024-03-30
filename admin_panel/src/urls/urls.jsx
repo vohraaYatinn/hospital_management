@@ -10,6 +10,9 @@ const project = new HttpAxiosService(test_url);
 export const addDoctorByHospital = (payload_data) => {
   return project.multiPartFormData(Urls.ADD_DOCTOR_HOSPITAL, payload_data);
 };
+export const addAdminHospital = (payload_data) => {
+  return project.multiPartFormData(Urls.ADD_ADMIN_HOSPITAL, payload_data);
+};
 export const loginMainAdmin = (payload_data) => {
   return project.post(Urls.FETCH_MAIN_ADMIN, payload_data);
 };
@@ -19,7 +22,7 @@ export const fetchAllHospital = (payload_data) => {
 export const fetchHospitalProfile = (payload_data) => {
   return project.get(Urls.FETCH_HOSPITAL_DETAILS, payload_data);
 };
-export const fetchHospitalDoctors = (payload_data) => {
+export const fetchAllDoctors = (payload_data) => {
   return project.get(Urls.FETCH_ALL_DOCTORS, payload_data);
 };
 
@@ -40,6 +43,9 @@ export const changeResetPassword = (payload_data) => {
 };
 export const fetchPatientsHospitals = (payload_data) => {
   return project.get(Urls.FETCH_HOSPITAL_PATIENTS, payload_data);
+};
+export const fetchPatientsAdmin = (payload_data) => {
+  return project.get(Urls.FETCH_ADMIN_PATIENTS, payload_data);
 };
 
 export const addPatientsHospital = (payload_data) => {
@@ -65,4 +71,7 @@ export const addDepartmentHospital = (payload_data) => {
 };
 export const addDepartmentAdmin = (payload_data) => {
   return project.post(Urls.ADD_DEPARTMENTS_ADMIN, payload_data);
+};
+export const fetchAllReviews = (payload_data) => {
+  return project.get(Urls.FETCH_ALL_REVIEWS, payload_data);
 };

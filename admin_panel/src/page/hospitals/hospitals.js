@@ -6,8 +6,17 @@ import { FaStar } from "../../assets/icons/vander";
 import useAxios from "../../network/useAxios";
 import { fetchAllHospital } from "../../urls/urls";
 import { test_url_images } from "../../config/environment";
+import DepartmentSearch from "../../common-components/DepartmentSearch";
+import HospitalNameSearch from "../../common-components/HospitalName";
+import AppointmentSlots from "../../common-components/SlotsSearch";
+import DateSearchComponent from "../../common-components/DateSearch";
+import DoctorSearch from "../../common-components/DoctorsSearch";
+import PatientName from "../../common-components/PatientName";
+import StatusSearch from "../../common-components/StatusSearch";
 
 export default function Hospitals() {
+    const [filters, setFilters] = useState({
+    })	
 	const [hospitalData, setHospitalData] = useState([])
 	const [
 		hospitalsResponse,
@@ -16,8 +25,8 @@ export default function Hospitals() {
 		hospitalsFetch,
 	  ] = useAxios();
 	  useEffect(() => {
-		hospitalsFetch(fetchAllHospital());
-	  }, []);
+		hospitalsFetch(fetchAllHospital(filters));
+	  }, [filters]);
 	  useEffect(() => {
 		if (hospitalsResponse?.result == "success" && hospitalsResponse?.data) {
 		  setHospitalData(hospitalsResponse?.data);
@@ -47,6 +56,30 @@ export default function Hospitals() {
 							</Link>
 						</div>
 					</div>
+					<div className="row" style={{ marginTop: "1rem" }}>
+
+    
+
+                           
+                                    <div className="col-sm-6 col-lg-3">
+                                        <HospitalNameSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                
+                                    <div className="col-sm-6 col-lg-1">
+                                       <button
+                                        className="form-control btn-check-reset"
+                                        onClick={()=>{
+                                            setFilters({
+                                                hospitalSearch:"",
+                                            })
+                                        }}
+                                        style={{backgroundColor:"red"}}
+                                       >Reset</button>
+
+                                    </div>
+
+                            </div>
 					<div className="row row-cols-md-2 row-cols-lg-5">
 						{hospitalData.map((item, index) => {
 							return (

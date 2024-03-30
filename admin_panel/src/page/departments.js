@@ -9,11 +9,13 @@ import { useEffect } from "react";
 import { addDepartmentAdmin, addDepartmentHospital, fetchDepartmentAll, fetchSoftwareDepartmentHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { Alert } from 'antd';
-
+import DepartmentSearch from "../common-components/DepartmentSearch";
 
 export default function Departments(){
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
+    const [filters, setFilters] = useState({
+    })
     let [acceptsDepartments, setAcceptsDepartments] = useState(false);
     const [departmentsSoftware, setSoftwaresData] = useState([])
     const [formValues, setFormValues] = useState({
@@ -40,18 +42,18 @@ export default function Departments(){
         addDepartmentssFetch,
       ] = useAxios();
     const fetchDepartmentFunc = () => {
-        departmentsFetch(fetchDepartmentAll())
+        departmentsFetch(fetchDepartmentAll(filters))
     }
     const fetchSoftwaresDepartmentFunc = () => {
         getSoftwareDepartmentssFetch(fetchSoftwareDepartmentHospital())
     }
     const addDepartmentSoftware = () => {
-        addDepartmentssFetch(addDepartmentAdmin())
+        addDepartmentssFetch(addDepartmentAdmin(formValues))
     }
     useEffect(()=>{
         fetchDepartmentFunc()
         fetchSoftwaresDepartmentFunc()
-    },[])
+    },[filters])
     useEffect(()=>{
         if(departmentsResponse?.result == "success" && departmentsResponse?.data){
             setDepartmentValues(departmentsResponse?.data)
@@ -66,6 +68,7 @@ export default function Departments(){
         message:"",
         showMessage:""
       })
+
     useEffect(()=>{
         if(addDepartmentsResponse?.result == "success"){
             setMessage({
@@ -73,6 +76,17 @@ export default function Departments(){
                 showMessage:true
               })
             setShow(!show)
+            setFormValues({
+                departmentId:"new"
+            })
+            fetchDepartmentFunc()
+        }
+        else if(addDepartmentsResponse?.result == "failure"){
+            setMessage({
+                message:addDepartmentsResponse?.message,
+                showMessage:true,
+                error:true
+              })
         }
     },[addDepartmentsResponse])
 
@@ -149,10 +163,33 @@ export default function Departments(){
                         </div>
                     </div>
                     
+
+                    
                     <div className="row">
+                    <div className="row" style={{ marginTop: "1rem" }}>
+
+                                    <div className="col-sm-6 col-lg-3">
+                                        <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-1">
+                                       <button
+                                        className="form-control btn-check-reset"
+                                        onClick={()=>{
+                                            setFilters({
+                                                department:""
+                                            })
+                                        }}
+                                        style={{backgroundColor:"red"}}
+                                       >Reset</button>
+
+                                    </div>
+                                </div>
+
+                            
                     {message?.showMessage &&  <Alert 
        style={{marginTop:"1rem"}}
-       message={message?.message} type="success" 
+       message={message?.message} type={message?.error ? "error" : "success"}
                 closable
                 onClose={()=>{
                   setMessage({
@@ -160,6 +197,7 @@ export default function Departments(){
                     showMessage:false
                   })
                 }}
+           
           />}
                         <div className="col-12 mt-4">
                             <div className="table-responsive bg-white shadow rounded">

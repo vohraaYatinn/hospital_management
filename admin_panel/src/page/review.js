@@ -1,11 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Wrapper from "../components/wrapper";
 
-import { reviewData } from "../data/data";
+import useAxios from "../network/useAxios";
+import { fetchAllHospital, fetchAllReviews } from "../urls/urls";
+import { test_url_images } from "../config/environment";
+import { changeDateFormat, designStarsReviews } from "../utils/commonFunctions";
+import PatientName from "../common-components/PatientName";
+import DoctorSearch from "../common-components/DoctorsSearch";
+import HospitalNameSearch from "../common-components/HospitalName";
+import DepartmentSearch from "../common-components/DepartmentSearch";
 
 export default function Review(){
+    const [filters, setFilters] = useState({
+    })
+    const [reviewsData, setReviewsData] = useState([])
+	const [
+		adminReviewsResponse,
+		adminReviewsError,
+		adminReviewsLoading,
+		adminReviewsFetch,
+	  ] = useAxios();
+	  useEffect(() => {
+		adminReviewsFetch(fetchAllReviews());
+	  }, []);
+	  useEffect(() => {
+		if (adminReviewsResponse?.result == "success" && adminReviewsResponse?.data) {
+            setReviewsData(adminReviewsResponse?.data);
+		}
+	  }, [adminReviewsResponse]);
     return(
         <Wrapper>
             <div className="container-fluid">
@@ -23,6 +47,41 @@ export default function Review(){
                     </div>
 
                     <div className="row">
+                    <div className="row" style={{ marginTop: "1rem" }}>
+                                <div className="col-sm-6 col-lg-3">
+                                    <PatientName filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                    <DoctorSearch filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                        <HospitalNameSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-3">
+                                        <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    </div>
+                                    <div className="row" style={{ marginTop: "1rem" }}>
+
+                                    <div className="col-sm-6 col-lg-1">
+                                       <button
+                                        className="form-control btn-check-reset"
+                                        onClick={()=>{
+                                            setFilters({
+                                                department:"",
+                                                hospitalSearch:"",
+                                                doctorName:"",
+                                                patientName:""
+                                            })
+                                        }}
+                                        style={{backgroundColor:"red"}}
+                                       >Reset</button>
+
+                                    </div>
+                                
+                                </div>
                         <div className="col-12 mt-4">
                             <div className="row">
                                 <div className="col-12">
@@ -36,35 +95,29 @@ export default function Review(){
                                                     <th className="border-bottom p-3" style={{minWidth:'150px'}}>Stars</th>
                                                     <th className="border-bottom p-3" style={{minWidth:'350px'}}>Comments</th>
                                                     <th className="border-bottom p-3" style={{minWidth:'150px'}}>Date</th>
-                                                    <th className="border-bottom p-3">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                {reviewData.map((item, index) =>{
+                                                {reviewsData.map((item, index) =>{
                                                     return(
                                                         <tr key={index}>
                                                             <th className="p-3">{item.id}</th>
                                                             <td className="p-3">
                                                                 <Link to="#" className="text-dark">
                                                                     <div className="d-flex align-items-center">
-                                                                        <img src={item.image} className="avatar avatar-md-sm rounded-circle shadow" alt=""/>
-                                                                        <span className="ms-2">{item.name}</span>
+                                                                        <img src={test_url_images + item.doctor.profile_picture} className="avatar avatar-md-sm rounded-circle shadow" alt=""/>
+                                                                        <span className="ms-2">{item.doctor.full_name}</span>
                                                                     </div>
                                                                 </Link>
                                                             </td>
-                                                            <td className="p-3">{item.mail}</td>
+                                                            <td className="p-3">{item.doctor.email}</td>
                                                             <td className="p-3">
                                                                 <ul className="list-unstyled mb-0">
-                                                                    <li className="list-inline-item"><i className="mdi mdi-star text-warning"></i></li>
-                                                                    <li className="list-inline-item"><i className="mdi mdi-star text-warning"></i></li>
-                                                                    <li className="list-inline-item"><i className="mdi mdi-star text-warning"></i></li>
-                                                                    <li className="list-inline-item"><i className="mdi mdi-star text-warning"></i></li>
-                                                                    <li className="list-inline-item"><i className="mdi mdi-star text-warning"></i></li>
+                                                                    {item?.reviews_star && designStarsReviews(item?.reviews_star)}
                                                                 </ul>
                                                             </td>
-                                                            <td className="p-3 text-muted">{item.comments}</td>
-                                                            <td className="p-3">{item.date}</td>
-                                                            <td className="p-3"><Link to="#" className="btn btn-sm btn-soft-danger">Delete</Link></td>
+                                                            <td className="p-3 text-muted">{item.comment}</td>
+                                                            <td className="p-3">{changeDateFormat(item.created_at)}</td>
                                                         </tr>
                                                     )
                                                 })}
