@@ -15,6 +15,9 @@ import PatientName from "../../common-components/PatientName";
 import StatusSearch from "../../common-components/StatusSearch";
 
 export default function Hospitals() {
+
+
+
     const [filters, setFilters] = useState({
     })	
 	const [hospitalData, setHospitalData] = useState([])

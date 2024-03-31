@@ -101,7 +101,7 @@ const[message, setMessage] = useState({
                                                         <label className="form-check-label" htmlFor="remember-check">Remember me</label>
                                                     </div>
                                                 </div>
-                                                <Link to="/forgot-password" className="text-dark h6 mb-0">Forgot password ?</Link>
+                                                {/* <Link to="/forgot-password" className="text-dark h6 mb-0">Forgot password ?</Link> */}
                                             </div>
                                         </div>
                                         <div className="col-lg-12 mb-0">

@@ -27,8 +27,10 @@ import {
 import { fetchHospitalProfile, handleDelete } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
+import { useRouter } from "../../hooks/use-router";
 
 export default function HospitalProfile() {
+	const router = useRouter();
 	let params = useParams();
 	let id = params.id;
 	const [formValues, setFormValues] = useState({});
@@ -61,6 +63,11 @@ const performActionRequest = () => {
 		  setHospitalData(hospitalsResponse?.data);
 		}
 	  }, [hospitalsResponse]);
+	  useEffect(() => {
+		if (performActionResponse?.result == "success") {
+			router.push("/hospitals")
+		}
+	  }, [performActionResponse]);
 
 	let [activeIndex, setActiveIndex] = useState(1);
 
