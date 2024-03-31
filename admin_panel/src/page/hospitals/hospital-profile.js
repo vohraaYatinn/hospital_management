@@ -3,6 +3,8 @@ import { Link, useParams } from "react-router-dom";
 
 import hospital from "../../assets/images/hospitals/01.jpg";
 import Wrapper from "../../components/wrapper";
+import Modal from "react-bootstrap/Modal";
+
 import {
 	clientReview,
 	companyLogo,
@@ -22,15 +24,26 @@ import {
 	FiMail,
 	FiInstagram,
 } from "../../assets/icons/vander";
-import { fetchHospitalProfile } from "../../urls/urls";
+import { fetchHospitalProfile, handleDelete } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
 
 export default function HospitalProfile() {
 	let params = useParams();
 	let id = params.id;
-	const [hospitalData, setHospitalData] = useState([])
+	const [formValues, setFormValues] = useState({});
+	let [show, setShow] = useState(false);
 
+const [
+    performActionResponse,
+    performActionError,
+    performActionLoading,
+    performActionFetch,
+  ] = useAxios();
+const performActionRequest = () => {
+  performActionFetch(handleDelete(formValues))
+}
+	const [hospitalData, setHospitalData] = useState([])
 	const [
 		hospitalsResponse,
 		hospitalsError,
@@ -49,55 +62,35 @@ export default function HospitalProfile() {
 		}
 	  }, [hospitalsResponse]);
 
-
-
-
 	let [activeIndex, setActiveIndex] = useState(1);
-
-	let settings = {
-		container: ".slider-range-four",
-		items: 4,
-		controls: false,
-		mouseDrag: true,
-		loop: true,
-		rewind: true,
-		autoplay: true,
-		autoplayButtonOutput: false,
-		autoplayTimeout: 3000,
-		navPosition: "bottom",
-		speed: 400,
-		gutter: 24,
-		responsive: {
-			992: {
-				items: 4,
-			},
-
-			767: {
-				items: 2,
-			},
-
-			320: {
-				items: 1,
-			},
-		},
-	};
-	let settings2 = {
-		container: ".client-review-slider",
-		items: 1,
-		controls: false,
-		mouseDrag: true,
-		loop: true,
-		rewind: true,
-		autoplay: true,
-		autoplayButtonOutput: false,
-		autoplayTimeout: 3000,
-		navPosition: "bottom",
-		speed: 400,
-		gutter: 16,
-	};
 
 	return (
 		<Wrapper>
+			                        <div className="modal fade" id="LoginForm">
+                                    <Modal show={show} onHide={() =>setShow(false)} centered>
+                                        <Modal.Header closeButton>
+                                            <h5 className="modal-title" id="LoginForm-title">Are You Sure To {formValues?.action}?</h5>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <div className="p-3 rounded box-shadow">
+                                                <p className="text-muted mb-0">
+                                                    Are you sure to perform action on this request?
+                                                    </p>                                                        
+                                            </div>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <button type="button" className="btn btn-secondary" onClick={() =>setShow(false)}>Close</button>
+                                            <button type="button" className="btn btn-primary" onClick={() =>{
+                                            performActionRequest()
+                                            setShow(false)
+                                          }
+                                          
+                                          }
+                                            
+                                            >Confirm</button>
+                                        </Modal.Footer>
+                                    </Modal>
+                                </div>
 			<div className="container-fluid">
 				<div className="layout-specing">
 					<div className="d-md-flex justify-content-between">
@@ -513,189 +506,26 @@ export default function HospitalProfile() {
 																	</div>
 
 																	<button className="btn btn-primary">
-																		Add Hospital
+																		Edit Hospital
 																	</button>
 																</form>
 															</div>
 														</div>
 													</div>
-
-													<div className="col-lg-4">
-														<div className="rounded shadow mt-4">
-															<div className="p-4 border-bottom">
-																<h6 className="mb-0">
-																	General Notifications :
-																</h6>
-															</div>
-
-															<div className="p-4">
-																<div className="d-flex justify-content-between pb-4">
-																	<h6 className="mb-0 fw-normal">
-																		When someone mentions me
-																	</h6>
-																	<div className="form-check">
-																		<input
-																			type="checkbox"
-																			className="form-check-input"
-																			defaultValue=""
-																			id="customSwitch1"
-																		/>
-																		<label
-																			className="form-check-label"
-																			htmlFor="customSwitch1"></label>
-																	</div>
-																</div>
-																<div className="d-flex justify-content-between py-4 border-top">
-																	<h6 className="mb-0 fw-normal">
-																		When someone follows me
-																	</h6>
-																	<div className="form-check">
-																		<input
-																			type="checkbox"
-																			className="form-check-input"
-																			id="customSwitch2"
-																			checked
-																		/>
-																		<label
-																			className="form-check-label"
-																			htmlFor="customSwitch2"></label>
-																	</div>
-																</div>
-																<div className="d-flex justify-content-between py-4 border-top">
-																	<h6 className="mb-0 fw-normal">
-																		When shares my activity
-																	</h6>
-																	<div className="form-check">
-																		<input
-																			type="checkbox"
-																			className="form-check-input"
-																			id="customSwitch3"
-																		/>
-																		<label
-																			className="form-check-label"
-																			htmlFor="customSwitch3"></label>
-																	</div>
-																</div>
-																<div className="d-flex justify-content-between py-4 border-top">
-																	<h6 className="mb-0 fw-normal">
-																		When someone messages me
-																	</h6>
-																	<div className="form-check">
-																		<input
-																			type="checkbox"
-																			className="form-check-input"
-																			id="customSwitch4"
-																			checked
-																		/>
-																		<label
-																			className="form-check-label"
-																			htmlFor="customSwitch4"></label>
-																	</div>
-																</div>
-															</div>
+													<div className="col-lg-4" >
+														<button style={{color:"white", background:"red", border:"0px solid", padding:"1rem"}}
+														onClick={()=>{
+															setFormValues({
+																action:"delete",
+																id:hospitalData?.id,
+																type:"hospital"
+															})
+															setShow(true)
+														}}
+														>DELETE HOSPITAL</button>
 														</div>
 
-														<div className="rounded shadow mt-4">
-															<div className="p-4 border-bottom">
-																<h6 className="mb-0">
-																	Marketing Notifications :
-																</h6>
-															</div>
-
-															<div className="p-4">
-																<div className="d-flex justify-content-between pb-4">
-																	<h6 className="mb-0 fw-normal">
-																		There is a sale or promotion
-																	</h6>
-																	<div className="form-check">
-																		<input
-																			type="checkbox"
-																			className="form-check-input"
-																			id="customSwitch5"
-																			checked
-																		/>
-																		<label
-																			className="form-check-label"
-																			htmlFor="customSwitch5"></label>
-																	</div>
-																</div>
-																<div className="d-flex justify-content-between py-4 border-top">
-																	<h6 className="mb-0 fw-normal">
-																		Company news
-																	</h6>
-																	<div className="form-check">
-																		<input
-																			type="checkbox"
-																			className="form-check-input"
-																			id="customSwitch6"
-																		/>
-																		<label
-																			className="form-check-label"
-																			htmlFor="customSwitch6"></label>
-																	</div>
-																</div>
-																<div className="d-flex justify-content-between py-4 border-top">
-																	<h6 className="mb-0 fw-normal">
-																		Weekly jobs
-																	</h6>
-																	<div className="form-check">
-																		<input
-																			type="checkbox"
-																			className="form-check-input"
-																			id="customSwitch7"
-																		/>
-																		<label
-																			className="form-check-label"
-																			htmlFor="customSwitch7"></label>
-																	</div>
-																</div>
-																<div className="d-flex justify-content-between py-4 border-top">
-																	<h6 className="mb-0 fw-normal">
-																		Unsubscribe News
-																	</h6>
-																	<div className="form-check">
-																		<input
-																			type="checkbox"
-																			className="form-check-input"
-																			id="customSwitch8"
-																			checked
-																		/>
-																		<label
-																			className="form-check-label"
-																			htmlFor="customSwitch8"></label>
-																	</div>
-																</div>
-															</div>
-														</div>
-
-														<div className="rounded shadow mt-4">
-															<div className="p-4 border-bottom">
-																<h6 className="mb-0">
-																	General Notifications :
-																</h6>
-															</div>
-
-															<div className="p-4">
-																<div className="p-4 border-bottom">
-																	<h5 className="mb-0 text-danger">
-																		Delete Account :
-																	</h5>
-																</div>
-
-																<div className="p-4">
-																	<h6 className="mb-0 fw-normal">
-																		Do you want to delete the account? Please
-																		press below "Delete" button
-																	</h6>
-																	<div className="mt-4">
-																		<button className="btn btn-danger">
-																			Delete Account
-																		</button>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
+													
 												</div>
 											</div>
 										) : (

@@ -12,9 +12,12 @@ export class Urls {
     static FETCH_RESET_PASSWORD_REQUEST = Urls.MPHRMS_API_PREFIX + 'admin/reset-password-requests/';
     static FETCH_LEAVE_REQUEST = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-leave-requests/';
     static PERFORM_LEAVE_ACTION = Urls.MPHRMS_API_PREFIX + 'hospitals/perform-leave-action/';
+    static DELETE_HANDLE = Urls.MPHRMS_API_PREFIX + 'admin/delete-handle/';
     static CHANGE_DOCTORS_PASSWORD = Urls.MPHRMS_API_PREFIX + 'hospitals/change-doctors-passwword/';
     static FETCH_HOSPITAL_PATIENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-patients-for-hospitals/';
     static FETCH_ADMIN_PATIENTS = Urls.MPHRMS_API_PREFIX + 'admin/fetch-patients-admin/';
+    static FETCH_ADMIN_DATA = Urls.MPHRMS_API_PREFIX + 'admin/get-admins-data/';
+    static ADD_ADMIN = Urls.MPHRMS_API_PREFIX + 'admin/add-admin/';
     static ADD_HOSPITAL_PATIENT = Urls.MPHRMS_API_PREFIX + 'hospitals/add-patients-for-hospitals/';
     static FETCH_HOSPITAL_DEPARTMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-departments-for-hospitals/';
     static FETCH_HOSPITAL_ALL_DEPARMENTS = Urls.MPHRMS_API_PREFIX + 'admin/fetch-all-department-or-hospitals/';

@@ -46,6 +46,15 @@ export default function Sidebar({manuClass}){
         
                     <ul className="sidebar-menu">
                         <li className={`${manu === "index" || "" ? "active" : ""} ms-0`}><Link to="/index"><GrDashboard className="me-2 d-inline-block mb-0 icon"/>Dashboard</Link></li>
+                        <li className={`sidebar-dropdown ms-0 ${["admin","add-admin","admin-profile","admin-item"].includes(manu)? "active" : ""}`}>
+                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'admin-item' ? '' : 'admin-item')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Admins</Link>
+                            <div className={`sidebar-submenu ${["admins","add-admin","admin-profile","admin-item"].includes(subManu)? "d-block" : ""}`}>
+                                <ul>
+                                    <li className={`${manu === "admins" ? "active" : ""} ms-0`}><Link to="/admins">All Admins</Link></li>
+                                    <li className={`${manu === "add-admin" ? "active" : ""} ms-0`}><Link to="/add-admin">Add Admins</Link></li>
+                                </ul>
+                            </div>
+                        </li>
                         <li
 						className={`sidebar-dropdown ms-0 ${
 							[
@@ -113,6 +122,8 @@ export default function Sidebar({manuClass}){
                                 </ul>
                             </div>
                         </li>
+
+               
 
                         <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li>
 
