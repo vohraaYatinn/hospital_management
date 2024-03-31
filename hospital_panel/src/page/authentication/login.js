@@ -37,7 +37,7 @@ const[message, setMessage] = useState({
             dispatch(updateToken(authDetailsResponse?.token))
             router.push("/hospital-dashboard")
         }
-        else{
+        else if(authDetailsResponse?.result == "failure"){
             setMessage({
                 message:"The email or password entered is invalid",
                 showMessage:true,
@@ -58,7 +58,7 @@ const[message, setMessage] = useState({
                         <img src={logoDark} height="22" className="mx-auto d-block" alt=""/>
                         <div className="card login-page shadow mt-4 rounded border-0">
                             <div className="card-body">
-                                <h4 className="text-center">Sign In</h4>  
+                                <h4 className="text-center">Hospital Admin</h4>  
                                 <div className="row mt-4">
                                         <div className="col-lg-12">
                                             <div className="mb-3">
@@ -101,7 +101,7 @@ const[message, setMessage] = useState({
                                                         <label className="form-check-label" htmlFor="remember-check">Remember me</label>
                                                     </div>
                                                 </div>
-                                                <Link to="/forgot-password" className="text-dark h6 mb-0">Forgot password ?</Link>
+                                                {/* <Link to="/forgot-password" className="text-dark h6 mb-0">Forgot password ?</Link> */}
                                             </div>
                                         </div>
                                         <div className="col-lg-12 mb-0">

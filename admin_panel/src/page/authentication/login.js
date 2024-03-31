@@ -58,7 +58,7 @@ const[message, setMessage] = useState({
                         <img src={logoDark} height="22" className="mx-auto d-block" alt=""/>
                         <div className="card login-page shadow mt-4 rounded border-0">
                             <div className="card-body">
-                                <h4 className="text-center">Sign In</h4>  
+                                <h4 className="text-center">Ujur Admin</h4>  
                                 <div className="row mt-4">
                                         <div className="col-lg-12">
                                             <div className="mb-3">
