@@ -22,6 +22,7 @@ export default function AddDoctor() {
     fileInputRef.current.click();
 
   }
+
   const[message, setMessage] = useState({
     message:"",
     showMessage:""
@@ -50,13 +51,22 @@ export default function AddDoctor() {
     doctorProfileFetch(addDoctorByHospital(formValues))
   }
   useEffect(()=>{
+    console.log(doctorProfileResponse)
+    console.log(doctorProfileError)
     if(doctorProfileResponse?.result == "success"){
       setMessage({
         message:doctorProfileResponse?.message,
         showMessage:true
       })
     }
-  },[doctorProfileResponse])
+    if(doctorProfileError){
+      setMessage({
+        message:doctorProfileError?.response?.data?.message,
+        showMessage:true,
+        isError:true
+      })
+    }
+  },[doctorProfileResponse, doctorProfileError])
   return (
     <Wrapper>
       <div className="container-fluid">
@@ -88,7 +98,7 @@ export default function AddDoctor() {
           <div className="row">
        {message?.showMessage &&  <Alert 
        style={{marginTop:"1rem"}}
-       message={message?.message} type="success" 
+       message={message?.message} type={message?.isError?"error":"success" }
                 closable
                 onClose={()=>{
                   setMessage({

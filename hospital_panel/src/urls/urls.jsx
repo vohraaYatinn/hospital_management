@@ -51,3 +51,7 @@ export const fetchSoftwareDepartmentHospital = (payload_data) => {
 export const addDepartmentHospital = (payload_data) => {
   return project.post(Urls.ADD_DEPARTMENTS_HOSPITAL, payload_data);
 };
+
+export const handleDelete = (payload_data) => {
+  return project.post(Urls.DELETE_HANDLE, payload_data);
+};

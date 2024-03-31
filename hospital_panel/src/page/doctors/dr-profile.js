@@ -4,19 +4,25 @@ import { Link, useParams } from "react-router-dom";
 import doctor1 from '../../assets/images/client/01.jpg'
 import Wrapper from "../../components/wrapper";
 import { clientReview, companyLogo, doctorData, drTimetable, experienceData } from "../../data/data";
+import Modal from "react-bootstrap/Modal";
 
 import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
 
 import {RiTimeFill, FiPhone, FiMail} from '../../assets/icons/vander'
-import { fetchHospitalDoctorsProfile } from "../../urls/urls";
+import { fetchHospitalDoctorsProfile, handleDelete } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
+import { useRouter } from "../../hooks/use-router";
 
 
 export default function DrProfile(){
+    const router = useRouter();
+
     let params = useParams();
     let id = params.id
+    let [show, setShow] = useState(false);
+
     let data = doctorData.find((doctor)=>doctor.id === parseInt(id))
     let [activeIndex, setActiveIndex] = useState(1)
 
@@ -27,6 +33,20 @@ export default function DrProfile(){
       doctorProfileLoading,
       doctorProfileFetch,
     ] = useAxios();
+    const [
+        performActionResponse,
+        performActionError,
+        performActionLoading,
+        performActionFetch,
+      ] = useAxios();
+    const performActionRequest = () => {
+      performActionFetch(handleDelete(formValues))
+    }
+    useEffect(() => {
+		if (performActionResponse?.result == "success") {
+			router.push("/doctors")
+		}
+	  }, [performActionResponse]);
     useEffect(() => {
         if(id){
             doctorProfileFetch(fetchHospitalDoctorsProfile({
@@ -52,9 +72,6 @@ export default function DrProfile(){
         return starsArray;
     }
 
-
-
-
       let settings2 ={
         container: '.client-review-slider',
         items: 1,
@@ -69,9 +86,39 @@ export default function DrProfile(){
         speed: 400,
         gutter: 16,
       }
-
+      const [formValues, setFormValues] = useState({});
+      useEffect(()=>{
+        if(formValues?.action == "active"){
+            performActionRequest()
+        }
+      },[formValues])
     return(
        <Wrapper>
+                        <div className="modal fade" id="LoginForm">
+                                    <Modal show={show} onHide={() =>setShow(false)} centered>
+                                        <Modal.Header closeButton>
+                                            <h5 className="modal-title" id="LoginForm-title">Are You Sure To {formValues?.action}?</h5>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <div className="p-3 rounded box-shadow">
+                                                <p className="text-muted mb-0">
+                                                    Are you sure to perform action on this request?
+                                                    </p>                                                        
+                                            </div>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <button type="button" className="btn btn-secondary" onClick={() =>setShow(false)}>Close</button>
+                                            <button type="button" className="btn btn-primary" onClick={() =>{
+                                            performActionRequest()
+                                            setShow(false)
+                                          }
+                                          
+                                          }
+                                            
+                                            >Confirm</button>
+                                        </Modal.Footer>
+                                    </Modal>
+                                </div>
             <div className="container-fluid">
                 <div className="layout-specing">
                     <div className="d-md-flex justify-content-between">
@@ -231,7 +278,7 @@ export default function DrProfile(){
                                             <div className="tab-pane fade show active">
                                                 <h5 className="mb-1">Settings</h5>
                                                 <div className="row">
-                                                    <div className="col-lg-6">
+                                                    {/* <div className="col-lg-6">
                                                         <div className="rounded shadow mt-4">
                                                             <div className="p-4 border-bottom">
                                                                 <h6 className="mb-0">Personal Information :</h6>
@@ -301,78 +348,59 @@ export default function DrProfile(){
                                                             </div>
                                                         </div>
 
-                                                        <div className="rounded shadow mt-4">
-                                                            <div className="p-4 border-bottom">
-                                                                <h6 className="mb-0">Account Notifications :</h6>
-                                                            </div>
-                                
-                                                            <div className="p-4">
-                                                                <form>
-                                                                    <div className="row">
-                                                                        <div className="col-lg-12">
-                                                                            <div className="mb-3">
-                                                                                <label className="form-label">Old password :</label>
-                                                                                <input type="password" className="form-control" placeholder="Old password" required=""/>
-                                                                            </div>
-                                                                        </div>
-                                    
-                                                                        <div className="col-lg-12">
-                                                                            <div className="mb-3">
-                                                                                <label className="form-label">New password :</label>
-                                                                                <input type="password" className="form-control" placeholder="New password" required=""/>
-                                                                            </div>
-                                                                        </div>
-                                    
-                                                                        <div className="col-lg-12">
-                                                                            <div className="mb-3">
-                                                                                <label className="form-label">Re-type New password :</label>
-                                                                                <input type="password" className="form-control" placeholder="Re-type New password" required=""/>
-                                                                            </div>
-                                                                        </div>
-                                    
-                                                                        <div className="col-lg-12 mt-2 mb-0">
-                                                                            <button className="btn btn-primary">Save password</button>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    </div> */}
                                                     
                                                     <div className="col-lg-6">
                                                         <div className="rounded shadow mt-4">
-                                                            <div className="p-4 border-bottom">
-                                                                <h6 className="mb-0">General Notifications :</h6>
-                                                            </div>
+                                                           
                                 
                                                             <div className="p-4">
                                                             
                                                                 <div className="d-flex justify-content-between py-4 border-top">
                                                                     <h6 className="mb-0 fw-normal">Doctor Is Active</h6>
                                                                     <div className="form-check">
-                                                                        <input type="checkbox" className="form-check-input" id="customSwitch2" checked/>
+                                                                        <input type="checkbox" className="form-check-input" id="customSwitch2" 
+                                                                        checked={doctorsData?.is_active}
+                                                                        onChange={(e)=>[
+                                                                            setFormValues({
+                                                                                action:"active",
+                                                                                id:doctorsData?.id,
+                                                                                type:"doctor"
+                                                                            })
+                                                                        ]}
+                                                                        />
                                                                         <label className="form-check-label" htmlFor="customSwitch2"></label>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                        </div>
 
                                                         
-
+                                                        <div className="col-lg-6">
                                                         <div className="rounded shadow mt-4">
-                                                            <div className="p-4 border-bottom">
-                                                                <h6 className="mb-0">General Settings :</h6>
-                                                            </div>
+                                                          
                                 
                                                             <div className="p-4">
                                                                 <div className="p-4 border-bottom">
-                                                                    <h5 className="mb-0 text-danger">Delete Account :</h5>
+                                                                    <h5 className="mb-0 text-danger"
+
+                                                                    >Delete Account :</h5>
                                                                 </div>
 
                                                                 <div className="p-4">
                                                                     <h6 className="mb-0 fw-normal">Do you want to delete the account? Please press below "Delete" button</h6>
                                                                     <div className="mt-4">
-                                                                        <button className="btn btn-danger">Delete Account</button>
+                                                                        <button className="btn btn-danger"
+                                                                        onClick={()=>{
+                                                                            setFormValues({
+                                                                                action:"delete",
+                                                                                id:doctorsData?.id,
+                                                                                type:"doctor"
+                                                                            })
+                                                                            setShow(true)
+                                                                        }}
+                                                                        >Delete Account</button>
                                                                     </div>
                                                                 </div>
                                                             </div>

@@ -47,7 +47,7 @@ export default function Sidebar({manuClass}){
                     <ul className="sidebar-menu">
                         <li className={`${manu === "index" || "" ? "active" : ""} ms-0`}><Link to="/index"><GrDashboard className="me-2 d-inline-block mb-0 icon"/>Dashboard</Link></li>
                         <li className={`sidebar-dropdown ms-0 ${["admin","add-admin","admin-profile","admin-item"].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'admin-item' ? '' : 'admin-item')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Admins</Link>
+                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'admin-item' ? '' : 'admin-item')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Admins Accounts</Link>
                             <div className={`sidebar-submenu ${["admins","add-admin","admin-profile","admin-item"].includes(subManu)? "d-block" : ""}`}>
                                 <ul>
                                     <li className={`${manu === "admins" ? "active" : ""} ms-0`}><Link to="/admins">All Admins</Link></li>
@@ -96,8 +96,59 @@ export default function Sidebar({manuClass}){
 							</ul>
 						</div>
 					</li>
+                        <li className={`sidebar-dropdown ms-0 ${["hospitals-admin","add-hospital-admin"].includes(manu)? "active" : ""}`}>
+                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'add-hospital-admin' ? '' : 'add-hospital-admin')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Hospital Accounts</Link>
+                            <div className={`sidebar-submenu ${["hospitals-admin","add-hospital-admin"].includes(subManu)? "d-block" : ""}`}>
+                                <ul>
+                                    <li className={`${manu === "hospitals-admin" ? "active" : ""} ms-0`}><Link to="/hospitals-admin">All Hospital Account</Link></li>
+                                    <li className={`${manu === "add-hospital-admin" ? "active" : ""} ms-0`}><Link to="/add-hospital-admin">Add Hospital Admins</Link></li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li
+						className={`sidebar-dropdown ms-0 ${
+							[
+								"hospitals",
+								"add-hospital",
+								"hospital-profile",
+								"hospital-item",
+							].includes(manu)
+								? "active"
+								: ""
+						}`}>
+						<Link
+							to="#"
+							onClick={(e) => {
+								setSubManu(subManu === "hospital-item" ? "" : "hospital-item");
+							}}>
+							<CiHospital1 className="me-2 d-inline-block mb-0 icon" />
+							Hospitals
+						</Link>
+						<div
+							className={`sidebar-submenu ${
+								[
+									"hospitals",
+									"add-hospital",
+									"hospital-profile",
+									"hospital-item",
+								].includes(subManu)
+									? "d-block"
+									: ""
+							}`}>
+							<ul>
+								<li className={`${manu === "hospitals" ? "active" : ""} ms-0`}>
+									<Link to="/hospitals">Hospitals</Link>
+								</li>
+								<li
+									className={`${manu === "add-hospital" ? "active" : ""} ms-0`}>
+									<Link to="/add-hospital">Add Hospital</Link>
+								</li>
+							</ul>
+						</div>
+					</li>
+
                         <li className={`sidebar-dropdown ms-0 ${["doctors","add-doctor","dr-profile","doctors-item"].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === "doctors-item" ? "" : "doctors-item")}}><LuUser2 className="me-2 d-inline-block mb-0 icon"/>Doctors</Link>
+                            <Link to="#" onClick={(e)=>{setSubManu(subManu === "doctors-item" ? "" : "doctors-item")}}><LuUser2 className="me-2 d-inline-block mb-0 icon"/>Doctors Accounts</Link>
                             <div className={`sidebar-submenu ${["doctors","add-doctor","dr-profile","doctors-item"].includes(subManu)? "d-block" : ""}`}>
                                 <ul>
                                     <li className={`${manu === "doctors" ? "active" : ""} ms-0`}><Link to="/doctors">Doctors</Link></li>
@@ -178,6 +229,7 @@ export default function Sidebar({manuClass}){
                             </div>
                         </li> */}
                     </ul>
+
                     
                 </SimpleBar>
                 <ul className="sidebar-footer list-unstyled mb-0">

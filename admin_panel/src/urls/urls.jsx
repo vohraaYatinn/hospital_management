@@ -53,6 +53,12 @@ export const fetchPatientsAdmin = (payload_data) => {
 export const fetchAdminData = (payload_data) => {
   return project.get(Urls.FETCH_ADMIN_DATA, payload_data);
 };
+export const fetchHospitalAdminData = (payload_data) => {
+  return project.get(Urls.FETCH_HOSPITAL_ADMIN, payload_data);
+};
+export const addHospitalAdminData = (payload_data) => {
+  return project.post(Urls.ADD_HOSPITAL_ADMIN, payload_data);
+};
 
 export const addPatientsHospital = (payload_data) => {
   return project.post(Urls.ADD_HOSPITAL_PATIENT, payload_data);

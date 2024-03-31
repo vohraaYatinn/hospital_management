@@ -68,6 +68,8 @@ import AddHospital from "./page/hospitals/add-hospital";
 import HospitalProfile from "./page/hospitals/hospital-profile";
 import AddAdmin from "./page/admins/add-admin";
 import Admins from "./page/admins/admins";
+import AddHospitalAccount from "./page/hospitalaccounts/add-hospital-admin";
+import HospitalAdmins from "./page/hospitalaccounts/hospital-admins";
 
 
 function App() {
@@ -89,6 +91,8 @@ function App() {
     <Route path="/add-patient" element={<AddPatient/>}/>
     <Route path="/add-admin" element={<AddAdmin/>}/>
     <Route path="/admins" element={<Admins/>}/>
+    <Route path="/add-hospital-admin" element={<AddHospitalAccount/>}/>
+    <Route path="/hospitals-admin" element={<HospitalAdmins/>}/>
     <Route path="/patient-profile/:id" element={<PatientProfile/>}/>
     <Route path="/chat" element={<Chats/>}/>
     <Route path="/email" element={<Email/>}/>

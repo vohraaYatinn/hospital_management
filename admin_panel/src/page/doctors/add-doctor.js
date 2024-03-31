@@ -75,6 +75,15 @@ export default function AddDoctor() {
       })
     }
   },[doctorProfileResponse])
+  useEffect(()=>{
+    if(doctorProfileResponse?.result == "failure"){
+      setMessage({
+        message:doctorProfileError?.message,
+        showMessage:true,
+        isError:true
+      })
+    }
+  },[doctorProfileError])
   return (
     <Wrapper>
       <div className="container-fluid">
@@ -106,7 +115,7 @@ export default function AddDoctor() {
           <div className="row">
        {message?.showMessage &&  <Alert 
        style={{marginTop:"1rem"}}
-       message={message?.message} type="success" 
+       message={message?.message} type={message?.isError?"error":"success" }
                 closable
                 onClose={()=>{
                   setMessage({
@@ -226,6 +235,8 @@ export default function AddDoctor() {
                             }));
                           }}
                         >
+                                                     <option value="">Select Hospital</option>
+
                           {hospitalDataResponse?.data?.map((item)=>{return(
                           <option value={item?.id}>{item?.name}</option>
                           )})}
