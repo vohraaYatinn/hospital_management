@@ -16,6 +16,12 @@ export class Urls {
     static FETCH_SOFTWARE_DEPARTMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-software-department/';
     static ADD_DEPARTMENTS_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'hospitals/add-department-hospital/';
     static DELETE_HANDLE = Urls.MPHRMS_API_PREFIX + 'hospitals/delete_handle/';
+    static FETCH_HOSPITAL_ALL_DEPARMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-departments/';
+    static FETCH_HOSPITAL_ALL_DOCTORS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-doctors/';
+    static FEFETCH_ALL_DOCTOR_REVIEWS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-doctors-hospital-reviews/';
+    static FETCH_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-hospital-admin/';
+    static ADD_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/add-hospital-admin-user/';
+
 
 
 

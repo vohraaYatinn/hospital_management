@@ -12,9 +12,13 @@ import {
 import useAxios from "../../network/useAxios";
 import { fetchHospitalDoctors } from "../../urls/urls";
 import { test_url_images } from "../../config/environment";
+import DoctorSearch from "../../common-components/DoctorsSearch";
+import DepartmentSearch from "../../common-components/DepartmentSearch";
 
 export default function Doctors() {
   const [doctorsData, setDoctorsData] = useState([]);
+  const [filters, setFilters] = useState({
+  })
   const [
     patientListResponse,
     patientListError,
@@ -22,8 +26,8 @@ export default function Doctors() {
     patientListFetch,
   ] = useAxios();
   useEffect(() => {
-    patientListFetch(fetchHospitalDoctors());
-  }, []);
+    patientListFetch(fetchHospitalDoctors(filters));
+  }, [filters]);
   useEffect(() => {
     if (patientListResponse?.result == "success" && patientListResponse?.data) {
       setDoctorsData(patientListResponse?.data);
@@ -55,9 +59,34 @@ export default function Doctors() {
               </Link>
                         </div>
                     </div>
+                    <div className="row" style={{ marginTop: "1rem" }}>
+
+<div className="col-sm-6 col-lg-3">
+    <DoctorSearch filters={filters} setFilters={setFilters} />
+</div>
+    <div className="col-sm-6 col-lg-3">
+        <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+    </div>
+    <div className="col-sm-6 col-lg-1">
+       <button
+        className="form-control btn-check-reset"
+        onClick={()=>{
+            setFilters({
+                department:"",
+                hospitalSearch:"",
+                doctorName:"",
+            })
+        }}
+        style={{backgroundColor:"red"}}
+       >Reset</button>
+
+    </div>
+</div>
+
                     
                     <div className="row row-cols-md-2 row-cols-lg-5">
-                        {doctorsData?.hospital_doctors?.map((item, index) => {
+                        {doctorsData?.map((item, index) => {
                             return (
                                 <div className="col mt-4" key={index}>
                                     <div className="card team border-0 rounded shadow overflow-hidden">

@@ -13,7 +13,12 @@ import useAxios from "../network/useAxios";
 import { calculateAge } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
-
+import PatientName from "../common-components/PatientName";
+import DoctorSearch from "../common-components/DoctorsSearch";
+import DateSearchComponent from "../common-components/DateSearch";
+import AppointmentSlots from "../common-components/SlotsSearch";
+import StatusSearch from "../common-components/StatusSearch";
+import DepartmentSearch from "../common-components/DepartmentSearch";
 
 export default function Appointment(){
     let [show, setShow] = useState(false);
@@ -21,18 +26,40 @@ export default function Appointment(){
     let [acceptsAppointment, setAcceptsAppointment] = useState(false);
     const [appointmentData, setAppointmentsData] = useState([])
     let [cancle, setCancle] = useState(false);
+    const [filters, setFilters] = useState({
+
+    })
     const [
         appointmentsResponse,
         appointmentsError,
         appointmentsLoading,
         appointmentsFetch,
       ] = useAxios();
+      const searchStatusConstants = [
+        {
+            value: "completed",
+            name: "Completed"
+        },
+        {
+            value: "pending",
+            name: "Pending"
+        },
+        {
+            value: "past",
+            name: "Past"
+        },
+        {
+            value: "canceled",
+            name: "Canceled"
+        },
+
+    ]
     const fetchAppointmentsData = () =>{
-        appointmentsFetch(fetchAppointmentsHospital())
+        appointmentsFetch(fetchAppointmentsHospital(filters))
     }
-    useState(()=>{
+    useEffect(()=>{
         fetchAppointmentsData()
-    },[])
+    },[filters])
     useEffect(()=>{
         if(appointmentsResponse?.result == "success" && appointmentsResponse?.data){
             setAppointmentsData(appointmentsResponse?.data)
@@ -59,19 +86,13 @@ export default function Appointment(){
                                 <form>
                                     <div className="row justify-content-between align-items-center">
                                         <div className="col-sm-12 col-md-5">
-                                            <div className="mb-0 position-relative">
-                                                <select className="form-select form-control">
-                                                    <option defaultValue="EY">Today</option>
-                                                    <option defaultValue="GY">Tomorrow</option>
-                                                    <option defaultValue="PS">Yesterday</option>
-                                                </select>
-                                            </div>
+                                           
                                         </div>
                                         
                                         <div className="col-sm-12 col-md-7 mt-4 mt-sm-0">
-                                            <div className="d-grid">
+                                            {/* <div className="d-grid">
                                                 <Link to="#" className="btn btn-primary" onClick={() =>setShow(!show)}>Appointment</Link>
-                                            </div>
+                                            </div> */}
                                             <Modal show={show} onHide={() =>setShow(!show)} size="lg" centered>
                                                 <Modal.Header closeButton>
                                                 <Modal.Title className='h5'>Book an Appointment</Modal.Title>
@@ -172,6 +193,49 @@ export default function Appointment(){
                     </div>
                     
                     <div className="row">
+                    <div className="row" style={{ marginTop: "1rem" }}>
+                                <div className="col-sm-6 col-lg-3">
+                                    <PatientName filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                    <DoctorSearch filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                    <DateSearchComponent filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                    <AppointmentSlots filters={filters} setFilters={setFilters} />
+                                </div>
+                                </div>
+                                <div className="row" style={{ marginTop: "1rem" }}>
+                                    <div className="col-sm-6 col-lg-3">
+                                        <StatusSearch filters={filters} setFilters={setFilters} statusSearch={searchStatusConstants} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-3">
+                                        <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-1">
+                                       <button
+                                        className="form-control btn-check-reset"
+                                        onClick={()=>{
+                                            setFilters({
+                                                department:"",
+                                                hospitalSearch:"",
+                                                status:"",
+                                                slots:"",
+                                                date:"",
+                                                doctorName:"",
+                                                patientName:""
+                                            })
+                                        }}
+                                        style={{backgroundColor:"red"}}
+                                       >Reset</button>
+
+                                    </div>
+
+                            </div>
                         <div className="col-12 mt-4">
                             <div className="table-responsive bg-white shadow rounded">
                                 <table className="table mb-0 table-center">

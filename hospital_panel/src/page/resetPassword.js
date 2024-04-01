@@ -12,6 +12,8 @@ import Modal from "react-bootstrap/Modal";
 import useAxios from "../network/useAxios";
 import { changeResetPassword, fetchResetPasswords } from "../urls/urls";
 import { test_url_images } from "../config/environment";
+import DoctorSearch from "../common-components/DoctorsSearch";
+import DepartmentSearch from "../common-components/DepartmentSearch";
 
 export default function ResetPassword() {
   let [editProfile, setEditProfile] = useState(false);
@@ -22,6 +24,8 @@ export default function ResetPassword() {
     password_id:"",
     password:""
   });
+  const [filters, setFilters] = useState({
+  })
   const [
     resetPassRequestResponse,
     resetPassRequestError,
@@ -35,14 +39,14 @@ export default function ResetPassword() {
     resetPassChangeFetch,
   ] = useAxios();
   const fetchRequests = () => {
-    resetPassRequestFetch(fetchResetPasswords(formValues))
+    resetPassRequestFetch(fetchResetPasswords(filters))
   }
   const changePassword = () => {
     resetPassChangeFetch(changeResetPassword(formValues))
   }
   useEffect(()=>{
     fetchRequests()
-  },[])
+  },[filters])
   useEffect(()=>{
     if(resetPassRequestResponse?.result == "success"){
       setRequestData(resetPassRequestResponse?.data)
@@ -106,6 +110,30 @@ export default function ResetPassword() {
           </div>
 
           <div className="row">
+          <div className="row" style={{ marginTop: "1rem" }}>
+
+<div className="col-sm-6 col-lg-3">
+    <DoctorSearch filters={filters} setFilters={setFilters} />
+</div>
+    <div className="col-sm-6 col-lg-3">
+        <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+    </div>
+    <div className="col-sm-6 col-lg-1">
+       <button
+        className="form-control btn-check-reset"
+        onClick={()=>{
+            setFilters({
+                department:"",
+                hospitalSearch:"",
+                doctorName:"",
+            })
+        }}
+        style={{backgroundColor:"red"}}
+       >Reset</button>
+
+    </div>
+</div>
             <div className="col-12 mt-4">
               <div className="table-responsive shadow rounded">
                 <table className="table table-center bg-white mb-0">

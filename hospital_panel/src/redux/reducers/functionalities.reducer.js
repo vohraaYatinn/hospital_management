@@ -8,7 +8,7 @@ const functionalitiesSlice = createSlice({
     functionalities: {
         showNavbar: false,
         token: false,
-        hospitals:[],
+        doctors:[],
         departments:[]
     },
 
@@ -20,8 +20,8 @@ const functionalitiesSlice = createSlice({
     updateToken(state, payload) {
       state.functionalities.token = payload.payload
     },
-    updateHospitals(state, payload) {
-      state.functionalities.hospitals = payload.payload
+    updateDoctors(state, payload) {
+      state.functionalities.doctors = payload.payload
     },
     updateDepartments(state, payload) {
       state.functionalities.departments = payload.payload
@@ -37,11 +37,11 @@ const functionalitiesSlice = createSlice({
   },
 });
 
-export const { updateNavbar, updateToken, clearRedux, updateHospitals, updateDepartments } = functionalitiesSlice.actions;
+export const { updateNavbar, updateToken, clearRedux, updateDoctors, updateDepartments } = functionalitiesSlice.actions;
 
 export const functionalitiesNavbar = state => state.loader.functionalities.showNavbar;
 export const tokenJson = state => state.loader.functionalities.token;
 export const GetAllDepartments = state => state.loader.functionalities.departments;
-export const GetAllHospitals = state => state.loader.functionalities.hospitals;
+export const GetAllDoctors = state => state.loader.functionalities.doctors;
 
 export default functionalitiesSlice.reducer;

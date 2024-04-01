@@ -9,9 +9,12 @@ import { useEffect } from "react";
 import { addDepartmentHospital, fetchDepartmentHospital, fetchSoftwareDepartmentHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { Alert } from 'antd';
+import DepartmentSearch from "../common-components/DepartmentSearch";
 
 
 export default function Departments(){
+    const [filters, setFilters] = useState({
+    })
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
     let [acceptsDepartments, setAcceptsDepartments] = useState(false);
@@ -40,7 +43,7 @@ export default function Departments(){
         addDepartmentssFetch,
       ] = useAxios();
     const fetchDepartmentFunc = () => {
-        departmentsFetch(fetchDepartmentHospital())
+        departmentsFetch(fetchDepartmentHospital(filters))
     }
     const fetchSoftwaresDepartmentFunc = () => {
         getSoftwareDepartmentssFetch(fetchSoftwareDepartmentHospital())
@@ -51,7 +54,7 @@ export default function Departments(){
     useEffect(()=>{
         fetchDepartmentFunc()
         fetchSoftwaresDepartmentFunc()
-    },[])
+    },[filters])
     useEffect(()=>{
         if(departmentsResponse?.result == "success" && departmentsResponse?.data){
             setDepartmentValues(departmentsResponse?.data)
@@ -73,6 +76,7 @@ export default function Departments(){
                 showMessage:true
               })
             setShow(!show)
+            fetchDepartmentFunc()
         }
     },[addDepartmentsResponse])
 
@@ -112,6 +116,7 @@ export default function Departments(){
                                                 <Modal.Body>
                                                     <div className="modal-body p-3 pt-4">
                                                             <div className="row">
+                                                       
                                                                 <div className="col-lg-12">
                                                                 <div className="mb-3">
                                                                         <label className="form-label">Departments</label>
@@ -166,6 +171,7 @@ export default function Departments(){
                     </div>
                     
                     <div className="row">
+
                     {message?.showMessage &&  <Alert 
        style={{marginTop:"1rem"}}
        message={message?.message} type="success" 
@@ -177,6 +183,25 @@ export default function Departments(){
                   })
                 }}
           />}
+               <div className="row" style={{ marginTop: "1rem" }}>
+
+<div className="col-sm-6 col-lg-3">
+    <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+</div>
+<div className="col-sm-6 col-lg-1">
+   <button
+    className="form-control btn-check-reset"
+    onClick={()=>{
+        setFilters({
+            department:""
+        })
+    }}
+    style={{backgroundColor:"red"}}
+   >Reset</button>
+
+</div>
+</div>
                         <div className="col-12 mt-4">
                             <div className="table-responsive bg-white shadow rounded">
                                 <table className="table mb-0 table-center">

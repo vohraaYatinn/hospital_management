@@ -63,6 +63,8 @@ import Drugs from "./page/pharmacy/drugs";
 import ResetPassword from "./page/resetPassword";
 import DoctorLeave from "./page/doctorLeave";
 import Logout from "./page/logout";
+import HospitalAdmins from "./page/hospitalaccounts/hospital-admins";
+import AddHospitalAccount from "./page/hospitalaccounts/add-hospital-admin";
 
 
 function App() {
@@ -134,6 +136,8 @@ function App() {
     <Route path="*" element={<Error/>}/>
     <Route path="thankyou" element={<ThankYou/>}/>
     <Route path="/logout" element={<Logout/>}/>
+    <Route path="/add-hospital-admin" element={<AddHospitalAccount/>}/>
+    <Route path="/hospitals-admin" element={<HospitalAdmins/>}/>
   </Routes>
    
    </>

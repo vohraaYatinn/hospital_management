@@ -55,3 +55,18 @@ export const addDepartmentHospital = (payload_data) => {
 export const handleDelete = (payload_data) => {
   return project.post(Urls.DELETE_HANDLE, payload_data);
 };
+export const fetchDepartmentAll = (payload_data) => {
+  return project.get(Urls.FETCH_HOSPITAL_ALL_DEPARMENTS, payload_data);
+};
+export const fetchAllDoctors = (payload_data) => {
+  return project.get(Urls.FETCH_HOSPITAL_ALL_DOCTORS, payload_data);
+};
+export const fetchAllHospitalReviews = (payload_data) => {
+  return project.get(Urls.FEFETCH_ALL_DOCTOR_REVIEWS, payload_data);
+};
+export const fetchHospitalAdminData = (payload_data) => {
+  return project.get(Urls.FETCH_HOSPITAL_ADMIN_ACCOUNTS, payload_data);
+};
+export const addHospitalAdminData = (payload_data) => {
+  return project.post(Urls.ADD_HOSPITAL_ADMIN_ACCOUNTS, payload_data);
+};

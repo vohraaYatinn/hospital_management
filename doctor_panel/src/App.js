@@ -28,7 +28,7 @@ import DoctorLeave from "./pages/dashboard/doctor-leave";
 function App() {
   return (
     <Routes>
-      <Route path="/" element={<DoctorDashBoard/>}/>
+      <Route path="/index" element={<DoctorDashBoard/>}/>
       {/* <Route path="/index" element={<Index/>}/>
       <Route path="/index-two" element={<IndexTwo/>}/>
       <Route path="/index-three" element={<IndexThree/>}/> */}
@@ -73,6 +73,7 @@ function App() {
       <Route path="/error" element={<Error/>}/>
      
       <Route path="/contact" element={<Contact/>}/> */}
+      <Route path="/" element={<Login/>}/>
       <Route path="/login" element={<Login/>}/>
       <Route path="/signup" element={<Signup/>}/>
       <Route path="/logout" element={<Logout/>}/>

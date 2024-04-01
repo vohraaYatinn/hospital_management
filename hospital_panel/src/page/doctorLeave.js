@@ -13,12 +13,15 @@ import useAxios from "../network/useAxios";
 import { fetchLeaveRequest, performLeaveAction } from "../urls/urls";
 import { test_url_images } from "../config/environment";
 import { Button } from "antd";
+import DepartmentSearch from "../common-components/DepartmentSearch";
+import DoctorSearch from "../common-components/DoctorsSearch";
 
 export default function DoctorLeave() {
   let [editProfile, setEditProfile] = useState(false);
   let [show, setShow] = useState(false);
   const [formValues, setFormValues] = useState({});
-
+  const [filters, setFilters] = useState({
+  })
   const [requestData, setRequestData] = useState([]);
   const [
     leaveDoctorResponse,
@@ -33,14 +36,14 @@ export default function DoctorLeave() {
     performActionFetch,
   ] = useAxios();
   const fetchLeaveRequestFunc = () => {
-    leaveDoctorFetch(fetchLeaveRequest())
+    leaveDoctorFetch(fetchLeaveRequest(filters))
   }
   const performActionRequest = () => {
     performActionFetch(performLeaveAction(formValues))
   }
   useEffect(()=>{
     fetchLeaveRequestFunc()
-  },[])
+  },[filters])
   useEffect(()=>{
     if(performActionResponse?.result == "success"){
       fetchLeaveRequestFunc()
@@ -99,6 +102,27 @@ if(leaveDoctorResponse?.result == "success"){
           </div>
 
           <div className="row">
+          <div className="row" style={{ marginTop: "1rem" }}>
+          <div className="col-sm-6 col-lg-3">
+                                    <DoctorSearch filters={filters} setFilters={setFilters} />
+                                </div>
+<div className="col-sm-6 col-lg-3">
+    <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+</div>
+<div className="col-sm-6 col-lg-1">
+   <button
+    className="form-control btn-check-reset"
+    onClick={()=>{
+        setFilters({
+            department:""
+        })
+    }}
+    style={{backgroundColor:"red"}}
+   >Reset</button>
+
+</div>
+</div>
             <div className="col-12 mt-4">
               <div className="table-responsive shadow rounded">
                 <table className="table table-center bg-white mb-0">

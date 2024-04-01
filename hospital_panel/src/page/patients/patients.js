@@ -13,9 +13,14 @@ import { fetchPatientsHospitals } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { calculateAge } from "../../utils/commonFunctions";
 import moment from "moment";
+import DoctorSearch from "../../common-components/DoctorsSearch";
+import DepartmentSearch from "../../common-components/DepartmentSearch";
+import PatientName from "../../common-components/PatientName";
 
 
 export default function Patients(){
+    const [filters, setFilters] = useState({
+    })
     let [viewProfile, setViewProfile] = useState(false)
     let [editProfile, setEditProfile] = useState(false)
     const [patientData, setPatientsData] = useState([]);
@@ -26,8 +31,8 @@ export default function Patients(){
       patientListFetch,
     ] = useAxios();
     useEffect(()=>{
-        patientListFetch(fetchPatientsHospitals())
-    },[])
+        patientListFetch(fetchPatientsHospitals(filters))
+    },[filters])
     useEffect(()=>{
         if(patientListResponse?.result == "success"){
             setPatientsData(patientListResponse?.data)
@@ -49,6 +54,32 @@ export default function Patients(){
                     </div>
                     
                     <div className="row">
+                    <div className="row" style={{ marginTop: "1rem" }}>
+                    <div className="col-sm-6 col-lg-3">
+                                    <PatientName filters={filters} setFilters={setFilters} />
+                                </div>
+          <div className="col-sm-6 col-lg-3">
+                                    <DoctorSearch filters={filters} setFilters={setFilters} />
+                                </div>
+<div className="col-sm-6 col-lg-3">
+    <DepartmentSearch filters={filters} setFilters={setFilters} />
+
+</div>
+<div className="col-sm-6 col-lg-1">
+   <button
+    className="form-control btn-check-reset"
+    onClick={()=>{
+        setFilters({
+            department:"",
+            doctorName:"",
+            patientName:""
+        })
+    }}
+    style={{backgroundColor:"red"}}
+   >Reset</button>
+
+</div>
+</div>
                         <div className="col-12 mt-4">
                             <div className="table-responsive shadow rounded">
                                 <table className="table table-center bg-white mb-0">
