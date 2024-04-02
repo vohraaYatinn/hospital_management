@@ -70,3 +70,6 @@ export const fetchHospitalAdminData = (payload_data) => {
 export const addHospitalAdminData = (payload_data) => {
   return project.post(Urls.ADD_HOSPITAL_ADMIN_ACCOUNTS, payload_data);
 };
+export const fetchAdminDashboard = (payload_data) => {
+  return project.get(Urls.FETCH_HOSPITAL_ADMIN_DASHBOARD, payload_data);
+};

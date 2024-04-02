@@ -21,6 +21,7 @@ export class Urls {
     static FEFETCH_ALL_DOCTOR_REVIEWS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-doctors-hospital-reviews/';
     static FETCH_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-hospital-admin/';
     static ADD_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/add-hospital-admin-user/';
+    static FETCH_HOSPITAL_ADMIN_DASHBOARD = Urls.MPHRMS_API_PREFIX + 'admin/fetch-dashboard-details-hospital/';
 
 
 

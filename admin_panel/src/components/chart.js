@@ -133,14 +133,9 @@ export default function Charts(){
         <div className="col-xl-4 col-lg-5 mt-4">
             <div className="card shadow border-0 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h6 className="align-items-center mb-0">Patients by Department</h6>
+                    <h6 className="align-items-center mb-0">Patients by Department Today</h6>
                     
-                    <div className="mb-0 position-relative">
-                        <select className="form-select form-control" id="dailychart">
-                            <option defaultValue>Today</option>
-                            <option>Yesterday</option>
-                        </select>
-                    </div>
+                   
                 </div>
                 <Chart options={options2} series={options2.series} type="radialBar" width='100%' height={350} />
             </div>

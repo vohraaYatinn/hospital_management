@@ -8,7 +8,7 @@ import useAxios from '../network/useAxios';
 import {FiHome,SlSocialGoogle } from '../assets/icons/vander'
 import {FaSquareFacebook} from 'react-icons/fa6'
 import { loginDoctor } from "../urls/urls";
-import { updateToken } from "../redux/reducers/functionalities.reducer";
+import { updateDoctor, updateToken } from "../redux/reducers/functionalities.reducer";
 import { useDispatch } from "react-redux";
 
 export default function Login(){
@@ -29,6 +29,7 @@ export default function Login(){
         if(authDetailsResponse?.result == "success"){
             localStorage.setItem('storedToken', authDetailsResponse?.token);
             dispatch(updateToken(authDetailsResponse?.token))
+            dispatch(updateDoctor(authDetailsResponse?.doctor))
             router.push("/doctor-dashboard")
         }
     },[authDetailsResponse])

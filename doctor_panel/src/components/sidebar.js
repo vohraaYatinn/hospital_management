@@ -5,10 +5,15 @@ import bg1 from '../assets/images/doctors/profile-bg.jpg'
 import dr1 from '../assets/images/doctors/01.jpg'
 
 import {RiAirplayLine,RiCalendarCheckLine,RiTimerLine, RiPagesLine,RiMailUnreadLine,RiUser2Line,RiUserSettingsLine,RiEmpathizeLine,RiChat1Line,RiChatVoiceLine,RiLoginCircleLine, RiDeviceRecoverLine} from '../assets/icons/vander'
+import { useSelector } from "react-redux";
+import { doctorDetails } from "../redux/reducers/functionalities.reducer";
+import { test_url_images } from "../config/environment";
+import { useEffect } from "react";
 
 export default function Sidebar({colClass}){
     let location = useLocation()
-   
+    let token = useSelector(doctorDetails);
+
     
     return(
         <>
@@ -19,9 +24,9 @@ export default function Sidebar({colClass}){
                 </div>
 
                 <div className="text-center avatar-profile margin-nagative mt-n5 position-relative pb-4 border-bottom">
-                    <img src={dr1} className="rounded-circle shadow-md avatar avatar-md-md" alt=""/>
-                    <h5 className="mt-3 mb-1">Dr.Rakesh Monhani</h5>
-                    <p className="text-muted mb-0">Orthopedic</p>
+                    <img src={test_url_images + token?.profile_picture} className="rounded-circle shadow-md avatar avatar-md-md" alt=""/>
+                    <h5 className="mt-3 mb-1">Dr.{token?.full_name}</h5>
+                    <p className="text-muted mb-0">{token?.specialization}</p>
                 </div>
 
                 <ul className="list-unstyled sidebar-nav mb-0" id="navigation23" 

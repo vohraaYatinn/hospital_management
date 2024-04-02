@@ -7,7 +7,8 @@ const functionalitiesSlice = createSlice({
   initialState: {
     functionalities: {
         showNavbar: false,
-        token: false
+        token: false,
+        doctor:{}
     },
 
   },
@@ -17,6 +18,9 @@ const functionalitiesSlice = createSlice({
     },
     updateToken(state, payload) {
       state.functionalities.token = payload.payload
+    },
+    updateDoctor(state, payload) {
+      state.functionalities.doctor = payload.payload
     },
     clearRedux(state) {
       state.functionalities = {
@@ -29,9 +33,10 @@ const functionalitiesSlice = createSlice({
   },
 });
 
-export const { updateNavbar, updateToken, clearRedux } = functionalitiesSlice.actions;
+export const { updateNavbar, updateToken, clearRedux, updateDoctor } = functionalitiesSlice.actions;
 
 export const functionalitiesNavbar = state => state.loader.functionalities.showNavbar;
 export const tokenJson = state => state.loader.functionalities.token;
+export const doctorDetails = state => state.loader.functionalities.doctor;
 
 export default functionalitiesSlice.reducer;

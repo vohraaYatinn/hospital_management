@@ -15,8 +15,13 @@ import {
   GrDashboard,
   LiaSignOutAltSolid,
 } from "../assets/icons/vander";
+import { useSelector } from "react-redux";
+import { doctorDetails } from "../redux/reducers/functionalities.reducer";
+import { test_url_images } from "../config/environment";
 
 export default function Navbar({ navDark, containerClass }) {
+  let token = useSelector(doctorDetails);
+
   let [show, setShow] = useState(false);
   let [scroll, setScroll] = useState(false);
   let [isMenu, setisMenu] = useState(false);
@@ -164,10 +169,10 @@ export default function Navbar({ navDark, containerClass }) {
                 style={{ minWidth: "200px", left: "-9rem" }}
               >
                 <Link className="dropdown-item d-flex align-items-center text-dark" to="/doctor-profile">
-                  <img src={dr1} className="avatar avatar-md-sm rounded-circle border shadow" alt="" />
+                  <img src={test_url_images + token?.profile_picture} className="avatar avatar-md-sm rounded-circle border shadow" alt="" />
                   <div className="flex-1 ms-2">
-                    <span className="d-block mb-1">Rakesh Monhani</span>
-                    <small className="text-muted">Orthopedic</small>
+                    <span className="d-block mb-1">{token?.full_name}</span>
+                    <small className="text-muted">{token?.specialization}</small>
                   </div>
                 </Link>
                 <Link className="dropdown-item text-dark mb-2" to="/doctor-dashboard">
