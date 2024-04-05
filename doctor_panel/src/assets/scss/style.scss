@@ -47,3 +47,34 @@
 @import "custom/plugins/testi";
 @import "custom/plugins/datepicker";
 @import "custom/plugins/apexchart";
+.btn-check-reset{
+   color: white !important;
+}
+.color-red{
+   color: red !important;
+
+}
+.color-yellow{
+   color: rgb(255, 191, 0) !important;
+
+}
+.color-green{
+   color: green !important;
+
+}
+.check-patient-dashboard-prescription{
+   display: flex;
+   flex-direction: column;
+   align-items: center;
+   margin-left: -15rem;
+}
+.fixed-footer{
+      position:fixed;
+      bottom: 0rem;
+      width: 100%;
+      z-index: 3;
+
+}
+.overflow-issue::-webkit-scrollbar {
+   display: none;
+}

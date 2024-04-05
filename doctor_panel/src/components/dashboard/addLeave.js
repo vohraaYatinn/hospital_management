@@ -16,7 +16,7 @@ export default function AddLeave({setFormData, doctorLeaveResponse, submitLeave}
         <>
         <div className="col-sm-12 col-md-7 mt-4 mt-sm-0">
             <div className="d-grid">
-                <Link to="#" className="btn btn-primary" onClick={handleShow}>Leave</Link>
+                <Link to="#" className="btn btn-primary" onClick={handleShow}>Apply</Link>
             </div>
         </div>
         <Modal show={show} onHide={handleClose} size="lg" centered>

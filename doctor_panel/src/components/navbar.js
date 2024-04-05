@@ -46,10 +46,7 @@ export default function Navbar({ navDark, containerClass }) {
     const closeModal = () => {
       setModal(false);
     };
-    document.addEventListener("mousedown", closeModal);
-    return () => {
-      document.removeEventListener("mousedown", closeModal);
-    };
+
   }, []);
 
   let toggleMenu = () => {
@@ -127,33 +124,11 @@ export default function Navbar({ navDark, containerClass }) {
 
         <ul className="dropdowns list-inline mb-0">
           <li className="list-inline-item mb-0 ms-1">
-            <Link to="#" className="btn btn-icon btn-pills btn-primary" onClick={handleShow}>
-              <FiSearch />
-            </Link>
+
           </li>
           <Offcanvas show={show} onHide={handleClose} placement="top" style={{ height: "250px" }}>
             <Offcanvas.Header closeButton></Offcanvas.Header>
-            <Offcanvas.Body className="pb-3">
-              <div className="container">
-                <div className="row">
-                  <div className="col">
-                    <div className="text-center">
-                      <h4>Search now.....</h4>
-                      <div className="subcribe-form mt-4">
-                        <form>
-                          <div className="mb-0">
-                            <input type="text" id="help" name="name" className="border rounded-pill" required="" placeholder="Search" />
-                            <button type="submit" className="btn btn-pills btn-primary">
-                              Search
-                            </button>
-                          </div>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </Offcanvas.Body>
+
           </Offcanvas>
           <li className="list-inline-item mb-0 ms-1">
             <div className="dropdown dropdown-primary">
@@ -169,7 +144,6 @@ export default function Navbar({ navDark, containerClass }) {
                 style={{ minWidth: "200px", left: "-9rem" }}
               >
                 <Link className="dropdown-item d-flex align-items-center text-dark" to="/doctor-profile">
-                  <img src={test_url_images + token?.profile_picture} className="avatar avatar-md-sm rounded-circle border shadow" alt="" />
                   <div className="flex-1 ms-2">
                     <span className="d-block mb-1">{token?.full_name}</span>
                     <small className="text-muted">{token?.specialization}</small>
@@ -188,8 +162,8 @@ export default function Navbar({ navDark, containerClass }) {
                   Profile Settings
                 </Link>
                 <div className="dropdown-divider border-top"></div>
-                <Link className="dropdown-item text-dark" to="/login">
-                  <span className="mb-0 d-inline-block me-1">
+                <Link className="dropdown-item text-dark" to="/logout">
+                  <span className="mb-0 d-inline-block me-1" >
                     <LiaSignOutAltSolid className="align-middle h6 mb-0" />
                   </span>{" "}
                   Logout

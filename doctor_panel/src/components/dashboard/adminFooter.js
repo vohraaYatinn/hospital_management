@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function AdminFooter(){
     return(
-        <footer className="py-4">
+        <footer className="py-4 fixed-footer">
             <div className="container-fluid">
                 <div className="row align-items-center">
                     <div className="col-sm-6">

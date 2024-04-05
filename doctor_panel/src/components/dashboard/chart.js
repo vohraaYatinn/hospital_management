@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts'
 export default function Charts({data}){
     let options = {
         series: [{
-            data: [20, 45, 40, 64, 35, 25, 35]
+            data: data?.total
         }],
         chart: {
             type: 'area',
@@ -51,7 +51,7 @@ export default function Charts({data}){
     };
     let options2 = {
         series: [{
-            data: [10, 25, 30, 54, 45, 39, 15]
+            data: data?.completed
         }],
         chart: {
             type: 'area',
@@ -97,7 +97,7 @@ export default function Charts({data}){
     };
     let options3 = {
         series: [{
-            data: [15, 20, 10, 45, 20, 10, 5]
+            data: data?.pending
         }],
         chart: {
             type: 'area',
@@ -143,7 +143,7 @@ export default function Charts({data}){
     };
     let options4 = {
         series: [{
-            data: [3, 5, 7, 11, 8, 5, 7]
+            data: data?.canceled
         }],
         chart: {
             type: 'area',
@@ -192,8 +192,8 @@ export default function Charts({data}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Total Appointments <span className="badge rounded-pill bg-soft-primary ms-1">+15%</span></h6>
-                        <p className="mb-0 text-muted">{data?.all_appointments}+ Week</p>
+                        <h6 className="align-items-center mb-0">Total Appo.. </h6>
+
                     </div>
                     <Chart options={options} series={options.series} type="area" width='100%' height={90}/>
                 </div>
@@ -201,8 +201,7 @@ export default function Charts({data}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Pending Appointments <span className="badge rounded-pill bg-soft-warning ms-1">+5%</span></h6>
-                        <p className="mb-0 text-muted">{data?.pending_appointments}+ Week</p>
+                        <h6 className="align-items-center mb-0">Pending Appo..</h6>
                     </div>
                     <Chart options={options3} series={options3.series} type="area" width='100%' height={90}/>
                 </div>
@@ -212,8 +211,7 @@ export default function Charts({data}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Canceled Appointments <span className="badge rounded-pill bg-soft-danger ms-1">-5%</span></h6>
-                        <p className="mb-0 text-muted">{data?.canceled_appointments}+ Week</p>
+                        <h6 className="align-items-center mb-0">Canceled Appo.. </h6>
                     </div>
                     <Chart options={options4} series={options4.series} type="area" width='100%' height={90}/>
                 </div>
@@ -222,8 +220,7 @@ export default function Charts({data}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Completed<br></br>Appointments <span className="badge rounded-pill bg-soft-success ms-1">+20%</span></h6>
-                        <p className="mb-0 text-muted">{data?.total_appointments}+ Week</p>
+                        <h6 className="align-items-center mb-0">Completed Appo..<br></br></h6>
                     </div>
                     <Chart options={options2} series={options2.series} type="area" width='100%' height={90}/>
                 </div>

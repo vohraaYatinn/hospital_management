@@ -9,6 +9,7 @@ import client1 from '../../assets/images/client/01.jpg'
 import { patientsData } from "../../data/data";
 import useAxios from "../../network/useAxios";
 import { fetchMyDoctorReviews } from "../../urls/urls";
+import { designStarsReviews } from "../../utils/commonFunctions";
 
 export default function PatientReview(){
     let [show, setShow] = useState('')
@@ -107,11 +108,7 @@ export default function PatientReview(){
                                                         <h6 className="text-primary mt-3">{item?.patient?.full_name} </h6>
                                                         <p className="text-muted fw-normal fst-italic">{item.comment}</p>
                                                         <ul className="list-unstyled mb-0">
-                                                            <li className="list-inline-item"><i className="mdi mdi-star text-warning"></i></li>
-                                                            <li className="list-inline-item"><i className="mdi mdi-star-outline text-warning"></i></li>
-                                                            <li className="list-inline-item"><i className="mdi mdi-star-outline text-warning"></i></li>
-                                                            <li className="list-inline-item"><i className="mdi mdi-star-outline text-warning"></i></li>
-                                                            <li className="list-inline-item"><i className="mdi mdi-star-outline text-warning"></i></li>
+                                                            {designStarsReviews(item?.reviews_star)}
                                                         </ul>
                                                     </div>
                                                 </div>

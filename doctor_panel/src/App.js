@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes} from "react-router-dom";
 
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
@@ -23,9 +23,48 @@ import Signup from "./pages/signup";
 import ForgotPassword from "./pages/forgot-password";
 import Logout from "./pages/logout";
 import DoctorLeave from "./pages/dashboard/doctor-leave";
+import { doctorDetails, tokenJson, updateDoctor, updateToken } from './redux/reducers/functionalities.reducer';
+import { useRouter } from './hooks/use-router';
+import useAxios from './network/useAxios';
+import { getDetailsFromToken } from './urls/urls';
+import { useDispatch, useSelector } from "react-redux";
 
 
 function App() {
+  let doctor = useSelector(doctorDetails);
+  const dispatch = useDispatch();
+  const router = useRouter();
+  let storedToken = localStorage.getItem('storedToken');
+  
+  const [getRefershDataResponse, getRefershDataError, getRefershDataLoading, getRefershDataFetch] = useAxios();
+  useEffect(()=>{
+      if (!(doctor=={}) && storedToken) {
+        console.log("aaaaaa")
+          getRefershDataFetch(getDetailsFromToken({
+              "token":storedToken
+          }))
+      }
+      else{
+        console.log(doctor)
+        console.log(storedToken)
+        console.log("bbbbbaaaaa")
+
+          router.push("/login")
+      }
+  },[])
+  useEffect(()=>{
+      if (getRefershDataResponse?.result == "success") {
+          localStorage.setItem('storedToken', getRefershDataResponse?.token);
+          dispatch(updateToken(getRefershDataResponse?.token))
+          dispatch(updateDoctor(getRefershDataResponse?.doctor))
+      }
+      else if (getRefershDataResponse?.result == "failure"){
+          router.push("/login")
+  
+      }
+  },[getRefershDataResponse])
+
+
   return (
     <Routes>
       <Route path="/index" element={<DoctorDashBoard/>}/>

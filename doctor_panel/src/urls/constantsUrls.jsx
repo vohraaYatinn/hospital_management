@@ -18,6 +18,8 @@ export class Urls {
     static DOCTOR_FETCH_LEAVE = Urls.MPHRMS_API_PREFIX + 'doctors/doctor-fetch-leave/';
     static DOCTOR_APPLY_LEAVE = Urls.MPHRMS_API_PREFIX + 'doctors/doctor-apply-leave/';
     static RECOVER_PASSWORD_REQUEST = Urls.MPHRMS_API_PREFIX + 'doctors/forgot-password-request/';
+    static HANDLE_DOCTOR_IMAGES = Urls.MPHRMS_API_PREFIX + 'doctors/handle-doctor-iamges/';
+    static GET_DATA_FROM_TOKEN = Urls.MPHRMS_API_PREFIX + 'doctors/get-data-from-token/';
 
 
 }

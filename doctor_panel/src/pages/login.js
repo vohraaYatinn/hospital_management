@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useRouter } from '../hooks/use-router';
 
@@ -10,13 +10,24 @@ import {FaSquareFacebook} from 'react-icons/fa6'
 import { loginDoctor } from "../urls/urls";
 import { updateDoctor, updateToken } from "../redux/reducers/functionalities.reducer";
 import { useDispatch } from "react-redux";
+import { Alert } from 'antd';
 
 export default function Login(){
     const [formValues, setFormValues] = useState()
+    const [passwordVisible, setPasswordVisible] = useState(false);
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+      };
+    
     const [authDetailsResponse, authDetailsError, authDetailsLoading, authDetailsFetch] = useAxios();
     const router = useRouter();
     const dispatch = useDispatch();
-
+    const loginButtonRef = React.useRef(null);
+    const[message, setMessage] = useState({
+        message:"",
+        showMessage:"",
+        type:"error"
+      })
     const LoginFunction = () =>{
         if(formValues?.email && formValues?.password){
         authDetailsFetch(loginDoctor({
@@ -31,6 +42,13 @@ export default function Login(){
             dispatch(updateToken(authDetailsResponse?.token))
             dispatch(updateDoctor(authDetailsResponse?.doctor))
             router.push("/doctor-dashboard")
+        }
+        else if(authDetailsResponse?.result == "failure"){
+            setMessage({
+                message:"The email or password entered is invalid",
+                showMessage:true,
+                type:"error"
+              })
         }
     },[authDetailsResponse])
     return(
@@ -63,11 +81,28 @@ export default function Login(){
                                         <div className="col-lg-12">
                                             <div className="mb-3">
                                                 <label className="form-label">Password <span className="text-danger">*</span></label>
-                                                <input type="password" className="form-control" placeholder="Password" required=""
+                                                
+                                                <input type={passwordVisible ? "text" : "password"}
+                                                                            className="form-control" placeholder="Password" required=""
                                                                                                 onChange={(e)=>{
                                                                                                     setFormValues((prev)=>({...prev, 'password':e.target.value}))
                                                                                                 }}
+                                                                                                onKeyPress={(e) => {
+                                                                                                    if (e.key === "Enter") {
+                                                                                                        loginButtonRef.current.click();
+                                                                                                    }}}
                                                 />
+                                                 <button type="button" onClick={togglePasswordVisibility}
+                                                 style={{
+                                                    background: "transparent",
+                                                    border: 0,
+                                                    color: "blue",
+                                                    float: "right",
+                                                    marginBottom: "1rem",
+                                                 }}
+                                                 >
+        {passwordVisible ? "Hide" : "Show"}
+      </button>
                                             </div>
                                         </div>
 
@@ -81,19 +116,30 @@ export default function Login(){
                                                 </div>
                                                 <Link to="/forgot-password" className="text-dark h6 mb-0">Forgot password ?</Link>
                                             </div>
+                                            {message?.showMessage &&  <Alert 
+       style={{marginTop:"1rem", marginBottom:"1rem"}}
+       message={message?.message} type={message?.type}
+                closable
+                
+                onClose={()=>{
+                  setMessage({
+                    message:"",
+                    showMessage:false
+                  })
+                }}
+          />}
                                         </div>
+                              
                                         <div className="col-lg-12 mb-0">
                                             <div className="d-grid">
                                                 <button className="btn btn-primary"
                                                 onClick={()=>LoginFunction()}
+                                                ref={loginButtonRef}
                                                 >Sign in</button>
                                             </div>
                                         </div>
 
 
-                                        <div className="col-12 text-center">
-                                            <p className="mb-0 mt-3"><small className="text-dark me-2">Don't have an account ?</small> </p>
-                                        </div>
                                     </div>
                             </div>
                         </div>

@@ -17,7 +17,7 @@ import { fetchPatientProfile, uploadDocumentPrescription } from "../../urls/urls
 import useAxios from "../../network/useAxios";
 import { calculateAge } from "../../utils/commonFunctions";
 import { FiUser } from "react-icons/fi";
-import { RiMindMap } from "react-icons/ri";
+import { RiMindMap, RiNodeTree, RiScales2Fill, RiWeiboFill } from "react-icons/ri";
 import { GiMedicalDrip } from "react-icons/gi";
 import moment from "moment";
 import PrescriptionHistory from "./prescriptionHistory";
@@ -40,6 +40,7 @@ export default function PatientProfile() {
     }
     ))}
   },[id])
+
 const generatePrescription = (htmlContent, doctorComment) => {
   if(htmlContent){
     uploadDocumentFetch(uploadDocumentPrescription({
@@ -50,7 +51,6 @@ const generatePrescription = (htmlContent, doctorComment) => {
   )
 }
 }
-
   useEffect(()=>{
     if(patientProfileResponse?.result == "success"){
       setPatientsData(patientProfileResponse?.data[0])
@@ -180,6 +180,27 @@ const generatePrescription = (htmlContent, doctorComment) => {
                       <div
                         className="d-flex align-items-center mt-3"
                       >
+                        <RiNodeTree className="align-text-bottom text-primary h5 mb-0 me-2" />
+                        <h6 className="mb-0">{"Block"}</h6>
+                        <p className="text-muted mb-0 ms-2">{patientsData?.block}</p>
+                      </div>
+                      <div
+                        className="d-flex align-items-center mt-3"
+                      >
+                        <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
+                        <h6 className="mb-0">{"Height"}</h6>
+                        <p className="text-muted mb-0 ms-2">{patientsData?.height} Foot</p>
+                      </div>
+                      <div
+                        className="d-flex align-items-center mt-3"
+                      >
+                        <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
+                        <h6 className="mb-0">{"Weight"}</h6>
+                        <p className="text-muted mb-0 ms-2">{patientsData?.weight} Kg</p>
+                      </div>
+                      <div
+                        className="d-flex align-items-center mt-3"
+                      >
                         <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
                         <h6 className="mb-0">{"Blood Group"}</h6>
                         <p className="text-muted mb-0 ms-2">{patientsData?.blood_group}</p>
@@ -203,7 +224,7 @@ const generatePrescription = (htmlContent, doctorComment) => {
             </div>
 
             <div className="col-lg-8 col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
-              <div className="card border-0 shadow overflow-hidden">
+              <div className="card border-0 shadow overflow-issue">
                 <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                   <li className="nav-item">
                     <Link
@@ -262,10 +283,10 @@ const generatePrescription = (htmlContent, doctorComment) => {
                   </li>
                 </ul>
 
-                <div className="tab-content p-4">
+                <div className="tab-content p-4 " style={{height: "100vh"}}>
                   {activeIndex === 1 ? (
                     <div className="tab-pane fade show active">
-                      <div className="card border-0 shadow overflow-hidden">
+                      <div className="card border-0 shadow overflow-issue">
                         <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                           <li className="nav-item">
                             <Link
@@ -443,7 +464,7 @@ const generatePrescription = (htmlContent, doctorComment) => {
                   )}
                   {activeIndex === 2 ? (
                   <div className="tab-pane fade show active">
-                  <div className="card border-0 shadow overflow-hidden">
+                  <div className="card border-0 shadow overflow-issue">
                     <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                       <li className="nav-item">
                         <Link
@@ -571,7 +592,7 @@ const generatePrescription = (htmlContent, doctorComment) => {
                   )}
                      {activeIndex === 3 ? (
                    <div className="tab-pane fade show active">
-                   <div className="card border-0 shadow overflow-hidden">
+                   <div className="card border-0 shadow overflow-issue">
                      <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                        <li className="nav-item">
                          <Link
@@ -654,10 +675,10 @@ const generatePrescription = (htmlContent, doctorComment) => {
         {prescription.symptoms.length >0 &&
               <div className="col-md-12 mt-4">
           <h5 className="mb-0">Chief Query:</h5>
-          <ul>
+          <ul className="check-patient-dashboard-prescription">
             {prescription.symptoms.map((med, index) => (
               <li key={index}>
-                {med.symptoms} - {med.dosage} per {med.duration}
+                {med.symptoms} - {med.dosage} X {med.duration}
                 <br />
               </li>
             ))}
@@ -667,7 +688,7 @@ const generatePrescription = (htmlContent, doctorComment) => {
         {Object.keys(prescription.systemic).length>0 &&
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">Systemic Examination:</h5>
-          <ul>
+          <ul className="check-patient-dashboard-prescription">
             {Object.keys(prescription.systemic).map((med, index) => (
                 prescription.systemic[med] != "" &&   <li key={index}>
                 {med} - {prescription.systemic[med]}
@@ -682,14 +703,14 @@ const generatePrescription = (htmlContent, doctorComment) => {
         {Object.keys(prescription.examination).length >0 &&
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">General Examination:</h5>
-          <ul>
+          <ul className="check-patient-dashboard-prescription">
             {Object.keys(prescription.examination).map((med, index) => (
-                prescription.examination[med] != "" &&   <li key={index}>
+                prescription.examination[med] != "" && 
+                <li key={index}>
                 {med} - {prescription.examination[med]}
                 <br />
               </li>
-            
-
+               
             ))}
           </ul>
         </div>
@@ -704,7 +725,7 @@ const generatePrescription = (htmlContent, doctorComment) => {
         {prescription.medications.length > 0 &&
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">Prescribed Medications:</h5>
-          <ul>
+          <ul className="check-patient-dashboard-prescription">
             {prescription.medications.map((med, index) => (
               <li key={index}>
                 {med.medicineName} - Dosage: {med.dosage} Time/Times a{" "}
@@ -718,7 +739,7 @@ const generatePrescription = (htmlContent, doctorComment) => {
         {prescription.labReports.length > 0 ? (
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Refer To:</h5>
-            <ul>
+            <ul className="check-patient-dashboard-prescription">
               {prescription.labReports.map((med, index) => (
                 <li key={index}>
                   {med}
@@ -733,14 +754,14 @@ const generatePrescription = (htmlContent, doctorComment) => {
         {medication.nextVisit &&
                 <div className="col-md-12 mt-4">
           <h5 className="mb-0">Next Visit:</h5>
-          <ul>
+          <ul className="check-patient-dashboard-prescription">
             {medication.nextVisit} Days
           </ul>
         </div>}
         {prescription.instructions.length > 0 ? (
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Instructions:</h5>
-            <ul>
+            <ul className="check-patient-dashboard-prescription">
               {prescription.instructions.map((med, index) => (
                 med!="" &&
                   <li key={index}>

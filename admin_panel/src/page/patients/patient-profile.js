@@ -91,7 +91,7 @@ export default function PatientProfile(){
                         </div>
     
                         <div className="col-lg-5 col-md-7 mt-4">
-                            <div className="card border-0 shadow overflow-hidden">
+                            <div className="card border-0 shadow overflow-issue">
                                 <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden mb-0">
                                     <li className="nav-item">
                                         <Link to="#" className={`${activeIndex === 1 ? 'active' : ''} nav-link rounded-0`} onClick={()=>setActiveIndex(1)}>

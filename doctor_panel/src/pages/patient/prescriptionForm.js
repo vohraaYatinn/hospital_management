@@ -53,16 +53,34 @@ const options = [
   { value: "warfarin", label: "Warfarin" },
   { value: "lorazepam", label: "Lorazepam" },
 ];
+const medicationType = [
+  { value: "Tablet", label: "Tablet" },
+  { value: "Syrup", label: "Syrup" },
+  { value: "Injection", label: "Injection" }
+]
+const medicationStrength = [];
+
+for (let i = 5; i <= 1000; i += 5) {
+  medicationStrength.push({ value: `${i}`, label: `${i}` });
+}
+const medicineConsumeOptions = [
+  { value: "ml", label: "ml" },
+  { value: "mg", label: "mg" }]
 const optionsDosage = [
   { value: "1", label: "1" },
   { value: "2", label: "2" },
   { value: "3", label: "3" },
   { value: "4", label: "4" },
+  { value: "5", label: "5" },
+  { value: "6", label: "6" },
+  { value: "7", label: "7" },
+  { value: "8", label: "8" },
+  { value: "9", label: "9" },
 ];
 const weeksOptions = [
   { value: "Day", label: "Day" },
   { value: "Week", label: "Week" },
-  { value: "Month", label: "Week" },
+  { value: "Month", label: "Month" },
 ];
 const time = [
   { value: "Before Food", label: "Before Food" },
@@ -186,9 +204,10 @@ function DoctorPrescriptionForm({
           </div>
           <div className="col-md-12">
             <div className="mb-3">
-              <label className="form-label">Medications</label>
               <div className="row">
-                <div className="col-md-12 mb-2">
+                <div className="col-md-4 mb-2">
+                <label className="form-label">Medications</label>
+
                   <Select
                     name="medicineName"
                     value={{
@@ -198,6 +217,54 @@ function DoctorPrescriptionForm({
                     onChange={(e) => handleMedicationChange(e, "medicineName")}
                     options={options}
                     placeholder="Select Medicine"
+                    isSearchable
+                    required
+                  />
+                </div>
+                <div className="col-md-3 mb-2">
+                <label className="form-label">Type</label>
+
+                  <Select
+                    name="medicineName"
+                    value={{
+                      value: medication.medicationType,
+                      label: medication.medicationType,
+                    }}
+                    onChange={(e) => handleMedicationChange(e, "medicationType")}
+                    options={medicationType}
+                    placeholder="Select Medicine"
+                    isSearchable
+                    required
+                  />
+                </div>
+                <div className="col-md-3 mb-2">
+                <label className="form-label">Strength</label>
+
+                  <Select
+                    name="medicineName"
+                    value={{
+                      value: medication.Strength,
+                      label: medication.Strength,
+                    }}
+                    onChange={(e) => handleMedicationChange(e, "Strength")}
+                    options={medicationStrength}
+                    placeholder="Select Strength"
+                    isSearchable
+                    required
+                  />
+                </div>
+                <div className="col-md-2 mb-2">
+                <label className="form-label">Mg/Ml</label>
+
+                  <Select
+                    name="medicineConsume"
+                    value={{
+                      value: medication.medicineConsume,
+                      label: medication.medicineConsume,
+                    }}
+                    onChange={(e) => handleMedicationChange(e, "medicineConsume")}
+                    options={medicineConsumeOptions}
+                    placeholder="Select Strength"
                     isSearchable
                     required
                   />
@@ -219,12 +286,11 @@ function DoctorPrescriptionForm({
                     required
                   />
                 </div>
-                <div className="col-md-3 ">
-                  <input
-                    disabled={true}
-                    placeholder="Time/Times a "
-                    style={{ height: "2.3rem" }}
-                  />
+                <div className="col-md-1 ">
+                  <div
+                    style={{ height: "2.3rem" , marginTop:"0.4rem"}}
+                  >Per
+                  </div>
                 </div>
                 <div className="col-md-3" style={{ marginLeft: "1rem" }}>
                   <Select

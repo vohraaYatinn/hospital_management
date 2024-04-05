@@ -1,5 +1,4 @@
 /* eslint-disable */
-
 import { HttpAxiosService } from './httpService';
 import { Urls } from './constantsUrls';
 import { test_url } from "../../src/config/environment.js"
@@ -54,4 +53,10 @@ export const doctorApplyFunction = (payload_data) => {
 };
 export const forgotPasswordRequest = (payload_data) => {
   return project.post(Urls.RECOVER_PASSWORD_REQUEST, payload_data);
+};
+export const handleDoctorImages = (payload_data) => {
+  return project.multiPartFormData(Urls.HANDLE_DOCTOR_IMAGES, payload_data);
+};
+export const getDetailsFromToken = (payload_data) => {
+  return project.get(Urls.GET_DATA_FROM_TOKEN, payload_data);
 };
