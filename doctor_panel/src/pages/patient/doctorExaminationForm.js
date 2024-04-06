@@ -4,15 +4,6 @@ import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
 import { Input } from "antd";
 
-const options = [
-  { value: "fever", label: "Fever" },
-  { value: "vomit", label: "Vomit" },
-  { value: "chestpain", label: "Chest Pain" },
-];
-const optionsDosage = Array.from({ length: 100 }, (_, index) => ({
-  value: (index + 100).toString(),
-  label: `${index + 100}`,
-}));
 const optionsDosagePulse = Array.from({ length: 151 }, (_, index) => ({
   value: (index + 50).toString(),
   label: `${index + 50}`,
@@ -123,13 +114,16 @@ const gynicOptionsOngoingExtend = [
   { value: "Irregular", label: "Irregular" },
 ];
 const gynicOptionsStoppedExtend = [
-  { value: "1", label: "1 Day" },
-  { value: "2", label: "2 Day" },
-  { value: "3", label: "3 Day" },
-  { value: "4", label: "4 Day" },
-  { value: "5", label: "5 Day" },
-  { value: "6", label: "6 Day" },
-  { value: "7", label: "7 Day" },
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5", label: "5" },
+  { value: "6", label: "6" },
+  { value: "7", label: "7" },
+  { value: "8", label: "8" },
+  { value: "9", label: "9" },
+  { value: "10", label: "10" },
 ];
 const optionsAbdominal = [
   { value: "Soft", label: "Soft" },
@@ -151,20 +145,11 @@ const optionsAbdominalExtend = [
   { value: "Right Tnguinal", label: "Right Tnguinal" },
   { value: "Left Tnguinal", label: "Left Tnguinal" },
 ];
-const optionsDosageTrueFalse = [
-  { value: "true", label: "True" },
-  { value: "false", label: "False" }
+const gynicOptionsTime = [
+  { value: "days", label: "days" },
+  { value: "months", label: "months" }
 ];
-const weeksOptions = [
-  { value: "Day", label: "Day" },
-  { value: "Week", label: "Week" },
-  { value: "Month", label: "Month" },
-];
-const time = [
-  { value: "Before Food", label: "Before Food" },
-  { value: "After Food", label: "After Food" },
-  { value: "Empty Stomach", label: "Empty Stomach" },
-];
+
 const handleChange = (selectedOption) => { };
 
 function DoctorExaminationForm({
@@ -399,10 +384,10 @@ function DoctorExaminationForm({
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: medication.temperatureValue,
-                            label: medication.temperatureValue,
+                            value: medication.temperature ? Math.round(medication.temperature):"",
+                            label:medication.temperature ?  Math.round(medication.temperature).toString():"",
                           }}
-                          onChange={(e) => handleMedicationChange(e, "temperatureValue")}
+                          onChange={(e) => handleMedicationChange(e, "temperature")}
                           options={optionsDosageTemp}
                           placeholder="Select Dosage"
                           isSearchable
@@ -415,13 +400,16 @@ function DoctorExaminationForm({
                         <Select
                           name="dosage"
                           style={{ height: "2rem" }}
-                          value={{
-                            value: medication.temperatureDecimal,
-                            label: medication.temperatureDecimal,
-                          }}
-                          onChange={(e) => handleMedicationChange(e, "temperatureDecimal")}
+                          onChange={(e) => 
+
+                            setMedication((prevMedication) => ({
+                              ...prevMedication,
+                              temperature:  Math.round(medication.temperature)+e.value,
+                            }))
+                          
+                          }
                           options={optionsDosageTempDecimal}
-                          placeholder="Select Dosage"
+                          placeholder="Select Decimal"
                           isSearchable
                           required
                         />
@@ -526,10 +514,10 @@ function DoctorExaminationForm({
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: systemic.CVSExtend,
-                            label: systemic.CVSExtend,
+                            value: systemic.CvsType,
+                            label: systemic.CvsType,
                           }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "CVSExtend")}
+                          onChange={(e) => handleMedicationChangeSystemic(e, "CvsType")}
                           options={optionsDosageCvsExtend}
                           placeholder="Select Dosage"
                           isSearchable
@@ -571,10 +559,10 @@ function DoctorExaminationForm({
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: systemic.RespiratoryExtend,
-                            label: systemic.RespiratoryExtend,
+                            value: systemic.RespiratoryType,
+                            label: systemic.RespiratoryType,
                           }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "RespiratoryExtend")}
+                          onChange={(e) => handleMedicationChangeSystemic(e, "RespiratoryType")}
                           options={optionsDosageRespExtend}
                           placeholder="Select Dosage"
                           isSearchable
@@ -685,22 +673,46 @@ function DoctorExaminationForm({
                       </div>
                       
                       {(systemic.Gynic == "Ongoing" || systemic.Gynic == "Stopped Since") &&
-                      <div className="col-5">
+                      <>
+                      <div className="col-3">
 
                         <Select
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: systemic.GynicExtend,
-                            label: systemic.GynicExtend,
+                            value: systemic.GynicType ? (systemic.GynicType.includes("months")?systemic.GynicType.match(/(\d+)months/)[1]:systemic.GynicType.includes("days")?systemic.GynicType.match(/\d+/)[0]:systemic.GynicType):systemic.GynicType,
+                            label: systemic.GynicType ? (systemic.GynicType.includes("months")?systemic.GynicType.match(/(\d+)months/)[1]:systemic.GynicType.includes("days")?systemic.GynicType.match(/\d+/)[0]:systemic.GynicType):systemic.GynicType,
                           }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "GynicExtend")}
+                          onChange={(e) => 
+                            handleMedicationChangeSystemic(e, "GynicType")}
                           options={systemic.Gynic == "Ongoing" ? gynicOptionsOngoingExtend : gynicOptionsStoppedExtend}
                           placeholder="Select Dosage"
                           isSearchable
                           required
                         />
                       </div>
+                      {systemic.Gynic == "Stopped Since" &&
+                      <div className="col-3">
+
+                        <Select
+                          name="dosage"
+                          style={{ height: "2rem" }}
+
+                          onChange={(e) => 
+                            setSystemic((prevMedication) => ({
+                              ...prevMedication,
+                              GynicType: systemic.GynicType + e.value,
+                            }))                        
+                        
+                        }
+                          options={gynicOptionsTime}
+                          placeholder="Time"
+                          isSearchable
+                          required
+                        />
+                      </div>
+                      }
+                      </>
                       }
 
                     </div>

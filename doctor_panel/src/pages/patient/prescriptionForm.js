@@ -56,7 +56,8 @@ const options = [
 const medicationType = [
   { value: "Tablet", label: "Tablet" },
   { value: "Syrup", label: "Syrup" },
-  { value: "Injection", label: "Injection" }
+  { value: "Injection", label: "Injection" },
+  { value: "Capsolute", label: "Capsolute" }
 ]
 const medicationStrength = [];
 
@@ -127,13 +128,13 @@ function DoctorPrescriptionForm({
     else{
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
-        labReports: [...prevPrescription.labReports, medication.labReports],
+        referTo: [...prevPrescription.referTo, medication.referTo],
       }));
     }
 
     setMedication((prev)=>({...prev,
     comments:"",
-    labReports:""
+    referTo:""
     }))
   };
 
@@ -385,9 +386,8 @@ function DoctorPrescriptionForm({
                          </div>
                          :
                          <div className="mb-3">
-                         <textarea name="labReports" id="name" type="text" className="form-control" placeholder=""
-                                                      value={medication.labreports}
-
+                         <textarea name="referTo" id="name" type="text" className="form-control" placeholder=""
+                                                      value={medication.referTo}
                                                       onChange={handleMedicationChange}
 
                         style={{height:"5rem"}}

@@ -80,9 +80,14 @@ export default function DoctorDashBoard() {
 
                                 <div className="col-xl-3 col-lg-6 mt-4">
                                     <div className="card border-0 shadow rounded">
-                                        <div className="d-flex justify-content-between p-4 border-bottom">
-                                            <h6 className="mb-0"> Total Appointment</h6>
-                                            <h6 className="text-muted mb-0">{dashboardDataPatients?.total_appointments_count} Patients</h6>
+                                        <div className="d-flex justify-content-between p-4 border-bottom"
+                                        style={{
+                                            background: "#386cf0",
+                                            color: "white"
+                                        }}
+                                        >
+                                            <h6 className="mb-0">Total Appointment</h6>
+                                            <h6 className="mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.total_appointments_count} Patients</h6>
                                         </div>
                                         
 
@@ -109,9 +114,14 @@ export default function DoctorDashBoard() {
 
                                 <div className="col-xl-3 col-lg-6 mt-4">
                                     <div className="card border-0 shadow rounded">
-                                        <div className="d-flex justify-content-between p-4 border-bottom">
-                                            <h6 className="mb-0"> Pending Appointment</h6>
-                                            <h6 className="text-muted mb-0">{dashboardDataPatients?.pending_appointments_count} Patients</h6>
+                                        <div className="d-flex justify-content-between p-4 border-bottom"
+                                                                                style={{
+                                                                                    background: "#f1b560",
+                                                                                    color: "white"
+                                                                                }}
+                                        >
+                                            <h6 className="mb-0">Pending Appointment</h6>
+                                            <h6 className=" mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.pending_appointments_count} Patients</h6>
                                         </div>
        
                                         <ul className="list-unstyled mb-0 p-4 pt-0">
@@ -137,9 +147,12 @@ export default function DoctorDashBoard() {
                                 </div>
                                 <div className="col-xl-3 col-lg-6 mt-4">
                                     <div className="card border-0 shadow rounded">
-                                        <div className="d-flex justify-content-between p-4 border-bottom">
-                                            <h6 className="mb-0"> Canceled Appointment</h6>
-                                            <h6 className="text-muted mb-0">{dashboardDataPatients?.canceled_appointments_count} Patients</h6>
+                                        <div className="d-flex justify-content-between p-4 border-bottom"     style={{
+                                                                                    background: "#f0735a",
+                                                                                    color: "white"
+                                                                                }}>
+                                            <h6 className="mb-0">Canceled Appointment</h6>
+                                            <h6 className="mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.canceled_appointments_count} Patients</h6>
                                         </div>
       
                                         <ul className="list-unstyled mb-0 p-4 pt-0">
@@ -165,9 +178,12 @@ export default function DoctorDashBoard() {
 
                                 <div className="col-xl-3 col-lg-6 mt-4">
                                     <div className="card border-0 shadow rounded">
-                                        <div className="d-flex justify-content-between p-4 border-bottom">
-                                            <h6 className="mb-0"> Completed Appointment</h6>
-                                            <h6 className="text-muted mb-0">{dashboardDataPatients?.completed_appointments_count} Patients</h6>
+                                        <div className="d-flex justify-content-between p-4 border-bottom"  style={{
+                                                                                    background: "#53c797",
+                                                                                    color: "white"
+                                                                                }}>
+                                            <h6 className="mb-0">Completed Appointment</h6>
+                                            <h6 className=" mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.completed_appointments_count} Patients</h6>
                                         </div>
 
                                         <ul className="list-unstyled mb-0 p-4 pt-0">

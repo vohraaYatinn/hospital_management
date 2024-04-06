@@ -137,31 +137,32 @@ export default function Navbar({ navDark, containerClass }) {
                 className="btn btn-pills btn-soft-primary dropdown-toggle p-0"
                 onClick={() => setModal(!modal)}
               >
-                <img src={dr1} className="avatar avatar-ex-small rounded-circle" alt="" />
+                <img src={test_url_images + token?.profile_picture} className="avatar avatar-ex-small rounded-circle" alt="" />
               </button>
               <div
                 className={`${modal === true ? "show" : ""} dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3`}
                 style={{ minWidth: "200px", left: "-9rem" }}
               >
-                <Link className="dropdown-item d-flex align-items-center text-dark" to="/doctor-profile">
+                <Link className="dropdown-item d-flex align-items-center text-dark">
                   <div className="flex-1 ms-2">
-                    <span className="d-block mb-1">{token?.full_name}</span>
+                    <span className="d-block mb-1">Dr {token?.full_name}</span>
                     <small className="text-muted">{token?.specialization}</small>
                   </div>
                 </Link>
+                <div className="dropdown-divider border-top"></div>
+
                 <Link className="dropdown-item text-dark mb-2" to="/doctor-dashboard">
                   <span className="mb-0 d-inline-block me-1">
                     <GrDashboard className="align-middle h6 mb-0" />
                   </span>{" "}
                   Dashboard
                 </Link>
-                <Link className="dropdown-item text-dark" to="/doctor-profile-setting">
+                <Link className="dropdown-item text-dark mb-2" to="/doctor-profile-setting">
                   <span className="mb-0 d-inline-block me-1">
                     <FiSettings className="align-middle h6 mb-0" />
                   </span>{" "}
                   Profile Settings
                 </Link>
-                <div className="dropdown-divider border-top"></div>
                 <Link className="dropdown-item text-dark" to="/logout">
                   <span className="mb-0 d-inline-block me-1" >
                     <LiaSignOutAltSolid className="align-middle h6 mb-0" />

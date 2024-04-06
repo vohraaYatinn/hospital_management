@@ -11,10 +11,17 @@ import { PaginationCountList, calculateAge, handlePagination } from "../../utils
 import DateSearchComponent from "../../common-components/DateSearch";
 import StatusSearch from "../../common-components/StatusSearch";
 import PatientName from "../../common-components/PatientName";
+import Modal from "react-bootstrap/Modal";
+import PrescriptionHistory from "../patient/prescriptionHistory";
+
+
 
 export default function DoctorAppointment(){
     const [appointmentsResponse, appointmentsError, appointmentsLoading, appointmentsFetch] = useAxios();
     const router = useRouter();
+    let [show, setShow] = useState(false);
+    const [htmlDataS, setHTMLData] = useState('');
+
     const [appointmentData, setAppointmentData] = useState([])
     const [filterValues, setFilterValues] = useState({});
     const [paginationNumber, setPaginationNumber] = useState({
@@ -49,8 +56,8 @@ export default function DoctorAppointment(){
             name: "Pending"
         },
         {
-            value: "past",
-            name: "Past"
+            value: "missed",
+            name: "Missed"
         },
         {
             value: "canceled",
@@ -133,7 +140,7 @@ export default function DoctorAppointment(){
                                                 <DateSearchComponent filters={filterValues} setFilters={setFilterValues} label={false}/>
                                                 </div>
                                                 <div className="row mt-3">
-                                                <div className="col-1">
+                                                <div className="col-3">
                                        <button
                                         className="form-control btn-check-reset"
                                         onClick={()=>{
@@ -162,6 +169,7 @@ export default function DoctorAppointment(){
                                                 <th className="border-bottom p-3" >District</th>
                                                 <th className="border-bottom p-3">Block</th>
                                                 <th className="border-bottom p-3">Status</th>
+                                                <th className="border-bottom p-3">Report</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -169,10 +177,17 @@ export default function DoctorAppointment(){
                                                 return(
                                                     <tr key={index}>
                                                         <th className="p-3">{item.id}</th>
-                                                        <td className="p-3">
-                                                            <Link to={`/patient-profile/${item?.patient?.id}/${item?.id}`} className="text-dark">
+                                                        <td className="p-3" >
+                                                            <Link to={item?.status != "completed" && `/patient-profile/${item?.patient?.id}/${item?.id}`} className="text-dark">
                                                                 <div className="d-flex align-items-center">
-                                                                    <span className="ms-2">{item?.patient?.full_name}</span>
+                                                                    {item?.status == "completed" ?
+                                                                    
+                                                                    <span className="ms-2" style={{color:"black", textDecoration:"underline"}}>{item?.patient?.full_name}</span>
+
+                                                            :
+                                                            <span className="ms-2" style={{color:"blue", textDecoration:"underline"}}>{item?.patient?.full_name}</span>
+
+                                                            }
                                                                 </div>
                                                             </Link>
                                                         </td>
@@ -184,6 +199,14 @@ export default function DoctorAppointment(){
                                                             item?.status == "canceled" ? "p-3 color-red" : item?.status == "pending" ? "p-3 color-yellow" : item?.status == "completed" ? "p-3 color-green" :""
                                                         }
                                                         >{item?.status}</td>
+                                                        <td className="p-3">{item?.pdf_content && <button style={{
+                                                                background: "rgb(56, 108, 240)", color:"white"
+                                                        }}
+                                                        onClick={()=>{
+                                                            setShow(true)
+                                                            setHTMLData(item.pdf_content)
+                                                        }}
+                                                        >View</button>}</td>
 
                                                     </tr>
                                                 )
@@ -191,6 +214,21 @@ export default function DoctorAppointment(){
                                         </tbody>
                                     </table>
                                 </div>
+                                <Modal
+                            show={show}
+                            onHide={() => setShow(false)}
+                            size="lg"
+                            centered
+                          >
+                            <Modal.Header closeButton>
+                              <Modal.Title className="h5">
+                              Patient History Prescription
+                              </Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                              <PrescriptionHistory htmlContent={htmlDataS} />
+                            </Modal.Body>
+                          </Modal>
                             </div>
                         </div>
                         <div className="row text-center">

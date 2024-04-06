@@ -65,7 +65,7 @@ export default function PatientList(){
                                 <div className="col-3">
                                 <PatientName filters={filters} setFilters={setFilters}/>
                                 </div>
-                                <div className="col-sm-6 col-lg-1">
+                                <div className="col-sm-6 col-lg-3">
    <button
     className="form-control btn-check-reset"
     onClick={()=>{
@@ -82,7 +82,7 @@ export default function PatientList(){
                                 return(
                                     <div className="col-xl-3 col-lg-6 col-12 mt-4 pt-2 " key={index}>
                                         <div className="card border-0 shadow rounded p-4 doctor-patient-app" 
-                                        onClick={()=> router.push(`/patient-profile/${item?.id}`)}
+                                        onClick={()=> router.push(`/patient-profile-show/${item?.id}`)}
                                         >
                                             <div className="d-flex justify-content-between">
                                                 <img src={client1} className="avatar avatar-md-md rounded-pill shadow" alt=""/>

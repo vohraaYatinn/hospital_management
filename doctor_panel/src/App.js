@@ -10,7 +10,6 @@ import DoctorAppointment from "./pages/dashboard/doctor-appointment";
 import DoctorSchedule from "./pages/dashboard/doctor-schedule";
 import Invoice from "./pages/dashboard/invoices";
 import DoctorMessages from "./pages/dashboard/doctor-messages";
-import DoctorProfile from "./pages/dashboard/doctor-profile";
 import DoctorProfileSettimg from "./pages/dashboard/doctor-profile-setting";
 import PatientList from "./pages/dashboard/patient-list";
 import PatientReview from "./pages/dashboard/patient-review";
@@ -28,6 +27,7 @@ import { useRouter } from './hooks/use-router';
 import useAxios from './network/useAxios';
 import { getDetailsFromToken } from './urls/urls';
 import { useDispatch, useSelector } from "react-redux";
+import PatientProfileShow from "./pages/patient/patient-profile-show";
 
 
 function App() {
@@ -77,11 +77,11 @@ function App() {
       <Route path="/doctor-schedule" element={<DoctorSchedule/>}/>
       <Route path="/invoices" element={<Invoice/>}/>
       <Route path="/doctor-messages" element={<DoctorMessages/>}/>
-      <Route path="/doctor-profile" element={<DoctorProfile/>}/>
       <Route path="/doctor-profile-setting" element={<DoctorProfileSettimg/>}/>
       <Route path="/patient-list" element={<PatientList/>}/>
       <Route path="/patient-review" element={<PatientReview/>}/>
       <Route path="/doctor-chat" element={<DoctorChat/>}/>
+      <Route path="/patient-profile-show/:id" element={<PatientProfileShow/>}/>
       <Route path="/patient-profile/:id" element={<PatientProfile/>}/>
       <Route path="/patient-profile/:id/:appointment" element={<PatientProfile/>}/>
       <Route path="/patient-dashboard" element={<PatientDashboard/>}/>

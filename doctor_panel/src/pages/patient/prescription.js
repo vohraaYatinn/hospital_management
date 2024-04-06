@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import convertToPDF from '../../utils/convertToPdf';
+import { test_url_images } from '../../config/environment';
 
 const prescriptionStyle = {
   fontFamily: 'Arial, sans-serif',
@@ -85,9 +86,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
   };
   const [doctorComment, setDoctorComment] = useState("")
   const submitPrescription = () => {
-    console.log("Sds")
     const htmlContent = document.getElementById('pres_new')
-    console.log(htmlContent)
     generatePrescription(htmlContent, doctorComment)
 
   }
@@ -109,7 +108,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           <ul>
             {prescription?.symptoms.map((med, index) => (
               <li key={index}>
-                {med.symptoms} - {med.dosage} per {med.duration}
+                {med.symptoms} X {med.dosage} per {med.duration}
                 <br />
               </li>
             ))}
@@ -136,7 +135,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           <h5 className="mb-0">General Examination</h5>
           <ul>
             {Object.keys(prescription?.examination).map((med, index) => (
-                prescription.examination[med] != "" &&   <li key={index}>
+                prescription.examination[med] != ""  && <li key={index}>
                 {med} - {prescription.examination[med]}
                 <br />
               </li>
@@ -158,9 +157,11 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           <h5 className="mb-0">Prescribed Medications</h5>
           <ul>
             {prescription?.medications.map((med, index) => (
-              <li key={index}>
-                {med.medicineName} - Dosage: {med.dosage} Time/Times a{" "}
-                {med.duration}, Timings: {med.timings}
+                <li key={index}>
+                {med.medicineName} {med.Strength}{med.medicineConsume}  <br/> Dosage: {med.dosage} Per {" "}
+                {med.duration} <br/> Timings: {med.timings} 
+                <br/> Type: {med.medicationType} 
+
                 <br />
               </li>
             ))}
@@ -169,7 +170,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         }
         {prescription?.labReports.length > 0 ? (
           <div className="col-md-12 mt-4">
-            <h5 className="mb-0">Refer To</h5>
+            <h5 className="mb-0">Lab Reports</h5>
             <ul>
               {prescription?.labReports.map((med, index) => (
                 <li key={index}>
@@ -194,6 +195,25 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
             <h5 className="mb-0">Instructions</h5>
             <ul>
               {prescription?.instructions.map((med, index) => (
+                med!="" &&
+                  <li key={index}>
+                  {med}
+                  <br />
+                </li>
+                
+       
+              ))}
+            </ul>
+
+          </div>
+        ) : (
+          ""
+        )}
+        {prescription?.referTo.length > 0 ? (
+          <div className="col-md-12 mt-4">
+          1  <h5 className="mb-0">Refer To</h5>
+            <ul>
+              {prescription?.referTo.map((med, index) => (
                 med!="" &&
                   <li key={index}>
                   {med}
