@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
+import { checkNotAllNull, getCurrentDate } from "../../utils/commonFunctions";
 
 const options = [
   { value: "aspirin", label: "Aspirin" },
@@ -92,6 +93,7 @@ const nextVisit = Array.from({ length: 60 }, (_, index) => ({
   value: (index + 1).toString(),
   label: `${index + 1} Day${index !== 0 ? 's' : ''}`,
 }));
+
 const handleChange = (selectedOption) => {};
 
 function DoctorPrescriptionForm({
@@ -139,11 +141,15 @@ function DoctorPrescriptionForm({
   };
 
   const handleAddMedication = () => {
-    showDrawer();
-    setPrescription((prevPrescription) => ({
-      ...prevPrescription,
-      medications: [...prevPrescription.medications, medication],
-    }));
+
+    if(medication?.medicineName && medication?.timings && medication?.medicineConsume && medication?.medicationType && medication?.duration && medication?.dosage){
+      showDrawer();
+      setPrescription((prevPrescription) => ({
+        ...prevPrescription,
+        medications: [...prevPrescription.medications, medication],
+      }));
+    }
+
 
     setMedication({
       medicineName: "",
@@ -194,7 +200,7 @@ function DoctorPrescriptionForm({
                 className="form-control"
                 disabled
                 name="date"
-                value={prescription.date}
+                value={getCurrentDate()}
                 onChange={(e) => {
                   console.log(e.target.value);
                   setPrescription({ ...prescription, date: e.target.value });

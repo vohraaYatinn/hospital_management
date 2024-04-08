@@ -3,6 +3,7 @@ import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
 import { Input } from "antd";
+import { checkNotNull } from "../../utils/commonFunctions";
 
 const optionsDosagePulse = Array.from({ length: 151 }, (_, index) => ({
   value: (index + 50).toString(),
@@ -67,7 +68,7 @@ let optionsDosageTemp = Array.from({ length: 36 }, (_, index) => (
 let optionsDosageTempDecimal = Array.from({ length: 10 }, (_, index) => (
 
   {
-    value: "."+(index).toString(),
+    value: "." + (index).toString(),
     label: `.${index}`,
   }
 
@@ -92,8 +93,8 @@ optionsDosageDBP.push({ value: ">150", label: "> 150" })
 
 
 const optionsDosageCvs = [
-  { value: "normal", label: "Normal" },
-  { value: "abnormal", label: "Abnormal" }
+  { value: "Normal", label: "Normal" },
+  { value: "Abnormal", label: "Abnormal" }
 ];
 const optionsDosageCvsExtend = [
   { value: "Murmur", label: "Murmur" },
@@ -192,13 +193,16 @@ function DoctorExaminationForm({
     }
   };
 
- 
+
   const handleAddMedicationSys = () => {
-    showDrawer();
-    setPrescription((prevPrescription) => ({
-      ...prevPrescription,
-      systemic: systemic,
-    }));
+    if (checkNotNull(systemic)) {
+      showDrawer();
+      setPrescription((prevPrescription) => ({
+        ...prevPrescription,
+        systemic: systemic,
+      }));
+    }
+
 
     setSystemic({
       CVS: "",
@@ -209,11 +213,14 @@ function DoctorExaminationForm({
   };
 
   const handleAddMedication = () => {
-    showDrawer();
-    setPrescription((prevPrescription) => ({
-      ...prevPrescription,
-      examination: medication,
-    }));
+    if (checkNotNull(medication)) {
+      showDrawer();
+      setPrescription((prevPrescription) => ({
+        ...prevPrescription,
+        examination: medication,
+      }));
+    }
+
 
   };
 
@@ -236,7 +243,9 @@ function DoctorExaminationForm({
                   <label className="form-label" style={{ fontSize: "1.3rem", marginBottom: "2rem" }}>Symptoms</label>
                   <div className="row ">
                     <div className="col-md-2 mb-2">
-                      <div
+                      <div style={{
+                        fontWeight: "600"
+                      }}
                       >
                         HR</div>
                     </div>
@@ -260,6 +269,9 @@ function DoctorExaminationForm({
                   <div className="row mt-4">
                     <div className="col-md-2 mb-2 mt-4">
                       <div
+                        style={{
+                          fontWeight: "600"
+                        }}
                       >
                         BP</div></div>
                     <div className="col-md-10 row">
@@ -302,8 +314,11 @@ function DoctorExaminationForm({
                   <div className="row mt-4">
                     <div className="col-md-2 mb-2">
                       <div
+                        style={{
+                          fontWeight: "600"
+                        }}
                       >
-                        Spo2</div>
+                        SPO2</div>
                     </div>
                     <div className="col-md-4">
                       <Select
@@ -324,6 +339,9 @@ function DoctorExaminationForm({
                   <div className="row mt-4">
                     <div className="col-md-2 mb-2">
                       <div
+                        style={{
+                          fontWeight: "600"
+                        }}
                       >
                         Rhythm</div>
                     </div>
@@ -349,6 +367,9 @@ function DoctorExaminationForm({
                   <div className="row mt-4">
                     <div className="col-md-2 mb-2">
                       <div
+                        style={{
+                          fontWeight: "600"
+                        }}
                       >
                         Volume</div>
                     </div>
@@ -374,8 +395,11 @@ function DoctorExaminationForm({
                   <div className="row mt-4">
                     <div className="col-md-2 mb-2 mt-4">
                       <div
+                        style={{
+                          fontWeight: "600"
+                        }}
                       >
-                        Temperature</div>
+                        Temp</div>
                     </div>
                     <div className="col-md-10 row">
                       <div className="col-5">
@@ -384,8 +408,8 @@ function DoctorExaminationForm({
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: medication.temperature ? Math.round(medication.temperature):"",
-                            label:medication.temperature ?  Math.round(medication.temperature).toString():"",
+                            value: medication.temperature ? Math.round(medication.temperature) : "",
+                            label: medication.temperature ? Math.round(medication.temperature).toString() : "",
                           }}
                           onChange={(e) => handleMedicationChange(e, "temperature")}
                           options={optionsDosageTemp}
@@ -400,29 +424,33 @@ function DoctorExaminationForm({
                         <Select
                           name="dosage"
                           style={{ height: "2rem" }}
-                          onChange={(e) => 
+                          onChange={(e) => {
+                            if (medication.temperature) {
+                              setMedication((prevMedication) => ({
+                                ...prevMedication,
+                                temperature: Math.round(medication.temperature) + e.value,
+                              }))
+                            }
+                          }
 
-                            setMedication((prevMedication) => ({
-                              ...prevMedication,
-                              temperature:  Math.round(medication.temperature)+e.value,
-                            }))
-                          
                           }
                           options={optionsDosageTempDecimal}
-                          placeholder="Select Decimal"
                           isSearchable
                           required
                         />
                       </div>
-                      <div className="col-2 " style={{marginTop:"2.4rem"}}>
+                      <div className="col-2 " style={{ marginTop: "2.4rem" }}>
                         <label>° F</label>
-                        </div>
+                      </div>
 
                     </div>
                   </div>
                   <div className="row mt-4">
                     <div className="col-md-2 mb-2">
                       <div
+                        style={{
+                          fontWeight: "600"
+                        }}
                       >
                         Pulse Rate</div>
                     </div>
@@ -445,6 +473,9 @@ function DoctorExaminationForm({
                   <div className="row mt-4">
                     <div className="col-md-2 mb-2">
                       <div
+                        style={{
+                          fontWeight: "600"
+                        }}
                       >
                         RR</div>
                     </div>
@@ -485,14 +516,14 @@ function DoctorExaminationForm({
                 <div className="row">
 
                   <label className="form-label" style={{ fontSize: "1.3rem", marginBottom: "2rem" }}>Symptoms</label>
-                  <div className="row mt-4">
+                  <div className="row mt-2">
                     <div className="col-md-4 mb-2">
-                      <div
-                      >
-                        CVS</div>
+
                     </div>
                     <div className="col-md-10 row">
                       <div className="col-5">
+                        <label>CVS</label>
+
                         <Select
                           name="dosage"
                           style={{ height: "2rem" }}
@@ -507,36 +538,36 @@ function DoctorExaminationForm({
                           required
                         />
                       </div>
-                      {systemic.CVS == "abnormal" &&
-                      <div className="col-5">
+                      {systemic.CVS == "Abnormal" &&
+                        <div className="col-5">
+                          <label>Type</label>
 
-                        <Select
-                          name="dosage"
-                          style={{ height: "2rem" }}
-                          value={{
-                            value: systemic.CvsType,
-                            label: systemic.CvsType,
-                          }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "CvsType")}
-                          options={optionsDosageCvsExtend}
-                          placeholder="Select Dosage"
-                          isSearchable
-                          required
-                        />
-                      </div>
+                          <Select
+                            name="dosage"
+                            style={{ height: "2rem" }}
+                            value={{
+                              value: systemic.CvsType,
+                              label: systemic.CvsType,
+                            }}
+                            onChange={(e) => handleMedicationChangeSystemic(e, "CvsType")}
+                            options={optionsDosageCvsExtend}
+                            placeholder="Select Dosage"
+                            isSearchable
+                            required
+                          />
+                        </div>
                       }
 
                     </div>
-                  
+
                   </div>
                   <div className="row mt-4">
                     <div className="col-md-4 mb-2">
-                      <div
-                      >
-                        Respiratory</div>
                     </div>
                     <div className="col-md-10 row">
                       <div className="col-5">
+                        <label>Respiratory</label>
+
                         <Select
                           name="dosage"
                           style={{ height: "2rem" }}
@@ -551,38 +582,38 @@ function DoctorExaminationForm({
                           required
                         />
                       </div>
-                      
-                      {systemic.Respiratory == "abnormal" &&
-                      <div className="col-5">
 
-                        <Select
-                          name="dosage"
-                          style={{ height: "2rem" }}
-                          value={{
-                            value: systemic.RespiratoryType,
-                            label: systemic.RespiratoryType,
-                          }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "RespiratoryType")}
-                          options={optionsDosageRespExtend}
-                          placeholder="Select Dosage"
-                          isSearchable
-                          required
-                        />
-                      </div>
+                      {systemic.Respiratory == "Abnormal" &&
+                        <div className="col-5">
+                          <label>Type</label>
+
+                          <Select
+                            name="dosage"
+                            style={{ height: "2rem" }}
+                            value={{
+                              value: systemic.RespiratoryType,
+                              label: systemic.RespiratoryType,
+                            }}
+                            onChange={(e) => handleMedicationChangeSystemic(e, "RespiratoryType")}
+                            options={optionsDosageRespExtend}
+                            placeholder="Select Dosage"
+                            isSearchable
+                            required
+                          />
+                        </div>
                       }
 
                     </div>
-      
+
                   </div>
                   <div className="row mt-4" >
                     <div className="col-md-4 mb-2">
-                      <div
-                      >
-                        Abdominal</div>
+
                     </div>
 
                     <div className="col-md-10 row">
                       <div className="col-5">
+                        <label>Abdominal</label>
                         <Select
                           name="dosage"
                           style={{ height: "2rem" }}
@@ -597,24 +628,25 @@ function DoctorExaminationForm({
                           required
                         />
                       </div>
-                      
-                      {systemic.Abdominal == "Tenderness" &&
-                      <div className="col-5">
 
-                        <Select
-                          name="dosage"
-                          style={{ height: "2rem" }}
-                          value={{
-                            value: systemic.AbdominalExtend,
-                            label: systemic.AbdominalExtend,
-                          }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "AbdominalExtend")}
-                          options={optionsAbdominalExtend}
-                          placeholder="Select Dosage"
-                          isSearchable
-                          required
-                        />
-                      </div>
+                      {systemic.Abdominal == "Tenderness" &&
+                        <div className="col-5">
+                          <label>Type</label>
+
+                          <Select
+                            name="dosage"
+                            style={{ height: "2rem" }}
+                            value={{
+                              value: systemic.AbdominalExtend,
+                              label: systemic.AbdominalExtend,
+                            }}
+                            onChange={(e) => handleMedicationChangeSystemic(e, "AbdominalExtend")}
+                            options={optionsAbdominalExtend}
+                            placeholder="Select Dosage"
+                            isSearchable
+                            required
+                          />
+                        </div>
                       }
 
                     </div>
@@ -624,39 +656,37 @@ function DoctorExaminationForm({
                   </div>
                   <div className="row mt-4">
                     <div className="col-md-4 mb-2">
-                      <div
-                      >
-                        CNS</div>
+
                     </div>
 
                     <div className="col-md-10 row">
 
-                    <div className="col-md-5">
-                      <Select
-                        name="dosage"
-                        style={{ height: "2rem" }}
-                        value={{
-                          value: systemic.CNS,
-                          label: systemic.CNS,
-                        }}
-                        onChange={(e) => handleMedicationChangeSystemic(e, "CNS")}
-                        options={optionsDosageCvs}
-                        placeholder="Select Dosage"
-                        isSearchable
-                        required
-                      />
+                      <div className="col-md-5">
+                        <label>CNS</label>
+                        <Select
+                          name="dosage"
+                          style={{ height: "2rem" }}
+                          value={{
+                            value: systemic.CNS,
+                            label: systemic.CNS,
+                          }}
+                          onChange={(e) => handleMedicationChangeSystemic(e, "CNS")}
+                          options={optionsDosageCvs}
+                          placeholder="Select Dosage"
+                          isSearchable
+                          required
+                        />
+                      </div>
                     </div>
-                  </div>
                   </div>
                   <div className="row mt-4" >
                     <div className="col-md-4 mb-2">
-                      <div
-                      >
-                        Gynic</div>
+
                     </div>
 
                     <div className="col-md-10 row">
                       <div className="col-5">
+                        <label>Gynic</label>
                         <Select
                           name="dosage"
                           style={{ height: "2rem" }}
@@ -664,55 +694,68 @@ function DoctorExaminationForm({
                             value: systemic.Gynic,
                             label: systemic.Gynic,
                           }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "Gynic")}
+                          onChange={(e) => {
+                            handleMedicationChangeSystemic(e, "Gynic")
+                            setSystemic((prevMedication) => ({
+                              ...prevMedication,
+                              "GynicType": "",
+                            }));
+                          }
+
+                          }
                           options={gynicOptions}
                           placeholder="Select Dosage"
                           isSearchable
                           required
                         />
                       </div>
-                      
+
                       {(systemic.Gynic == "Ongoing" || systemic.Gynic == "Stopped Since") &&
-                      <>
-                      <div className="col-3">
+                        <>
+                          <div className="col-3">
+                            <label>{systemic.Gynic == "Stopped Since" ? "Duration" : "Type"}</label>
 
-                        <Select
-                          name="dosage"
-                          style={{ height: "2rem" }}
-                          value={{
-                            value: systemic.GynicType ? (systemic.GynicType.includes("months")?systemic.GynicType.match(/(\d+)months/)[1]:systemic.GynicType.includes("days")?systemic.GynicType.match(/\d+/)[0]:systemic.GynicType):systemic.GynicType,
-                            label: systemic.GynicType ? (systemic.GynicType.includes("months")?systemic.GynicType.match(/(\d+)months/)[1]:systemic.GynicType.includes("days")?systemic.GynicType.match(/\d+/)[0]:systemic.GynicType):systemic.GynicType,
-                          }}
-                          onChange={(e) => 
-                            handleMedicationChangeSystemic(e, "GynicType")}
-                          options={systemic.Gynic == "Ongoing" ? gynicOptionsOngoingExtend : gynicOptionsStoppedExtend}
-                          placeholder="Select Dosage"
-                          isSearchable
-                          required
-                        />
-                      </div>
-                      {systemic.Gynic == "Stopped Since" &&
-                      <div className="col-3">
+                            <Select
+                              name="dosage"
+                              style={{ height: "2rem" }}
+                              value={{
+                                value: systemic.GynicType ? (systemic.GynicType.includes("months") ? systemic.GynicType.match(/(\d+)months/)[1] : systemic.GynicType.includes("days") ? systemic.GynicType.match(/\d+/)[0] : systemic.GynicType) : systemic.GynicType,
+                                label: systemic.GynicType ? (systemic.GynicType.includes("months") ? systemic.GynicType.match(/(\d+)months/)[1] : systemic.GynicType.includes("days") ? systemic.GynicType.match(/\d+/)[0] : systemic.GynicType) : systemic.GynicType,
+                              }}
+                              onChange={(e) =>
 
-                        <Select
-                          name="dosage"
-                          style={{ height: "2rem" }}
+                                handleMedicationChangeSystemic(e, "GynicType")}
+                              options={systemic.Gynic == "Ongoing" ? gynicOptionsOngoingExtend : gynicOptionsStoppedExtend}
+                              placeholder="Select Dosage"
+                              isSearchable
+                              required
+                            />
+                          </div>
+                          {systemic.Gynic == "Stopped Since" &&
+                            <div className="col-3">
+                              <label>D/M</label>
 
-                          onChange={(e) => 
-                            setSystemic((prevMedication) => ({
-                              ...prevMedication,
-                              GynicType: systemic.GynicType + e.value,
-                            }))                        
-                        
-                        }
-                          options={gynicOptionsTime}
-                          placeholder="Time"
-                          isSearchable
-                          required
-                        />
-                      </div>
-                      }
-                      </>
+                              <Select
+                                name="dosage"
+                                style={{ height: "2rem" }}
+
+                                onChange={(e) => {
+                                  if (systemic.GynicType && systemic.GynicType != "") {
+                                    setSystemic((prevMedication) => ({
+                                      ...prevMedication,
+                                      GynicType: systemic.GynicType + e.value,
+                                    }))
+                                  }
+                                }
+
+                                }
+                                options={gynicOptionsTime}
+                                isSearchable
+                                required
+                              />
+                            </div>
+                          }
+                        </>
                       }
 
                     </div>

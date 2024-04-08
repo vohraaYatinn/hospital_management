@@ -15,7 +15,7 @@ import DoctorInvestigationForm from "./investigationForm";
 import { useRouter } from "../../hooks/use-router";
 import { fetchPatientProfile, uploadDocumentPrescription } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
-import { calculateAge } from "../../utils/commonFunctions";
+import { calculateAge, checkNotNull } from "../../utils/commonFunctions";
 import { FiUser } from "react-icons/fi";
 import { RiMindMap, RiNodeTree, RiScales2Fill, RiWeiboFill } from "react-icons/ri";
 import { GiMedicalDrip } from "react-icons/gi";
@@ -23,7 +23,7 @@ import moment from "moment";
 import PrescriptionHistory from "./prescriptionHistory";
 
 export default function PatientProfile() {
-  const {id, appointment} = useParams()
+  const { id, appointment } = useParams()
   const [patientProfileResponse, patientProfileError, patientProfileLoading, patientProfileFetch] = useAxios();
   const [uploadDocumentResponse, uploadDocumentError, uploadDocumentLoading, uploadDocumentFetch] = useAxios();
   const router = useRouter();
@@ -31,36 +31,37 @@ export default function PatientProfile() {
   const [filterValues, setFilterValues] = useState({});
   const [pdfFile, setPDFFile] = useState(null);
   const [htmlDataS, setHTMLData] = useState('');
-  useEffect(()=>{
+  useEffect(() => {
     console.log(id)
-    if(id){
-    patientProfileFetch(fetchPatientProfile({
-      patientId:id,
-      
-    }
-    ))}
-  },[id])
+    if (id) {
+      patientProfileFetch(fetchPatientProfile({
+        patientId: id,
 
-const generatePrescription = (htmlContent, doctorComment) => {
-  if(htmlContent){
-    uploadDocumentFetch(uploadDocumentPrescription({
-    htmlContent:htmlContent.innerHTML,
-    appointmentDetails:appointment,
-    doctorComment:doctorComment
-  })
-  )
-}
-}
-  useEffect(()=>{
-    if(patientProfileResponse?.result == "success"){
+      }
+      ))
+    }
+  }, [id])
+
+  const generatePrescription = (htmlContent, doctorComment) => {
+    if (htmlContent) {
+      uploadDocumentFetch(uploadDocumentPrescription({
+        htmlContent: htmlContent.innerHTML,
+        appointmentDetails: appointment,
+        doctorComment: doctorComment
+      })
+      )
+    }
+  }
+  useEffect(() => {
+    if (patientProfileResponse?.result == "success") {
       setPatientsData(patientProfileResponse?.data[0])
     }
-  },[patientProfileResponse])
-  useEffect(()=>{
-    if(uploadDocumentResponse?.result == "success"){
+  }, [patientProfileResponse])
+  useEffect(() => {
+    if (uploadDocumentResponse?.result == "success") {
       router.push("/doctor-appointment")
-        }
-  },[uploadDocumentResponse])
+    }
+  }, [uploadDocumentResponse])
 
   let [activeIndex, setActiveIndex] = useState(1);
   let [activeSubIndex, setActiveSubIndex] = useState(2);
@@ -70,14 +71,14 @@ const generatePrescription = (htmlContent, doctorComment) => {
   const [prescription, setPrescription] = useState({
     patientName: "Rahul Sharma",
     date: "2024-01-20",
-    provisionalDiagnosis:"",
+    provisionalDiagnosis: "",
     symptoms: [],
     examination: {},
     systemic: {},
     medications: [],
     instructions: [],
     labReports: [],
-    investigation:[]
+    investigation: []
   });
 
   useEffect(() => {
@@ -91,7 +92,7 @@ const generatePrescription = (htmlContent, doctorComment) => {
     comments: "",
     duration: "day",
     labReports: "",
-    nextVisit:""
+    nextVisit: ""
   });
   const [labTests, setLabTests] = useState({
     labTests: ""
@@ -102,20 +103,20 @@ const generatePrescription = (htmlContent, doctorComment) => {
     duration: "day"
   });
   const [examination, setExamination] = useState({
-    Hr:"",
-    Bp:"",
-    Spo2:"",
-    Rhythm:"",
-    Volume:"",
-    Temperature:"",
-    PulseRate:"",
-    RR:"",
+    Hr: "",
+    Bp: "",
+    Spo2: "",
+    Rhythm: "",
+    Volume: "",
+    Temperature: "",
+    PulseRate: "",
+    RR: "",
   });
   const [systemic, setSystemic] = useState({
-    CVS:"",
-    Respiratory:"",
-    Abdominal:"",
-    CNS:"",
+    CVS: "",
+    Respiratory: "",
+    Abdominal: "",
+    CNS: "",
   });
 
   const [provisional, setProvisional] = useState("");
@@ -163,50 +164,50 @@ const generatePrescription = (htmlContent, doctorComment) => {
                 </div>
 
                 <div className="list-unstyled p-4">
-                <div
-                        className="d-flex align-items-center mt-3"
-                      >
-                        <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" />
-                        <h6 className="mb-0">{"Gender"}</h6>
-                        <p className="text-muted mb-0 ms-2">{patientsData?.gender}</p>
-                      </div>
-                      <div
-                        className="d-flex align-items-center mt-3"
-                      >
-                        <RiMindMap className="align-text-bottom text-primary h5 mb-0 me-2" />
-                        <h6 className="mb-0">{"District"}</h6>
-                        <p className="text-muted mb-0 ms-2">{patientsData?.district}</p>
-                      </div>
-                      <div
-                        className="d-flex align-items-center mt-3"
-                      >
-                        <RiNodeTree className="align-text-bottom text-primary h5 mb-0 me-2" />
-                        <h6 className="mb-0">{"Block"}</h6>
-                        <p className="text-muted mb-0 ms-2">{patientsData?.block}</p>
-                      </div>
-                      <div
-                        className="d-flex align-items-center mt-3"
-                      >
-                        <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
-                        <h6 className="mb-0">{"Height"}</h6>
-                        <p className="text-muted mb-0 ms-2">{patientsData?.height} Foot</p>
-                      </div>
-                      <div
-                        className="d-flex align-items-center mt-3"
-                      >
-                        <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
-                        <h6 className="mb-0">{"Weight"}</h6>
-                        <p className="text-muted mb-0 ms-2">{patientsData?.weight} Kg</p>
-                      </div>
-                      <div
-                        className="d-flex align-items-center mt-3"
-                      >
-                        <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
-                        <h6 className="mb-0">{"Blood Group"}</h6>
-                        <p className="text-muted mb-0 ms-2">{patientsData?.blood_group}</p>
-                      </div>
+                  <div
+                    className="d-flex align-items-center mt-3"
+                  >
+                    <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" />
+                    <h6 className="mb-0">{"Gender"}</h6>
+                    <p className="text-muted mb-0 ms-2">{patientsData?.gender}</p>
+                  </div>
+                  <div
+                    className="d-flex align-items-center mt-3"
+                  >
+                    <RiMindMap className="align-text-bottom text-primary h5 mb-0 me-2" />
+                    <h6 className="mb-0">{"District"}</h6>
+                    <p className="text-muted mb-0 ms-2">{patientsData?.district}</p>
+                  </div>
+                  <div
+                    className="d-flex align-items-center mt-3"
+                  >
+                    <RiNodeTree className="align-text-bottom text-primary h5 mb-0 me-2" />
+                    <h6 className="mb-0">{"Block"}</h6>
+                    <p className="text-muted mb-0 ms-2">{patientsData?.block}</p>
+                  </div>
+                  <div
+                    className="d-flex align-items-center mt-3"
+                  >
+                    <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
+                    <h6 className="mb-0">{"Height"}</h6>
+                    <p className="text-muted mb-0 ms-2">{patientsData?.height} Foot</p>
+                  </div>
+                  <div
+                    className="d-flex align-items-center mt-3"
+                  >
+                    <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
+                    <h6 className="mb-0">{"Weight"}</h6>
+                    <p className="text-muted mb-0 ms-2">{patientsData?.weight} Kg</p>
+                  </div>
+                  <div
+                    className="d-flex align-items-center mt-3"
+                  >
+                    <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
+                    <h6 className="mb-0">{"Blood Group"}</h6>
+                    <p className="text-muted mb-0 ms-2">{patientsData?.blood_group}</p>
+                  </div>
                 </div>
-                <div style={{marginTop:"2rem", display:"flex", gap:"1rem"}}>
+                <div style={{ marginTop: "2rem", display: "flex", gap: "1rem" }}>
 
                 </div>
 
@@ -219,16 +220,14 @@ const generatePrescription = (htmlContent, doctorComment) => {
                 <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                   <li className="nav-item">
                     <Link
-                      className={`${
-                        activeIndex === 1 ? "active" : ""
-                      } nav-link rounded-0`}
+                      className={`${activeIndex === 1 ? "active" : ""
+                        } nav-link rounded-0`}
                       to="#"
-                      onClick={() => 
-                        {
-                            setActiveSubIndex(2)
-                            setActiveIndex(1)
-                        
-                        }}
+                      onClick={() => {
+                        setActiveSubIndex(2)
+                        setActiveIndex(1)
+
+                      }}
                     >
                       <div className="text-center pt-1 pb-1">
                         <h5 className="title fw-normal mb-0">HISTORY</h5>
@@ -243,331 +242,325 @@ const generatePrescription = (htmlContent, doctorComment) => {
                     <div className="tab-pane fade show active">
                       <div className="card border-0 shadow overflow-issue">
                         <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
-                     
+
 
                         </ul>
                       </div>
 
                       {/* complaints */}
                       {activeSubIndex === 1 &&
-                      <div
-                        className={`tab-pane fade ${
-                          activeSubIndex === 1 ? "show active" : ""
-                        }`}
-                      >
-                        <p className="text-muted mb-0">
-                         {patientsData?.appointments?.find(appointments => appointments.id == appointment)?.patients_query}
-                        </p>
+                        <div
+                          className={`tab-pane fade ${activeSubIndex === 1 ? "show active" : ""
+                            }`}
+                        >
+                          <p className="text-muted mb-0">
+                            {patientsData?.appointments?.find(appointments => appointments.id == appointment)?.patients_query}
+                          </p>
 
-                        <div className="row">
-                          <div className="col-lg-12 col-12 ">
-                            <DoctorInspectForm
-                      showDrawer={showDrawer}
-                      prescription={prescription}
-                      setPrescription={setPrescription}
-                      medication={chiefQuery}
-                      setMedication={setChiefQuery}
-                    />
+                          <div className="row">
+                            <div className="col-lg-12 col-12 ">
+                              <DoctorInspectForm
+                                showDrawer={showDrawer}
+                                prescription={prescription}
+                                setPrescription={setPrescription}
+                                medication={chiefQuery}
+                                setMedication={setChiefQuery}
+                              />
+                            </div>
+                            <Modal
+                              show={showNewPrescription}
+                              onHide={() => onNewPrescriptionClose()}
+                              size="lg"
+                              centered
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title className="h5">
+                                  Patient Prescription
+                                </Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <Prescription patient={patientsData} medication={medication} prescription={prescription} setPDFFile={setPDFFile} generatePrescription={generatePrescription} />
+                              </Modal.Body>
+                            </Modal>
+                            <Modal
+                              show={show}
+                              onHide={() => setShow(false)}
+                              size="lg"
+                              centered
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title className="h5">
+                                  Patient History Prescription
+                                </Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <PrescriptionHistory htmlContent={htmlDataS} />
+                              </Modal.Body>
+                            </Modal>
                           </div>
-                          <Modal
-                            show={showNewPrescription}
-                            onHide={() => onNewPrescriptionClose()}
-                            size="lg"
-                            centered
-                          >
-                            <Modal.Header closeButton>
-                              <Modal.Title className="h5">
-                                Patient Prescription
-                              </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                              <Prescription patient={patientsData} medication={medication} prescription={prescription} setPDFFile={setPDFFile} generatePrescription={generatePrescription}/>
-                            </Modal.Body>
-                          </Modal>
-                          <Modal
-                            show={show}
-                            onHide={() => setShow(false)}
-                            size="lg"
-                            centered
-                          >
-                            <Modal.Header closeButton>
-                              <Modal.Title className="h5">
-                                Patient History Prescription
-                              </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                              <PrescriptionHistory htmlContent={htmlDataS}/>
-                            </Modal.Body>
-                          </Modal>
                         </div>
-                      </div>
-}
+                      }
                       {activeSubIndex === 2 &&
-                      <div
-                        className={`tab-pane fade show active`}
-                      >
-                   
+                        <div
+                          className={`tab-pane fade show active`}
+                        >
 
-                        <div className="row">
 
-                          <div className="col-lg-12 col-12 ">
-                            {patientsData?.appointments && patientsData?.appointments.map((item, index) => {
-                              return (
-                        <div className="row rounded shadow" style={{margin:"1rem", marginBottom:"2rem"}}>
-                          <div className="col-4" style={{background:"rgb(56,108,240)", color:"white", height:"4rem", alignItems:"center", display:"flex", justifyContent:"center", cursor:"pointer"}}
-                           onClick={() => 
-                            {
-                              setShow(true)
-                              setHTMLData(item.pdf_content)
-                            
-                            }}
-                          >
-                            Report
-                          </div>
-                          <div className="col-8" style={{display:"flex", flexDirection:"column"}}>
-                          {item.doctor_instruction}
-                          <span className="mb-0 mt-2" style={{fontWeight:"600"}}>Dr. {item?.doctor?.full_name} - {moment(item?.date_appointment).format('YYYY-MM-DD')}</span>
+                          <div className="row">
 
+                            <div className="col-lg-12 col-12 ">
+                              {patientsData?.appointments && patientsData?.appointments.map((item, index) => {
+                                return (
+                                  <div className="row rounded shadow" style={{ margin: "1rem", marginBottom: "2rem" }}>
+                                    <div className="col-4" style={{ background: "rgb(56,108,240)", color: "white", height: "4rem", alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }}
+                                      onClick={() => {
+                                        setShow(true)
+                                        setHTMLData(item.pdf_content)
+
+                                      }}
+                                    >
+                                      Report
+                                    </div>
+                                    <div className="col-8" style={{ display: "flex", flexDirection: "column" }}>
+                                      {item.doctor_instruction}
+                                      <span className="mb-0 mt-2" style={{ fontWeight: "600" }}>Dr. {item?.doctor?.full_name} - {moment(item?.date_appointment).format('YYYY-MM-DD')}</span>
+
+                                    </div>
+                                  </div>
+
+                                );
+                              })}
+                            </div>
+
+                            <Modal
+                              show={showNewPrescription}
+                              onHide={() => setShow(false)}
+                              size="lg"
+                              centered
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title className="h5">
+                                  Patient Prescription
+                                </Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <Prescription patient={patientsData?.full_name} medication={medication} prescription={prescription} />
+                              </Modal.Body>
+                            </Modal>
+                            <Modal
+                              show={show}
+                              onHide={() => setShow(false)}
+                              size="lg"
+                              centered
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title className="h5">
+                                  Patient History Prescription
+                                </Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <PrescriptionHistory htmlContent={htmlDataS} />
+                              </Modal.Body>
+                            </Modal>
                           </div>
                         </div>
-                                
-                              );
-                            })}
-                          </div>
-
-                          <Modal
-                            show={showNewPrescription}
-                            onHide={() => setShow(false)}
-                            size="lg"
-                            centered
-                          >
-                            <Modal.Header closeButton>
-                              <Modal.Title className="h5">
-                              Patient Prescription
-                              </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                              <Prescription patient={patientsData?.full_name} medication={medication} prescription={prescription}/>
-                            </Modal.Body>
-                          </Modal>
-                          <Modal
-                            show={show}
-                            onHide={() => setShow(false)}
-                            size="lg"
-                            centered
-                          >
-                            <Modal.Header closeButton>
-                              <Modal.Title className="h5">
-                              Patient History Prescription
-                              </Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                              <PrescriptionHistory htmlContent={htmlDataS} />
-                            </Modal.Body>
-                          </Modal>
-                        </div>
-                      </div>
                       }
                       {/* ........... */}
 
-                     
+
                     </div>
                   ) : (
                     ""
                   )}
                   {activeIndex === 2 ? (
-                  <div className="tab-pane fade show active">
-                  <div className="card border-0 shadow overflow-issue">
-                    <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
-                      <li className="nav-item">
-                        <Link
-                          className={`${
-                            activeSubIndex === 5 ? "active" : ""
-                          } nav-link rounded-0`}
-                          to="#"
-                          onClick={() => setActiveSubIndex(5)}
+                    <div className="tab-pane fade show active">
+                      <div className="card border-0 shadow overflow-issue">
+                        <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
+                          <li className="nav-item">
+                            <Link
+                              className={`${activeSubIndex === 5 ? "active" : ""
+                                } nav-link rounded-0`}
+                              to="#"
+                              onClick={() => setActiveSubIndex(5)}
+                            >
+                              <div className="text-center pt-1 pb-1">
+                                <h5 className="title fw-normal mb-0">
+                                  Provisional Diagnosis
+                                </h5>
+                              </div>
+                            </Link>
+                          </li>
+
+                          <li className="nav-item">
+                            <Link
+                              className={`${activeSubIndex === 6 ? "active" : ""
+                                } nav-link rounded-0`}
+                              to="#"
+                              onClick={() => setActiveSubIndex(6)}
+                            >
+                              <div className="text-center pt-1 pb-1">
+                                <h5 className="title fw-normal mb-0">
+                                  Lab Tests
+                                </h5>
+                              </div>
+                            </Link>
+                          </li>
+                          <li className="nav-item">
+                            <Link
+                              className={`${activeSubIndex === 7 ? "active" : ""
+                                } nav-link rounded-0`}
+                              to="#"
+                              onClick={() => setActiveSubIndex(7)}
+                            >
+                              <div className="text-center pt-1 pb-1">
+                                <h5 className="title fw-normal mb-0">
+                                  Final Prescription
+                                </h5>
+                              </div>
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
+                      {
+                        activeSubIndex == 5 && <div
+                          className={`tab-pane fade show active`}
                         >
-                          <div className="text-center pt-1 pb-1">
-                            <h5 className="title fw-normal mb-0">
-                              Provisional Diagnosis
-                            </h5>
-                          </div>
-                        </Link>
-                      </li>
 
-                      <li className="nav-item">
-                        <Link
-                          className={`${
-                            activeSubIndex === 6 ? "active" : ""
-                          } nav-link rounded-0`}
-                          to="#"
-                          onClick={() => setActiveSubIndex(6)}
+
+                          <div className="row">
+                            <div className="col-lg-12 col-12 mt-4">
+                              <Input style={{ height: "5rem" }}
+                                value={provisional}
+                                onChange={(e) => setProvisional(e.target.value)}
+                              />
+                              <div className="col-md-12 mt-2" >
+                                <button
+                                  type="button"
+                                  className="btn btn-primary"
+                                  onClick={() => {
+                                    showDrawer()
+                                    setPrescription((prev) => ({ ...prev, provisionalDiagnosis: provisional }))
+
+                                  }}
+                                >
+                                  Add
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      }
+                      {
+                        activeSubIndex == 6 && <div
+                          className={`tab-pane fade show active`}
                         >
-                          <div className="text-center pt-1 pb-1">
-                            <h5 className="title fw-normal mb-0">
-                              Lab Tests
-                            </h5>
+
+
+                          <div className="row">
+                            <div className="col-lg-12 col-12 mt-4">
+                              <DoctorInvestigationForm
+                                showDrawer={showDrawer}
+                                prescription={prescription}
+                                setPrescription={setPrescription}
+                                medication={labTests}
+                                setMedication={setLabTests}
+                                activeSubIndex={activeSubIndex}
+                              />
+                            </div>
                           </div>
-                        </Link>
-                      </li>
-                      <li className="nav-item">
-                        <Link
-                          className={`${
-                            activeSubIndex === 7 ? "active" : ""
-                          } nav-link rounded-0`}
-                          to="#"
-                          onClick={() => setActiveSubIndex(7)}
+                        </div>
+                      }
+                      {
+                        activeSubIndex == 7 && <div
+                          className={`tab-pane fade show active`}
                         >
-                          <div className="text-center pt-1 pb-1">
-                            <h5 className="title fw-normal mb-0">
-                              Final Prescription
-                            </h5>
+
+
+                          <div className="row">
+                            <div className="col-lg-12 col-12 mt-4">
+                              <DoctorPrescriptionForm
+                                showDrawer={showDrawer}
+                                prescription={prescription}
+                                setPrescription={setPrescription}
+                                medication={medication}
+                                setMedication={setMedication}
+                                activeSubIndex={activeSubIndex}
+                              />
+                            </div>
                           </div>
-                        </Link>
-                      </li>
-                    </ul>
-                  </div>
-                  {
-    activeSubIndex == 5 &&  <div
-    className={`tab-pane fade show active`}
-  >
+                        </div>
+                      }
 
 
-    <div className="row">
-      <div className="col-lg-12 col-12 mt-4">
-  <Input style={{height:"5rem"}}
-  value={provisional}
-  onChange={(e)=>setProvisional(e.target.value)}
-  />
-  <div className="col-md-12 mt-2" >
-            <button
-              type="button"
-              className="btn btn-primary"
-              onClick={()=>{
-                showDrawer()
-                setPrescription((prev)=>({...prev, provisionalDiagnosis:provisional}))
-              }}
-            >
-              Add
-            </button>
-          </div>
-      </div>
-    </div>
-  </div>
-}   
-{
-    activeSubIndex == 6 &&  <div
-    className={`tab-pane fade show active`}
-  >
 
 
-    <div className="row">
-      <div className="col-lg-12 col-12 mt-4">
-        <DoctorInvestigationForm
-  showDrawer={showDrawer}
-  prescription={prescription}
-  setPrescription={setPrescription}
-  medication={labTests}
-  setMedication={setLabTests}
-  activeSubIndex={activeSubIndex}
-/>
-      </div>
-    </div>
-  </div>
-}   
-{
-    activeSubIndex == 7 &&  <div
-    className={`tab-pane fade show active`}
-  >
-
-
-    <div className="row">
-      <div className="col-lg-12 col-12 mt-4">
-        <DoctorPrescriptionForm
-  showDrawer={showDrawer}
-  prescription={prescription}
-  setPrescription={setPrescription}
-  medication={medication}
-  setMedication={setMedication}
-  activeSubIndex={activeSubIndex}
-/>
-      </div>
-    </div>
-  </div>
-}                 
-                
-
-
-                  
-                </div>
+                    </div>
                   ) : (
                     ""
                   )}
-                     {activeIndex === 3 ? (
-                   <div className="tab-pane fade show active">
-                   <div className="card border-0 shadow overflow-issue">
-                     <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
-                       <li className="nav-item">
-                         <Link
-                           className={`${
-                             activeSubIndex === 3 ? "active" : ""
-                           } nav-link rounded-0`}
-                           to="#"
-                           onClick={() => setActiveSubIndex(3)}
-                         >
-                           <div className="text-center pt-1 pb-1">
-                             <h5 className="title fw-normal mb-0">
-                               General
-                             </h5>
-                           </div>
-                         </Link>
-                       </li>
+                  {activeIndex === 3 ? (
+                    <div className="tab-pane fade show active">
+                      <div className="card border-0 shadow overflow-issue">
+                        <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
+                          <li className="nav-item">
+                            <Link
+                              className={`${activeSubIndex === 3 ? "active" : ""
+                                } nav-link rounded-0`}
+                              to="#"
+                              onClick={() => setActiveSubIndex(3)}
+                            >
+                              <div className="text-center pt-1 pb-1">
+                                <h5 className="title fw-normal mb-0">
+                                  General
+                                </h5>
+                              </div>
+                            </Link>
+                          </li>
 
-                       <li className="nav-item">
-                         <Link
-                           className={`${
-                             activeSubIndex === 4 ? "active" : ""
-                           } nav-link rounded-0`}
-                           to="#"
-                           onClick={() => setActiveSubIndex(4)}
-                         >
-                           <div className="text-center pt-1 pb-1">
-                             <h5 className="title fw-normal mb-0">
-                               Systemic
-                             </h5>
-                           </div>
-                         </Link>
-                       </li>
-                     </ul>
-                   </div>
+                          <li className="nav-item">
+                            <Link
+                              className={`${activeSubIndex === 4 ? "active" : ""
+                                } nav-link rounded-0`}
+                              to="#"
+                              onClick={() => setActiveSubIndex(4)}
+                            >
+                              <div className="text-center pt-1 pb-1">
+                                <h5 className="title fw-normal mb-0">
+                                  Systemic
+                                </h5>
+                              </div>
+                            </Link>
+                          </li>
+                        </ul>
+                      </div>
 
-                   {/* complaints */}
-                  
-                   <div
-                     className={`tab-pane fade show active`}
-                   >
-                 
+                      {/* complaints */}
 
-                     <div className="row">
-                       <div className="col-lg-12 col-12 mt-4">
-                         <DoctorExaminationForm
-                   showDrawer={showDrawer}
-                   prescription={prescription}
-                   setPrescription={setPrescription}
-                   medication={examination}
-                   setMedication={setExamination}
-                   systemic={systemic}
-                   setSystemic={setSystemic}
-                   activeSubIndex={activeSubIndex}
-                 />
-                       </div>
-                     </div>
-                   </div>
+                      <div
+                        className={`tab-pane fade show active`}
+                      >
 
-                   {/* ........... */}
 
-                  
-                 </div>
+                        <div className="row">
+                          <div className="col-lg-12 col-12 mt-4">
+                            <DoctorExaminationForm
+                              showDrawer={showDrawer}
+                              prescription={prescription}
+                              setPrescription={setPrescription}
+                              medication={examination}
+                              setMedication={setExamination}
+                              systemic={systemic}
+                              setSystemic={setSystemic}
+                              activeSubIndex={activeSubIndex}
+                            />
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* ........... */}
+
+
+                    </div>
                   ) : (
                     ""
                   )}
@@ -585,87 +578,88 @@ const generatePrescription = (htmlContent, doctorComment) => {
         open={open}
         key={"left"}
       >
-        {prescription.symptoms.length >0 &&
-              <div className="col-md-12 mt-4 row">
-                <div className="col-md-4">
-                Chief Query:
-                </div>
-                <div className="col-md-8">
-            {prescription.symptoms.map((med, index) => (
-              <li key={index}>
-                {med.symptoms} X {med.dosage} {med.duration}
-                <br />
-              </li>
-            ))}
+        {prescription.symptoms && prescription.symptoms.length > 0 &&
+          <div className="col-md-12 mt-4 row">
+            <div className="col-md-4">
+              Chief Query:
             </div>
-          
-        </div>
-        }
-        {Object.keys(prescription.systemic).length>0 &&
-        <div className="col-md-12 mt-4">
-          <h5 className="mb-0">Systemic Examination:</h5>
-          <ul className="check-patient-dashboard-prescription">
-            {Object.keys(prescription.systemic).map((med, index) => (
-                prescription.systemic[med] != "" &&   <li key={index}>
-                {med} - {prescription.systemic[med]}
-                <br />
-              </li>
-            
-
-            ))}
-          </ul>
-        </div>
-        }
-        {Object.keys(prescription.examination).length >0 &&
-        <div className="col-md-12 mt-4">
-          <h5 className="mb-0">General Examination:</h5>
-          <ul className="check-patient-dashboard-prescription">
-            {Object.keys(prescription.examination).map((med, index) => (
-                (prescription.examination[med] != "" || med!= "temperatureDecimal") && (
-                med== "temperature"?
+            <div className="col-md-8">
+              {prescription.symptoms.map((med, index) => (
                 <li key={index}>
-                {med} - {prescription.examination["temperature"]}{prescription.examination["temperatureDecimal"]}°F
-                <br />
-              </li>:<li key={index}>
-                {med} - {prescription.examination[med]}
-                <br />
-              </li>
-               
-            ))
-          )
-          
-          }
-          </ul>
-        </div>
-        }
-        {prescription.provisionalDiagnosis!="" &&
-        <div className="col-md-12 mt-4">
-          <h5 className="mb-0">Provisional Diagnosis:</h5>
-          
-           {prescription.provisionalDiagnosis!="" && <p>{prescription.provisionalDiagnosis}</p>}
-          
-        </div>}
-        {prescription.medications.length > 0 &&
-        <div className="col-md-12 mt-4">
-          <h5 className="mb-0">Prescribed Medications:</h5>
-          <ul className="check-patient-dashboard-prescription">
-            {prescription.medications.map((med, index) => (
-                <li key={index}>
-                {med.medicineName} {med.Strength}{med.medicineConsume}  <br/> Dosage: {med.dosage} Per {" "}
-                {med.duration} <br/> Timings: {med.timings} 
-                <br/> Type: {med.medicationType} 
+                  {med.symptoms} X {med.dosage} {med.duration}
+                  <br />
+                </li>
+              ))}
+            </div>
 
-                <br />
-              </li>
-            ))}
-          </ul>
-        </div>
+          </div>
         }
-        {prescription.labReports.length > 0 ? (
+        {prescription.systemic && Object.keys(prescription.systemic).length > 0 &&
+          <div className="col-md-12 mt-4">
+            <h5 className="mb-0">Systemic Examination:</h5>
+            <ul className="check-patient-dashboard-prescription">
+              {Object.keys(prescription.systemic).map((med, index) => (
+                prescription.systemic[med] != "" && <li key={index}>
+                  {med} - {prescription.systemic[med]}
+                  <br />
+                </li>
+
+
+              ))}
+            </ul>
+          </div>
+        }
+        {prescription.examination && Object.keys(prescription.examination).length > 0 &&
+          <div className="col-md-12 mt-4">
+            <h5 className="mb-0">General Examination:</h5>
+            <ul className="check-patient-dashboard-prescription">
+              {Object.keys(prescription.examination).map((med, index) => (
+                (prescription.examination[med] != "" || med != "temperatureDecimal") && (
+                  med == "temperature" ?
+                    <li key={index}>
+                      {med} - {prescription.examination["temperature"]}{prescription.examination["temperatureDecimal"]}°F
+                      <br />
+                    </li> : <li key={index}>
+                      {med} - {prescription.examination[med]}
+                      <br />
+                    </li>
+
+                ))
+              )
+
+              }
+            </ul>
+          </div>
+        }
+        {prescription.provisionalDiagnosis && prescription.provisionalDiagnosis != "" &&
+          <div className="col-md-12 mt-4">
+            <h5 className="mb-0">Provisional Diagnosis:</h5>
+
+            {prescription.provisionalDiagnosis && prescription.provisionalDiagnosis != "" && <p>{prescription.provisionalDiagnosis}</p>}
+
+          </div>}
+        {prescription.medications && prescription.medications.length > 0 &&
+          <div className="col-md-12 mt-4">
+            <h5 className="mb-0">Prescribed Medications:</h5>
+            <ul className="check-patient-dashboard-prescription">
+              {prescription.medications.map((med, index) => (
+                <li key={index}>
+                  {med.medicineName} {med.Strength}{med.medicineConsume}  <br /> Dosage: {med.dosage} Per {" "}
+                  {med.duration} <br /> Timings: {med.timings}
+                  <br /> Type: {med.medicationType}
+
+                  <br />
+                </li>
+              ))}
+            </ul>
+          </div>
+        }
+        {prescription.labReports && prescription.labReports.length > 0 ? (
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Lab Reports:</h5>
             <ul className="check-patient-dashboard-prescription">
               {prescription.labReports.map((med, index) => (
+                med != "" &&
                 <li key={index}>
                   {med}
                   <br />
@@ -677,24 +671,24 @@ const generatePrescription = (htmlContent, doctorComment) => {
           ""
         )}
         {medication.nextVisit &&
-                <div className="col-md-12 mt-4">
-          <h5 className="mb-0">Next Visit:</h5>
-          <ul className="check-patient-dashboard-prescription">
-            {medication.nextVisit} Days
-          </ul>
-        </div>}
-        {prescription.instructions.length > 0 ? (
+          <div className="col-md-12 mt-4">
+            <h5 className="mb-0">Next Visit:</h5>
+            <ul className="check-patient-dashboard-prescription">
+              {medication.nextVisit} Days
+            </ul>
+          </div>}
+        {prescription.instructions && prescription.instructions.length > 0 ? (
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Instructions:</h5>
             <ul className="check-patient-dashboard-prescription">
               {prescription.instructions.map((med, index) => (
-                med!="" &&
-                  <li key={index}>
+                med != "" &&
+                <li key={index}>
                   {med}
                   <br />
                 </li>
-                
-       
+
+
               ))}
             </ul>
             <Link to="/doctor-appointment" className="btn btn-primary">
@@ -704,18 +698,18 @@ const generatePrescription = (htmlContent, doctorComment) => {
         ) : (
           ""
         )}
-        {prescription.referTo.length > 0 ? (
+        {prescription.referTo && prescription.referTo.length > 0 ? (
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">refer To:</h5>
             <ul className="check-patient-dashboard-prescription">
               {prescription.referTo.map((med, index) => (
-                med!="" &&
-                  <li key={index}>
+                med != "" &&
+                <li key={index}>
                   {med}
                   <br />
                 </li>
-                
-       
+
+
               ))}
             </ul>
             <Link to="/doctor-appointment" className="btn btn-primary">

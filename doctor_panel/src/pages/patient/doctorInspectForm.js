@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
+import { checkNotAllNull } from "../../utils/commonFunctions";
 
 const options = [
   { value: "fever", label: "Fever" },
@@ -14,10 +15,20 @@ const optionsDosage = [
   { value: "3", label: "3" },
   { value: "4", label: "4" },
 ];
+const optionsDosageForDays = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+];
+for (let i = 5; i <= 30; i++) {
+  optionsDosageForDays.push({ value: i.toString(), label: i.toString() });
+}
+
 const weeksOptions = [
   { value: "Day", label: "Day" },
   { value: "Week", label: "Week" },
-  { value: "Month", label: "Week" },
+  { value: "Month", label: "Month" },
 ];
 const time = [
   { value: "Before Food", label: "Before Food" },
@@ -71,11 +82,14 @@ function DoctorInspectForm({
   };
 
   const handleAddMedication = () => {
-    showDrawer();
-    setPrescription((prevPrescription) => ({
-      ...prevPrescription,
-      symptoms: [...prevPrescription.symptoms, medication],
-    }));
+    if(checkNotAllNull(medication)){
+      showDrawer();
+      setPrescription((prevPrescription) => ({
+        ...prevPrescription,
+        symptoms: [...prevPrescription.symptoms, medication],
+      }));
+    }
+
 
     setMedication({
       symptoms: "",
@@ -100,8 +114,9 @@ function DoctorInspectForm({
             <div className="mb-3">
               <div className="row">
  
-                <label className="form-label">Symptoms</label>
                 <div className="col-md-6 mb-2">
+                <label className="form-label">Symptoms</label>
+
                   <Select
                     name="medicineName"
                     value={{
@@ -115,7 +130,10 @@ function DoctorInspectForm({
                     required
                   />
                 </div>
-                <div className="col-md-2">
+                                  <div className="col-md-2">
+                                  <label className="form-label">Duration</label>
+
+
                   <Select
                     name="dosage"
                     style={{ height: "2rem" }}
@@ -124,13 +142,15 @@ function DoctorInspectForm({
                       label: medication.dosage,
                     }}
                     onChange={(e) => handleMedicationChange(e, "dosage")}
-                    options={optionsDosage}
+                    options={optionsDosageForDays}
                     placeholder="Select Dosage"
                     isSearchable
                     required
                   />
                 </div>
                 <div className="col-md-3" style={{ marginLeft: "1rem" }}>
+                <label className="form-label">D/M</label>
+
                   <Select
                     style={{ height: "2rem" }}
                     name="duration"

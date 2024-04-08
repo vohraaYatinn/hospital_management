@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
+import { checkNotNull } from "../../utils/commonFunctions";
 
 const options = [
     { value: "completeBloodCount", label: "Complete Blood Count (CBC)" },
@@ -84,11 +85,15 @@ function DoctorInvestigationForm({
   };
 
   const handleAddMedication = () => {
-    showDrawer();
-    setPrescription((prevPrescription) => ({
-      ...prevPrescription,
-      labReports: [...prevPrescription.labReports, medication.labTests],
-    }));
+
+    if(checkNotNull(medication.labTests)){
+      showDrawer();
+      setPrescription((prevPrescription) => ({
+        ...prevPrescription,
+        labReports: [...prevPrescription.labReports, medication.labTests],
+      }));
+    }
+
 
     setMedication({
       labTests: ""

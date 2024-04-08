@@ -67,3 +67,37 @@ export const designStarsReviews = (stars) => {
   }
   return starsArray;
 }
+
+export function checkNotNull(obj) {
+  for (let key in obj) {
+      if (obj.hasOwnProperty(key) && obj[key] !== "") {
+          return true; // Return true if any property is not null
+      }
+  }
+  return false; // Return false if all properties are null
+}
+
+export function checkNotAllNull(obj) {
+  for (let key in obj) {
+      if (obj.hasOwnProperty(key) && obj[key] === "") {
+          return false; // Return true if any property is not null
+      }
+  }
+  return true; // Return false if all properties are null
+}
+export function getCurrentDate() {
+  const today = new Date();
+  let dd = today.getDate();
+  let mm = today.getMonth() + 1; // January is 0!
+  const yyyy = today.getFullYear();
+
+  if (dd < 10) {
+      dd = '0' + dd;
+  }
+
+  if (mm < 10) {
+      mm = '0' + mm;
+  }
+
+  return yyyy + '-' + mm + '-' + dd;
+}

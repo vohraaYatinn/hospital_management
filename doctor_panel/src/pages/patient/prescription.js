@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import convertToPDF from '../../utils/convertToPdf';
 import { test_url_images } from '../../config/environment';
+import { checkNotNull } from '../../utils/commonFunctions';
 
 const prescriptionStyle = {
   fontFamily: 'Arial, sans-serif',
@@ -173,6 +174,8 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
             <h5 className="mb-0">Lab Reports</h5>
             <ul>
               {prescription?.labReports.map((med, index) => (
+                                med!="" &&
+
                 <li key={index}>
                   {med}
                   <br />
@@ -211,7 +214,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         )}
         {prescription?.referTo.length > 0 ? (
           <div className="col-md-12 mt-4">
-          1  <h5 className="mb-0">Refer To</h5>
+           <h5 className="mb-0">Refer To</h5>
             <ul>
               {prescription?.referTo.map((med, index) => (
                 med!="" &&
