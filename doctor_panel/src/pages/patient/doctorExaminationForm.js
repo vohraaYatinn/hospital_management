@@ -135,7 +135,6 @@ const optionsAbdominal = [
   { value: "Spline - Palpable", label: "Spline - Palpable" }
 ];
 const optionsAbdominalExtend = [
-  { value: "(area) +", label: "(area) +" },
   { value: "Epigastric", label: "Epigastric" },
   { value: "Unibilical", label: "Unibilical" },
   { value: "Hypogastric", label: "Hypogastric" },
