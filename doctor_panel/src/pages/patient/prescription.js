@@ -116,6 +116,21 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           </ul>
         </div>
         }
+                {Object.keys(prescription?.examination).length >0 &&
+        <div className="col-md-12 mt-4">
+          <h5 className="mb-0">General Examination</h5>
+          <ul>
+            {Object.keys(prescription?.examination).map((med, index) => (
+                prescription.examination[med] != ""  && <li key={index}>
+                {med} - {prescription.examination[med]}
+                <br />
+              </li>
+            
+
+            ))}
+          </ul>
+        </div>
+        }
         {Object.keys(prescription?.systemic).length>0 &&
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">Systemic Examination</h5>
@@ -131,21 +146,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           </ul>
         </div>
         }
-        {Object.keys(prescription?.examination).length >0 &&
-        <div className="col-md-12 mt-4">
-          <h5 className="mb-0">General Examination</h5>
-          <ul>
-            {Object.keys(prescription?.examination).map((med, index) => (
-                prescription.examination[med] != ""  && <li key={index}>
-                {med} - {prescription.examination[med]}
-                <br />
-              </li>
-            
 
-            ))}
-          </ul>
-        </div>
-        }
         {prescription?.provisionalDiagnosis!="" &&
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">Provisional Diagnosis</h5>

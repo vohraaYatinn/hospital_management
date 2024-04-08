@@ -690,6 +690,45 @@ export default function PatientProfile() {
 
           </div>
         }
+                {Object.keys(prescription.examination).length > 0 &&
+
+<div className="col-md-12 mt-4 row">
+  <div className="col-md-4" style={{ fontWeight: "800" }}>
+    General Examination
+  </div>
+  <div className="col-md-8 row">
+    {Object.keys(prescription.examination).map((med, index) => (
+      prescription.examination[med] != "" &&
+      <>
+         <div className="col-md-10 mt-2">
+         <li key={index}>
+        {med} - {prescription.examination[med]}
+        <br />
+      </li>
+      </div>
+      <div className="col-md-2 mt-2">
+      {index == 0 &&
+                      <button style={{
+                           background:"red",
+                            color:"white",
+                            border:"transparent"
+                         }}
+                         onClick={()=>{
+                          setPrescription((prev)=>({
+                            ...prev, examination : {}
+                          }))
+                           onClose()
+                         }}
+                         ><FiTrash2  /></button>}
+</div>
+
+      </>
+    
+
+    ))}
+  </div>
+</div>
+}
         {Object.keys(prescription.systemic).length > 0 &&
           <div className="col-md-12 mt-4 row">
             <div className="col-md-4" style={{ fontWeight: "800" }}>
@@ -726,45 +765,7 @@ export default function PatientProfile() {
             </div>
           </div>
         }
-        {Object.keys(prescription.examination).length > 0 &&
 
-          <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
-              General Examination
-            </div>
-            <div className="col-md-8 row">
-              {Object.keys(prescription.examination).map((med, index) => (
-                prescription.examination[med] != "" &&
-                <>
-                   <div className="col-md-10 mt-2">
-                   <li key={index}>
-                  {med} - {prescription.examination[med]}
-                  <br />
-                </li>
-                </div>
-                <div className="col-md-2 mt-2">
-                {index == 0 &&
-                                <button style={{
-                                     background:"red",
-                                      color:"white",
-                                      border:"transparent"
-                                   }}
-                                   onClick={()=>{
-                                    setPrescription((prev)=>({
-                                      ...prev, examination : {}
-                                    }))
-                                     onClose()
-                                   }}
-                                   ><FiTrash2  /></button>}
-</div>
-
-                </>
-              
-
-              ))}
-            </div>
-          </div>
-        }
         {prescription.provisionalDiagnosis != "" &&
           <div className="col-md-12 mt-4 row">
             <div className="col-md-4" style={{ fontWeight: "800" }}>

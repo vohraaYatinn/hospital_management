@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
@@ -192,23 +192,20 @@ function DoctorExaminationForm({
     }
   };
 
-
+let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicType', 'GynicDuration']
   const handleAddMedicationSys = () => {
     if (checkNotNull(systemic)) {
+      let checkFilter = Object.assign({}, systemic);
       showDrawer();
+      fieldsToFilter.forEach(field => {
+        delete checkFilter[field];
+    });
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
-        systemic: systemic,
+        systemic: checkFilter,
       }));
     }
 
-
-    setSystemic({
-      CVS: "",
-      Respiratory: "",
-      Abdominal: "",
-      CNS: ""
-    });
   };
 
   const handleAddMedication = () => {
@@ -259,7 +256,6 @@ function DoctorExaminationForm({
                         }}
                         onChange={(e) => handleMedicationChange(e, "Hr")}
                         options={optionsDosageHR}
-                        placeholder="Select Dosage"
                         isSearchable
                         required
                       />
@@ -527,17 +523,24 @@ function DoctorExaminationForm({
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: systemic.CVS,
-                            label: systemic.CVS,
+                            value: systemic.CVS && systemic.CVS.includes("-") ? systemic.CVS.split("-")[0] : systemic.CVS,
+                            label: systemic.CVS && systemic.CVS.includes("-") ? systemic.CVS.split("-")[0] : systemic.CVS,
                           }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "CVS")}
+                          onChange={(e) => 
+                            {
+                            handleMedicationChangeSystemic(e, "CVS")
+                            setSystemic((prevMedication) => ({
+                              ...prevMedication,
+                              CvsType: "",
+                            }));
+                          }}
                           options={optionsDosageCvs}
                           placeholder="Select Dosage"
                           isSearchable
                           required
                         />
                       </div>
-                      {systemic.CVS == "Abnormal" &&
+                      {systemic.CVS && (systemic.CVS.includes("-") ? systemic.CVS.split("-")[0] == "Abnormal" : systemic.CVS == "Abnormal" ) &&
                         <div className="col-5">
                           <label>Type</label>
 
@@ -548,7 +551,24 @@ function DoctorExaminationForm({
                               value: systemic.CvsType,
                               label: systemic.CvsType,
                             }}
-                            onChange={(e) => handleMedicationChangeSystemic(e, "CvsType")}
+                            onChange={(e) => 
+                              {
+                                if(systemic.CVS){
+                                  let systemicValue = ""
+                                  if(systemic.CVS.includes("-")) {
+                                    systemicValue = systemic.CVS.split("-")[0]
+                                  }else{
+                                    systemicValue = systemic.CVS
+                                  }
+                                  setSystemic((prevMedication) => ({
+                                    ...prevMedication,
+                                    CVS: systemicValue +"-"+e.value,
+                                  }));
+                                }
+                                handleMedicationChangeSystemic(e, "CvsType")
+                            
+                    
+                            }}
                             options={optionsDosageCvsExtend}
                             placeholder="Select Dosage"
                             isSearchable
@@ -571,10 +591,17 @@ function DoctorExaminationForm({
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: systemic.Respiratory,
-                            label: systemic.Respiratory,
+                            value: systemic.Respiratory && systemic.Respiratory.includes("-") ? systemic.Respiratory.split("-")[0] : systemic.Respiratory,
+                            label: systemic.Respiratory && systemic.Respiratory.includes("-") ? systemic.Respiratory.split("-")[0] : systemic.Respiratory,
                           }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "Respiratory")}
+                          onChange={(e) =>{
+                            handleMedicationChangeSystemic(e, "Respiratory")
+                            setSystemic((prevMedication) => ({
+                              ...prevMedication,
+                              RespiratoryType: "",
+                            }));
+                          }
+                            }
                           options={optionsDosageCvs}
                           placeholder="Select Dosage"
                           isSearchable
@@ -582,7 +609,7 @@ function DoctorExaminationForm({
                         />
                       </div>
 
-                      {systemic.Respiratory == "Abnormal" &&
+                      {systemic.Respiratory && (systemic.Respiratory.includes("-") ? systemic.Respiratory.split("-")[0] == "Abnormal" : systemic.Respiratory == "Abnormal" ) &&
                         <div className="col-5">
                           <label>Type</label>
 
@@ -593,7 +620,24 @@ function DoctorExaminationForm({
                               value: systemic.RespiratoryType,
                               label: systemic.RespiratoryType,
                             }}
-                            onChange={(e) => handleMedicationChangeSystemic(e, "RespiratoryType")}
+                            onChange={(e) =>{
+                              if(systemic.Respiratory){
+                                let RespiratoryValue = ""
+
+                                if(systemic.Respiratory.includes("-")) {
+                                  RespiratoryValue = systemic.Respiratory.split("-")[0]
+                                }else{
+                                  RespiratoryValue = systemic.Respiratory
+                                }
+
+                                setSystemic((prevMedication) => ({
+                                  ...prevMedication,
+                                  Respiratory: RespiratoryValue +"-"+e.value,
+                                }));
+                              }
+                              handleMedicationChangeSystemic(e, "RespiratoryType")
+                            
+                            }}
                             options={optionsDosageRespExtend}
                             placeholder="Select Dosage"
                             isSearchable
@@ -617,10 +661,17 @@ function DoctorExaminationForm({
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: systemic.Abdominal,
-                            label: systemic.Abdominal,
+                            value: systemic.Abdominal && systemic.Abdominal.includes("-") ? systemic.Abdominal.split("-")[0] : systemic.Abdominal,
+                            label: systemic.Abdominal && systemic.Abdominal.includes("-") ? systemic.Abdominal.split("-")[0] : systemic.Abdominal,
                           }}
-                          onChange={(e) => handleMedicationChangeSystemic(e, "Abdominal")}
+                          onChange={(e) =>{
+                            handleMedicationChangeSystemic(e, "Abdominal")
+                            setSystemic((prevMedication) => ({
+                              ...prevMedication,
+                              AbdominalExtend: "",
+                            }));
+                          }
+                            }
                           options={optionsAbdominal}
                           placeholder="Select Dosage"
                           isSearchable
@@ -628,7 +679,8 @@ function DoctorExaminationForm({
                         />
                       </div>
 
-                      {systemic.Abdominal == "Tenderness" &&
+                      {systemic.Abdominal && (systemic.Abdominal.includes("-") ? systemic.Abdominal.split("-")[0] == "Tenderness" : systemic.Abdominal == "Tenderness" ) &&
+
                         <div className="col-5">
                           <label>Type</label>
 
@@ -639,7 +691,23 @@ function DoctorExaminationForm({
                               value: systemic.AbdominalExtend,
                               label: systemic.AbdominalExtend,
                             }}
-                            onChange={(e) => handleMedicationChangeSystemic(e, "AbdominalExtend")}
+                            onChange={(e) => {
+                              if(systemic.Abdominal){
+                                let AbdominalValue = ""
+                                if(systemic.Abdominal.includes("-")) {
+                                  AbdominalValue = systemic.Abdominal.split("-")[0]
+                                }else{
+                                  AbdominalValue = systemic.Abdominal
+                                }
+
+                                setSystemic((prevMedication) => ({
+                                  ...prevMedication,
+                                  Abdominal: AbdominalValue +"-"+e.value,
+                                }));
+                              }
+                              handleMedicationChangeSystemic(e, "AbdominalExtend")
+                            }
+                            }
                             options={optionsAbdominalExtend}
                             placeholder="Select Dosage"
                             isSearchable
@@ -690,14 +758,14 @@ function DoctorExaminationForm({
                           name="dosage"
                           style={{ height: "2rem" }}
                           value={{
-                            value: systemic.Gynic,
-                            label: systemic.Gynic,
+                            value: systemic.Gynic && systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] : systemic.Gynic,
+                            label: systemic.Gynic && systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] : systemic.Gynic,
                           }}
                           onChange={(e) => {
                             handleMedicationChangeSystemic(e, "Gynic")
                             setSystemic((prevMedication) => ({
                               ...prevMedication,
-                              "GynicType": "",
+                              GynicType: "",
                             }));
                           }
 
@@ -708,11 +776,43 @@ function DoctorExaminationForm({
                           required
                         />
                       </div>
+                      {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Ongoing" : systemic.Gynic == "Ongoing") && 
+                                                <div className="col-3">
+                                                <label>Type</label>
+                    
+                                                <Select
+                                                  name="dosage"
+                                                  style={{ height: "2rem" }}
+                                                  value={{
+                                                    value: systemic.GynicType,
+                                                    label: systemic.GynicType,
+                                                  }}
+                                                  onChange={(e) => {
+                                                    if(systemic.Gynic){
+                                                      let GynicValue = ""
+                                                      if(systemic.Gynic.includes("-")) {
+                                                        GynicValue = systemic.Gynic.split("-")[0]
+                                                      }else{
+                                                        GynicValue = systemic.Gynic
+                                                      }
+                                                      setSystemic((prevMedication) => ({
+                                                        ...prevMedication,
+                                                        Gynic: GynicValue +"-"+e.value,
+                                                      }));
+                                                    }
+                                                    handleMedicationChangeSystemic(e, "GynicType")}
+                                                  }
+                                                  options={gynicOptionsOngoingExtend}
+                                                  placeholder="Select Dosage"
+                                                  isSearchable
+                                                  required
+                                                />
+                                              </div>}
 
-                      {(systemic.Gynic == "Ongoing" || systemic.Gynic == "Stopped Since") &&
+                      {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Stopped Since"  : systemic.Gynic == "Stopped Since" )  &&
                         <>
                           <div className="col-3">
-                            <label>{systemic.Gynic == "Stopped Since" ? "Duration" : "Type"}</label>
+                            <label>{"Duration"}</label>
 
                             <Select
                               name="dosage"
@@ -721,28 +821,44 @@ function DoctorExaminationForm({
                                 value: systemic.GynicType ? (systemic.GynicType.includes("months") ? systemic.GynicType.match(/(\d+)months/)[1] : systemic.GynicType.includes("days") ? systemic.GynicType.match(/\d+/)[0] : systemic.GynicType) : systemic.GynicType,
                                 label: systemic.GynicType ? (systemic.GynicType.includes("months") ? systemic.GynicType.match(/(\d+)months/)[1] : systemic.GynicType.includes("days") ? systemic.GynicType.match(/\d+/)[0] : systemic.GynicType) : systemic.GynicType,
                               }}
-                              onChange={(e) =>
-
-                                handleMedicationChangeSystemic(e, "GynicType")}
+                              onChange={(e) =>{
+                                handleMedicationChangeSystemic(e, "GynicType")
+                                setSystemic((prevMedication) => ({
+                                  ...prevMedication,
+                                  GynicDuration:"",
+                                }))
+                              }
+                              }
                               options={systemic.Gynic == "Ongoing" ? gynicOptionsOngoingExtend : gynicOptionsStoppedExtend}
                               placeholder="Select Dosage"
                               isSearchable
                               required
                             />
                           </div>
-                          {systemic.Gynic == "Stopped Since" &&
+                          {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Stopped Since"  : systemic.Gynic == "Stopped Since" )  &&
                             <div className="col-3">
                               <label>D/M</label>
 
                               <Select
                                 name="dosage"
                                 style={{ height: "2rem" }}
-
+                                value={{
+                                  value: systemic.GynicDuration,
+                                  label: systemic.GynicDuration,
+                                }}
                                 onChange={(e) => {
-                                  if (systemic.GynicType && systemic.GynicType != "") {
+                                  if (systemic.GynicType && systemic.GynicType != "" && systemic.Gynic) {
+                                    let GynicValue = ""
+                                    if(systemic.Gynic.includes("-")) {
+                                      GynicValue = systemic.Gynic.split("-")[0]
+                                    }else{
+                                      GynicValue = systemic.Gynic
+                                    }
+                                    handleMedicationChangeSystemic(e, "GynicDuration")
+
                                     setSystemic((prevMedication) => ({
                                       ...prevMedication,
-                                      GynicType: systemic.GynicType + e.value,
+                                     Gynic: GynicValue + "-" + systemic.GynicType + "-" + e.value,
                                     }))
                                   }
                                 }

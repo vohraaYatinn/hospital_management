@@ -94,7 +94,7 @@ const nextVisit = Array.from({ length: 60 }, (_, index) => ({
   label: `${index + 1} Day${index !== 0 ? 's' : ''}`,
 }));
 
-const handleChange = (selectedOption) => {};
+const handleChange = (selectedOption) => { };
 
 function DoctorPrescriptionForm({
   showDrawer,
@@ -121,28 +121,29 @@ function DoctorPrescriptionForm({
 
   const handleAddInstructions = () => {
     showDrawer();
-    if(activeIndex==1){
+    if (activeIndex == 1) {
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
         instructions: [...prevPrescription.instructions, medication.comments],
       }));
     }
-    else{
+    else {
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
         referTo: [...prevPrescription.referTo, medication.referTo],
       }));
     }
 
-    setMedication((prev)=>({...prev,
-    comments:"",
-    referTo:""
+    setMedication((prev) => ({
+      ...prev,
+      comments: "",
+      referTo: ""
     }))
   };
 
   const handleAddMedication = () => {
 
-    if(medication?.medicineName && medication?.timings && medication?.medicineConsume && medication?.medicationType && medication?.duration && medication?.dosage){
+    if (medication?.medicineName && medication?.timings && medication?.medicineConsume && medication?.medicationType && medication?.duration && medication?.dosage) {
       showDrawer();
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
@@ -213,7 +214,7 @@ function DoctorPrescriptionForm({
             <div className="mb-3">
               <div className="row">
                 <div className="col-md-4 mb-2">
-                <label className="form-label">Medications</label>
+                  <label className="form-label">Medications</label>
 
                   <Select
                     name="medicineName"
@@ -229,7 +230,7 @@ function DoctorPrescriptionForm({
                   />
                 </div>
                 <div className="col-md-3 mb-2">
-                <label className="form-label">Type</label>
+                  <label className="form-label">Type</label>
 
                   <Select
                     name="medicineName"
@@ -245,7 +246,7 @@ function DoctorPrescriptionForm({
                   />
                 </div>
                 <div className="col-md-3 mb-2">
-                <label className="form-label">Strength</label>
+                  <label className="form-label">Strength</label>
 
                   <Select
                     name="medicineName"
@@ -261,7 +262,7 @@ function DoctorPrescriptionForm({
                   />
                 </div>
                 <div className="col-md-2 mb-2">
-                <label className="form-label">Mg/Ml</label>
+                  <label className="form-label">Mg/Ml</label>
 
                   <Select
                     name="medicineConsume"
@@ -295,7 +296,7 @@ function DoctorPrescriptionForm({
                 </div>
                 <div className="col-md-1 ">
                   <div
-                    style={{ height: "2.3rem" , marginTop:"0.4rem"}}
+                    style={{ height: "2.3rem", marginTop: "0.4rem" }}
                   >Per
                   </div>
                 </div>
@@ -357,87 +358,87 @@ function DoctorPrescriptionForm({
               Add
             </button>
           </div>
-       
+
           <div className="col-md-12 mt-4">
-          <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mt-2 mb-2">
-                                <li className="nav-item">
-                                    <Link className={`${activeIndex === 1 ? 'active' : ''} nav-link rounded-0`} to="#" onClick={() =>setActiveIndex(1)}>
-                                        <div className="text-center pt-1 pb-1">
-                                            <h5 className="title fw-normal mb-0">Instructions</h5>
-                                        </div>
-                                    </Link>
-                                </li>
-                                
-                                <li className="nav-item">
-                                    <Link className={`${activeIndex === 2 ? 'active' : ''} nav-link rounded-0`} to="#" onClick={() =>setActiveIndex(2)}>
-                                        <div className="text-center pt-1 pb-1">
-                                            <h5 className="title fw-normal mb-0">Refer To</h5>
-                                        </div>
-                                    </Link>
-                                </li>
-                            </ul>
-                    <form>
-                        <div className="row">
-                            <div className="col-lg-12">
-                                
-                                {activeIndex==1 ?
-                             <div className="mb-3">
-                  
-                             <textarea name="comments" id="name" type="text" className="form-control" placeholder=""
-                             value={medication.comments}
-                                           onChange={handleMedicationChange}
-                                           style={{height:"5rem"}}
+            <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mt-2 mb-2">
+              <li className="nav-item">
+                <Link className={`${activeIndex === 1 ? 'active' : ''} nav-link rounded-0`} to="#" onClick={() => setActiveIndex(1)}>
+                  <div className="text-center pt-1 pb-1">
+                    <h5 className="title fw-normal mb-0">Instructions</h5>
+                  </div>
+                </Link>
+              </li>
 
-                             />
-                         </div>
-                         :
-                         <div className="mb-3">
-                         <textarea name="referTo" id="name" type="text" className="form-control" placeholder=""
-                                                      value={medication.referTo}
-                                                      onChange={handleMedicationChange}
+              <li className="nav-item">
+                <Link className={`${activeIndex === 2 ? 'active' : ''} nav-link rounded-0`} to="#" onClick={() => setActiveIndex(2)}>
+                  <div className="text-center pt-1 pb-1">
+                    <h5 className="title fw-normal mb-0">Refer To</h5>
+                  </div>
+                </Link>
+              </li>
+            </ul>
+            <form>
+              <div className="row">
+                <div className="col-lg-12">
 
-                        style={{height:"5rem"}}
-                         />
-                     </div>    
-                            }
-                               
+                  {activeIndex == 1 ?
+                    <div className="mb-3">
 
+                      <textarea name="comments" id="name" type="text" className="form-control" placeholder=""
+                        value={medication.comments}
+                        onChange={handleMedicationChange}
+                        style={{ height: "5rem" }}
+
+                      />
+                    </div>
+                    :
+                    <div className="mb-3">
+                      <textarea name="referTo" id="name" type="text" className="form-control" placeholder=""
+                        value={medication.referTo}
+                        onChange={handleMedicationChange}
+
+                        style={{ height: "5rem" }}
+                      />
+                    </div>
+                  }
 
 
 
-                            </div>
-                   
-                        </div>
-                    </form>
-                    <label className="form-label">Next Visit</label>
 
-<Select
-  name="Time"
-  value={{
-    value: medication.nextVisit,
-    label: medication.nextVisit,
-  }}
-  onChange={(e) => handleMedicationChange(e, "nextVisit")}
-  options={nextVisit}
-  placeholder="Select Time"
-  isSearchable
-  required
-/>
-                    <button
+
+                </div>
+
+              </div>
+            </form>
+            <label className="form-label">Next Visit</label>
+
+            <Select
+              name="Time"
+              value={{
+                value: medication.nextVisit,
+                label: medication.nextVisit,
+              }}
+              onChange={(e) => handleMedicationChange(e, "nextVisit")}
+              options={nextVisit}
+              placeholder="Select Time"
+              isSearchable
+              required
+            />
+            <button
               type="button"
               className="btn btn-primary"
               style={{
-                marginTop:"1rem",
-                marginBottom:"7rem",
+                marginTop: "1rem",
+                marginBottom: "7rem",
 
               }}
               onClick={handleAddInstructions}
             >
-              
+
               Add
             </button>
 
-                </div>         
+          </div>
         </div>
       </form>
     </div>

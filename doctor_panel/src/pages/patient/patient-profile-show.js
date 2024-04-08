@@ -594,21 +594,7 @@ export default function PatientProfile() {
 
           </div>
         }
-        {prescription.systemic && Object.keys(prescription.systemic).length > 0 &&
-          <div className="col-md-12 mt-4">
-            <h5 className="mb-0">Systemic Examination:</h5>
-            <ul className="check-patient-dashboard-prescription">
-              {Object.keys(prescription.systemic).map((med, index) => (
-                prescription.systemic[med] != "" && <li key={index}>
-                  {med} - {prescription.systemic[med]}
-                  <br />
-                </li>
 
-
-              ))}
-            </ul>
-          </div>
-        }
         {prescription.examination && Object.keys(prescription.examination).length > 0 &&
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">General Examination:</h5>
@@ -628,6 +614,21 @@ export default function PatientProfile() {
               )
 
               }
+            </ul>
+          </div>
+        }
+                {prescription.systemic && Object.keys(prescription.systemic).length > 0 &&
+          <div className="col-md-12 mt-4">
+            <h5 className="mb-0">Systemic Examination:</h5>
+            <ul className="check-patient-dashboard-prescription">
+              {Object.keys(prescription.systemic).map((med, index) => (
+                prescription.systemic[med] != "" && <li key={index}>
+                  {med} - {prescription.systemic[med]}
+                  <br />
+                </li>
+
+
+              ))}
             </ul>
           </div>
         }
