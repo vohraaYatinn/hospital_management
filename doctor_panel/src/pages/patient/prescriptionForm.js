@@ -58,7 +58,7 @@ const medicationType = [
   { value: "Tablet", label: "Tablet" },
   { value: "Syrup", label: "Syrup" },
   { value: "Injection", label: "Injection" },
-  { value: "Capsolute", label: "Capsolute" }
+  { value: "Capsule", label: "Capsule" }
 ]
 const medicationStrength = [];
 
@@ -89,6 +89,24 @@ const time = [
   { value: "After Food", label: "After Food" },
   { value: "Empty Stomach", label: "Empty Stomach" },
 ];
+const dummyHospitalData = [
+  { value: "Dr. Rakesh - Ganga Hospital", label: "Dr. Rakesh - Ganga Hospital" },
+  { value: "Dr. Priya - City Medical Center", label: "Dr. Priya - City Medical Center" },
+  { value: "Dr. Gupta - Riverside Clinic", label: "Dr. Gupta - Riverside Clinic" },
+  { value: "Dr. Sharma - Hilltop Hospital", label: "Dr. Sharma - Hilltop Hospital" },
+  { value: "Dr. Patel - Lakeside Health Center", label: "Dr. Patel - Lakeside Health Center" },
+  { value: "Dr. Singh - Sunrise Hospital", label: "Dr. Singh - Sunrise Hospital" },
+  { value: "Dr. Khan - Valley Clinic", label: "Dr. Khan - Valley Clinic" },
+  { value: "Dr. Joshi - Oceanview Medical Center", label: "Dr. Joshi - Oceanview Medical Center" },
+  { value: "Dr. Das - Pine Hospital", label: "Dr. Das - Pine Hospital" },
+  { value: "Dr. Banerjee - Skyline Healthcare", label: "Dr. Banerjee - Skyline Healthcare" },
+  { value: "Dr. Chowdhury - Sunset Clinic", label: "Dr. Chowdhury - Sunset Clinic" },
+  { value: "Dr. Roy - Greenfield Medical Center", label: "Dr. Roy - Greenfield Medical Center" },
+  { value: "Dr. Verma - Silverlake Hospital", label: "Dr. Verma - Silverlake Hospital" },
+  { value: "Dr. Dasgupta - Mountainview Clinic", label: "Dr. Dasgupta - Mountainview Clinic" },
+  { value: "Dr. Mishra - Riverside Medical Center", label: "Dr. Mishra - Riverside Medical Center" }
+];
+
 const nextVisit = Array.from({ length: 60 }, (_, index) => ({
   value: (index + 1).toString(),
   label: `${index + 1} Day${index !== 0 ? 's' : ''}`,
@@ -128,9 +146,18 @@ function DoctorPrescriptionForm({
       }));
     }
     else {
+      const existingIndex = prescription.referTo.findIndex(entry => entry === medication.referTo);
+      let symArr = []
+      if(existingIndex !== -1){
+        symArr = [...prescription.referTo];
+        symArr.splice(existingIndex, 1);
+      }
+      else{
+        symArr = prescription.referTo
+      }      
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
-        referTo: [...prevPrescription.referTo, medication.referTo],
+        referTo: [...symArr, medication.referTo],
       }));
     }
 
@@ -142,7 +169,6 @@ function DoctorPrescriptionForm({
   };
 
   const handleAddMedication = () => {
-
     if (medication?.medicineName && medication?.timings && medication?.medicineConsume && medication?.medicationType && medication?.duration && medication?.dosage) {
       showDrawer();
       setPrescription((prevPrescription) => ({
@@ -392,13 +418,28 @@ function DoctorPrescriptionForm({
                       />
                     </div>
                     :
-                    <div className="mb-3">
-                      <textarea name="referTo" id="name" type="text" className="form-control" placeholder=""
+                    <div className="mb-3" 
+                    style={{marginTop:"1rem"}}
+
+                    >
+                  <Select
+                    name="referTo"
+                    value={{
+                      value: medication.referTo,
+                      label: medication.referTo,
+                    }}
+                    onChange={(e) => handleMedicationChange(e, "referTo")}
+                    options={dummyHospitalData}
+                    placeholder="Select Refer Doctor"
+                    isSearchable
+                    required
+                  />                     
+                   {/* <textarea name="referTo" id="name" type="text" className="form-control" placeholder=""
                         value={medication.referTo}
                         onChange={handleMedicationChange}
 
                         style={{ height: "5rem" }}
-                      />
+                      /> */}
                     </div>
                   }
 

@@ -38,16 +38,20 @@ export default function Sidebar({colClass}){
                     {/* <li className={`${location.pathname === '/invoices'? 'active' : ''} navbar-item mb-2`}><Link to="/invoices" className="navbar-link"><RiPagesLine className="align-middle navbar-icon"/> Invoices</Link></li> */}
                     {/* <li className={`${location.pathname === '/doctor-messages'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-messages" className="navbar-link"><RiMailUnreadLine className="align-middle navbar-icon"/> Messages</Link></li> */}
                     {/* <li className={`${location.pathname === '/doctor-profile'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-profile" className="navbar-link"><RiUser2Line className="align-middle navbar-icon"/> Profile</Link></li> */}
-                    <li className={`${location.pathname === '/patient-list'? 'active' : ''} navbar-item mb-2`}><Link to="/patient-list" className="navbar-link"><RiEmpathizeLine className="align-middle navbar-icon"/> Patients</Link></li>
-                    <li className={`${location.pathname === '/patient-review'? 'active' : ''} navbar-item mb-2`}><Link to="/patient-review" className="navbar-link"><RiChat1Line className="align-middle navbar-icon"/> Patients Review</Link></li>
+                    {/* <li className={`${location.pathname === '/patient-list'? 'active' : ''} navbar-item mb-2`}><Link to="/patient-list" className="navbar-link"><RiEmpathizeLine className="align-middle navbar-icon"/> Patients</Link></li> */}
+                    <li className={`${location.pathname === '/patient-review'? 'active' : ''} navbar-item mb-2`}><Link to="/patient-review" className="navbar-link"><RiChat1Line className="align-middle navbar-icon"/> Reviews</Link></li>
                     {/* <li className={`${location.pathname === '/doctor-chat'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-chat" className="navbar-link"><RiChatVoiceLine className="align-middle navbar-icon"/> Chat</Link></li> */}
                     {/* <li className={`${location.pathname === '/login'? 'active' : ''} navbar-item mb-2`}><Link to="/login" className="navbar-link"><RiLoginCircleLine className="align-middle navbar-icon"/> Login</Link></li>
                     <li className="navbar-item"><Link to="/forgot-password" className="navbar-link"><RiDeviceRecoverLine className="align-middle navbar-icon"/> Forgot Password</Link></li> */}
-                                        <li className={`${location.pathname === '/doctor-leave'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-leave" className="navbar-link"><RiCalendarCheckLine className="align-middle navbar-icon"/> Leave</Link></li>
+                               
+                               
+                                        {/* <li className={`${location.pathname === '/doctor-leave'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-leave" className="navbar-link"><RiCalendarCheckLine className="align-middle navbar-icon"/> Leave</Link></li> */}
 
-                    <li className={`${location.pathname === '/doctor-profile-setting'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-profile-setting" className="navbar-link"><RiUserSettingsLine className="align-middle navbar-icon"/> Profile Settings</Link></li>
+                    {/* <li className={`${location.pathname === '/doctor-profile-setting'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-profile-setting" className="navbar-link"><RiUserSettingsLine className="align-middle navbar-icon"/> Profile Settings</Link></li> */}
 
-                    <li className="navbar-item"><Link to="/logout" className="navbar-link"><RiDeviceRecoverLine className="align-middle navbar-icon"/> Logout</Link></li>
+                    {/* <li className="navbar-item"><Link to="/logout" className="navbar-link"><RiDeviceRecoverLine className="align-middle navbar-icon"/> Logout</Link></li> */}
+
+
                 </ul>
             </div>
         </div>

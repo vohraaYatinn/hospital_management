@@ -5,44 +5,44 @@ import { Link } from "react-router-dom";
 import { checkNotNull } from "../../utils/commonFunctions";
 
 const options = [
-    { value: "completeBloodCount", label: "Complete Blood Count (CBC)" },
-    { value: "bloodGlucose", label: "Blood Glucose Test" },
-    { value: "lipidPanel", label: "Lipid Panel" },
-    { value: "thyroidFunction", label: "Thyroid Function Tests" },
-    { value: "liverFunction", label: "Liver Function Tests" },
-    { value: "kidneyFunction", label: "Kidney Function Tests" },
-    { value: "hemoglobinA1c", label: "Hemoglobin A1c Test" },
-    { value: "coagulationPanel", label: "Coagulation Panel" },
-    { value: "urinalysis", label: "Urinalysis" },
-    { value: "serumElectrolytes", label: "Serum Electrolytes Test" },
-    { value: "C-reactiveProtein", label: "C-reactive Protein (CRP) Test" },
-    { value: "vitaminDLevels", label: "Vitamin D Levels Test" },
-    { value: "ironStudies", label: "Iron Studies" },
-    { value: "HIVScreening", label: "HIV Screening" },
-    { value: "hepatitisPanel", label: "Hepatitis Panel" },
-    { value: "thyroidAntibodies", label: "Thyroid Antibodies Test" },
-    { value: "prostateSpecificAntigen", label: "Prostate Specific Antigen (PSA)" },
-    { value: "allergyTesting", label: "Allergy Testing" },
-    { value: "serumCortisol", label: "Serum Cortisol Test" },
-    { value: "ESR", label: "Erythrocyte Sedimentation Rate (ESR)" },
-    { value: "bloodType", label: "Blood Type Testing" },
-    { value: "CRP", label: "C-reactive Protein (CRP) Test" },
-    { value: "thyroidStimulatingHormone", label: "Thyroid Stimulating Hormone (TSH) Test" },
-    { value: "hemoglobinElectrophoresis", label: "Hemoglobin Electrophoresis" },
-    { value: "serumFerritin", label: "Serum Ferritin Test" },
-    { value: "creatineKinase", label: "Creatine Kinase (CK) Test" },
-    { value: "lipaseTest", label: "Lipase Test" },
-    { value: "prothrombinTime", label: "Prothrombin Time (PT) Test" },
-    { value: "activatedPartialThromboplastinTime", label: "Activated Partial Thromboplastin Time (APTT) Test" },
-    { value: "hormonePanel", label: "Hormone Panel" },
-    { value: "D-dimer", label: "D-dimer Test" },
-    { value: "electrolytePanel", label: "Electrolyte Panel" },
-    { value: "uricAcidTest", label: "Uric Acid Test" },
-    { value: "serumCalcium", label: "Serum Calcium Test" },
-    { value: "hCGPregnancyTest", label: "hCG Pregnancy Test" },
-    { value: "fibrinogenTest", label: "Fibrinogen Test" },
-  ];
-  
+  { value: "Complete Blood Count (CBC)", label: "Complete Blood Count (CBC)" },
+  { value: "Blood Glucose Test", label: "Blood Glucose Test" },
+  { value: "Lipid Panel", label: "Lipid Panel" },
+  { value: "Thyroid Function Tests", label: "Thyroid Function Tests" },
+  { value: "Liver Function Tests", label: "Liver Function Tests" },
+  { value: "Kidney Function Tests", label: "Kidney Function Tests" },
+  { value: "Hemoglobin A1c Test", label: "Hemoglobin A1c Test" },
+  { value: "Coagulation Panel", label: "Coagulation Panel" },
+  { value: "Urinalysis", label: "Urinalysis" },
+  { value: "Serum Electrolytes Test", label: "Serum Electrolytes Test" },
+  { value: "C-reactive Protein (CRP) Test", label: "C-reactive Protein (CRP) Test" },
+  { value: "Vitamin D Levels Test", label: "Vitamin D Levels Test" },
+  { value: "Iron Studies", label: "Iron Studies" },
+  { value: "HIV Screening", label: "HIV Screening" },
+  { value: "Hepatitis Panel", label: "Hepatitis Panel" },
+  { value: "Thyroid Antibodies Test", label: "Thyroid Antibodies Test" },
+  { value: "Prostate Specific Antigen (PSA)", label: "Prostate Specific Antigen (PSA)" },
+  { value: "Allergy Testing", label: "Allergy Testing" },
+  { value: "Serum Cortisol Test", label: "Serum Cortisol Test" },
+  { value: "Erythrocyte Sedimentation Rate (ESR)", label: "Erythrocyte Sedimentation Rate (ESR)" },
+  { value: "Blood Type Testing", label: "Blood Type Testing" },
+  { value: "C-reactive Protein (CRP) Test", label: "C-reactive Protein (CRP) Test" },
+  { value: "Thyroid Stimulating Hormone (TSH) Test", label: "Thyroid Stimulating Hormone (TSH) Test" },
+  { value: "Hemoglobin Electrophoresis", label: "Hemoglobin Electrophoresis" },
+  { value: "Serum Ferritin Test", label: "Serum Ferritin Test" },
+  { value: "Creatine Kinase (CK) Test", label: "Creatine Kinase (CK) Test" },
+  { value: "Lipase Test", label: "Lipase Test" },
+  { value: "Prothrombin Time (PT) Test", label: "Prothrombin Time (PT) Test" },
+  { value: "Activated Partial Thromboplastin Time (APTT) Test", label: "Activated Partial Thromboplastin Time (APTT) Test" },
+  { value: "Hormone Panel", label: "Hormone Panel" },
+  { value: "D-dimer Test", label: "D-dimer Test" },
+  { value: "Electrolyte Panel", label: "Electrolyte Panel" },
+  { value: "Uric Acid Test", label: "Uric Acid Test" },
+  { value: "Serum Calcium Test", label: "Serum Calcium Test" },
+  { value: "hCG Pregnancy Test", label: "hCG Pregnancy Test" },
+  { value: "Fibrinogen Test", label: "Fibrinogen Test" },
+];
+
 const optionsDosage = [
   { value: "1", label: "1" },
   { value: "2", label: "2" },
@@ -85,12 +85,21 @@ function DoctorInvestigationForm({
   };
 
   const handleAddMedication = () => {
-
+    const existingIndex = prescription.labReports.findIndex(entry => entry === medication.labTests);
     if(checkNotNull(medication.labTests)){
       showDrawer();
+      let symArr = [];
+      if(existingIndex !== -1){
+        symArr = [...prescription.labReports];
+        symArr.splice(existingIndex, 1);
+
+      }
+      else{
+        symArr = prescription.labReports
+      }
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
-        labReports: [...prevPrescription.labReports, medication.labTests],
+        labReports: [...symArr, medication.labTests],
       }));
     }
 
@@ -110,7 +119,7 @@ function DoctorInvestigationForm({
 
   return (
     <div className="tab-pane fade show active">
-      <h5 className="mb-0">Doctor's Prescription:</h5>
+      <h5 className="mb-0">Recommend Test:</h5>
       <form className="mt-4" onSubmit={handlePrescriptionSubmit}>
         <div className="row">
      

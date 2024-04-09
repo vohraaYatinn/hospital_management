@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
@@ -10,7 +10,11 @@ import { useRouter } from "../../hooks/use-router";
 import useAxios from "../../network/useAxios";
 import { fetchDoctorDashboard, fetchDoctorPatientsDashboard } from "../../urls/urls";
 import moment from 'moment';
+import { Radio } from 'antd';
+
 import DateSearchComponent from "../../common-components/DateSearch";
+import { test_url_images } from "../../config/environment";
+import { calculateAge } from "../../utils/commonFunctions";
 
 
 export default function DoctorDashBoard() {
@@ -21,7 +25,7 @@ export default function DoctorDashBoard() {
     const [dashboardDataPatients, setDashboardDataPatients] = useState([])
     const [dashboardDataResponse, dashboardDataError, dashboardDataLoading, dashboardDataFetch] = useAxios();
     const [dashboardDataPatientResponse, dashboardDataPatientError, dashboardDataPatientLoading, dashboardDataPatientFetch] = useAxios();
-
+    const dateRef = useRef(null);
 
 
     useEffect(() => {
@@ -58,6 +62,26 @@ export default function DoctorDashBoard() {
         }
 
     }, [dashboardDataPatientResponse])
+    const [radio, setRadio] = useState('Week');
+
+    const optionsRadio = [
+        {
+          label: 'Week',
+          value: 'Week',
+        },
+        {
+          label: 'Month',
+          value: 'Month',
+        },
+        {
+          label: 'Year',
+          value: 'Year',
+        },
+      ];
+      const onChangeRadio = ({ target: { value } }) => {
+        setRadio(value);
+      };
+
     return (
         <>
             <Navbar navDark={true} manuClass="navigation-menu nav-left" containerClass="container-fluid" />
@@ -69,10 +93,22 @@ export default function DoctorDashBoard() {
                             <h5 className="mb-0">Dashboard</h5>
                             <Chart data={dashboardData} />
 
+                            <div className="row mt-4">
+                            <div className="col-9" >
+                            </div>
+
+                            <div className="col-3" >
+                            <Radio.Group options={optionsRadio} onChange={onChangeRadio} value={radio} optionType="button" />
+                                </div>
+                                </div>
                             <div className="row">
                                 <div className="col-xl-3 col-lg-3 col-md-3 mt-1 mt-sm-0 " >
                                     <label style={{marginTop:'1.3rem'}}>Appointment Dates</label>
-                                    <DateSearchComponent filters={filters} setFilters={setFilters} />
+                                    <DateSearchComponent filters={filters} setFilters={setFilters} ref={dateRef}
+                                    onClick={()=>{
+                                        dateRef.current.click()
+                                    }}
+                                    />
 
                                 </div>
                             </div>
@@ -86,7 +122,7 @@ export default function DoctorDashBoard() {
                                             color: "white"
                                         }}
                                         >
-                                            <h6 className="mb-0">Total Appointment</h6>
+                                            <h6 className="mb-0 text-dashboard-change">Total Appointment</h6>
                                             <h6 className="mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.total_appointments_count} Patients</h6>
                                         </div>
                                         
@@ -97,13 +133,43 @@ export default function DoctorDashBoard() {
                                                     <li className="pt-4 ms-0" key={index}>
                                                         <Link to="#">
                                                             <div className="d-flex align-items-center justify-content-between">
+                                                                <div className="row">
+                                                            <div className="col-3">
+                                                                <img src={test_url_images + item?.patient?.profile_picture} 
+                                                                style={{
+                                                                    width:"3rem",
+                                                                    height:"3rem",
+                                                                    border:"1px solid transparent",
+                                                                    borderRadius:"100px"
+                                                                }}
+                                                                />
+                                                            </div>
+                                                            <div className="col-9">
+                                                                <div className="row " style={{marginLeft:"0.5rem", color:"black", fontSize:"1.2rem"}}>
+                                                                <p style={{textAlign:"start", marginBottom:"0rem"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</p>
+                                                                </div>
+                                                                <div className="row" style={{marginLeft:"0.5rem", color:"black"}}>
+                                                                <div className="col-7" style={{fontSize:"0.7rem"}}>
+                                                                {item?.patient?.ujur_id}
+                                                                </div>
+                                                                <div className="col-4" style={{fontSize:"0.7rem"}}>
+                                                                {calculateAge(item?.patient?.date_of_birth)}
+
+                                                                </div>
+                                                            
+                                                                </div>
+                                                            </div>
+                                                            </div>
+
+                                                            </div>
+                                                            {/* <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="d-inline-flex">
                                                                     <div className="ms-3">
                                                                         <h6 className="text-dark mb-0 d-block">{item?.patient?.full_name}</h6>
                                                                     </div>
                                                                 </div>
                                                                 <FiArrowRight className="h5 text-dark" />
-                                                            </div>
+                                                            </div> */}
                                                         </Link>
                                                     </li>
                                                 )
@@ -120,7 +186,7 @@ export default function DoctorDashBoard() {
                                                                                     color: "white"
                                                                                 }}
                                         >
-                                            <h6 className="mb-0">Pending Appointment</h6>
+                                            <h6 className="mb-0 text-dashboard-change">Pending Appointment</h6>
                                             <h6 className=" mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.pending_appointments_count} Patients</h6>
                                         </div>
        
@@ -130,14 +196,43 @@ export default function DoctorDashBoard() {
                                                     <li className="mt-4 ms-0" key={index}>
                                                         <Link to="#">
                                                             <div className="d-flex align-items-center justify-content-between">
+                                                                <div className="row">
+                                                            <div className="col-3">
+                                                                <img src={test_url_images + item?.patient?.profile_picture} 
+                                                                style={{
+                                                                    width:"3rem",
+                                                                    height:"3rem",
+                                                                    border:"1px solid transparent",
+                                                                    borderRadius:"100px"
+                                                                }}
+                                                                />
+                                                            </div>
+                                                            <div className="col-9">
+                                                                <div className="row " style={{marginLeft:"0.5rem", color:"black", fontSize:"1.2rem"}}>
+                                                                <p style={{textAlign:"start", marginBottom:"0rem"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</p>
+                                                                </div>
+                                                                <div className="row" style={{marginLeft:"0.5rem", color:"black"}}>
+                                                                <div className="col-7" style={{fontSize:"0.7rem"}}>
+                                                                {item?.patient?.ujur_id}
+                                                                </div>
+                                                                <div className="col-4" style={{fontSize:"0.7rem"}}>
+                                                                {calculateAge(item?.patient?.date_of_birth)}
+
+                                                                </div>
+                                                            
+                                                                </div>
+                                                            </div>
+                                                            </div>
+
+                                                            </div>
+                                                            {/* <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="d-inline-flex">
                                                                     <div className="ms-3">
                                                                         <h6 className="text-dark mb-0 d-block">{item?.patient?.full_name}</h6>
-
                                                                     </div>
                                                                 </div>
                                                                 <FiArrowRight className="h5 text-dark" />
-                                                            </div>
+                                                            </div> */}
                                                         </Link>
                                                     </li>
                                                 )
@@ -151,7 +246,7 @@ export default function DoctorDashBoard() {
                                                                                     background: "#f0735a",
                                                                                     color: "white"
                                                                                 }}>
-                                            <h6 className="mb-0">Canceled Appointment</h6>
+                                            <h6 className="mb-0 text-dashboard-change">Canceled Appointment</h6>
                                             <h6 className="mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.canceled_appointments_count} Patients</h6>
                                         </div>
       
@@ -161,13 +256,43 @@ export default function DoctorDashBoard() {
                                                     <li className="pt-4 ms-0" key={index}>
                                                         <Link to="#">
                                                             <div className="d-flex align-items-center justify-content-between">
+                                                                <div className="row">
+                                                            <div className="col-3">
+                                                                <img src={test_url_images + item?.patient?.profile_picture} 
+                                                                style={{
+                                                                    width:"3rem",
+                                                                    height:"3rem",
+                                                                    border:"1px solid transparent",
+                                                                    borderRadius:"100px"
+                                                                }}
+                                                                />
+                                                            </div>
+                                                            <div className="col-9">
+                                                                <div className="row " style={{marginLeft:"0.5rem", color:"black", fontSize:"1.2rem"}}>
+                                                                <p style={{textAlign:"start", marginBottom:"0rem"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</p>
+                                                                </div>
+                                                                <div className="row" style={{marginLeft:"0.5rem", color:"black"}}>
+                                                                <div className="col-7" style={{fontSize:"0.7rem"}}>
+                                                                {item?.patient?.ujur_id}
+                                                                </div>
+                                                                <div className="col-4" style={{fontSize:"0.7rem"}}>
+                                                                {calculateAge(item?.patient?.date_of_birth)}
+
+                                                                </div>
+                                                            
+                                                                </div>
+                                                            </div>
+                                                            </div>
+
+                                                            </div>
+                                                            {/* <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="d-inline-flex">
                                                                     <div className="ms-3">
                                                                         <h6 className="text-dark mb-0 d-block">{item?.patient?.full_name}</h6>
                                                                     </div>
                                                                 </div>
                                                                 <FiArrowRight className="h5 text-dark" />
-                                                            </div>
+                                                            </div> */}
                                                         </Link>
                                                     </li>
                                                 )
@@ -182,7 +307,7 @@ export default function DoctorDashBoard() {
                                                                                     background: "#53c797",
                                                                                     color: "white"
                                                                                 }}>
-                                            <h6 className="mb-0">Completed Appointment</h6>
+                                            <h6 className="mb-0 text-dashboard-change">Completed Appointment</h6>
                                             <h6 className=" mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.completed_appointments_count} Patients</h6>
                                         </div>
 
@@ -192,14 +317,43 @@ export default function DoctorDashBoard() {
                                                     <li className="mt-4 ms-0" key={index}>
                                                         <Link to="#">
                                                             <div className="d-flex align-items-center justify-content-between">
+                                                                <div className="row">
+                                                            <div className="col-3">
+                                                                <img src={test_url_images + item?.patient?.profile_picture} 
+                                                                style={{
+                                                                    width:"3rem",
+                                                                    height:"3rem",
+                                                                    border:"1px solid transparent",
+                                                                    borderRadius:"100px"
+                                                                }}
+                                                                />
+                                                            </div>
+                                                            <div className="col-9">
+                                                                <div className="row " style={{marginLeft:"0.5rem", color:"black", fontSize:"1.2rem"}}>
+                                                                <p style={{textAlign:"start", marginBottom:"0rem"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</p>
+                                                                </div>
+                                                                <div className="row" style={{marginLeft:"0.5rem", color:"black"}}>
+                                                                <div className="col-7" style={{fontSize:"0.7rem"}}>
+                                                                {item?.patient?.ujur_id}
+                                                                </div>
+                                                                <div className="col-4" style={{fontSize:"0.7rem"}}>
+                                                                {calculateAge(item?.patient?.date_of_birth)}
+
+                                                                </div>
+                                                            
+                                                                </div>
+                                                            </div>
+                                                            </div>
+
+                                                            </div>
+                                                            {/* <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="d-inline-flex">
                                                                     <div className="ms-3">
                                                                         <h6 className="text-dark mb-0 d-block">{item?.patient?.full_name}</h6>
-
                                                                     </div>
                                                                 </div>
                                                                 <FiArrowRight className="h5 text-dark" />
-                                                            </div>
+                                                            </div> */}
                                                         </Link>
                                                     </li>
                                                 )

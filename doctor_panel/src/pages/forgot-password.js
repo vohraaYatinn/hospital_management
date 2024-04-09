@@ -25,9 +25,7 @@ export default function ForgotPassword(){
     })
     return(
         <>
-        <div className="back-to-home rounded d-none d-sm-block">
-            <Link to="/" className="btn btn-icon btn-primary"><FiHome className="icons"/></Link>
-        </div>
+
 
         
         <section className="bg-home d-flex bg-light align-items-center" style={{backgroundImage:`url(${bg1})`, backgroundPosition:'center'}}>
@@ -40,9 +38,9 @@ export default function ForgotPassword(){
                                 <h4 className="text-center">Recover Account</h4>  
                                     <div className="row">
                                         <div className="col-lg-12">
-                                            <p className="text-muted">Please enter your email address. You will receive a link to create a new password via email.</p>
+                                            <p className="text-muted">Please enter your ID. Your hospital will share you a new password.</p>
                                             <div className="mb-3">
-                                                <label className="form-label">Email address <span className="text-danger">*</span></label>
+                                                <label className="form-label">ID <span className="text-danger">*</span></label>
                                                 <input type="email" className="form-control" placeholder="Enter Your Email Address" name="email" required=""
                                                  onChange={(e)=>{
                                                     setFormValues((prev)=>({...prev, 'email':e.target.value}))
@@ -50,21 +48,12 @@ export default function ForgotPassword(){
                                                 />
                                             </div>
                                         </div>
-                                        <div className="col-lg-12">
-                                            <div className="mb-3">
-                                                <label className="form-label">Comment <span className="text-danger">*</span></label>
-                                                <input type="text" className="form-control" placeholder="Enter Your Reason" name="text" required=""
-                                                 onChange={(e)=>{
-                                                    setFormValues((prev)=>({...prev, 'comment':e.target.value}))
-                                                }}
-                                                />
-                                            </div>
-                                        </div>
+
                                         <div className="col-lg-12">
                                             <div className="d-grid">
                                                 <button className="btn btn-primary"
                                                 onClick={handleFunction}
-                                                >Send</button>
+                                                >Request</button>
                                             </div>
                                         </div>
                                         <div className="mx-auto">

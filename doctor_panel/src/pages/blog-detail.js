@@ -246,7 +246,7 @@ export default function BlogDetail(){
                 </div>
             </div>
         </section>
-        <Footer/>
+        <AdminFooter/>
         <ScrollTop/>
         </>
     )

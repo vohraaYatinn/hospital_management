@@ -15,7 +15,7 @@ import DoctorInvestigationForm from "./investigationForm";
 import { useRouter } from "../../hooks/use-router";
 import { fetchPatientProfile, uploadDocumentPrescription } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
-import { calculateAge, checkNotNull } from "../../utils/commonFunctions";
+import { calculateAge, capitalizeFirst, checkNotNull } from "../../utils/commonFunctions";
 import { FiUser } from "react-icons/fi";
 import { RiMindMap, RiNodeTree, RiScales2Fill, RiWeiboFill } from "react-icons/ri";
 import { GiMedicalDrip } from "react-icons/gi";
@@ -105,7 +105,7 @@ export default function PatientProfile() {
   const [examination, setExamination] = useState({
     Hr: "",
     Bp: "",
-    Spo2: "",
+    SPO2: "",
     Rhythm: "",
     Volume: "",
     Temperature: "",
@@ -586,7 +586,7 @@ export default function PatientProfile() {
             <div className="col-md-8">
               {prescription.symptoms.map((med, index) => (
                 <li key={index}>
-                  {med.symptoms} X {med.dosage} {med.duration}
+                  {capitalizeFirst(med.symptoms)} X {med.dosage} {med.duration}
                   <br />
                 </li>
               ))}
@@ -603,10 +603,10 @@ export default function PatientProfile() {
                 (prescription.examination[med] != "" || med != "temperatureDecimal") && (
                   med == "temperature" ?
                     <li key={index}>
-                      {med} - {prescription.examination["temperature"]}{prescription.examination["temperatureDecimal"]}°F
+                      {capitalizeFirst(med)} - {prescription.examination["temperature"]}{prescription.examination["temperatureDecimal"]}°F
                       <br />
                     </li> : <li key={index}>
-                      {med} - {prescription.examination[med]}
+                    {capitalizeFirst(med)} - {prescription.examination[med]}
                       <br />
                     </li>
 
@@ -623,7 +623,7 @@ export default function PatientProfile() {
             <ul className="check-patient-dashboard-prescription">
               {Object.keys(prescription.systemic).map((med, index) => (
                 prescription.systemic[med] != "" && <li key={index}>
-                  {med} - {prescription.systemic[med]}
+                   {capitalizeFirst(med)} - {prescription.systemic[med]}
                   <br />
                 </li>
 
@@ -636,33 +636,18 @@ export default function PatientProfile() {
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Provisional Diagnosis:</h5>
 
-            {prescription.provisionalDiagnosis && prescription.provisionalDiagnosis != "" && <p>{prescription.provisionalDiagnosis}</p>}
+            {prescription.provisionalDiagnosis && prescription.provisionalDiagnosis != "" && <p>{capitalizeFirst(prescription.provisionalDiagnosis)}</p>}
 
           </div>}
-        {prescription.medications && prescription.medications.length > 0 &&
-          <div className="col-md-12 mt-4">
-            <h5 className="mb-0">Prescribed Medications:</h5>
-            <ul className="check-patient-dashboard-prescription">
-              {prescription.medications.map((med, index) => (
-                <li key={index}>
-                  {med.medicineName} {med.Strength}{med.medicineConsume}  <br /> Dosage: {med.dosage} Per {" "}
-                  {med.duration} <br /> Timings: {med.timings}
-                  <br /> Type: {med.medicationType}
 
-                  <br />
-                </li>
-              ))}
-            </ul>
-          </div>
-        }
         {prescription.labReports && prescription.labReports.length > 0 ? (
           <div className="col-md-12 mt-4">
-            <h5 className="mb-0">Lab Reports:</h5>
+            <h5 className="mb-0">Recommended Test:</h5>
             <ul className="check-patient-dashboard-prescription">
               {prescription.labReports.map((med, index) => (
                 med != "" &&
                 <li key={index}>
-                  {med}
+                  {capitalizeFirst(med)}
                   <br />
                 </li>
               ))}
@@ -671,6 +656,21 @@ export default function PatientProfile() {
         ) : (
           ""
         )}
+                {prescription.medications && prescription.medications.length > 0 &&
+          <div className="col-md-12 mt-4">
+            <h5 className="mb-0">Prescribed Medications:</h5>
+            <ul className="check-patient-dashboard-prescription">
+              {prescription.medications.map((med, index) => (
+                <li key={index}>
+                  {capitalizeFirst(med.medicineName)}{"-"}{med.medicationType}{'-'}{med.Strength}{" "}{med.medicineConsume}  <br /> {med.dosage} Per {" "}
+                  {med.duration} {"-"} {med.timings}
+
+                  <br />
+                </li>
+              ))}
+            </ul>
+          </div>
+        }
         {medication.nextVisit &&
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Next Visit:</h5>
@@ -685,16 +685,14 @@ export default function PatientProfile() {
               {prescription.instructions.map((med, index) => (
                 med != "" &&
                 <li key={index}>
-                  {med}
+                  {capitalizeFirst(med)}
                   <br />
                 </li>
 
 
               ))}
             </ul>
-            <Link to="/doctor-appointment" className="btn btn-primary">
-              Submit
-            </Link>
+          
           </div>
         ) : (
           ""
@@ -706,16 +704,14 @@ export default function PatientProfile() {
               {prescription.referTo.map((med, index) => (
                 med != "" &&
                 <li key={index}>
-                  {med}
+                  {capitalizeFirst(med)}
                   <br />
                 </li>
 
 
               ))}
             </ul>
-            <Link to="/doctor-appointment" className="btn btn-primary">
-              Submit
-            </Link>
+   
           </div>
         ) : (
           ""

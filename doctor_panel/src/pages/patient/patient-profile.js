@@ -15,7 +15,7 @@ import DoctorInvestigationForm from "./investigationForm";
 import { useRouter } from "../../hooks/use-router";
 import { fetchPatientProfile, uploadDocumentPrescription } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
-import { calculateAge } from "../../utils/commonFunctions";
+import { calculateAge, capitalizeFirst } from "../../utils/commonFunctions";
 import { FiUser, FiTrash2 } from "react-icons/fi";
 import { RiMindMap, RiNodeTree, RiScales2Fill, RiWeiboFill } from "react-icons/ri";
 import { GiMedicalDrip } from "react-icons/gi";
@@ -110,7 +110,7 @@ export default function PatientProfile() {
   const [examination, setExamination] = useState({
     Hr: "",
     Bp: "",
-    Spo2: "",
+    SPO2: "",
     Rhythm: "",
     Volume: "",
     Temperature: "",
@@ -665,7 +665,7 @@ export default function PatientProfile() {
                 <>
                 <div className="col-md-10 mt-2">
                      <li key={index}>
-                  {med.symptoms} X {med.dosage} {med.duration}
+                  {capitalizeFirst(med.symptoms)} X {med.dosage} {med.duration}
            
                 </li>
 </div>
@@ -702,7 +702,7 @@ export default function PatientProfile() {
       <>
          <div className="col-md-10 mt-2">
          <li key={index}>
-        {med} - {prescription.examination[med]}
+        {capitalizeFirst(med)} - {prescription.examination[med]}
         <br />
       </li>
       </div>
@@ -740,7 +740,7 @@ export default function PatientProfile() {
 <>
                   <div className="col-md-10 mt-2">
                   <li key={index}>
-                  {med} - {prescription.systemic[med]}
+                  {capitalizeFirst(med)} - {prescription.systemic[med]}
                 </li>
                 </div>
                                 <div className="col-md-2 mt-2">
@@ -775,7 +775,7 @@ export default function PatientProfile() {
             <>
             <div className="col-md-10">
 
-            {prescription.provisionalDiagnosis != "" && <p>{prescription.provisionalDiagnosis}</p>}
+            {prescription.provisionalDiagnosis != "" && <p>{capitalizeFirst(prescription.provisionalDiagnosis)}</p>}
 </div>
 <div className="col-md-2">
 <button style={{
@@ -795,7 +795,45 @@ export default function PatientProfile() {
 </>
             </div>
           </div>}
-        {prescription.medications.length > 0 &&
+
+        {prescription.labReports.length > 0 ? (
+          <div className="col-md-12 mt-4 row">
+            <div className="col-md-4" style={{ fontWeight: "800" }}>
+            Recommended Test
+            </div>
+            <div className="col-md-8 row">
+
+              {prescription.labReports.map((med, index) => (
+                med!="" &&
+                <>
+                <div className="col-md-10 mt-2">
+
+                <li key={index}>
+                  {capitalizeFirst(med)}
+                  <br />
+                </li>
+                </div>
+                <div className="col-md-2 mt-2">
+                <button style={{
+                                     background:"red",
+                                      color:"white",
+                                      border:"transparent"
+                                   }}
+                                   onClick={()=>{
+                                    prescription.labReports.splice(index, 1)
+
+                                     onClose()
+                                   }}
+                                   ><FiTrash2  /></button>
+                  </div>
+                  </>
+              ))}
+            </div>
+          </div>
+        ) : (
+          ""
+        )}
+                {prescription.medications.length > 0 &&
           <div className="col-md-12 mt-4 row">
             <div className="col-md-4" style={{ fontWeight: "800" }}>
               Prescribed Medications
@@ -806,9 +844,8 @@ export default function PatientProfile() {
 <div className="col-md-10 mt-2">
 
                 <li key={index}>
-                {med.medicineName} {med.Strength}{med.medicineConsume}  <br/> Dosage: {med.dosage} Per {" "}
-                {med.duration} <br/> Timings: {med.timings} 
-                <br/> Type: {med.medicationType} 
+                {capitalizeFirst(med.medicineName)}{"-"}{med.medicationType}{'-'}{med.Strength}{" "}{med.medicineConsume}  <br />  {med.dosage} Per {" "}
+                  {med.duration} {"-"} {med.timings}
 
                 <br />
               </li>
@@ -834,43 +871,6 @@ export default function PatientProfile() {
             </div>
           </div>
         }
-        {prescription.labReports.length > 0 ? (
-          <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
-              Lab Report
-            </div>
-            <div className="col-md-8 row">
-
-              {prescription.labReports.map((med, index) => (
-                med!="" &&
-                <>
-                <div className="col-md-10 mt-2">
-
-                <li key={index}>
-                  {med}
-                  <br />
-                </li>
-                </div>
-                <div className="col-md-2 mt-2">
-                <button style={{
-                                     background:"red",
-                                      color:"white",
-                                      border:"transparent"
-                                   }}
-                                   onClick={()=>{
-                                    prescription.labReports.splice(index, 1)
-
-                                     onClose()
-                                   }}
-                                   ><FiTrash2  /></button>
-                  </div>
-                  </>
-              ))}
-            </div>
-          </div>
-        ) : (
-          ""
-        )}
         {medication.nextVisit &&
           <div className="col-md-12 mt-4 row">
             <div className="col-md-4" style={{ fontWeight: "800" }}>
@@ -913,7 +913,7 @@ export default function PatientProfile() {
                 med != "" && <>
                 <div className="col-md-10 mt-2">
    <li key={index}>
-                  {med}
+                  {capitalizeFirst(med)}
                   <br />
                 </li>
                 </div>
@@ -951,7 +951,7 @@ export default function PatientProfile() {
                                 <div className="col-md-10 mt-2">
 
                   <li key={index}>
-                  {med}
+                  {capitalizeFirst(med)}
                   <br />
                 </li>
                 </div>

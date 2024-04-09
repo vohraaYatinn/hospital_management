@@ -14,6 +14,8 @@ import {
   FiSearch,
   GrDashboard,
   LiaSignOutAltSolid,
+  FiXOctagon,
+  FiPhoneCall,
 } from "../assets/icons/vander";
 import { useSelector } from "react-redux";
 import { doctorDetails } from "../redux/reducers/functionalities.reducer";
@@ -72,7 +74,7 @@ export default function Navbar({ navDark, containerClass }) {
       <div className={containerClass}>
         <div>
           {navDark === true ? (
-            <Link className="logo" to="/">
+            <Link className="logo" to="/doctor-dashboard">
               <img
                 src={logoDark}
                 style={  {  objectFit: "cover",
@@ -143,7 +145,7 @@ export default function Navbar({ navDark, containerClass }) {
                 className={`${modal === true ? "show" : ""} dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3`}
                 style={{ minWidth: "200px", left: "-9rem" }}
               >
-                <Link className="dropdown-item d-flex align-items-center text-dark">
+                <Link className="dropdown-item d-flex align-items-center text-dark" to="/doctor-profile-setting" >
                   <div className="flex-1 ms-2">
                     <span className="d-block mb-1">Dr {token?.full_name}</span>
                     <small className="text-muted">{token?.specialization}</small>
@@ -151,17 +153,18 @@ export default function Navbar({ navDark, containerClass }) {
                 </Link>
                 <div className="dropdown-divider border-top"></div>
 
-                <Link className="dropdown-item text-dark mb-2" to="/doctor-dashboard">
+          
+                <Link className="dropdown-item text-dark mb-2" to="/doctor-leave">
                   <span className="mb-0 d-inline-block me-1">
-                    <GrDashboard className="align-middle h6 mb-0" />
+                    <FiXOctagon className="align-middle h6 mb-0" />
                   </span>{" "}
-                  Dashboard
+                  Leave
                 </Link>
-                <Link className="dropdown-item text-dark mb-2" to="/doctor-profile-setting">
+                <Link className="dropdown-item text-dark mb-2">
                   <span className="mb-0 d-inline-block me-1">
-                    <FiSettings className="align-middle h6 mb-0" />
+                    <FiPhoneCall className="align-middle h6 mb-0" />
                   </span>{" "}
-                  Profile Settings
+                  Contact UJUR
                 </Link>
                 <Link className="dropdown-item text-dark" to="/logout">
                   <span className="mb-0 d-inline-block me-1" >

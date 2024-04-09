@@ -78,7 +78,7 @@ function App() {
       <Route path="/invoices" element={<Invoice/>}/>
       <Route path="/doctor-messages" element={<DoctorMessages/>}/>
       <Route path="/doctor-profile-setting" element={<DoctorProfileSettimg/>}/>
-      <Route path="/patient-list" element={<PatientList/>}/>
+      {/* <Route path="/patient-list" element={<PatientList/>}/> */}
       <Route path="/patient-review" element={<PatientReview/>}/>
       <Route path="/doctor-chat" element={<DoctorChat/>}/>
       <Route path="/patient-profile-show/:id" element={<PatientProfileShow/>}/>

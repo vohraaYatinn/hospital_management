@@ -146,6 +146,10 @@ const optionsAbdominalExtend = [
   { value: "Left Tnguinal", label: "Left Tnguinal" },
 ];
 const gynicOptionsTime = [
+  { value: "day", label: "day" },
+  { value: "month", label: "month" }
+];
+const gynicOptionsTimePlu = [
   { value: "days", label: "days" },
   { value: "months", label: "months" }
 ];
@@ -320,10 +324,10 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                         name="dosage"
                         style={{ height: "2rem" }}
                         value={{
-                          value: medication.Spo2,
-                          label: medication.Spo2,
+                          value: medication.SPO2,
+                          label: medication.SPO2,
                         }}
-                        onChange={(e) => handleMedicationChange(e, "Spo2")}
+                        onChange={(e) => handleMedicationChange(e, "SPO2")}
                         options={optionsDosageSPO2}
                         placeholder="Select Dosage"
                         isSearchable
@@ -858,13 +862,13 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
 
                                     setSystemic((prevMedication) => ({
                                       ...prevMedication,
-                                     Gynic: GynicValue + "-" + systemic.GynicType + "-" + e.value,
+                                     Gynic: GynicValue + "-" + systemic.GynicType + " " + e.value,
                                     }))
                                   }
                                 }
 
                                 }
-                                options={gynicOptionsTime}
+                                options={systemic.GynicType!=1?gynicOptionsTimePlu:gynicOptionsTime}
                                 isSearchable
                                 required
                               />

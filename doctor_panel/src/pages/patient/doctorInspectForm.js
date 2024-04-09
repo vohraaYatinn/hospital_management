@@ -30,6 +30,11 @@ const weeksOptions = [
   { value: "Week", label: "Week" },
   { value: "Month", label: "Month" },
 ];
+const weeksOptionsPlural = [
+  { value: "Days", label: "Days" },
+  { value: "Weeks", label: "Weeks" },
+  { value: "Months", label: "Months" },
+];
 const time = [
   { value: "Before Food", label: "Before Food" },
   { value: "After Food", label: "After Food" },
@@ -45,7 +50,22 @@ function DoctorInspectForm({
   setMedication,
 }) {
   const handleMedicationChange = (e, name = false) => {
-    console.log(e)
+
+    if (e?.target) {
+      const { name, value } = e.target;
+      setMedication((prevMedication) => ({
+        ...prevMedication,
+        [name]: value,
+      }));
+    } else {
+      setMedication((prevMedication) => ({
+        ...prevMedication,
+        [name]: e.value,
+      }));
+    }
+  };
+  const handleTimeChange = (e, name = false) => {
+
     if (e?.target) {
       const { name, value } = e.target;
       setMedication((prevMedication) => ({
@@ -82,11 +102,21 @@ function DoctorInspectForm({
   };
 
   const handleAddMedication = () => {
+    const existingIndex = prescription.symptoms.findIndex(entry => entry.symptoms === medication.symptoms);
+
     if(checkNotAllNull(medication)){
       showDrawer();
+      let symArr = []
+      if(existingIndex !== -1){
+        symArr = [...prescription.symptoms];
+        symArr.splice(existingIndex, 1);
+      }
+      else{
+        symArr = prescription.symptoms
+      }
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
-        symptoms: [...prevPrescription.symptoms, medication],
+        symptoms: [...symArr, medication],
       }));
     }
 
@@ -141,7 +171,13 @@ function DoctorInspectForm({
                       value: medication.dosage,
                       label: medication.dosage,
                     }}
-                    onChange={(e) => handleMedicationChange(e, "dosage")}
+                    onChange={(e) =>{
+                      handleMedicationChange(e, "dosage")
+                      setMedication((prevMedication) => ({
+                        ...prevMedication,
+                        duration: "",
+                      }));
+                    } }
                     options={optionsDosageForDays}
                     placeholder="Select Dosage"
                     isSearchable
@@ -149,7 +185,7 @@ function DoctorInspectForm({
                   />
                 </div>
                 <div className="col-md-3" style={{ marginLeft: "1rem" }}>
-                <label className="form-label">D/M</label>
+                <label className="form-label">D/W/M</label>
 
                   <Select
                     style={{ height: "2rem" }}
@@ -158,8 +194,13 @@ function DoctorInspectForm({
                       value: medication.duration,
                       label: medication.duration,
                     }}
-                    onChange={(e) => handleMedicationChange(e, "duration")}
-                    options={weeksOptions}
+                    onChange={(e) =>{
+
+                      handleMedicationChange(e, "duration")
+                    }
+                    
+                    }
+                    options={medication.dosage!=1 ?weeksOptionsPlural: weeksOptions}
                     placeholder="Select Duration"
                     isSearchable
                     required

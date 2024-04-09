@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import convertToPDF from '../../utils/convertToPdf';
 import { test_url_images } from '../../config/environment';
-import { checkNotNull } from '../../utils/commonFunctions';
+import { capitalizeFirst, checkNotNull } from '../../utils/commonFunctions';
 
 const prescriptionStyle = {
   fontFamily: 'Arial, sans-serif',
@@ -154,25 +154,10 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
            {prescription?.provisionalDiagnosis!="" && <p>{prescription.provisionalDiagnosis}</p>}
           
         </div>}
-        {prescription?.medications.length > 0 &&
-        <div className="col-md-12 mt-4">
-          <h5 className="mb-0">Prescribed Medications</h5>
-          <ul>
-            {prescription?.medications.map((med, index) => (
-                <li key={index}>
-                {med.medicineName} {med.Strength}{med.medicineConsume}  <br/> Dosage: {med.dosage} Per {" "}
-                {med.duration} <br/> Timings: {med.timings} 
-                <br/> Type: {med.medicationType} 
 
-                <br />
-              </li>
-            ))}
-          </ul>
-        </div>
-        }
         {prescription?.labReports.length > 0 ? (
           <div className="col-md-12 mt-4">
-            <h5 className="mb-0">Lab Reports</h5>
+            <h5 className="mb-0">Recommended Test</h5>
             <ul>
               {prescription?.labReports.map((med, index) => (
                                 med!="" &&
@@ -187,6 +172,21 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         ) : (
           ""
         )}
+                {prescription?.medications.length > 0 &&
+        <div className="col-md-12 mt-4">
+          <h5 className="mb-0">Prescribed Medications</h5>
+          <ul>
+            {prescription?.medications.map((med, index) => (
+                <li key={index}>
+                  {capitalizeFirst(med.medicineName)}{"-"}{med.medicationType}{'-'}{med.Strength}{" "}{med.medicineConsume}  <br /> {med.dosage} Per {" "}
+                  {med.duration} {"-"} {med.timings}
+
+                <br />
+              </li>
+            ))}
+          </ul>
+        </div>
+        }
         {medication?.nextVisit &&
                 <div className="col-md-12 mt-4">
           <h5 className="mb-0">Next Visit</h5>

@@ -14,10 +14,8 @@ export default function AdminFooter(){
 
                     <div className="col-sm-6 mt-4 mt-sm-0">
                         <ul className="list-unstyled footer-list text-sm-end text-center mb-0">
-                            <li className="list-inline-item"><Link to="/terms" className="text-foot me-2">Terms</Link></li>
-                            <li className="list-inline-item"><Link to="/privacy" className="text-foot me-2">Privacy</Link></li>
-                            <li className="list-inline-item"><Link to="/aboutus" className="text-foot me-2">About</Link></li>
-                            <li className="list-inline-item"><Link to="/contact" className="text-foot me-2">Contact</Link></li>
+                            <li className="list-inline-item"><Link className="text-foot me-2">Terms</Link></li>
+                            <li className="list-inline-item"><Link  className="text-foot me-2">Privacy</Link></li>
                         </ul>
                     </div>
                 </div>

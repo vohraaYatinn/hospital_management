@@ -56,10 +56,6 @@ export default function DoctorAppointment(){
             name: "Pending"
         },
         {
-            value: "missed",
-            name: "Missed"
-        },
-        {
             value: "canceled",
             name: "Canceled"
         },
@@ -178,14 +174,14 @@ export default function DoctorAppointment(){
                                                     <tr key={index}>
                                                         <th className="p-3">{item.id}</th>
                                                         <td className="p-3" >
-                                                            <Link to={item?.status != "completed" && `/patient-profile/${item?.patient?.id}/${item?.id}`} className="text-dark">
+                                                            <Link to={item?.status == "pending" && `/patient-profile/${item?.patient?.id}/${item?.id}`} className="text-dark">
                                                                 <div className="d-flex align-items-center">
-                                                                    {item?.status == "completed" ?
+                                                                    {item?.status != "pending" ?
                                                                     
-                                                                    <span className="ms-2" style={{color:"black", textDecoration:"underline"}}>{item?.patient?.full_name}</span>
+                                                                    <span className="ms-2" style={{color:"black"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</span>
 
                                                             :
-                                                            <span className="ms-2" style={{color:"blue", textDecoration:"underline"}}>{item?.patient?.full_name}</span>
+                                                            <span className="ms-2" style={{color:"blue"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</span>
 
                                                             }
                                                                 </div>
