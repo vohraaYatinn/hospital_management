@@ -120,14 +120,36 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">General Examination</h5>
           <ul>
-            {Object.keys(prescription?.examination).map((med, index) => (
-                prescription.examination[med] != ""  && <li key={index}>
-                {med} - {prescription.examination[med]}
-                <br />
-              </li>
-            
+          {Object.keys(prescription.examination).map((med, index) => (
+      prescription.examination[med] != "" && med != "DBP" &&
+      <>
+          {med == "SBP" && prescription.examination["DBP"] ?
+            <li key={index}>
+            {"BP"} - {prescription.examination[med]} / {prescription.examination["DBP"]}
+            <br />
+          </li>  
 
-            ))}
+          :
+
+          med == "PulseRate" ?
+          <li key={index}>
+          {"Pulse Rate"} - {prescription.examination[med]}
+          <br />
+        </li>   :
+
+
+          <li key={index}>
+          {capitalizeFirst(med)} - {prescription.examination[med]} {med == "temperature" && " °F" }
+          <br />
+        </li>
+          }
+       
+
+
+      </>
+    
+
+    ))}
           </ul>
         </div>
         }
@@ -151,7 +173,18 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">Provisional Diagnosis</h5>
           
-           {prescription?.provisionalDiagnosis!="" && <p>{prescription.provisionalDiagnosis}</p>}
+           {prescription?.provisionalDiagnosis && prescription?.provisionalDiagnosis!="" && 
+          <ul>
+          {prescription.provisionalDiagnosis.split("•").map((med, index) => (
+              med != "" &&   <li key={index}>
+              {med}
+              <br />
+            </li>
+          
+
+          ))}
+        </ul>           
+           }
           
         </div>}
 
@@ -198,10 +231,10 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Instructions</h5>
             <ul>
-              {prescription?.instructions.map((med, index) => (
-                med!="" &&
-                  <li key={index}>
-                  {med}
+              {prescription?.instructions[0] && prescription.instructions[0].split("•").map((med, index) => (
+                med != "" && 
+                <li key={index}>
+                  {capitalizeFirst(med)}
                   <br />
                 </li>
                 

@@ -21,6 +21,7 @@ import { RiMindMap, RiNodeTree, RiScales2Fill, RiWeiboFill } from "react-icons/r
 import { GiMedicalDrip } from "react-icons/gi";
 import moment from "moment";
 import PrescriptionHistory from "./prescriptionHistory";
+import BulletTextbox from "../../common-components/BulletTextBox";
 
 export default function PatientProfile() {
   const { id, appointment } = useParams()
@@ -108,9 +109,9 @@ export default function PatientProfile() {
     duration: "day"
   });
   const [examination, setExamination] = useState({
-    Hr: "",
+    HR: "",
     Bp: "",
-    SPO2: "",
+    SpO2: "",
     Rhythm: "",
     Volume: "",
     Temperature: "",
@@ -149,88 +150,92 @@ export default function PatientProfile() {
         containerClass="container"
       />
 
-      <section className="bg-hero">
+      <section className="bg-hero" style={{
+            marginTop: "-3rem"
+      }}>
         <div className="container">
+        <div className="row mt-lg-5">
+        <div className="col-md-6 col-lg-4">
+<div className="rounded shadow overflow-hidden sticky-bar">
+
+
+  <div className="text-center avatar-profile margin-nagative mt-n5 position-relative pb-4 border-bottom" style={{display:"flex", marginTop:"2rem"}}>
+    <img
+      src={client1}
+      className="rounded-circle shadow-md avatar avatar-md-md"
+      alt=""
+    />
+    <div style={{marginLeft:"2rem"}}>
+    <h5 className="mt-3 mb-1">{patientsData?.full_name}</h5>
+    <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} Years old</p>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+</div> 
+<div className="col-md-6 col-lg-8" style={{display:"flex", alignItems:"end"}}>
+<div className="list-unstyled p-4" style={{display:"flex", justifyContent:"space-around", fontWeight:600, width:"100%"}}>
+    <div
+      className="d-flex align-items-center mt-3"
+    >
+      {/* <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"Gender"}</h6> */}
+      <p className="text-muted mb-0 ms-2">{patientsData?.gender == "M" ? "Male":"Female"}</p>
+    </div>
+
+    <div
+      className="d-flex align-items-center mt-3"
+    >
+      {/* <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"Height"}</h6> */}
+      <p className="text-muted mb-0 ms-2">{patientsData?.height} Foot</p>
+    </div>
+    <div
+      className="d-flex align-items-center mt-3"
+    >
+      {/* <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"Weight"}</h6> */}
+      <p className="text-muted mb-0 ms-2">{patientsData?.weight} Kg</p>
+    </div>
+    <div
+      className="d-flex align-items-center mt-3"
+    >
+      {/* <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"Blood Group"}</h6> */}
+      <p className="text-muted mb-0 ms-2">{patientsData?.blood_group}</p>
+    </div>
+    <div
+      className="d-flex align-items-center mt-3"
+    >
+
+      <p className="text-muted mb-0 ms-2">{patientsData?.district}</p>
+    </div>
+    <div
+      className="d-flex align-items-center mt-3"
+    >
+
+      <p className="text-muted mb-0 ms-2">{patientsData?.block}</p>
+    </div>
+  </div>
+</div>
+          </div>
           <div className="row mt-lg-5">
-            <div className="col-md-6 col-lg-4">
-              <div className="rounded shadow overflow-hidden sticky-bar">
-                <div className="card border-0">
-                  <img src={bg1} className="img-fluid" alt="" />
-                </div>
+  
 
-                <div className="text-center avatar-profile margin-nagative mt-n5 position-relative pb-4 border-bottom">
-                  <img
-                    src={client1}
-                    className="rounded-circle shadow-md avatar avatar-md-md"
-                    alt=""
-                  />
-                  <h5 className="mt-3 mb-1">{patientsData?.full_name}</h5>
-                  <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} Years old</p>
-                </div>
+  
 
-                <div className="list-unstyled p-4">
-                  <div
-                    className="d-flex align-items-center mt-3"
-                  >
-                    <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" />
-                    <h6 className="mb-0">{"Gender"}</h6>
-                    <p className="text-muted mb-0 ms-2">{patientsData?.gender}</p>
-                  </div>
-                  <div
-                    className="d-flex align-items-center mt-3"
-                  >
-                    <RiMindMap className="align-text-bottom text-primary h5 mb-0 me-2" />
-                    <h6 className="mb-0">{"District"}</h6>
-                    <p className="text-muted mb-0 ms-2">{patientsData?.district}</p>
-                  </div>
-                  <div
-                    className="d-flex align-items-center mt-3"
-                  >
-                    <RiNodeTree className="align-text-bottom text-primary h5 mb-0 me-2" />
-                    <h6 className="mb-0">{"Block"}</h6>
-                    <p className="text-muted mb-0 ms-2">{patientsData?.block}</p>
-                  </div>
-                  <div
-                    className="d-flex align-items-center mt-3"
-                  >
-                    <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
-                    <h6 className="mb-0">{"Height"}</h6>
-                    <p className="text-muted mb-0 ms-2">{patientsData?.height} Foot</p>
-                  </div>
-                  <div
-                    className="d-flex align-items-center mt-3"
-                  >
-                    <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
-                    <h6 className="mb-0">{"Weight"}</h6>
-                    <p className="text-muted mb-0 ms-2">{patientsData?.weight} Kg</p>
-                  </div>
-                  <div
-                    className="d-flex align-items-center mt-3"
-                  >
-                    <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
-                    <h6 className="mb-0">{"Blood Group"}</h6>
-                    <p className="text-muted mb-0 ms-2">{patientsData?.blood_group}</p>
-                  </div>
-                </div>
-                <div style={{ marginTop: "2rem", display: "flex", gap: "1rem" }}>
-                  <button className="btn btn-secondary"
-                    onClick={() => {
-                      showDrawer()
-                    }}
-                  >Show Prescription</button>
-                  <button className="btn btn-primary"
-                    onClick={() => {
-                      setActiveIndex(1)
-                      setActiveSubIndex(1)
 
-                      showNewPrescriptionDrawer()
-                    }}
-                  >Submit Prescription</button>
-                </div>
 
-              </div>
 
-            </div>
+
+
+
+
+
 
             <div className="col-lg-8 col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
               <div className="card border-0 shadow overflow-issue">
@@ -506,17 +511,15 @@ export default function PatientProfile() {
 
                           <div className="row">
                             <div className="col-lg-12 col-12 mt-4">
-                              <Input style={{ height: "5rem" }}
-                                value={provisional}
-                                onChange={(e) => setProvisional(e.target.value)}
-                              />
+                              <BulletTextbox text={provisional} setText={setProvisional}/>
+                              
                               <div className="col-md-12 mt-2" >
                                 <button
                                   type="button"
                                   className="btn btn-primary"
                                   onClick={() => {
                                     showDrawer()
-                                    setPrescription((prev) => ({ ...prev, provisionalDiagnosis: provisional }))
+                                    setPrescription((prev) => ({ ...prev, provisionalDiagnosis: provisional.replace(/\n/g, '') }))
                                   }}
                                 >
                                   Add
@@ -643,28 +646,32 @@ export default function PatientProfile() {
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </section>
-      <Drawer
-        title=" "
-        placement={"left"}
-        closable={false}
-        onClose={onClose}
-        open={open}
-        key={"left"}
-      >
-        {prescription.symptoms.length > 0 &&
+            <div className="col-md-6 col-lg-4">
+              <div style={{
+                display:"flex",
+                justifyContent:"space-between"
+              }}>
+            <h3>Prescription</h3>
+            <button className="btn btn-primary"
+      onClick={() => {
+        setActiveIndex(1)
+        setActiveSubIndex(1)
+        showNewPrescriptionDrawer()
+      }}
+    >Submit</button>
+
+              </div>
+          {prescription.symptoms.length > 0 &&
           <div className="col-md-12 mt-4 row">
             <div className="col-md-4" style={{ fontWeight: "800" }}>
               Chief Query
             </div>
             <div className="col-md-8 row">
-              {prescription.symptoms.map((med, index) => (
+              {prescription.symptoms.map((med, indexAr=0) => (
                 med.symptoms && med.dosage && med.duration && 
                 <>
                 <div className="col-md-10 mt-2">
-                     <li key={index}>
+                     <li key={indexAr}>
                   {capitalizeFirst(med.symptoms)} X {med.dosage} {med.duration}
            
                 </li>
@@ -676,8 +683,12 @@ export default function PatientProfile() {
                          border:"transparent"
                       }}
                       onClick={()=>{
-                        prescription.symptoms.splice(index, 1)
-                        onClose()
+                        let sym = prescription.symptoms.filter((item, index) => index !== indexAr);
+                        setPrescription((prevPrescription) => ({
+                          ...prevPrescription,
+                          symptoms: sym,
+                        }));
+                        
                       }}
                       ><FiTrash2  /></button>
 </div>
@@ -698,13 +709,30 @@ export default function PatientProfile() {
   </div>
   <div className="col-md-8 row">
     {Object.keys(prescription.examination).map((med, index) => (
-      prescription.examination[med] != "" &&
+      prescription.examination[med] != "" && med != "DBP" &&
       <>
          <div className="col-md-10 mt-2">
-         <li key={index}>
-        {capitalizeFirst(med)} - {prescription.examination[med]}
-        <br />
-      </li>
+          {med == "SBP" && prescription.examination["DBP"] ?
+            <li key={index}>
+            {"BP"} - {prescription.examination[med]} / {prescription.examination["DBP"]}
+            <br />
+          </li>  
+
+          :
+
+          med == "PulseRate" ?
+          <li key={index}>
+          {"Pulse Rate"} - {prescription.examination[med]}
+          <br />
+        </li>   :
+
+
+          <li key={index}>
+          {capitalizeFirst(med)} - {prescription.examination[med]} {med == "temperature" && " °F" }
+          <br />
+        </li>
+          }
+       
       </div>
       <div className="col-md-2 mt-2">
       {index == 0 &&
@@ -775,7 +803,36 @@ export default function PatientProfile() {
             <>
             <div className="col-md-10">
 
-            {prescription.provisionalDiagnosis != "" && <p>{capitalizeFirst(prescription.provisionalDiagnosis)}</p>}
+            {prescription.provisionalDiagnosis != "" && 
+                          prescription.provisionalDiagnosis.split("•").map((med, index) => (
+                            med != "" && 
+            <>
+                              <div className="col-md-10 mt-2">
+                              <li key={index}>
+                              {capitalizeFirst(med)}
+                            </li>
+                            </div>
+                                            <div className="col-md-2 mt-2">
+                                           {index == 0 &&
+                                            <button style={{
+                                                 background:"red",
+                                                  color:"white",
+                                                  border:"transparent"
+                                               }}
+                                               onClick={()=>{
+                                                setPrescription((prev)=>({
+                                                  ...prev, provisionalDiagnosis : ""
+                                                }))
+                                                 onClose()
+                                               }}
+                                               ><FiTrash2  /></button>}
+                         </div>
+                         
+            </>
+            
+                          ))}
+
+            
 </div>
 <div className="col-md-2">
 <button style={{
@@ -803,12 +860,12 @@ export default function PatientProfile() {
             </div>
             <div className="col-md-8 row">
 
-              {prescription.labReports.map((med, index) => (
+              {prescription.labReports.map((med, indexAr) => (
                 med!="" &&
                 <>
                 <div className="col-md-10 mt-2">
 
-                <li key={index}>
+                <li key={indexAr}>
                   {capitalizeFirst(med)}
                   <br />
                 </li>
@@ -820,9 +877,11 @@ export default function PatientProfile() {
                                       border:"transparent"
                                    }}
                                    onClick={()=>{
-                                    prescription.labReports.splice(index, 1)
-
-                                     onClose()
+                                    let sym = prescription.labReports.filter((item, index) => index !== indexAr);
+                                    setPrescription((prevPrescription) => ({
+                                      ...prevPrescription,
+                                      labReports: sym,
+                                    }));
                                    }}
                                    ><FiTrash2  /></button>
                   </div>
@@ -839,11 +898,11 @@ export default function PatientProfile() {
               Prescribed Medications
             </div>
             <div className="col-md-8 row">
-              {prescription.medications.map((med, index) => (
+              {prescription.medications.map((med, indexAr) => (
 <>
 <div className="col-md-10 mt-2">
 
-                <li key={index}>
+                <li key={indexAr}>
                 {capitalizeFirst(med.medicineName)}{"-"}{med.medicationType}{'-'}{med.Strength}{" "}{med.medicineConsume}  <br />  {med.dosage} Per {" "}
                   {med.duration} {"-"} {med.timings}
 
@@ -857,9 +916,11 @@ export default function PatientProfile() {
                                       border:"transparent"
                                    }}
                                    onClick={()=>{
-                                    prescription.medications.splice(index, 1)
-
-                                     onClose()
+                                    let sym = prescription.medications.filter((item, index) => index !== indexAr);
+                                    setPrescription((prevPrescription) => ({
+                                      ...prevPrescription,
+                                      medications: sym,
+                                    }));
                                    }}
                                    ><FiTrash2  /></button>
 </div>
@@ -909,26 +970,32 @@ export default function PatientProfile() {
              
 
          
-              {prescription.instructions.map((med, index) => (
+              {prescription?.instructions[0] && prescription.instructions[0].split("•").map((med, index) => (
                 med != "" && <>
                 <div className="col-md-10 mt-2">
-   <li key={index}>
+               <li key={index}>
                   {capitalizeFirst(med)}
                   <br />
                 </li>
                 </div>
-                  <div className="col-md-2 mt-2">
-                  <button style={{
-                                     background:"red",
-                                      color:"white",
-                                      border:"transparent"
-                                   }}
-                                   onClick={()=>{
-                                    prescription.instructions.splice(index, 1)
-                                     onClose()
-                                   }}
-                                   ><FiTrash2  /></button>
+
+                <div className="col-md-2 mt-2">
+                  {index == 1 &&
+                                              <button style={{
+                                                background:"red",
+                                                 color:"white",
+                                                 border:"transparent"
+                                              }}
+                                              onClick={()=>{
+                                                setPrescription((prevPrescription) => ({
+                                                  ...prevPrescription,
+                                                  instructions: [],
+                                                }));
+                                              }}
+                                              ><FiTrash2  /></button>}
+               
                   </div>
+
               </>
 
 
@@ -945,12 +1012,12 @@ export default function PatientProfile() {
             Refer To
           </div>
           <div className="col-md-8 row">
-              {prescription.referTo.map((med, index) => (
+              {prescription.referTo.map((med, indexAr) => (
                 med!="" &&
                 <>
                                 <div className="col-md-10 mt-2">
 
-                  <li key={index}>
+                  <li key={indexAr}>
                   {capitalizeFirst(med)}
                   <br />
                 </li>
@@ -962,8 +1029,12 @@ export default function PatientProfile() {
                                       border:"transparent"
                                    }}
                                    onClick={()=>{
-                                    prescription.referTo.splice(index, 1)
-                                     onClose()
+                                    let sym = prescription.referTo.filter((item, index) => index !== indexAr);
+                                    setPrescription((prevPrescription) => ({
+                                      ...prevPrescription,
+                                      medications: sym,
+                                    }));
+                                    prescription.referTo.splice(indexAr, 1)
                                    }}
                                    ><FiTrash2  /></button>
 
@@ -977,9 +1048,25 @@ export default function PatientProfile() {
         ) : (
           ""
         )}
-      </Drawer>
+            </div>
+          </div>
+ 
+        </div>
+      </section>
+
       <Footer />
       <ScrollTop />
     </>
   );
 }
+
+
+
+
+
+
+
+
+
+
+

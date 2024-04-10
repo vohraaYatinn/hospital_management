@@ -255,10 +255,10 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                         name="dosage"
                         style={{ height: "2rem" }}
                         value={{
-                          value: medication.Hr,
-                          label: medication.Hr,
+                          value: medication.HR,
+                          label: medication.HR,
                         }}
-                        onChange={(e) => handleMedicationChange(e, "Hr")}
+                        onChange={(e) => handleMedicationChange(e, "HR")}
                         options={optionsDosageHR}
                         isSearchable
                         required
@@ -317,17 +317,17 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                           fontWeight: "600"
                         }}
                       >
-                        SPO2</div>
+                        SpO2</div>
                     </div>
                     <div className="col-md-4">
                       <Select
                         name="dosage"
                         style={{ height: "2rem" }}
                         value={{
-                          value: medication.SPO2,
-                          label: medication.SPO2,
+                          value: medication.SpO2,
+                          label: medication.SpO2,
                         }}
-                        onChange={(e) => handleMedicationChange(e, "SPO2")}
+                        onChange={(e) => handleMedicationChange(e, "SpO2")}
                         options={optionsDosageSPO2}
                         placeholder="Select Dosage"
                         isSearchable
@@ -382,8 +382,8 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                         }}
                         onChange={(e) => handleMedicationChange(e, "Volume")}
                         options={[
-                          { value: "good", label: "Good" },
-                          { value: "low", label: "Low" },
+                          { value: "Good", label: "Good" },
+                          { value: "Low", label: "Low" },
                         ]}
                         placeholder="Select Dosage"
                         isSearchable

@@ -149,7 +149,7 @@ export default function DoctorDashBoard() {
                                                                 <p style={{textAlign:"start", marginBottom:"0rem"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</p>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.5rem", color:"black"}}>
-                                                                <div className="col-7" style={{fontSize:"0.7rem"}}>
+                                                                <div className="col-7" style={{fontSize:"0.6rem"}}>
                                                                 {item?.patient?.ujur_id}
                                                                 </div>
                                                                 <div className="col-4" style={{fontSize:"0.7rem"}}>
@@ -212,7 +212,7 @@ export default function DoctorDashBoard() {
                                                                 <p style={{textAlign:"start", marginBottom:"0rem"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</p>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.5rem", color:"black"}}>
-                                                                <div className="col-7" style={{fontSize:"0.7rem"}}>
+                                                                <div className="col-7" style={{fontSize:"0.6rem"}}>
                                                                 {item?.patient?.ujur_id}
                                                                 </div>
                                                                 <div className="col-4" style={{fontSize:"0.7rem"}}>
@@ -272,7 +272,7 @@ export default function DoctorDashBoard() {
                                                                 <p style={{textAlign:"start", marginBottom:"0rem"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</p>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.5rem", color:"black"}}>
-                                                                <div className="col-7" style={{fontSize:"0.7rem"}}>
+                                                                <div className="col-7" style={{fontSize:"0.6rem"}}>
                                                                 {item?.patient?.ujur_id}
                                                                 </div>
                                                                 <div className="col-4" style={{fontSize:"0.7rem"}}>
@@ -333,7 +333,7 @@ export default function DoctorDashBoard() {
                                                                 <p style={{textAlign:"start", marginBottom:"0rem"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</p>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.5rem", color:"black"}}>
-                                                                <div className="col-7" style={{fontSize:"0.7rem"}}>
+                                                                <div className="col-7" style={{fontSize:"0.6rem"}}>
                                                                 {item?.patient?.ujur_id}
                                                                 </div>
                                                                 <div className="col-4" style={{fontSize:"0.7rem"}}>

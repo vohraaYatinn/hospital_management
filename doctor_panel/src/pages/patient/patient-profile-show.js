@@ -103,9 +103,9 @@ export default function PatientProfile() {
     duration: "day"
   });
   const [examination, setExamination] = useState({
-    Hr: "",
+    HR: "",
     Bp: "",
-    SPO2: "",
+    SpO2: "",
     Rhythm: "",
     Volume: "",
     Temperature: "",

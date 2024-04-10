@@ -3,6 +3,7 @@ import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
 import { checkNotAllNull, getCurrentDate } from "../../utils/commonFunctions";
+import BulletTextbox from "../../common-components/BulletTextBox";
 
 const options = [
   { value: "aspirin", label: "Aspirin" },
@@ -139,10 +140,10 @@ function DoctorPrescriptionForm({
 
   const handleAddInstructions = () => {
     showDrawer();
-    if (activeIndex == 1) {
+    if (activeIndex == 1 && medication.comments.length > 2) {
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
-        instructions: [...prevPrescription.instructions, medication.comments],
+        instructions: [...prevPrescription.instructions, medication.comments.replace(/\n/g, '')],
       }));
     }
     else {
@@ -154,16 +155,18 @@ function DoctorPrescriptionForm({
       }
       else{
         symArr = prescription.referTo
-      }      
-      setPrescription((prevPrescription) => ({
-        ...prevPrescription,
-        referTo: [...symArr, medication.referTo],
-      }));
+      } 
+      if(medication.referTo){
+        setPrescription((prevPrescription) => ({
+          ...prevPrescription,
+          referTo: [...symArr, medication.referTo],
+        }));
+      }     
+
     }
 
     setMedication((prev) => ({
       ...prev,
-      comments: "",
       referTo: ""
     }))
   };
@@ -409,13 +412,8 @@ function DoctorPrescriptionForm({
 
                   {activeIndex == 1 ?
                     <div className="mb-3">
+                      <BulletTextbox text={medication.comments} setText={setMedication} name={"comments"}/>
 
-                      <textarea name="comments" id="name" type="text" className="form-control" placeholder=""
-                        value={medication.comments}
-                        onChange={handleMedicationChange}
-                        style={{ height: "5rem" }}
-
-                      />
                     </div>
                     :
                     <div className="mb-3" 
