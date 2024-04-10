@@ -62,6 +62,8 @@ export default function DoctorDashBoard() {
         }
 
     }, [dashboardDataPatientResponse])
+    const router = useRouter();
+
     const [radio, setRadio] = useState('Week');
 
     const optionsRadio = [
@@ -193,7 +195,9 @@ export default function DoctorDashBoard() {
                                         <ul className="list-unstyled mb-0 p-4 pt-0">
                                             {dashboardDataPatients?.pending_appointments && dashboardDataPatients?.pending_appointments.map((item, index) => {
                                                 return (
-                                                    <li className="mt-4 ms-0" key={index}>
+                                                    <li className="mt-4 ms-0" key={index} onClick={()=>{
+                                                        router.push(`/patient-profile/${item?.patient?.id}/${item?.id}`)
+                                                    }}>
                                                         <Link to="#">
                                                             <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="row">
