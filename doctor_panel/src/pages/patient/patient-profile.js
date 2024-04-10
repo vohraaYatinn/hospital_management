@@ -18,7 +18,7 @@ import useAxios from "../../network/useAxios";
 import { calculateAge, capitalizeFirst } from "../../utils/commonFunctions";
 import { FiUser, FiTrash2 } from "react-icons/fi";
 import { RiMindMap, RiNodeTree, RiScales2Fill, RiWeiboFill } from "react-icons/ri";
-import { GiMedicalDrip } from "react-icons/gi";
+import { GiMedicalDrip, GiTreasureMap } from "react-icons/gi";
 import moment from "moment";
 import PrescriptionHistory from "./prescriptionHistory";
 import BulletTextbox from "../../common-components/BulletTextBox";
@@ -147,13 +147,13 @@ export default function PatientProfile() {
       <Navbar
         navDark={true}
         manuClass="navigation-menu nav-left"
-        containerClass="container"
+        containerClass="container-modified"
       />
 
       <section className="bg-hero" style={{
             marginTop: "-3rem"
       }}>
-        <div className="container">
+        <div className="container-modified">
         <div className="row mt-lg-5">
         <div className="col-md-6 col-lg-4">
 <div className="rounded shadow overflow-hidden sticky-bar">
@@ -177,49 +177,72 @@ export default function PatientProfile() {
 </div>
 
 </div> 
-<div className="col-md-6 col-lg-8" style={{display:"flex", alignItems:"end"}}>
+<div className="col-md-6 col-lg-8 shadow" style={{display:"flex", alignItems:"center"}}>
 <div className="list-unstyled p-4" style={{display:"flex", justifyContent:"space-around", fontWeight:600, width:"100%"}}>
     <div
       className="d-flex align-items-center mt-3"
+      style={{
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"center"
+      }}
     >
-      {/* <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" />
-      <h6 className="mb-0">{"Gender"}</h6> */}
+      <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"Gender"}</h6>
       <p className="text-muted mb-0 ms-2">{patientsData?.gender == "M" ? "Male":"Female"}</p>
     </div>
 
     <div
       className="d-flex align-items-center mt-3"
+      style={{
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"center"
+      }}
     >
-      {/* <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
-      <h6 className="mb-0">{"Height"}</h6> */}
+      <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"Height"}</h6>
       <p className="text-muted mb-0 ms-2">{patientsData?.height} Foot</p>
     </div>
     <div
       className="d-flex align-items-center mt-3"
+      style={{
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"center"
+      }}
     >
-      {/* <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
-      <h6 className="mb-0">{"Weight"}</h6> */}
+      <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"Weight"}</h6>
       <p className="text-muted mb-0 ms-2">{patientsData?.weight} Kg</p>
     </div>
     <div
       className="d-flex align-items-center mt-3"
+      style={{
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"center"
+      }}
     >
-      {/* <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
-      <h6 className="mb-0">{"Blood Group"}</h6> */}
+      <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"Blood Group"}</h6>
       <p className="text-muted mb-0 ms-2">{patientsData?.blood_group}</p>
     </div>
     <div
       className="d-flex align-items-center mt-3"
+
+      style={{
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"center"
+      }}
     >
+            <GiTreasureMap className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <h6 className="mb-0">{"District"}</h6>
 
       <p className="text-muted mb-0 ms-2">{patientsData?.district}</p>
     </div>
-    <div
-      className="d-flex align-items-center mt-3"
-    >
 
-      <p className="text-muted mb-0 ms-2">{patientsData?.block}</p>
-    </div>
   </div>
 </div>
           </div>
@@ -646,12 +669,20 @@ export default function PatientProfile() {
                 </div>
               </div>
             </div>
-            <div className="col-md-6 col-lg-4">
+            <div className="col-md-6 col-lg-4"
+            style={{
+              border: "0.1px solid",
+              padding: "1rem"
+          
+            }}
+            >
               <div style={{
                 display:"flex",
                 justifyContent:"space-between"
               }}>
-            <h3>Prescription</h3>
+            <h3 
+            className="font-presc"
+            >Prescription</h3>
             <button className="btn btn-primary"
       onClick={() => {
         setActiveIndex(1)

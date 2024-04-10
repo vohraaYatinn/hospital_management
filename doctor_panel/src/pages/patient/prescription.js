@@ -106,7 +106,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         {prescription?.symptoms.length >0 &&
               <div className="col-md-12 mt-4">
           <h5 className="mb-0">Chief Query</h5>
-          <ul>
+           <ul className='pres-ul-detail'>
             {prescription?.symptoms.map((med, index) => (
               <li key={index}>
                 {med.symptoms} X {med.dosage} per {med.duration}
@@ -119,7 +119,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
                 {Object.keys(prescription?.examination).length >0 &&
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">General Examination</h5>
-          <ul>
+           <ul className='pres-ul-detail'>
           {Object.keys(prescription.examination).map((med, index) => (
       prescription.examination[med] != "" && med != "DBP" &&
       <>
@@ -156,7 +156,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         {Object.keys(prescription?.systemic).length>0 &&
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">Systemic Examination</h5>
-          <ul>
+           <ul className='pres-ul-detail'>
             {Object.keys(prescription?.systemic).map((med, index) => (
                 prescription.systemic[med] != "" &&   <li key={index}>
                 {med} - {prescription.systemic[med]}
@@ -174,7 +174,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           <h5 className="mb-0">Provisional Diagnosis</h5>
           
            {prescription?.provisionalDiagnosis && prescription?.provisionalDiagnosis!="" && 
-          <ul>
+           <ul className='pres-ul-detail'>
           {prescription.provisionalDiagnosis.split("•").map((med, index) => (
               med != "" &&   <li key={index}>
               {med}
@@ -191,7 +191,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         {prescription?.labReports.length > 0 ? (
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Recommended Test</h5>
-            <ul>
+             <ul className='pres-ul-detail'>
               {prescription?.labReports.map((med, index) => (
                                 med!="" &&
 
@@ -208,7 +208,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
                 {prescription?.medications.length > 0 &&
         <div className="col-md-12 mt-4">
           <h5 className="mb-0">Prescribed Medications</h5>
-          <ul>
+           <ul className='pres-ul-detail'>
             {prescription?.medications.map((med, index) => (
                 <li key={index}>
                   {capitalizeFirst(med.medicineName)}{"-"}{med.medicationType}{'-'}{med.Strength}{" "}{med.medicineConsume}  <br /> {med.dosage} Per {" "}
@@ -223,14 +223,14 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         {medication?.nextVisit &&
                 <div className="col-md-12 mt-4">
           <h5 className="mb-0">Next Visit</h5>
-          <ul>
+           <ul className='pres-ul-detail'>
             {medication?.nextVisit} Days
           </ul>
         </div>}
         {prescription?.instructions.length > 0 ? (
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Instructions</h5>
-            <ul>
+             <ul className='pres-ul-detail'>
               {prescription?.instructions[0] && prescription.instructions[0].split("•").map((med, index) => (
                 med != "" && 
                 <li key={index}>
@@ -249,7 +249,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         {prescription?.referTo.length > 0 ? (
           <div className="col-md-12 mt-4">
            <h5 className="mb-0">Refer To</h5>
-            <ul>
+             <ul className='pres-ul-detail'>
               {prescription?.referTo.map((med, index) => (
                 med!="" &&
                   <li key={index}>

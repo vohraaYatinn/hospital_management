@@ -192,7 +192,7 @@ export default function Charts({data}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Total Appo.. </h6>
+                        <h6 className="align-items-center mb-0">Total<br/>Appointment </h6>
 
                     </div>
                     <Chart options={options} series={options.series} type="area" width='100%' height={90}/>
@@ -201,7 +201,7 @@ export default function Charts({data}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Pending Appo..</h6>
+                        <h6 className="align-items-center mb-0">Pending<br/>Appointment</h6>
                     </div>
                     <Chart options={options3} series={options3.series} type="area" width='100%' height={90}/>
                 </div>
@@ -211,7 +211,7 @@ export default function Charts({data}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Canceled Appo.. </h6>
+                        <h6 className="align-items-center mb-0">Canceled<br/>Appointment </h6>
                     </div>
                     <Chart options={options4} series={options4.series} type="area" width='100%' height={90}/>
                 </div>
@@ -220,7 +220,7 @@ export default function Charts({data}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Completed Appo..<br></br></h6>
+                        <h6 className="align-items-center mb-0">Completed<br/>Appointment<br></br></h6>
                     </div>
                     <Chart options={options2} series={options2.series} type="area" width='100%' height={90}/>
                 </div>

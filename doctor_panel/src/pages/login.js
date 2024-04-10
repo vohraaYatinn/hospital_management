@@ -66,7 +66,9 @@ export default function Login() {
                 <div className="container">
                     <div className="row justify-content-center">
                         <div className="col-lg-5 col-md-8">
-                            <img src={logoDark} height="22" className="mx-auto d-block" alt="" />
+                            <img src={logoDark} style={{
+                                    height: "3rem"
+                            }} className="mx-auto d-block" alt="" />
                             <div className="card login-page shadow mt-4 rounded border-0">
                                 <div className="card-body">
                                     <h4 className="text-center">Sign In</h4>

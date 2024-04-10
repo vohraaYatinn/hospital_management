@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import Navbar from "../../components/navbar";
 import Sidebar from "../../components/sidebar";
 import AdminFooter from "../../components/dashboard/adminFooter";
@@ -19,6 +19,8 @@ import PrescriptionHistory from "../patient/prescriptionHistory";
 export default function DoctorAppointment(){
     const [appointmentsResponse, appointmentsError, appointmentsLoading, appointmentsFetch] = useAxios();
     const router = useRouter();
+    const { date, status } = useParams();
+
     let [show, setShow] = useState(false);
     const [htmlDataS, setHTMLData] = useState('');
 
@@ -37,15 +39,18 @@ export default function DoctorAppointment(){
         return `${year}-${month}-${day}`;
       };
     useEffect(() => {
-        // Function to get today's date in the format YYYY-MM-DD
-
-    
-        // Set the default value of the date filter to today's date
         setFilterValues((prevFilters) => ({
           ...prevFilters,
-          date: getTodayDate()
+          date: date?date:getTodayDate(),
         }));
-      }, []); 
+        if(status && status != "all"){
+            setFilterValues((prevFilters) => ({
+                ...prevFilters,
+                status:status
+              }));
+        }
+    
+      }, [date, status]); 
     const searchStatusConstants = [
         {
             value: "completed",

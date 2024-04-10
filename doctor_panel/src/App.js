@@ -73,10 +73,11 @@ function App() {
       <Route path="/index-three" element={<IndexThree/>}/> */}
       <Route path="/doctor-dashboard" element={<DoctorDashBoard/>}/>
       <Route path="/doctor-appointment" element={<DoctorAppointment/>}/>
+      <Route path="/doctor-appointment/:date/:status" element={<DoctorAppointment/>}/>
       <Route path="/doctor-leave" element={<DoctorLeave/>}/>
-      <Route path="/doctor-schedule" element={<DoctorSchedule/>}/>
-      <Route path="/invoices" element={<Invoice/>}/>
-      <Route path="/doctor-messages" element={<DoctorMessages/>}/>
+      {/* <Route path="/doctor-schedule" element={<DoctorSchedule/>}/> */}
+      {/* <Route path="/invoices" element={<Invoice/>}/> */}
+      {/* <Route path="/doctor-messages" element={<DoctorMessages/>}/> */}
       <Route path="/doctor-profile-setting" element={<DoctorProfileSettimg/>}/>
       {/* <Route path="/patient-list" element={<PatientList/>}/> */}
       <Route path="/patient-review" element={<PatientReview/>}/>
