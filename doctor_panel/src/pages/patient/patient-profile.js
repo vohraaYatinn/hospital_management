@@ -186,11 +186,12 @@ export default function PatientProfile() {
         flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
-        fontSize:"1.2rem"
+        
 
       }}
     >
-      <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" style={{
+fontSize:"1.4rem"      }}/>
       <h6 className="mb-0">{"Gender"}</h6>
       <p className="text-muted mb-0 ms-2">{patientsData?.gender == "M" ? "Male":"Female"}</p>
     </div>
@@ -201,11 +202,13 @@ export default function PatientProfile() {
         flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
-        fontSize:"1.2rem"
 
       }}
     >
-      <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" 
+       style={{
+        fontSize:"1.4rem"      }}
+      />
       <h6 className="mb-0">{"Height"}</h6>
       <p className="text-muted mb-0 ms-2">{patientsData?.height} Foot</p>
     </div>
@@ -215,11 +218,13 @@ export default function PatientProfile() {
         flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
-        fontSize:"1.2rem"
 
       }}
     >
-      <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" 
+       style={{
+        fontSize:"1.4rem"      }}
+      />
       <h6 className="mb-0">{"Weight"}</h6>
       <p className="text-muted mb-0 ms-2">{patientsData?.weight} Kg</p>
     </div>
@@ -229,11 +234,13 @@ export default function PatientProfile() {
         flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
-        fontSize:"1.2rem"
 
       }}
     >
-      <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
+      <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" 
+       style={{
+        fontSize:"1.4rem"      }}
+      />
       <h6 className="mb-0">{"Blood Group"}</h6>
       <p className="text-muted mb-0 ms-2">{patientsData?.blood_group}</p>
     </div>
@@ -244,10 +251,13 @@ export default function PatientProfile() {
         flexDirection:"column",
         alignItems:"center",
         justifyContent:"center",
-        fontSize:"1.2rem"
       }}
     >
-            <GiTreasureMap className="align-text-bottom text-primary h5 mb-0 me-2" />
+            <GiTreasureMap className="align-text-bottom text-primary h5 mb-0 me-2" 
+             style={{
+              fontSize:"1.4rem"
+            }}
+            />
       <h6 className="mb-0">{"District"}</h6>
 
       <p className="text-muted mb-0 ms-2">{patientsData?.district && capitalizeFirst(patientsData?.district)}</p>
@@ -339,9 +349,9 @@ export default function PatientProfile() {
                               onClick={() => setActiveSubIndex(1)}
                             >
                               <div className="text-center pt-1 pb-1">
-                                <h5 className="title fw-normal mb-0">
+                                <h6 className="title fw-normal mb-0">
                                   Chief Query
-                                </h5>
+                                </h6>
                               </div>
                             </Link>
                           </li>
@@ -354,9 +364,9 @@ export default function PatientProfile() {
                               onClick={() => setActiveSubIndex(2)}
                             >
                               <div className="text-center pt-1 pb-1">
-                                <h5 className="title fw-normal mb-0">
+                                <h6 className="title fw-normal mb-0">
                                   History
-                                </h5>
+                                </h6>
                               </div>
                             </Link>
                           </li>
@@ -499,9 +509,9 @@ export default function PatientProfile() {
                               onClick={() => setActiveSubIndex(5)}
                             >
                               <div className="text-center pt-1 pb-1">
-                                <h5 className="title fw-normal mb-0">
+                                <h6 className="title fw-normal mb-0">
                                   Provisional Diagnosis
-                                </h5>
+                                </h6>
                               </div>
                             </Link>
                           </li>
@@ -514,9 +524,9 @@ export default function PatientProfile() {
                               onClick={() => setActiveSubIndex(6)}
                             >
                               <div className="text-center pt-1 pb-1">
-                                <h5 className="title fw-normal mb-0">
+                                <h6 className="title fw-normal mb-0">
                                   Lab Tests
-                                </h5>
+                                </h6>
                               </div>
                             </Link>
                           </li>
@@ -528,9 +538,9 @@ export default function PatientProfile() {
                               onClick={() => setActiveSubIndex(7)}
                             >
                               <div className="text-center pt-1 pb-1">
-                                <h5 className="title fw-normal mb-0">
+                                <h6 className="title fw-normal mb-0">
                                   Final Prescription
-                                </h5>
+                                </h6>
                               </div>
                             </Link>
                           </li>
@@ -622,9 +632,9 @@ export default function PatientProfile() {
                               onClick={() => setActiveSubIndex(3)}
                             >
                               <div className="text-center pt-1 pb-1">
-                                <h5 className="title fw-normal mb-0">
+                                <h6 className="title fw-normal mb-0">
                                   General
-                                </h5>
+                                </h6>
                               </div>
                             </Link>
                           </li>
@@ -637,9 +647,9 @@ export default function PatientProfile() {
                               onClick={() => setActiveSubIndex(4)}
                             >
                               <div className="text-center pt-1 pb-1">
-                                <h5 className="title fw-normal mb-0">
+                                <h6 className="title fw-normal mb-0">
                                   Systemic
-                                </h5>
+                                </h6>
                               </div>
                             </Link>
                           </li>
