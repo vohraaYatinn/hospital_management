@@ -39,7 +39,6 @@ export default function DoctorDashBoard() {
             dashboardDataFetch(fetchDoctorDashboard({time:radio}))
     }, [radio])
     useEffect(() => {
-        // Function to get today's date in the format YYYY-MM-DD
         const getTodayDate = () => {
           const today = new Date();
           const year = today.getFullYear();
@@ -48,7 +47,6 @@ export default function DoctorDashBoard() {
           return `${year}-${month}-${day}`;
         };
     
-        // Set the default value of the date filter to today's date
         setFilters((prevFilters) => ({
           ...prevFilters,
           date: getTodayDate()
@@ -198,7 +196,7 @@ export default function DoctorDashBoard() {
                                                                                                   onClick={()=>{
                                                                                                     router.push(`/doctor-appointment/${filters.date}/all`)
                                                                                                    }}
-                                                                                               >Load More</li>}
+                                                                                               >View more</li>}
 
                                         </ul>
                                     </div>
@@ -284,7 +282,7 @@ export default function DoctorDashBoard() {
                                                                                                       onClick={()=>{
                                                                                                         router.push(`/doctor-appointment/${filters.date}/pending`)
                                                                                                        }}
-       >Load More</li>}
+       >View more</li>}
 
                                         </ul>
                                     </div>
@@ -363,7 +361,7 @@ export default function DoctorDashBoard() {
                                                                                                onClick={()=>{
                                                                                                 router.push(`/doctor-appointment/${filters.date}/canceled`)
                                                                                                }}
-                                                                                               >Load More</li>}
+                                                                                               >View more</li>}
 
                                         </ul>
                                     </div>
@@ -445,7 +443,7 @@ export default function DoctorDashBoard() {
                                                                                                                                                   onClick={()=>{
                                                                                                                                                     router.push(`/doctor-appointment/${filters.date}/completed`)
                                                                                                                                                    }}
-                                                   >Load More</li>}
+                                                   >View more</li>}
 
                                         </ul>
                                     </div>

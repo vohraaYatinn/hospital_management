@@ -162,11 +162,12 @@ export default function PatientProfile() {
   <div className="text-center avatar-profile margin-nagative mt-n5 position-relative pb-4 border-bottom" style={{display:"flex", marginTop:"2rem"}}>
     <img
       src={client1}
+      style={{marginLeft:"2rem"}}
       className="rounded-circle shadow-md avatar avatar-md-md"
       alt=""
     />
     <div style={{marginLeft:"2rem"}}>
-    <h5 className="mt-3 mb-1">{patientsData?.full_name}</h5>
+    <h5 className="mt-3 mb-1">{capitalizeFirst(patientsData?.full_name)}</h5>
     <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} Years old</p>
     </div>
   </div>
@@ -184,7 +185,9 @@ export default function PatientProfile() {
       style={{
         flexDirection:"column",
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        fontSize:"1.2rem"
+
       }}
     >
       <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" />
@@ -197,7 +200,9 @@ export default function PatientProfile() {
       style={{
         flexDirection:"column",
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        fontSize:"1.2rem"
+
       }}
     >
       <RiWeiboFill className="align-text-bottom text-primary h5 mb-0 me-2" />
@@ -209,7 +214,9 @@ export default function PatientProfile() {
       style={{
         flexDirection:"column",
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        fontSize:"1.2rem"
+
       }}
     >
       <RiScales2Fill className="align-text-bottom text-primary h5 mb-0 me-2" />
@@ -221,7 +228,9 @@ export default function PatientProfile() {
       style={{
         flexDirection:"column",
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        fontSize:"1.2rem"
+
       }}
     >
       <GiMedicalDrip className="align-text-bottom text-primary h5 mb-0 me-2" />
@@ -234,13 +243,14 @@ export default function PatientProfile() {
       style={{
         flexDirection:"column",
         alignItems:"center",
-        justifyContent:"center"
+        justifyContent:"center",
+        fontSize:"1.2rem"
       }}
     >
             <GiTreasureMap className="align-text-bottom text-primary h5 mb-0 me-2" />
       <h6 className="mb-0">{"District"}</h6>
 
-      <p className="text-muted mb-0 ms-2">{patientsData?.district}</p>
+      <p className="text-muted mb-0 ms-2">{capitalizeFirst(patientsData?.district)}</p>
     </div>
 
   </div>
@@ -319,7 +329,7 @@ export default function PatientProfile() {
                 <div className="tab-content p-4 ">
                   {activeIndex === 1 ? (
                     <div className="tab-pane fade show active">
-                      <div className="card border-0 shadow overflow-issue">
+                      <div className="card border-0 shadow overflow-issue check-card-width">
                         <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                           <li className="nav-item">
                             <Link
@@ -479,7 +489,7 @@ export default function PatientProfile() {
                   )}
                   {activeIndex === 2 ? (
                     <div className="tab-pane fade show active">
-                      <div className="card border-0 shadow overflow-issue">
+                      <div className="card border-0 shadow overflow-issue check-card-width-check">
                         <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                           <li className="nav-item">
                             <Link
@@ -602,7 +612,7 @@ export default function PatientProfile() {
                   )}
                   {activeIndex === 3 ? (
                     <div className="tab-pane fade show active">
-                      <div className="card border-0 shadow overflow-issue">
+                      <div className="card border-0 shadow overflow-issue check-card-width">
                         <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                           <li className="nav-item">
                             <Link

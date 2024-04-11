@@ -29,6 +29,7 @@ export default function Navbar({ navDark, containerClass }) {
   let [isMenu, setisMenu] = useState(false);
   let [modal, setModal] = useState(false);
 
+
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
 
@@ -109,10 +110,30 @@ export default function Navbar({ navDark, containerClass }) {
                 className="logo-dark-mode"
                 alt=""
               />
+              <img
+                src={test_url_images + token?.hospital?.logo}
+                style={  {  
+                  objectFit: "cover",
+                  height: "5rem",
+                  marginLeft: "1rem",
+                  width: "7rem"
+              
+                }}
+                className="logo-light-mode"
+                alt=""
+              />
+              <img
+                src={logoLight}
+                height="22"
+                className="logo-dark-mode"
+                alt=""
+              />
             </Link>
           ) : (
             <Link className="logo" to="/">
               <span className="logo-light-mode">
+                <img src={logoDark} className="l-dark" height="22" alt="" />
+                <img src={logoLight} className="l-light" height="22" alt="" />
                 <img src={logoDark} className="l-dark" height="22" alt="" />
                 <img src={logoLight} className="l-light" height="22" alt="" />
               </span>

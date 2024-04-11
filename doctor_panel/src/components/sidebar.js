@@ -27,6 +27,7 @@ export default function Sidebar({colClass}){
                     <img src={test_url_images + token?.profile_picture} className="rounded-circle shadow-md avatar avatar-md-md" alt=""/>
                     <h5 className="mt-3 mb-1">Dr.{token?.full_name}</h5>
                     <p className="text-muted mb-0">{token?.specialization}</p>
+                    <p className="text-muted mb-0">( {token?.hospital?.name} )</p>
                 </div>
 
                 <ul className="list-unstyled sidebar-nav mb-0" id="navigation23" 
