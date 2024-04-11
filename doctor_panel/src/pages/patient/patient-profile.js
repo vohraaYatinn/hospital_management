@@ -167,7 +167,7 @@ export default function PatientProfile() {
       alt=""
     />
     <div style={{marginLeft:"2rem"}}>
-    <h5 className="mt-3 mb-1">{capitalizeFirst(patientsData?.full_name)}</h5>
+    <h5 className="mt-3 mb-1">{patientsData?.full_name && capitalizeFirst(patientsData?.full_name)}</h5>
     <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} Years old</p>
     </div>
   </div>
@@ -250,7 +250,7 @@ export default function PatientProfile() {
             <GiTreasureMap className="align-text-bottom text-primary h5 mb-0 me-2" />
       <h6 className="mb-0">{"District"}</h6>
 
-      <p className="text-muted mb-0 ms-2">{capitalizeFirst(patientsData?.district)}</p>
+      <p className="text-muted mb-0 ms-2">{patientsData?.district && capitalizeFirst(patientsData?.district)}</p>
     </div>
 
   </div>
