@@ -164,6 +164,7 @@ export default function DoctorAppointment(){
                                         <thead>
                                             <tr>
                                                 <th className="border-bottom p-3" style={{minWidth:'50px'}}>Slot Token</th>
+                                                <th className="border-bottom p-3">Id</th>
                                                 <th className="border-bottom p-3" style={{minWidth:'100px'}}>Name</th>
                                                 <th className="border-bottom p-3">Age</th>
                                                 <th className="border-bottom p-3">Gender</th>
@@ -178,6 +179,8 @@ export default function DoctorAppointment(){
                                                 return(
                                                     <tr key={index}>
                                                         <th className="p-3">{item.id}</th>
+                                                        <td className="p-3">{item?.patient?.ujur_id}</td>
+
                                                         <td className="p-3" >
                                                             <Link to={item?.status == "pending" && `/patient-profile/${item?.patient?.id}/${item?.id}`} className="text-dark">
                                                                 <div className="d-flex align-items-center">

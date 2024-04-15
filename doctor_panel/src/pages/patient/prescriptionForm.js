@@ -123,7 +123,6 @@ function DoctorPrescriptionForm({
   setMedication,
 }) {
   const handleMedicationChange = (e, name = false) => {
-    console.log(e)
     if (e?.target) {
       const { name, value } = e.target;
       setMedication((prevMedication) => ({
@@ -143,7 +142,7 @@ function DoctorPrescriptionForm({
     if (activeIndex == 1 && medication.comments.length > 2) {
       setPrescription((prevPrescription) => ({
         ...prevPrescription,
-        instructions: [...prevPrescription.instructions, medication.comments.replace(/\n/g, '')],
+        instructions: [medication.comments.replace(/\n/g, '')],
       }));
     }
     else {
@@ -159,7 +158,7 @@ function DoctorPrescriptionForm({
       if(medication.referTo){
         setPrescription((prevPrescription) => ({
           ...prevPrescription,
-          referTo: [...symArr, medication.referTo],
+          referTo: [medication.referTo],
         }));
       }     
 
@@ -172,7 +171,7 @@ function DoctorPrescriptionForm({
   };
 
   const handleAddMedication = () => {
-    if (medication?.medicineName && medication?.timings && medication?.medicineConsume && medication?.medicationType && medication?.duration && medication?.dosage) {
+    if (medication?.medicineName && medication?.duration && medication?.dosage) {
       showDrawer();
       setPrescription((prevPrescription) => ({
         ...prevPrescription,

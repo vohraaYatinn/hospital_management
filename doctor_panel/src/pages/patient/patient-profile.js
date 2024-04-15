@@ -703,21 +703,22 @@ fontSize:"1.4rem"      }}/>
             <h3 
             className="font-presc"
             >Prescription</h3>
-            <button className="btn btn-primary"
-      onClick={() => {
-        setActiveIndex(1)
-        setActiveSubIndex(1)
-        showNewPrescriptionDrawer()
-      }}
-    >Submit</button>
+            
 
               </div>
-          {prescription.symptoms.length > 0 &&
+              <div style={{
+                display:"flex",
+                flexDirection:"column",
+                height: "100%",
+                justifyContent: "space-between"
+              }}>
+<div>
+{prescription.symptoms.length > 0 &&
           <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
+            <div className="col-md-12" style={{ fontWeight: "800" }}>
               Chief Query
             </div>
-            <div className="col-md-8 row">
+            <div className="row">
               {prescription.symptoms.map((med, indexAr=0) => (
                 med.symptoms && med.dosage && med.duration && 
                 <>
@@ -755,10 +756,10 @@ fontSize:"1.4rem"      }}/>
                 {Object.keys(prescription.examination).length > 0 &&
 
 <div className="col-md-12 mt-4 row">
-  <div className="col-md-4" style={{ fontWeight: "800" }}>
+  <div className="col-md-12" style={{ fontWeight: "800" }}>
     General Examination
   </div>
-  <div className="col-md-8 row">
+  <div className="row">
     {Object.keys(prescription.examination).map((med, index) => (
       prescription.examination[med] != "" && med != "DBP" &&
       <>
@@ -810,10 +811,10 @@ fontSize:"1.4rem"      }}/>
 }
         {Object.keys(prescription.systemic).length > 0 &&
           <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
+            <div className="col-md-12" style={{ fontWeight: "800" }}>
               Systemic Examination
             </div>
-            <div className="col-md-8 row">
+            <div className="row">
               {Object.keys(prescription.systemic).map((med, index) => (
                 prescription.systemic[med] != "" && 
 <>
@@ -847,10 +848,10 @@ fontSize:"1.4rem"      }}/>
 
         {prescription.provisionalDiagnosis != "" &&
           <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
+            <div className="col-md-12" style={{ fontWeight: "800" }}>
               Provisional Diagnosis
             </div>
-            <div className="col-md-8 row">
+            <div className="row">
             <>
             <div className="col-md-10">
 
@@ -906,10 +907,10 @@ fontSize:"1.4rem"      }}/>
 
         {prescription.labReports.length > 0 ? (
           <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
+            <div className="col-md-12" style={{ fontWeight: "800" }}>
             Recommended Test
             </div>
-            <div className="col-md-8 row">
+            <div className="row">
 
               {prescription.labReports.map((med, indexAr) => (
                 med!="" &&
@@ -945,16 +946,16 @@ fontSize:"1.4rem"      }}/>
         )}
                 {prescription.medications.length > 0 &&
           <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
+            <div className="col-md-12" style={{ fontWeight: "800" }}>
               Prescribed Medications
             </div>
-            <div className="col-md-8 row">
+            <div className="row">
               {prescription.medications.map((med, indexAr) => (
 <>
 <div className="col-md-10 mt-2">
 
                 <li key={indexAr}>
-                {capitalizeFirst(med.medicineName)}{"-"}{med.medicationType}{'-'}{med.Strength}{" "}{med.medicineConsume}  <br />  {med.dosage} Per {" "}
+                {capitalizeFirst(med?.medicineName)}{med?.medicationType && ("-" + med?.medicationType)}{med?.Strength && ("-" + med?.Strength)}{" "}{med?.medicineConsume}  <br />  {med?.dosage} Per {" "}
                   {med.duration} {"-"} {med.timings}
 
                 <br />
@@ -985,10 +986,10 @@ fontSize:"1.4rem"      }}/>
         }
         {medication.nextVisit &&
           <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
+            <div className="col-md-12" style={{ fontWeight: "800" }}>
               Next Visit
             </div>
-            <div className="col-md-8 row">
+            <div className="row">
               <>
               <div className="col-md-10 mt-2">
               {medication.nextVisit} Days
@@ -1014,10 +1015,10 @@ fontSize:"1.4rem"      }}/>
           </div>}
         {prescription.instructions.length > 0 ? (
           <div className="col-md-12 mt-4 row">
-            <div className="col-md-4" style={{ fontWeight: "800" }}>
+            <div className="col-md-12" style={{ fontWeight: "800" }}>
               Instructions
             </div>
-            <div className="col-md-8 row">
+            <div className="row">
              
 
          
@@ -1059,10 +1060,10 @@ fontSize:"1.4rem"      }}/>
         )}
                 {prescription.referTo.length > 0 ? (
           <div className="col-md-12 mt-4 row">
-          <div className="col-md-4" style={{ fontWeight: "800" }}>
+          <div className="col-md-12" style={{ fontWeight: "800" }}>
             Refer To
           </div>
-          <div className="col-md-8 row">
+          <div className="row">
               {prescription.referTo.map((med, indexAr) => (
                 med!="" &&
                 <>
@@ -1099,7 +1100,24 @@ fontSize:"1.4rem"      }}/>
         ) : (
           ""
         )}
+</div>
+<div>
+<button className="btn btn-primary"
+        style={{
+          position:"relative",
+          float:"right"
+        }}
+      onClick={() => {
+        setActiveIndex(1)
+        setActiveSubIndex(1)
+        showNewPrescriptionDrawer()
+      }}
+    >Submit</button>
+</div>
+</div>
+       
             </div>
+            
           </div>
  
         </div>

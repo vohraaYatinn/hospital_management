@@ -157,7 +157,7 @@ export default function DoctorDashBoard() {
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black"}}>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                                {"( "}{item?.patient?.ujur_id}{" )"}
+                                                               <b> {"( Slot Token - "}{item?.id}{" )"}</b>
                                                                 </div>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black", marginTop:"0.3rem"}}>
@@ -244,7 +244,7 @@ export default function DoctorDashBoard() {
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black"}}>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                                {"( "}{item?.patient?.ujur_id}{" )"}
+                                                                <b> {"( Slot Token - "}{item?.id}{" )"}</b>
                                                                 </div>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black", marginTop:"0.3rem"}}>
@@ -323,7 +323,7 @@ export default function DoctorDashBoard() {
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black"}}>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                                {"( "}{item?.patient?.ujur_id}{" )"}
+                                                                <b> {"( Slot Token - "}{item?.id}{" )"}</b>
                                                                 </div>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black", marginTop:"0.3rem"}}>
@@ -405,7 +405,7 @@ export default function DoctorDashBoard() {
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black"}}>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                                {"( "}{item?.patient?.ujur_id}{" )"}
+                                                                <b> {"( Slot Token - "}{item?.id}{" )"}</b>
                                                                 </div>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black", marginTop:"0.3rem"}}>
