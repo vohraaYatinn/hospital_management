@@ -129,13 +129,14 @@ export default function DoctorDashBoard() {
                                         </div>
                                         
 
-                                        <ul className="list-unstyled mb-0 p-4 pt-0">
+                                        <ul className="list-unstyled mb-0 check-this-list"
+                                        >
                                             {dashboardDataPatients?.total_appointments && dashboardDataPatients?.total_appointments.map((item, index) => {
                                                 return (
-                                                    <li className="pt-4 ms-0 p-3" key={index}
+                                                    <li className="pt-4 ms-0 check-this-listbullet" key={index}
                                                     style={{
-                                                        borderBottom:"2px solid rgb(0 0 0 / 19%)",
-                                                        paddingBottom:"1rem"
+                                                        borderBottom:"1px solid rgb(0 0 0 / 19%)",
+                                                        paddingBottom:"1rem",
                                                     }}
                                                     >
                                                         <Link to="#">
@@ -214,13 +215,15 @@ export default function DoctorDashBoard() {
                                             <h6 className=" mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.pending_appointments_count} </h6>
                                         </div>
        
-                                        <ul className="list-unstyled mb-0 p-4 pt-0">
+                                        <ul className="list-unstyled mb-0 check-this-list"
+                                                                                                                       
+                                        >
                                             {dashboardDataPatients?.pending_appointments && dashboardDataPatients?.pending_appointments.map((item, index) => {
                                                 return (
-                                                    <li className="mt-4 ms-0" key={index} 
+                                                    <li className="pt-4 ms-0 check-this-listbullet" key={index} 
                                                     style={{
-                                                        borderBottom:"2px solid rgb(0 0 0 / 19%)",
-                                                        paddingBottom:"1rem"
+                                                        borderBottom:"1px solid rgb(0 0 0 / 19%)",
+                                                        paddingBottom:"1rem",
                                                     }}
                                                     onClick={()=>{
                                                         router.push(`/patient-profile/${item?.patient?.id}/${item?.id}`)
@@ -297,12 +300,14 @@ export default function DoctorDashBoard() {
                                             <h6 className="mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.canceled_appointments_count} </h6>
                                         </div>
       
-                                        <ul className="list-unstyled mb-0 p-4 pt-0">
+                                        <ul className="list-unstyled mb-0 check-this-list"
+                                                                                                                    
+                                        >
                                             {dashboardDataPatients?.canceled_appointments && dashboardDataPatients?.canceled_appointments.map((item, index) => {
                                                 return (
-                                                    <li className="pt-4 ms-0" key={index}  style={{
-                                                        borderBottom:"2px solid rgb(0 0 0 / 19%)",
-                                                        paddingBottom:"1rem"
+                                                    <li className="pt-4 ms-0 check-this-listbullet" key={index}  style={{
+                                                        borderBottom:"1px solid rgb(0 0 0 / 19%)",
+                                                        paddingBottom:"1rem",
                                                     }}>
                                                         <Link to="#" className="shadow">
                                                             <div className="d-flex align-items-center justify-content-between">
@@ -377,13 +382,16 @@ export default function DoctorDashBoard() {
                                             <h6 className=" mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.completed_appointments_count}</h6>
                                         </div>
 
-                                        <ul className="list-unstyled mb-0 p-4 pt-0">
+                                        <ul className="list-unstyled mb-0 check-this-list"
+                                        
+                                        >
                                             {dashboardDataPatients?.completed_appointments && dashboardDataPatients?.completed_appointments.map((item, index) => {
                                                 return (
-                                                    <li className="mt-4 ms-0" key={index}
+                                                    <li className="pt-4 ms-0 check-this-listbullet" key={index}
                                                     style={{
-                                                        borderBottom:"2px solid rgb(0 0 0 / 19%)",
-                                                        paddingBottom:"1rem"
+                                                        borderBottom:"1px solid rgb(0 0 0 / 19%)",
+                                                        paddingBottom:"1rem",
+
                                                     }}
                                                     >
                                                         <Link to="#">
