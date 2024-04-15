@@ -1,93 +1,262 @@
 import React, { useState, useEffect } from "react";
-import { Link,useLocation } from "react-router-dom";
-import logoDark from '../assets/images/logo-dark.png'
-import logoLight from '../assets/images/logo-light.png'
+import { Link, useLocation } from "react-router-dom";
+import logoDark from "../assets/images/logo-dark.png";
+import logoLight from "../assets/images/logo-light.png";
 
-import {GrDashboard, PiBrowsers, RiStethoscopeLine, LuUser2, PiWheelchairFill, AiOutlineAppstore, PiShoppingCart, MdFlip, FaRegFile, BsEnvelopeOpen, BiLogOutCircle, TbFileInfo, BsPostcard, FaRegComment} from '../assets/icons/vander'
+import {
+  GrDashboard,
+  PiBrowsers,
+  RiStethoscopeLine,
+  LuUser2,
+  PiWheelchairFill,
+  AiOutlineAppstore,
+  PiShoppingCart,
+  MdFlip,
+  FaRegFile,
+  BsEnvelopeOpen,
+  BiLogOutCircle,
+  TbFileInfo,
+  BsPostcard,
+  FaRegComment,
+} from "../assets/icons/vander";
 
-import SimpleBar from 'simplebar-react';
-import 'simplebar-react/dist/simplebar.min.css';
+import SimpleBar from "simplebar-react";
+import "simplebar-react/dist/simplebar.min.css";
 import { isNumber } from "../utils/commonFunctions";
 
-export default function Sidebar({manuClass}){
-    const [manu , setManu] = useState('');
-    const [subManu , setSubManu] = useState('');
-    const location = useLocation();
+export default function Sidebar({ manuClass }) {
+  const [manu, setManu] = useState("");
+  const [subManu, setSubManu] = useState("");
+  const location = useLocation();
 
-      
-    useEffect(()=>{
-        let current = location.pathname.substring(location.pathname.lastIndexOf('/') + 1)
-        if(isNumber(current)){
-            const pathname = location.pathname;
-            const segments = pathname.split('/');
-            current = segments[1];
-            console.log(current)      
-        
-        }
-        setManu(current)
-        setSubManu(current)
-    },[location.pathname.substring(location.pathname.lastIndexOf('/') + 1)])
-    
-    useEffect(() => {
-        window.scrollTo(0, 0);
-      }, [location]);
-    return(
-            <nav id="sidebar" className={manuClass}>
-                <SimpleBar className="sidebar-content" data-simplebar style={{height:'calc(100% - 60px)'}}>
-                    <div className="sidebar-brand">
-                        <Link to="/index">
-                            <img src={logoDark} height="22" className="logo-light-mode" alt=""/>
-                            <img src={logoLight} height="22" className="logo-dark-mode" alt=""/>
-                            <span className="sidebar-colored">
-                                <img src={logoLight} height="22" alt=""/>
-                            </span>
-                        </Link>
-                    </div>
-        
-                    <ul className="sidebar-menu">
-                        <li className={`${manu === "index" || "" ? "active" : ""} ms-0`}><Link to="/index"><GrDashboard className="me-2 d-inline-block mb-0 icon"/>Dashboard</Link></li>
-                        <li className={`sidebar-dropdown ms-0 ${["hospitals-admin","add-hospital-admin"].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'add-hospital-admin' ? '' : 'add-hospital-admin')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Hospital Accounts</Link>
-                            <div className={`sidebar-submenu ${["hospitals-admin","add-hospital-admin"].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    <li className={`${manu === "hospitals-admin" ? "active" : ""} ms-0`}><Link to="/hospitals-admin">All Hospital Account</Link></li>
-                                    <li className={`${manu === "add-hospital-admin" ? "active" : ""} ms-0`}><Link to="/add-hospital-admin">Add Hospital Admins</Link></li>
-                                </ul>
-                            </div>
-                        </li>
-                        <li className={`sidebar-dropdown ms-0 ${["doctors","add-doctor","dr-profile","doctors-item"].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === "doctors-item" ? "" : "doctors-item")}}><LuUser2 className="me-2 d-inline-block mb-0 icon"/>Doctors</Link>
-                            <div className={`sidebar-submenu ${["doctors","add-doctor","dr-profile","doctors-item"].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    <li className={`${manu === "doctors" ? "active" : ""} ms-0`}><Link to="/doctors">Doctors</Link></li>
-                                    <li className={`${manu === "add-doctor" ? "active" : ""} ms-0`}><Link to="/add-doctor">Add Doctor</Link></li>
-                                </ul>
-                            </div>
-                        </li>
-                   
-                        <li className={`${manu === "appointment" ? "active" : ""} ms-0`}><Link to="/appointment"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Appointment</Link></li>
-                        <li className={`${manu === "departments" ? "active" : ""} ms-0`}><Link to="/departments"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Departments</Link></li>
-                        <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li>
-                        <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}><Link to="/doctor-leave"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Leave Request</Link></li>
+  useEffect(() => {
+    let current = location.pathname.substring(
+      location.pathname.lastIndexOf("/") + 1
+    );
+    if (isNumber(current)) {
+      const pathname = location.pathname;
+      const segments = pathname.split("/");
+      current = segments[1];
+      console.log(current);
+    }
+    setManu(current);
+    setSubManu(current);
+  }, [location.pathname.substring(location.pathname.lastIndexOf("/") + 1)]);
 
-                       
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [location]);
+  return (
+    <nav id="sidebar" className={manuClass}>
+      <SimpleBar
+        className="sidebar-content"
+        data-simplebar
+        style={{ height: "calc(100% - 60px)" }}
+      >
+        <div className="sidebar-brand">
+          <Link to="/index">
+            <img
+              src={logoDark}
+              height="22"
+              className="logo-light-mode"
+              alt=""
+            />
+            <img
+              src={logoLight}
+              height="22"
+              className="logo-dark-mode"
+              alt=""
+            />
+            <span className="sidebar-colored">
+              <img src={logoLight} height="22" alt="" />
+            </span>
+          </Link>
+        </div>
 
-                        <li className={`sidebar-dropdown ms-0 ${["patients","add-patient","patient-profile","patient-item"].includes(manu)? "active" : ""}`}>
-                            <Link to="#" onClick={(e)=>{setSubManu(subManu === 'patient-item' ? '' : 'patient-item')}}><PiWheelchairFill className="me-2 d-inline-block mb-0 icon"/>Patients</Link>
-                            <div className={`sidebar-submenu ${["patients","add-patient","patient-profile","patient-item"].includes(subManu)? "d-block" : ""}`}>
-                                <ul>
-                                    <li className={`${manu === "patients" ? "active" : ""} ms-0`}><Link to="/patients">All Patients</Link></li>
-                                    <li className={`${manu === "add-patient" ? "active" : ""} ms-0`}><Link to="/add-patient">Add Patients</Link></li>
-                                </ul>
-                            </div>
-                        </li>
+        <ul className="sidebar-menu">
+          <li className={`${manu === "index" || "" ? "active" : ""} ms-0`}>
+            <Link to="/index">
+              <GrDashboard className="me-2 d-inline-block mb-0 icon" />
+              Dashboard
+            </Link>
+          </li>
+          <li
+            className={`sidebar-dropdown ms-0 ${
+              ["hospitals-admin", "add-hospital-admin"].includes(manu)
+                ? "active"
+                : ""
+            }`}
+          >
+            <Link
+              to="#"
+              onClick={(e) => {
+                setSubManu(
+                  subManu === "add-hospital-admin" ? "" : "add-hospital-admin"
+                );
+              }}
+            >
+              <PiWheelchairFill className="me-2 d-inline-block mb-0 icon" />
+              Hospital Accounts
+            </Link>
+            <div
+              className={`sidebar-submenu ${
+                ["hospitals-admin", "add-hospital-admin"].includes(subManu)
+                  ? "d-block"
+                  : ""
+              }`}
+            >
+              <ul>
+                <li
+                  className={`${
+                    manu === "hospitals-admin" ? "active" : ""
+                  } ms-0`}
+                >
+                  <Link to="/hospitals-admin">All Hospital Account</Link>
+                </li>
+                <li
+                  className={`${
+                    manu === "add-hospital-admin" ? "active" : ""
+                  } ms-0`}
+                >
+                  <Link to="/add-hospital-admin">Add Hospital Admins</Link>
+                </li>
+              </ul>
+            </div>
+          </li>
+          <li
+            className={`sidebar-dropdown ms-0 ${
+              ["doctors", "add-doctor", "dr-profile", "doctors-item"].includes(
+                manu
+              )
+                ? "active"
+                : ""
+            }`}
+          >
+            <Link
+              to="#"
+              onClick={(e) => {
+                setSubManu(subManu === "doctors-item" ? "" : "doctors-item");
+              }}
+            >
+              <LuUser2 className="me-2 d-inline-block mb-0 icon" />
+              Doctors
+            </Link>
+            <div
+              className={`sidebar-submenu ${
+                [
+                  "doctors",
+                  "add-doctor",
+                  "dr-profile",
+                  "doctors-item",
+                ].includes(subManu)
+                  ? "d-block"
+                  : ""
+              }`}
+            >
+              <ul>
+                <li className={`${manu === "doctors" ? "active" : ""} ms-0`}>
+                  <Link to="/doctors">Doctors</Link>
+                </li>
+                <li className={`${manu === "add-doctor" ? "active" : ""} ms-0`}>
+                  <Link to="/add-doctor">Add Doctor</Link>
+                </li>
+              </ul>
+            </div>
+          </li>
 
-                        {/* <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li> */}
+          <li className={`${manu === "appointment" ? "active" : ""} ms-0`}>
+            <Link to="/appointment">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Appointment
+            </Link>
+          </li>
+          <li className={`${manu === "departments" ? "active" : ""} ms-0`}>
+            <Link to="/departments">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Departments
+            </Link>
+          </li>
+          <li className={`${manu === "medicines" ? "active" : ""} ms-0`}>
+            <Link to="/medicines">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Medicines
+            </Link>
+          </li>
+          <li className={`${manu === "refers-to" ? "active" : ""} ms-0`}>
+            <Link to="/refers-to">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Refers-To
+            </Link>
+          </li>
+          <li className={`${manu === "review" ? "active" : ""} ms-0`}>
+            <Link to="/review">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Reviews
+            </Link>
+          </li>
+          <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}>
+            <Link to="/doctor-leave">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Leave Request
+            </Link>
+          </li>
 
-                        <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}><Link to="/reset-password"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reset Password</Link></li>
+          <li
+            className={`sidebar-dropdown ms-0 ${
+              [
+                "patients",
+                "add-patient",
+                "patient-profile",
+                "patient-item",
+              ].includes(manu)
+                ? "active"
+                : ""
+            }`}
+          >
+            <Link
+              to="#"
+              onClick={(e) => {
+                setSubManu(subManu === "patient-item" ? "" : "patient-item");
+              }}
+            >
+              <PiWheelchairFill className="me-2 d-inline-block mb-0 icon" />
+              Patients
+            </Link>
+            <div
+              className={`sidebar-submenu ${
+                [
+                  "patients",
+                  "add-patient",
+                  "patient-profile",
+                  "patient-item",
+                ].includes(subManu)
+                  ? "d-block"
+                  : ""
+              }`}
+            >
+              <ul>
+                <li className={`${manu === "patients" ? "active" : ""} ms-0`}>
+                  <Link to="/patients">All Patients</Link>
+                </li>
+                <li
+                  className={`${manu === "add-patient" ? "active" : ""} ms-0`}
+                >
+                  <Link to="/add-patient">Add Patients</Link>
+                </li>
+              </ul>
+            </div>
+          </li>
 
+          {/* <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li> */}
 
-                        {/* <li className={`sidebar-dropdown ms-0 ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(manu)? "active" : ""}`}>
+          <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}>
+            <Link to="/reset-password">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Reset Password
+            </Link>
+          </li>
+
+          {/* <li className={`sidebar-dropdown ms-0 ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'auth-item' ? '' : 'auth-item')}}><BiLogOutCircle className="me-2 d-inline-block mb-0 icon"/>Authentication</Link>
                             <div className={`sidebar-submenu ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(subManu)? "d-block" : ""}`}>
                                 <ul>
@@ -99,7 +268,7 @@ export default function Sidebar({manuClass}){
                             </div>
                         </li> */}
 
-                        {/* <li className={`sidebar-dropdown ms-0 ${["ui-button","ui-badges",'ui-alert',"ui-dropdown", "ui-typography", "ui-background", "ui-text", "ui-tooltip-popover","ui-shadow", "ui-border", "ui-form", "ui-pagination", "ui-avatar", "ui-modals", "ui-icons", 'ui-item'].includes(manu)? "active" : ""}`}>
+          {/* <li className={`sidebar-dropdown ms-0 ${["ui-button","ui-badges",'ui-alert',"ui-dropdown", "ui-typography", "ui-background", "ui-text", "ui-tooltip-popover","ui-shadow", "ui-border", "ui-form", "ui-pagination", "ui-avatar", "ui-modals", "ui-icons", 'ui-item'].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'ui-item' ? '' : 'ui-item')}}><TbFileInfo className="me-2 d-inline-block mb-0 icon"/>UI Components </Link>
                             <div className={`sidebar-submenu ${["ui-button","ui-badges",'ui-alert',"ui-dropdown", "ui-typography", "ui-background", "ui-text", "ui-tooltip-popover","ui-shadow", "ui-border", "ui-form", "ui-pagination", "ui-avatar", "ui-modals", "ui-icons", 'ui-item'].includes(subManu)? "d-block" : ""}`}>
                                 <ul>
@@ -121,9 +290,14 @@ export default function Sidebar({manuClass}){
                                 </ul>
                             </div>
                         </li> */}
-                        <li className={`${manu === "logout" ? "active" : ""} ms-0`}><Link to="/logout"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>logout</Link></li>
+          <li className={`${manu === "logout" ? "active" : ""} ms-0`}>
+            <Link to="/logout">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              logout
+            </Link>
+          </li>
 
-                        {/* <li className={`sidebar-dropdown ms-0 ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(manu)? "active" : ""}`}>
+          {/* <li className={`sidebar-dropdown ms-0 ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'miscellaneous-item' ? '' : 'miscellaneous-item')}}><BsPostcard className="me-2 d-inline-block mb-0 icon"/>Miscellaneous </Link>
                             <div className={`sidebar-submenu ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(subManu)? "d-block" : ""}`}>
                                 <ul>
@@ -134,16 +308,15 @@ export default function Sidebar({manuClass}){
                                 </ul>
                             </div>
                         </li> */}
-                    </ul>
-                    
-                </SimpleBar>
-                <ul className="sidebar-footer list-unstyled mb-0">
-                    <li className="list-inline-item mb-0 ms-1">
-                        <Link to="#" className="btn btn-icon btn-pills btn-soft-primary">
-                            <FaRegComment />
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
-    )
+        </ul>
+      </SimpleBar>
+      <ul className="sidebar-footer list-unstyled mb-0">
+        <li className="list-inline-item mb-0 ms-1">
+          <Link to="#" className="btn btn-icon btn-pills btn-soft-primary">
+            <FaRegComment />
+          </Link>
+        </li>
+      </ul>
+    </nav>
+  );
 }

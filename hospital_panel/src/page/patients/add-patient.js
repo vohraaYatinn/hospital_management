@@ -18,6 +18,7 @@ export default function AddPatient() {
     weight: "",
     district: "",
   });
+  const [errors, setErrors] = useState({});
   const [
     hospitalPatientAddResponse,
     hospitalPatientAddError,
@@ -25,8 +26,63 @@ export default function AddPatient() {
     hospitalPatientAddFetch,
   ] = useAxios();
 
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+
+    const regexWeight = /^\d+(\.\d+)?$/;
+
+    if (!values.weight) {
+      errors.weight = "Weight is required!";
+    } else if (!regexWeight.test(values.weight)) {
+      errors.weight = "Invalid weight format!";
+    } else {
+      const numericWeight = parseFloat(values.weight);
+      if (numericWeight <= 0) {
+        errors.weight = "Weight must be greater than zero!";
+      } else if (numericWeight > 1000) {
+        errors.weight = "Weight seems too high! Please check.";
+      }
+    }
+
+    if (!values.fullName) {
+      errors.fullName = "Fullname is required!";
+    }
+    if (!values.dob) {
+      errors.dob = "Date of Birth is required!";
+    }
+    if (!values.bloodGroup) {
+      errors.bloodGroup = "Blood group is required!";
+    }
+    if (!values.district) {
+      errors.district = "District is required!";
+    }
+    if (!values.gender) {
+      errors.gender = "Gender is required!";
+    }
+    if (!values.address) {
+      errors.address = "Address is required!";
+    }
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
+    if (!values.phoneNumber) {
+      errors.phoneNumber = "Phone number is required";
+    } else if (values.phoneNumber.length < 11) {
+      errors.phoneNumber = "Phone number is not valid";
+    }
+    return errors;
+  };
+
   const sumitHospitalPatient = () => {
-    hospitalPatientAddFetch(addPatientsHospital(formValues));
+    const errors = validate(formValues);
+    if (Object.keys(errors).length !== 0) {
+      setErrors(errors);
+    } else {
+      hospitalPatientAddFetch(addPatientsHospital(formValues));
+    }
   };
   const [message, setMessage] = useState({
     message: "",
@@ -58,10 +114,7 @@ export default function AddPatient() {
                 <li className="breadcrumb-item">
                   <Link to="/patients">Patients</Link>
                 </li>
-                <li
-                  className="breadcrumb-item active"
-                  aria-current="page"
-                >
+                <li className="breadcrumb-item active" aria-current="page">
                   Add Patient
                 </li>
               </ul>
@@ -102,6 +155,9 @@ export default function AddPatient() {
                           }));
                         }}
                       />
+                      {errors.fullName && (
+                        <div className="text-danger">{errors.fullName}</div>
+                      )}
                     </div>
                   </div>
 
@@ -121,6 +177,9 @@ export default function AddPatient() {
                           }));
                         }}
                       />
+                      {errors.phoneNumber && (
+                        <div className="text-danger">{errors.phoneNumber}</div>
+                      )}
                     </div>
                   </div>
 
@@ -139,6 +198,9 @@ export default function AddPatient() {
                           }));
                         }}
                       />
+                      {errors.email && (
+                        <div className="text-danger">{errors.email}</div>
+                      )}
                     </div>
                   </div>
 
@@ -146,7 +208,7 @@ export default function AddPatient() {
                     <div className="mb-3">
                       <label className="form-label"> Blood Group : </label>
                       <input
-                        name="email"
+                        name="bloodGroup"
                         type="text"
                         className="form-control start"
                         placeholder="Enter Blood Group :"
@@ -157,6 +219,9 @@ export default function AddPatient() {
                           }));
                         }}
                       />
+                      {errors.bloodGroup && (
+                        <div className="text-danger">{errors.bloodGroup}</div>
+                      )}
                     </div>
                   </div>
 
@@ -164,7 +229,7 @@ export default function AddPatient() {
                     <div className="mb-3">
                       <label className="form-label"> Weight : </label>
                       <input
-                        name="email"
+                        name="weight"
                         type="text"
                         className="form-control start"
                         placeholder="Enter Weight :"
@@ -175,6 +240,9 @@ export default function AddPatient() {
                           }));
                         }}
                       />
+                      {errors.weight && (
+                        <div className="text-danger">{errors.weight}</div>
+                      )}
                     </div>
                   </div>
 
@@ -182,17 +250,20 @@ export default function AddPatient() {
                     <div className="mb-3">
                       <label className="form-label"> Address : </label>
                       <input
-                        name="email"
+                        name="address"
                         type="text"
                         className="form-control start"
                         placeholder="Enter Address :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
-                            fullName: e.target.value,
+                            address: e.target.value,
                           }));
                         }}
                       />
+                      {errors.address && (
+                        <div className="text-danger">{errors.address}</div>
+                      )}
                     </div>
                   </div>
 
@@ -200,17 +271,20 @@ export default function AddPatient() {
                     <div className="mb-3">
                       <label className="form-label"> District : </label>
                       <input
-                        name="email"
+                        name="district"
                         type="text"
                         className="form-control start"
                         placeholder="Enter District :"
                         onChange={(e) => {
-                            setFormValues((prev) => ({
-                              ...prev,
-                              district: e.target.value,
-                            }));
-                          }}
+                          setFormValues((prev) => ({
+                            ...prev,
+                            district: e.target.value,
+                          }));
+                        }}
                       />
+                      {errors.district && (
+                        <div className="text-danger">{errors.district}</div>
+                      )}
                     </div>
                   </div>
 
@@ -229,6 +303,9 @@ export default function AddPatient() {
                         <option defaultValue="M">Male</option>
                         <option defaultValue="F">Female</option>
                       </select>
+                      {errors.gender && (
+                        <div className="text-danger">{errors.gender}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -246,12 +323,17 @@ export default function AddPatient() {
                           }));
                         }}
                       />
+                      {errors.dob && (
+                        <div className="text-danger">{errors.dob}</div>
+                      )}
                     </div>
                   </div>
                 </div>
 
-                <button                   onClick={sumitHospitalPatient}
- className="btn btn-primary">
+                <button
+                  onClick={sumitHospitalPatient}
+                  className="btn btn-primary"
+                >
                   Add Patient
                 </button>
               </div>
