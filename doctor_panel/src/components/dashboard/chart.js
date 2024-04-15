@@ -83,12 +83,14 @@ export default function Charts({data, time_period_dict}){
                 enabled: false
             },
             x: {
-                show: false
-            },
+                show: true,
+                formatter: function(val) {
+                    return time_period_dict && time_period_dict[val];
+                }},
             y: {
                 title: {
                     formatter: function (seriesName) {
-                        return ''
+                        return 'Patients'
                     }
                 }
             },
@@ -129,12 +131,14 @@ export default function Charts({data, time_period_dict}){
                 enabled: false
             },
             x: {
-                show: false
-            },
+                show: true,
+                formatter: function(val) {
+                    return time_period_dict && time_period_dict[val];
+                }},
             y: {
                 title: {
                     formatter: function (seriesName) {
-                        return ''
+                        return 'Patients'
                     }
                 }
             },
@@ -175,12 +179,14 @@ export default function Charts({data, time_period_dict}){
                 enabled: false
             },
             x: {
-                show: false
-            },
+                show: true,
+                formatter: function(val) {
+                    return time_period_dict && time_period_dict[val];
+                }},
             y: {
                 title: {
                     formatter: function (seriesName) {
-                        return ''
+                        return 'Patients'
                     }
                 }
             },
