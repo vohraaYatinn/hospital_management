@@ -6,7 +6,12 @@ import doctor from "../assets/images/doctors/01.jpg";
 import Wrapper from "../components/wrapper";
 import { resetPassword } from "../data/data";
 
-import { FiEye, BsPencil, FiTrash, FiToggleRight } from "../assets/icons/vander";
+import {
+  FiEye,
+  BsPencil,
+  FiTrash,
+  FiToggleRight,
+} from "../assets/icons/vander";
 
 import Modal from "react-bootstrap/Modal";
 import useAxios from "../network/useAxios";
@@ -20,8 +25,7 @@ export default function DoctorLeave() {
   let [editProfile, setEditProfile] = useState(false);
   let [show, setShow] = useState(false);
   const [formValues, setFormValues] = useState({});
-  const [filters, setFilters] = useState({
-  })
+  const [filters, setFilters] = useState({});
   const [requestData, setRequestData] = useState([]);
   const [
     leaveDoctorResponse,
@@ -36,51 +40,61 @@ export default function DoctorLeave() {
     performActionFetch,
   ] = useAxios();
   const fetchLeaveRequestFunc = () => {
-    leaveDoctorFetch(fetchLeaveRequest(filters))
-  }
+    leaveDoctorFetch(fetchLeaveRequest(filters));
+  };
   const performActionRequest = () => {
-    performActionFetch(performLeaveAction(formValues))
-  }
-  useEffect(()=>{
-    fetchLeaveRequestFunc()
-  },[filters])
-  useEffect(()=>{
-    if(performActionResponse?.result == "success"){
-      fetchLeaveRequestFunc()
+    performActionFetch(performLeaveAction(formValues));
+  };
+  useEffect(() => {
+    fetchLeaveRequestFunc();
+  }, [filters]);
+  useEffect(() => {
+    if (performActionResponse?.result == "success") {
+      fetchLeaveRequestFunc();
     }
-  },[performActionResponse])
-  useEffect(()=>{
-if(leaveDoctorResponse?.result == "success"){
-  setRequestData(leaveDoctorResponse?.data)
-}
-  },[leaveDoctorResponse])
+  }, [performActionResponse]);
+  useEffect(() => {
+    if (leaveDoctorResponse?.result == "success") {
+      setRequestData(leaveDoctorResponse?.data);
+    }
+  }, [leaveDoctorResponse]);
   return (
     <Wrapper>
-                        <div className="modal fade" id="LoginForm">
-                                    <Modal show={show} onHide={() =>setShow(false)} centered>
-                                        <Modal.Header closeButton>
-                                            <h5 className="modal-title" id="LoginForm-title">Are You Sure To {formValues?.action}?</h5>
-                                        </Modal.Header>
-                                        <Modal.Body>
-                                            <div className="p-3 rounded box-shadow">
-                                                <p className="text-muted mb-0">
-                                                    Are you sure to perform action on this request?
-                                                    </p>                                                        
-                                            </div>
-                                        </Modal.Body>
-                                        <Modal.Footer>
-                                            <button type="button" className="btn btn-secondary" onClick={() =>setShow(false)}>Close</button>
-                                            <button type="button" className="btn btn-primary" onClick={() =>{
-                                            performActionRequest()
-                                            setShow(false)
-                                          }
-                                          
-                                          }
-                                            
-                                            >Confirm</button>
-                                        </Modal.Footer>
-                                    </Modal>
-                                </div>
+      <div className="modal fade" id="LoginForm">
+        <Modal show={show} onHide={() => setShow(false)} centered>
+          <Modal.Header closeButton>
+            <h5 className="modal-title" id="LoginForm-title">
+              Are You Sure To {formValues?.action}?
+            </h5>
+          </Modal.Header>
+          <Modal.Body>
+            <div className="p-3 rounded box-shadow">
+              <p className="text-muted mb-0">
+                Are you sure to perform action on this request?
+              </p>
+            </div>
+          </Modal.Body>
+          <Modal.Footer>
+            <button
+              type="button"
+              className="btn btn-secondary"
+              onClick={() => setShow(false)}
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              className="btn btn-primary"
+              onClick={() => {
+                performActionRequest();
+                setShow(false);
+              }}
+            >
+              Confirm
+            </button>
+          </Modal.Footer>
+        </Modal>
+      </div>
       <div className="container-fluid">
         <div className="layout-specing">
           <div className="d-md-flex justify-content-between">
@@ -102,27 +116,31 @@ if(leaveDoctorResponse?.result == "success"){
           </div>
 
           <div className="row">
-          <div className="row" style={{ marginTop: "1rem" }}>
-          <div className="col-sm-6 col-lg-3">
-                                    <DoctorSearch filters={filters} setFilters={setFilters} />
-                                </div>
-<div className="col-sm-6 col-lg-3">
-    <DepartmentSearch filters={filters} setFilters={setFilters} />
-
-</div>
-<div className="col-sm-6 col-lg-1">
-   <button
-    className="form-control btn-check-reset"
-    onClick={()=>{
-        setFilters({
-            department:""
-        })
-    }}
-    style={{backgroundColor:"red"}}
-   >Reset</button>
-
-</div>
-</div>
+            <div className="row" style={{ marginTop: "1rem" }}>
+              <div className="col-sm-6 col-lg-3">
+                <DoctorSearch filters={filters} setFilters={setFilters} />
+              </div>
+              <div className="col-sm-6 col-lg-3">
+                <DepartmentSearch filters={filters} setFilters={setFilters} />
+              </div>
+              <div className="col-sm-6 col-lg-1">
+                <button
+                  className="form-control btn-check-reset"
+                  onClick={() => {
+                    setFilters({
+                      department: "",
+                    });
+                  }}
+                  style={{
+                    backgroundColor: "red",
+                    width: "100px",
+                    textAlign: "center",
+                  }}
+                >
+                  Reset
+                </button>
+              </div>
+            </div>
             <div className="col-12 mt-4">
               <div className="table-responsive shadow rounded">
                 <table className="table table-center bg-white mb-0">
@@ -160,15 +178,22 @@ if(leaveDoctorResponse?.result == "success"){
                             <Link to="#" className="text-dark">
                               <div className="d-flex align-items-center">
                                 <img
-                                  src={test_url_images+item.doctor.profile_picture}
+                                  src={
+                                    test_url_images +
+                                    item.doctor.profile_picture
+                                  }
                                   className="avatar avatar-md-sm rounded-circle shadow"
                                   alt=""
                                 />
-                                <span className="ms-2">{item.doctor.full_name}</span>
+                                <span className="ms-2">
+                                  {item.doctor.full_name}
+                                </span>
                               </div>
                             </Link>
                           </td>
-                          <td className="p-3">{item.from_date} | {item.to_date}</td>
+                          <td className="p-3">
+                            {item.from_date} | {item.to_date}
+                          </td>
                           <td className="p-3">{item.comment}</td>
 
                           <td className="p-3">
@@ -187,30 +212,28 @@ if(leaveDoctorResponse?.result == "success"){
                             )}
                           </td>
                           <td className="text-end p-3">
-                         
-                            
                             <Link
-                              onClick={()=>
-                                {
-                                  setFormValues((prev)=>({...prev, 
-                                    id:item.id,
-                                    action:"Approve"}))
-                                  setShow(true)
-                            }
-                            }
+                              onClick={() => {
+                                setFormValues((prev) => ({
+                                  ...prev,
+                                  id: item.id,
+                                  action: "Approve",
+                                }));
+                                setShow(true);
+                              }}
                               className="btn btn-icon btn-pills btn-soft-success"
                             >
                               <FiToggleRight />
                             </Link>
                             <Link
-                              onClick={()=>
-                                {
-                                  setFormValues((prev)=>({...prev, 
-                                    id:item.id,
-                                    action:"Reject"}))
-                                setShow(true)
-                            }
-                            }
+                              onClick={() => {
+                                setFormValues((prev) => ({
+                                  ...prev,
+                                  id: item.id,
+                                  action: "Reject",
+                                }));
+                                setShow(true);
+                              }}
                               className="btn btn-icon btn-pills btn-soft-warning"
                             >
                               <FiTrash />
@@ -224,7 +247,7 @@ if(leaveDoctorResponse?.result == "success"){
               </div>
             </div>
           </div>
-       
+
           <Modal
             show={editProfile}
             onHide={() => setEditProfile(false)}
@@ -238,7 +261,6 @@ if(leaveDoctorResponse?.result == "success"){
             </Modal.Header>
             <Modal.Body>
               <div className="row align-items-center">
-
                 <div className="row">
                   <div className="col-md-12">
                     <div className="mb-3">
@@ -252,8 +274,6 @@ if(leaveDoctorResponse?.result == "success"){
                       />
                     </div>
                   </div>
-
-                
                 </div>
 
                 <div className="row">
@@ -267,10 +287,10 @@ if(leaveDoctorResponse?.result == "success"){
                       value="Save"
                     >
                       Submit
-                      </Button>
+                    </Button>
                   </div>
                 </div>
-                </div>
+              </div>
             </Modal.Body>
           </Modal>
           <div className="row text-center">

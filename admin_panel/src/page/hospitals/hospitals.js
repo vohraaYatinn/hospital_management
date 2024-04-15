@@ -15,105 +15,96 @@ import PatientName from "../../common-components/PatientName";
 import StatusSearch from "../../common-components/StatusSearch";
 
 export default function Hospitals() {
+  const [filters, setFilters] = useState({});
+  const [hospitalData, setHospitalData] = useState([]);
+  const [hospitalsResponse, hospitalsError, hospitalsLoading, hospitalsFetch] =
+    useAxios();
+  useEffect(() => {
+    hospitalsFetch(fetchAllHospital(filters));
+  }, [filters]);
+  useEffect(() => {
+    if (hospitalsResponse?.result == "success" && hospitalsResponse?.data) {
+      setHospitalData(hospitalsResponse?.data);
+    }
+  }, [hospitalsResponse]);
+  return (
+    <Wrapper>
+      <div className="container-fluid">
+        <div className="layout-specing">
+          <div className="row">
+            <div className="col-xl-9 col-md-6">
+              <h5 className="mb-0">Hospitals</h5>
+              <nav aria-label="breadcrumb" className="d-inline-block mt-2">
+                <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
+                  <li className="breadcrumb-item">
+                    <Link to="/">Hospitals</Link>
+                  </li>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Hospitals
+                  </li>
+                </ul>
+              </nav>
+            </div>
+            <div className="col-xl-3 col-md-6 mt-4 mt-md-0 text-md-end">
+              <Link to="/add-hospital" className="btn btn-primary">
+                Add New Hospital
+              </Link>
+            </div>
+          </div>
+          <div className="row" style={{ marginTop: "1rem" }}>
+            <div className="col-sm-6 col-lg-3">
+              <HospitalNameSearch filters={filters} setFilters={setFilters} />
+            </div>
 
-
-
-    const [filters, setFilters] = useState({
-    })	
-	const [hospitalData, setHospitalData] = useState([])
-	const [
-		hospitalsResponse,
-		hospitalsError,
-		hospitalsLoading,
-		hospitalsFetch,
-	  ] = useAxios();
-	  useEffect(() => {
-		hospitalsFetch(fetchAllHospital(filters));
-	  }, [filters]);
-	  useEffect(() => {
-		if (hospitalsResponse?.result == "success" && hospitalsResponse?.data) {
-		  setHospitalData(hospitalsResponse?.data);
-		}
-	  }, [hospitalsResponse]);
-	return (
-		<Wrapper>
-			<div className="container-fluid">
-				<div className="layout-specing">
-					<div className="row">
-						<div className="col-xl-9 col-md-6">
-							<h5 className="mb-0">Hospitals</h5>
-							<nav aria-label="breadcrumb" className="d-inline-block mt-2">
-								<ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
-									<li className="breadcrumb-item">
-										<Link to="/">Hospitals</Link>
-									</li>
-									<li className="breadcrumb-item active" aria-current="page">
-										Hospitals
-									</li>
-								</ul>
-							</nav>
-						</div>
-						<div className="col-xl-3 col-md-6 mt-4 mt-md-0 text-md-end">
-							<Link to="/add-hospital" className="btn btn-primary">
-								Add New Hospital
-							</Link>
-						</div>
-					</div>
-					<div className="row" style={{ marginTop: "1rem" }}>
-
-    
-
-                           
-                                    <div className="col-sm-6 col-lg-3">
-                                        <HospitalNameSearch filters={filters} setFilters={setFilters} />
-
-                                    </div>
-                                
-                                    <div className="col-sm-6 col-lg-1">
-                                       <button
-                                        className="form-control btn-check-reset"
-                                        onClick={()=>{
-                                            setFilters({
-                                                hospitalSearch:"",
-                                            })
-                                        }}
-                                        style={{backgroundColor:"red"}}
-                                       >Reset</button>
-
-                                    </div>
-
-                            </div>
-					<div className="row row-cols-md-2 row-cols-lg-5">
-						{hospitalData.map((item, index) => {
-							return (
-								<div className="col mt-4" key={index}>
-									<Link to={`/hospital-profile/${item.id}`}>
-										<div className="card team border-0 rounded shadow overflow-hidden h-100">
-											<div className="team-img position-relative">
-												<img src={test_url_images + item.logo} className="img-fluid" alt="" />
-											</div>
-											<div className="card-body content text-center d-flex flex-column">
-												<div className="title text-dark h5 d-block mb-0">
-													{item.name}
-												</div>
-												<small className="text-muted speciality mt-2 ">
-													{item.contact_number} 
-												</small>
-												<small className="text-muted speciality flex-grow-1 mt-2">
-													Description:{" "}
-													{item.description.length > 50
-														? `${item.description.substring(0, 50)}...`
-														: item.description}
-												</small>
-											</div>
-										</div>
-									</Link>
-								</div>
-							);
-						})}
-					</div>
-				</div>
-			</div>
-		</Wrapper>
-	);
+            <div className="col-sm-6 col-lg-1">
+              <button
+                className="form-control btn-check-reset"
+                onClick={() => {
+                  setFilters({
+                    hospitalSearch: "",
+                  });
+                }}
+                style={{ backgroundColor: "red" }}
+              >
+                Reset
+              </button>
+            </div>
+          </div>
+          <div className="row row-cols-md-2 row-cols-lg-5">
+            {hospitalData.map((item, index) => {
+              return (
+                <div className="col mt-4" key={index}>
+                  <Link to={`/hospital-profile/${item.id}`}>
+                    <div className="card team border-0 rounded shadow overflow-hidden h-100">
+                      <div className="team-img position-relative">
+                        <img
+                          src={test_url_images + item.logo}
+                          className="img-fluid"
+                          alt=""
+                        />
+                      </div>
+                      <div className="card-body content text-center d-flex flex-column">
+                        <div className="title text-dark h5 d-block mb-0">
+                          {item.name}
+                        </div>
+                        <small className="text-muted speciality mt-2 ">
+                          {item.contact_number}
+                        </small>
+                        <small className="text-muted speciality flex-grow-1 mt-2">
+                          Description:{" "}
+                          {item.description.length > 50
+                            ? `${item.description.substring(0, 50)}...`
+                            : item.description}
+                        </small>
+                      </div>
+                    </div>
+                  </Link>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </Wrapper>
+  );
 }

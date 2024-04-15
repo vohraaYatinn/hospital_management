@@ -95,14 +95,14 @@ export default function Departments() {
           <div className="layout-specing">
             <div className="row">
               <div className="col-xl-9 col-lg-6 col-md-4">
-                <h5 className="mb-0">Departments</h5>
+                <h5 className="mb-0">Refers To</h5>
                 <nav aria-label="breadcrumb" className="d-inline-block mt-2">
                   <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
                     <li className="breadcrumb-item">
                       <Link to="/">UJUR</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      Departments
+                      Refers To
                     </li>
                   </ul>
                 </nav>

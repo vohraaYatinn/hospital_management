@@ -18,6 +18,8 @@ export default function AddHospitalAccount() {
     weight: "",
     district: "",
   });
+  const [errors, setErrors] = useState({});
+
   const [
     addAdminAddResponse,
     addAdminAddError,
@@ -31,9 +33,32 @@ export default function AddHospitalAccount() {
     hospitalDataFetch,
   ] = useAxios();
 
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (!values.fullName) {
+      errors.fullName = "Fullname is required!";
+    }
+    if (!values.email) {
+      errors.email = "Email is required!";
+    } else if (!regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
+    if (!values.password) {
+      errors.password = "Password is required";
+    } else if (values.password.length < 6) {
+      errors.password = "Password must be more than 6 characters";
+    }
+    return errors;
+  };
 
   const sumitAdminForm = () => {
-    addAdminAddFetch(addHospitalAdminData(formValues));
+    const errors = validate(formValues);
+    if (Object.keys(errors).length !== 0) {
+      setErrors(errors);
+    } else {
+      addAdminAddFetch(addHospitalAdminData(formValues));
+    }
   };
   const [message, setMessage] = useState({
     message: "",
@@ -45,15 +70,13 @@ export default function AddHospitalAccount() {
         message: addAdminAddResponse?.message,
         showMessage: true,
       });
-    }
-    else if (addAdminAddResponse?.result == "failure") {
+    } else if (addAdminAddResponse?.result == "failure") {
       setMessage({
         message: addAdminAddResponse?.response?.message,
         showMessage: true,
       });
     }
   }, [addAdminAddResponse]);
-  const [errors, setErrors] = useState({});
 
   return (
     <Wrapper>
@@ -73,10 +96,7 @@ export default function AddHospitalAccount() {
                 <li className="breadcrumb-item">
                   <Link to="/patients">Hospital Accounts</Link>
                 </li>
-                <li
-                  className="breadcrumb-item active"
-                  aria-current="page"
-                >
+                <li className="breadcrumb-item active" aria-current="page">
                   Add Hospital Admin
                 </li>
               </ul>
@@ -117,10 +137,11 @@ export default function AddHospitalAccount() {
                           }));
                         }}
                       />
+                      {errors.fullName && (
+                        <div className="text-danger">{errors.fullName}</div>
+                      )}
                     </div>
                   </div>
-
-
 
                   <div className="col-md-6">
                     <div className="mb-3">
@@ -137,6 +158,9 @@ export default function AddHospitalAccount() {
                           }));
                         }}
                       />
+                      {errors.email && (
+                        <div className="text-danger">{errors.email}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-6">
@@ -155,13 +179,14 @@ export default function AddHospitalAccount() {
                           }));
                         }}
                       />
+                      {errors.password && (
+                        <div className="text-danger">{errors.password}</div>
+                      )}
                     </div>
                   </div>
-                 
                 </div>
 
-                <button  onClick={sumitAdminForm}
- className="btn btn-primary">
+                <button onClick={sumitAdminForm} className="btn btn-primary">
                   Add Admin
                 </button>
               </div>
