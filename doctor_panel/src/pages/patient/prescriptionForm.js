@@ -4,8 +4,11 @@ import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
 import { checkNotAllNull, getCurrentDate } from "../../utils/commonFunctions";
 import BulletTextbox from "../../common-components/BulletTextBox";
+import { useSelector } from 'react-redux';
+import { medicinesDetails } from "../../redux/reducers/functionalities.reducer";
 
-const options = [
+
+const optionsa = [
   { value: "aspirin", label: "Aspirin" },
   { value: "ibuprofen", label: "Ibuprofen" },
   { value: "acetaminophen", label: "Acetaminophen" },
@@ -121,6 +124,7 @@ function DoctorPrescriptionForm({
   setPrescription,
   medication,
   setMedication,
+  onNewshowNewMedicinesShow
 }) {
   const handleMedicationChange = (e, name = false) => {
     if (e?.target) {
@@ -194,7 +198,12 @@ function DoctorPrescriptionForm({
     e.preventDefault();
   };
   let [activeIndex, setActiveIndex] = useState(1)
-
+  let options = []
+  let medicines = useSelector(medicinesDetails);
+  options.push({ value:"Add New", label: "Add New" });
+  medicines.forEach(option => {
+    options.push({ value:option.name, label: option.name });
+  });
 
   return (
     <div className="tab-pane fade show active">
@@ -250,7 +259,13 @@ function DoctorPrescriptionForm({
                       value: medication.medicineName,
                       label: medication.medicineName,
                     }}
-                    onChange={(e) => handleMedicationChange(e, "medicineName")}
+                    onChange={(e) => {
+                      if(e?.value == "Add New"){
+                        onNewshowNewMedicinesShow()
+                      }
+                      else{
+                        handleMedicationChange(e, "medicineName")}}
+                      }
                     options={options}
                     placeholder="Select Medicine"
                     isSearchable

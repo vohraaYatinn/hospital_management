@@ -13,7 +13,7 @@ import DoctorInspectForm from "./doctorInspectForm";
 import DoctorExaminationForm from "./doctorExaminationForm";
 import DoctorInvestigationForm from "./investigationForm";
 import { useRouter } from "../../hooks/use-router";
-import { fetchPatientProfile, uploadDocumentPrescription } from "../../urls/urls";
+import { addNewMedicinesByDoctor, fetchDoctorMedicinesDashboard, fetchPatientProfile, uploadDocumentPrescription } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { calculateAge, capitalizeFirst } from "../../utils/commonFunctions";
 import { FiUser, FiTrash2 } from "react-icons/fi";
@@ -22,22 +22,33 @@ import { GiMedicalDrip, GiTreasureMap } from "react-icons/gi";
 import moment from "moment";
 import PrescriptionHistory from "./prescriptionHistory";
 import BulletTextbox from "../../common-components/BulletTextBox";
+import { updateMedicines } from "../../redux/reducers/functionalities.reducer";
+import { useDispatch } from "react-redux";
+
 
 export default function PatientProfile() {
   const { id, appointment } = useParams()
+  const dispatch = useDispatch();
+
   const [patientProfileResponse, patientProfileError, patientProfileLoading, patientProfileFetch] = useAxios();
   const [uploadDocumentResponse, uploadDocumentError, uploadDocumentLoading, uploadDocumentFetch] = useAxios();
+  const [addNewResponse, addNewError, addNewLoading, addNewFetch] = useAxios();
+  const [medicinesResponse, medicinesError, medicinesLoading, medicinesFetch] = useAxios();
+
   const router = useRouter();
   const [patientsData, setPatientsData] = useState([])
+  
   const [filterValues, setFilterValues] = useState({});
   const [pdfFile, setPDFFile] = useState(null);
+  const [medicationNewName, setMedicationForm] = useState({
+    name:"",
+    description:""
+  })
   const [htmlDataS, setHTMLData] = useState('xcxc');
   useEffect(() => {
-    console.log(id)
     if (id) {
       patientProfileFetch(fetchPatientProfile({
         patientId: id,
-
       }
       ))
     }
@@ -52,6 +63,20 @@ export default function PatientProfile() {
       })
       )
     }
+  }
+  useEffect(()=>{
+    if(addNewResponse?.result == "success"){
+      onNewshowNewMedicinesClose()
+      medicinesFetch(fetchDoctorMedicinesDashboard())
+    }
+  },[addNewResponse])
+  useEffect(()=>{
+    if(medicinesResponse?.result == "success"){
+      dispatch(updateMedicines(medicinesResponse?.data))
+    }
+  },[medicinesResponse])
+  const addNewMedicineFunction = () => {
+    addNewFetch(addNewMedicinesByDoctor(medicationNewName))
   }
   useEffect(() => {
     if (patientProfileResponse?.result == "success") {
@@ -68,6 +93,7 @@ export default function PatientProfile() {
   let [activeSubIndex, setActiveSubIndex] = useState(1);
   let [show, setShow] = useState(false);
   let [showNewPrescription, setShowNewPrescription] = useState(false);
+  let [showNewMedicines, setshowNewMedicines] = useState(false);
   const [open, setOpen] = useState(false);
   const [prescription, setPrescription] = useState({
     patientName: "Rahul Sharma",
@@ -140,6 +166,12 @@ export default function PatientProfile() {
   };
   const onNewPrescriptionClose = () => {
     setShowNewPrescription(false);
+  };
+  const onNewshowNewMedicinesShow = () => {
+    setshowNewMedicines(true);
+  };
+  const onNewshowNewMedicinesClose = () => {
+    setshowNewMedicines(false);
   };
 
   return (
@@ -393,6 +425,7 @@ fontSize:"1.4rem"      }}/>
                                 setMedication={setChiefQuery}
                               />
                             </div>
+
                             <Modal
                               show={showNewPrescription}
                               onHide={() => onNewPrescriptionClose()}
@@ -515,7 +548,42 @@ fontSize:"1.4rem"      }}/>
                               </div>
                             </Link>
                           </li>
+                          <Modal
+                              show={showNewMedicines}
+                              onHide={() => onNewshowNewMedicinesClose()}
+                              size="lg"
+                              centered
+                            >
+                              <Modal.Header closeButton>
+                                <Modal.Title className="h5">
+                                  Add New Medicine
+                                </Modal.Title>
+                              </Modal.Header>
+                              <Modal.Body>
+                                <label>Medicine Name</label>
+                                <input 
+                                className="form-control"
+                                onChange={(e)=>{
+                                  setMedicationForm((prev)=>({...prev, name:e.target.value}))
 
+                                }}
+                                 />
+                               <label className="mt-4">Medicine Description</label>
+
+                                <input
+                                className="form-control"
+                                onChange={(e)=>{
+                                  setMedicationForm((prev)=>({...prev, description:e.target.value}))
+                                }}
+                                />
+                                <button
+                                className="btn btn-primary mt-4"
+                                onClick={()=>{
+                                  addNewMedicineFunction()
+                                }}
+                                >Add</button>
+                              </Modal.Body>
+                            </Modal>
                           <li className="nav-item">
                             <Link
                               className={`${activeSubIndex === 6 ? "active" : ""
@@ -607,6 +675,7 @@ fontSize:"1.4rem"      }}/>
                                 medication={medication}
                                 setMedication={setMedication}
                                 activeSubIndex={activeSubIndex}
+                                onNewshowNewMedicinesShow={onNewshowNewMedicinesShow}
                               />
                             </div>
                           </div>

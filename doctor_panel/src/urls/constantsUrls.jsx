@@ -20,6 +20,8 @@ export class Urls {
     static RECOVER_PASSWORD_REQUEST = Urls.MPHRMS_API_PREFIX + 'doctors/forgot-password-request/';
     static HANDLE_DOCTOR_IMAGES = Urls.MPHRMS_API_PREFIX + 'doctors/handle-doctor-iamges/';
     static GET_DATA_FROM_TOKEN = Urls.MPHRMS_API_PREFIX + 'doctors/get-data-from-token/';
+    static GET_MEDICINES_DOCTOR = Urls.MPHRMS_API_PREFIX + 'doctors/handle-medicines-doctor/';
+    static ADD_MEDICINES_DOCTOR = Urls.MPHRMS_API_PREFIX + 'doctors/add-medicines-doctor/';
 
 
 }

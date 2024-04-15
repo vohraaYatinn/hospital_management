@@ -2,7 +2,7 @@ import React from "react";
 
 import Chart from 'react-apexcharts'
 
-export default function Charts({data}){
+export default function Charts({data, time_period_dict}){
     let options = {
         series: [{
             data: data?.total
@@ -35,12 +35,14 @@ export default function Charts({data}){
                 enabled: false
             },
             x: {
-                show: false
-            },
+                show: true,
+                formatter: function(val) {
+                    return time_period_dict && time_period_dict[val];
+                }},
             y: {
                 title: {
                     formatter: function (seriesName) {
-                        return ''
+                        return 'Patients'
                     }
                 }
             },

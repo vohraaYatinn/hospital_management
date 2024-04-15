@@ -8,23 +8,29 @@ import ScrollTop from "../../components/scrollTop";
 import { FiCalendar, FiArrowRight, RiCalendar2Line } from '../../assets/icons/vander'
 import { useRouter } from "../../hooks/use-router";
 import useAxios from "../../network/useAxios";
-import { fetchDoctorDashboard, fetchDoctorPatientsDashboard } from "../../urls/urls";
+import { fetchDoctorDashboard, fetchDoctorMedicinesDashboard, fetchDoctorPatientsDashboard } from "../../urls/urls";
 import moment from 'moment';
 import { Radio } from 'antd';
 
 import DateSearchComponent from "../../common-components/DateSearch";
 import { test_url_images } from "../../config/environment";
 import { calculateAge } from "../../utils/commonFunctions";
+import { useDispatch } from "react-redux";
+import { updateMedicines } from "../../redux/reducers/functionalities.reducer";
 
 
 export default function DoctorDashBoard() {
+    const dispatch = useDispatch();
+
     const [filters, setFilters] = useState({
         date:""
     })
     const [dashboardData, setDashboardData] = useState([])
+    const [dashboardDataTime, setDashboardTimeData] = useState([])
     const [dashboardDataPatients, setDashboardDataPatients] = useState([])
     const [dashboardDataResponse, dashboardDataError, dashboardDataLoading, dashboardDataFetch] = useAxios();
     const [dashboardDataPatientResponse, dashboardDataPatientError, dashboardDataPatientLoading, dashboardDataPatientFetch] = useAxios();
+    const [medicinesResponse, medicinesError, medicinesLoading, medicinesFetch] = useAxios();
     const dateRef = useRef(null);
     const [radio, setRadio] = useState('Week');
 
@@ -32,6 +38,7 @@ export default function DoctorDashBoard() {
         if(filters?.date){
             dashboardDataFetch(fetchDoctorDashboard())
             dashboardDataPatientFetch(fetchDoctorPatientsDashboard(filters))
+            medicinesFetch(fetchDoctorMedicinesDashboard())
         }
 
     }, [filters])
@@ -55,6 +62,7 @@ export default function DoctorDashBoard() {
     useEffect(() => {
         if (dashboardDataResponse?.result == "success") {
             setDashboardData(dashboardDataResponse?.data)
+            setDashboardTimeData(dashboardDataResponse?.time_period_dict)
         }
     }, [dashboardDataResponse])
     useEffect(() => {
@@ -63,6 +71,12 @@ export default function DoctorDashBoard() {
         }
 
     }, [dashboardDataPatientResponse])
+    useEffect(() => {
+        if (medicinesResponse?.result == "success") {
+            dispatch(updateMedicines(medicinesResponse?.data))
+        }
+
+    }, [medicinesResponse])
     const router = useRouter();
 
 
@@ -93,7 +107,7 @@ export default function DoctorDashBoard() {
                         <Sidebar colClass="col-xl-3 col-lg-3 col-md-3 col-12" />
                         <div className="col-xl-9 col-lg-9 col-md-9 mt-4 mt-sm-0">
                             <h5 className="mb-0">Dashboard</h5>
-                            <Chart data={dashboardData} />
+                            <Chart data={dashboardData} time_period_dict={dashboardDataTime} />
 
                             <div className="row mt-4">
                             <div className="col-9" >

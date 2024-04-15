@@ -9,18 +9,27 @@ import client1 from '../../assets/images/client/01.jpg'
 import { patientsData } from "../../data/data";
 import useAxios from "../../network/useAxios";
 import { fetchMyDoctorReviews } from "../../urls/urls";
-import { designStarsReviews } from "../../utils/commonFunctions";
+import { PaginationCountList, calculateAge, designStarsReviews, getTodayDate, handlePagination } from "../../utils/commonFunctions";
+import PatientName from "../../common-components/PatientName";
+import DateSearchComponent from "../../common-components/DateSearch";
+import { Link } from "react-router-dom";
 
 export default function PatientReview(){
     let [show, setShow] = useState('')
     const [patientReviews, setpatientReviews] = useState([])
     const [reviewCounts, setReviewCounts] = useState({})
     const [reviewAverageCounts, setReviewAverageCounts] = useState(0)
-    const [patientReviewsResponse, patientReviewsError, patientReviewsLoading, patientReviewsFetch] = useAxios();
+    const [filterValues, setFilterValues] = useState({});
 
+    const [patientReviewsResponse, patientReviewsError, patientReviewsLoading, patientReviewsFetch] = useAxios();
+    const [paginationNumber, setPaginationNumber] = useState({
+        from:0,
+        to:10,
+        currentTab:1
+    })
     useEffect(()=>{
-        patientReviewsFetch(fetchMyDoctorReviews())
-    },[])
+        patientReviewsFetch(fetchMyDoctorReviews(filterValues))
+    },[filterValues])
     useEffect(()=>{
         if(patientReviewsResponse?.result == "success"){
             setpatientReviews(patientReviewsResponse?.data?.reviews_objs)
@@ -40,7 +49,94 @@ export default function PatientReview(){
                     <div className="col-xl-9 col-lg-8 col-md-12">
                         <h5 className="mb-0">Patients Review</h5>
                         <div className="row">
-                            <div className="col-xl-3 col-lg-5 col-md-5 col-12 mt-4 pt-2">
+
+
+                            <div className="col-xl-9 col-lg-8 col-md-7 mt-4 pt-2 mt-sm-0 pt-sm-0">
+                        <div className="row">
+                            <div className="col-xl-5 col-lg-4 col-md-4">
+                            </div>
+
+                            <div className="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
+                                <div style={{justifyContent:"space-between"}}>
+                                    <form>
+                                        <div className="row justify-content-between align-items-center">
+                                            <div className="col-sm-12 col-md-6" style={{display:"flex", justifyContent:"space-between", gap:"1rem"}}>
+
+
+                                            </div>
+                                            
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div className="row">
+                            <div className="row" style={{marginTop:"2rem"}}>
+                            <div className="col-4">
+                                                <PatientName filters={filterValues} setFilters={setFilterValues}/>
+                                                </div>
+                                                <div className="col-3">
+                                       <button
+                                        className="form-control btn-check-reset"
+                                        onClick={()=>{
+                                            setFilterValues({
+                                                status:"",
+                                                slot:"",
+                                                date:getTodayDate(),
+                                                patientName:""
+                                            })
+                                        }}
+                                        style={{backgroundColor:"red"}}
+                                       >Reset</button>
+
+                                    
+                                    </div>
+                            </div>
+                            <div className="col-12 mt-4">
+                                <div className="table-responsive bg-white shadow rounded">
+                                    <table className="table mb-0 table-center">
+                                        <thead>
+                                            <tr>
+                                                <th className="border-bottom p-3">Id</th>
+                                                <th className="border-bottom p-3" style={{minWidth:'100px'}}>Name</th>
+                                                <th className="border-bottom p-3">Age</th>
+                                                <th className="border-bottom p-3" >District</th>
+                                                <th className="border-bottom p-3">Star</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            {patientReviews.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
+                                                return(
+                                                    <tr key={index}>
+                                                        <td className="p-3">{item?.patient?.ujur_id}</td>
+                                                        <td className="p-3">{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</td>
+                                                        <td className="p-3">{calculateAge(item?.patient?.date_of_birth)}</td>
+                                                        <td className="p-3">{item?.patient?.district}</td>
+                                                        <td className="p-3">{designStarsReviews(item?.reviews_star)}</td>
+
+
+                                                    </tr>
+                                                )
+                                            })}
+                                        </tbody>
+                                    </table>
+                                </div>
+                        
+                            </div>
+                        </div>
+                        <div className="row text-center">
+                            <div className="col-12 mt-4">
+                                <div className="d-md-flex align-items-center text-center justify-content-between">
+                                    <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
+                                        { PaginationCountList(handlePagination, paginationNumber , patientReviews, setPaginationNumber) }
+                                    </ul>
+                                </div>
+                            </div>
+                            
+                        </div>
+                    </div>
+                    <div className="col-xl-3 col-lg-5 col-md-5 col-12 mt-4 pt-2">
                                 <div className="card p-4 border-0 shadow rounded">
                                     <div>
                                         <span className="text-primary h1 mb-0"><span className="fw-bold">{reviewAverageCounts}</span></span>
@@ -93,28 +189,6 @@ export default function PatientReview(){
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div className="col-xl-9 col-lg-7 col-md-7 col-12 mt-4 pt-2">
-                                <div className="card p-4 rounded shadow border-0">
-                                    <div className="row">
-                                        {patientReviews.map((item, index) =>{
-                                            return(
-                                                <div className="col-xl-4 col-md-6 mt-4" key={index}>
-                                                    <div className="text-center">
-                                                        <img src={client1} className="img-fluid avatar avatar-small rounded-circle mx-auto shadow" alt=""/>
-                                                        <h6 className="text-primary mt-3">{item?.patient?.full_name} </h6>
-                                                        <p className="text-muted fw-normal fst-italic">{item.comment}</p>
-                                                        <ul className="list-unstyled mb-0">
-                                                            {designStarsReviews(item?.reviews_star)}
-                                                        </ul>
-                                                    </div>
-                                                </div>
-
-                                            )
-                                        })}
                                     </div>
                                 </div>
                             </div>

@@ -105,3 +105,10 @@ export function getCurrentDate() {
 export const capitalizeFirst = (text) =>{
   return text.charAt(0).toUpperCase() + text.slice(1);
 }
+export const getTodayDate = () => {
+  const today = new Date();
+  const year = today.getFullYear();
+  const month = String(today.getMonth() + 1).padStart(2, '0');
+  const day = String(today.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+};

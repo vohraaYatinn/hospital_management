@@ -18,6 +18,9 @@ export const fetchDoctorDashboard = (payload_data) => {
 export const fetchDoctorPatientsDashboard = (payload_data) => {
   return project.get(Urls.DASHBOARD_PATIENTS_DETAILS, payload_data);
 };
+export const fetchDoctorMedicinesDashboard = (payload_data) => {
+  return project.get(Urls.GET_MEDICINES_DOCTOR, payload_data);
+};
 export const fetchDoctorReviewsDashboard = (payload_data) => {
   return project.get(Urls.DASHBOARD_REVIEWS_DETAILS, payload_data);
 };
@@ -59,4 +62,7 @@ export const handleDoctorImages = (payload_data) => {
 };
 export const getDetailsFromToken = (payload_data) => {
   return project.get(Urls.GET_DATA_FROM_TOKEN, payload_data);
+};
+export const addNewMedicinesByDoctor = (payload_data) => {
+  return project.post(Urls.ADD_MEDICINES_DOCTOR, payload_data);
 };
