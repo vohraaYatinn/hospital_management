@@ -709,7 +709,7 @@ fontSize:"1.4rem"      }}/>
               <div style={{
                 display:"flex",
                 flexDirection:"column",
-                height: "100%",
+                height: "90%",
                 justifyContent: "space-between"
               }}>
 <div>
@@ -1105,7 +1105,8 @@ fontSize:"1.4rem"      }}/>
 <button className="btn btn-primary"
         style={{
           position:"relative",
-          float:"right"
+          float:"right",
+          marginTop:"1rem"
         }}
       onClick={() => {
         setActiveIndex(1)
