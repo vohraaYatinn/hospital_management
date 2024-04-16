@@ -224,14 +224,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           </ul>
         </div>
         }
-        {medication?.nextVisit &&
-                <div className="col-md-12 mt-4">
-                                     <p style={patientInfoTextStyle}><strong>Next Visit</strong></p>
 
-           <ul className='pres-ul-detail'>
-            {medication?.nextVisit} Days
-          </ul>
-        </div>}
         {prescription?.instructions.length > 0 ? (
           <div className="col-md-12 mt-4">
           <p style={patientInfoTextStyle}><strong>Instructions</strong></p>
@@ -272,6 +265,14 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         ) : (
           ""
         )}
+                {medication?.nextVisit &&
+                <div className="col-md-12 mt-4">
+                                     <p style={patientInfoTextStyle}><strong>Next Visit</strong></p>
+
+           <ul className='pres-ul-detail'>
+            {medication?.nextVisit} Days
+          </ul>
+        </div>}
         <div style={doctorSignatureStyle}>
           <p style={doctorSignatureTextStyle}>Dr. {patient?.appointments?.[0]?.doctor?.full_name}</p>
         </div>

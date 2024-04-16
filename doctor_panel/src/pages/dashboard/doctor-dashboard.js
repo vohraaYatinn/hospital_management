@@ -11,7 +11,6 @@ import useAxios from "../../network/useAxios";
 import { fetchDoctorDashboard, fetchDoctorMedicinesDashboard, fetchDoctorPatientsDashboard } from "../../urls/urls";
 import moment from 'moment';
 import { Radio } from 'antd';
-
 import DateSearchComponent from "../../common-components/DateSearch";
 import { test_url_images } from "../../config/environment";
 import { calculateAge } from "../../utils/commonFunctions";
@@ -36,12 +35,12 @@ export default function DoctorDashBoard() {
 
     useEffect(() => {
         if(filters?.date){
-            dashboardDataFetch(fetchDoctorDashboard())
             dashboardDataPatientFetch(fetchDoctorPatientsDashboard(filters))
             medicinesFetch(fetchDoctorMedicinesDashboard())
         }
 
     }, [filters])
+
     useEffect(() => {
             dashboardDataFetch(fetchDoctorDashboard({time:radio}))
     }, [radio])

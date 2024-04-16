@@ -11,12 +11,12 @@ import Modal from "react-bootstrap/Modal";
 import { useEffect } from "react";
 import {
   addDepartmentHospital,
-  fetchDepartmentHospital,
   fetchSoftwareDepartmentHospital,
+  fetchHospitalReferTo,
+  addHospitalReferTo
 } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { Alert } from "antd";
-import DepartmentSearch from "../common-components/DepartmentSearch";
 
 export default function Departments() {
   const [filters, setFilters] = useState({});
@@ -35,12 +35,7 @@ export default function Departments() {
     departmentsLoading,
     departmentsFetch,
   ] = useAxios();
-  const [
-    getSoftwareDepartmentsResponse,
-    getSoftwareDepartmentssError,
-    getSoftwareDepartmentssLoading,
-    getSoftwareDepartmentssFetch,
-  ] = useAxios();
+
   const [
     addDepartmentsResponse,
     addDepartmentssError,
@@ -48,31 +43,21 @@ export default function Departments() {
     addDepartmentssFetch,
   ] = useAxios();
   const fetchDepartmentFunc = () => {
-    departmentsFetch(fetchDepartmentHospital(filters));
+    departmentsFetch(fetchHospitalReferTo(filters));
   };
-  const fetchSoftwaresDepartmentFunc = () => {
-    getSoftwareDepartmentssFetch(fetchSoftwareDepartmentHospital());
-  };
-  const addDepartmentSoftware = () => {
-    addDepartmentssFetch(addDepartmentHospital(formValues));
+
+const addDepartmentSoftware = () => {
+    addDepartmentssFetch(addHospitalReferTo(formValues));
   };
   useEffect(() => {
     fetchDepartmentFunc();
-    fetchSoftwaresDepartmentFunc();
   }, [filters]);
   useEffect(() => {
     if (departmentsResponse?.result == "success" && departmentsResponse?.data) {
       setDepartmentValues(departmentsResponse?.data);
     }
   }, [departmentsResponse]);
-  useEffect(() => {
-    if (
-      getSoftwareDepartmentsResponse?.result == "success" &&
-      getSoftwareDepartmentsResponse?.data
-    ) {
-      setSoftwaresData(getSoftwareDepartmentsResponse?.data);
-    }
-  }, [getSoftwareDepartmentsResponse]);
+
   const [message, setMessage] = useState({
     message: "",
     showMessage: "",
@@ -131,44 +116,18 @@ export default function Departments() {
                       >
                         <Modal.Header closeButton>
                           <Modal.Title className="h5">
-                            Book an Departments
+                            Add Refer To Doctor
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                           <div className="modal-body p-3 pt-4">
                             <div className="row">
-                              <div className="col-lg-12">
-                                <div className="mb-3">
-                                  <label className="form-label">
-                                    Departments
-                                  </label>
-                                  <select
-                                    className="form-select form-control"
-                                    onChange={(e) => {
-                                      setFormValues((prev) => ({
-                                        ...prev,
-                                        departmentId: e.target.value,
-                                      }));
-                                    }}
-                                  >
-                                    <option value="new">
-                                      Add New Department
-                                    </option>
-                                    {departmentsSoftware.map((items) => {
-                                      return (
-                                        <option value={items.id}>
-                                          {items.name}
-                                        </option>
-                                      );
-                                    })}
-                                  </select>
-                                </div>
-                              </div>
+                             
 
                               <div className="col-lg-12">
                                 <div className="mb-3">
                                   <label className="form-label">
-                                    Add New Department{" "}
+                                    Doctor Name{" "}
                                     <span className="text-danger">*</span>
                                   </label>
                                   <input
@@ -176,12 +135,12 @@ export default function Departments() {
                                     id="comments"
                                     rows="4"
                                     className="form-control"
-                                    placeholder="New Department Name :"
+                                    placeholder="Enter Doctor Name :"
                                     disabled={formValues?.departmentId != "new"}
                                     onChange={(e) => {
                                       setFormValues((prev) => ({
                                         ...prev,
-                                        departmentName: e.target.value,
+                                        doctorName: e.target.value,
                                       }));
                                     }}
                                   ></input>
@@ -190,7 +149,7 @@ export default function Departments() {
                               <div className="col-lg-12">
                                 <div className="mb-3">
                                   <label className="form-label">
-                                    Comments{" "}
+                                    Hospital Name{" "}
                                     <span className="text-danger">*</span>
                                   </label>
                                   <textarea
@@ -198,12 +157,12 @@ export default function Departments() {
                                     id="comments"
                                     rows="4"
                                     className="form-control"
-                                    placeholder="Your Message :"
+                                    placeholder="Enter Hospital Name :"
                                     disabled={formValues?.departmentId != "new"}
                                     onChange={(e) => {
                                       setFormValues((prev) => ({
                                         ...prev,
-                                        departmentComments: e.target.value,
+                                        hospitalName: e.target.value,
                                       }));
                                     }}
                                   ></textarea>
@@ -246,66 +205,28 @@ export default function Departments() {
                   }}
                 />
               )}
-              <div className="row" style={{ marginTop: "1rem" }}>
-                <div className="col-sm-6 col-lg-3">
-                  <DepartmentSearch filters={filters} setFilters={setFilters} />
-                </div>
-                <div className="col-sm-6 col-lg-1">
-                  <button
-                    className="form-control btn-check-reset"
-                    onClick={() => {
-                      setFilters({
-                        department: "",
-                      });
-                    }}
-                    style={{
-                      backgroundColor: "red",
-                      width: "100px",
-                      textAlign: "center",
-                    }}
-                  >
-                    Reset
-                  </button>
-                </div>
-              </div>
+              
               <div className="col-12 mt-4">
                 <div className="table-responsive bg-white shadow rounded">
                   <table className="table mb-0 table-center">
                     <thead>
                       <tr>
-                        <th
-                          className="border-bottom p-3"
-                          style={{ minWidth: "50px" }}
-                        >
-                          #
-                        </th>
+                     
                         <th
                           className="border-bottom p-3"
                           style={{ minWidth: "180px" }}
                         >
-                          Name
+                          Name - Hospital
                         </th>
-                        <th className="border-bottom p-3">Department</th>
                       </tr>
                     </thead>
                     <tbody>
                       {departmentsValues.map((item, index) => {
                         return (
                           <tr key={index}>
-                            <td className="p-3">{item.id}</td> {/* ID */}
+                          
                             <td className="p-3">
-                              <Link to="#" className="text-dark">
-                                <div className="d-flex align-items-center">
-                                  {/* Assuming you want to show some avatar/name related to the department or client, adjust as needed */}
-                                  <span className="ms-2">
-                                    {item.department.name}
-                                  </span>{" "}
-                                  {/* Department Name */}
-                                </div>
-                              </Link>
-                            </td>
-                            <td className="p-3">
-                              {item.department.description}
+                              {item.name}
                             </td>{" "}
                             {/* Department Description */}
                             {/* Removed other <td>'s as they are not defined in your <th>'s */}
@@ -356,99 +277,7 @@ export default function Departments() {
             </div>
           </div>
         </div>
-        <Modal
-          show={showDetail}
-          onHide={() => setShowDetail(!showDetail)}
-          animation={false}
-          centered
-        >
-          <Modal.Header closeButton>
-            <Modal.Title className="h5">Departments Detail</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <div className="modal-body p-3 pt-4">
-              <div className="d-flex align-items-center">
-                <img
-                  src={client1}
-                  className="avatar avatar-small rounded-pill"
-                  alt=""
-                />
-                <h5 className="mb-0 ms-3">Howard Tanner</h5>
-              </div>
-              <ul className="list-unstyled mb-0 d-md-flex justify-content-between mt-4">
-                <li>
-                  <ul className="list-unstyled mb-0">
-                    <li className="d-flex ms-0">
-                      <h6>Age:</h6>
-                      <p className="text-muted ms-2">25 year old</p>
-                    </li>
 
-                    <li className="d-flex ms-0">
-                      <h6>Gender:</h6>
-                      <p className="text-muted ms-2">Male</p>
-                    </li>
-
-                    <li className="d-flex ms-0">
-                      <h6 className="mb-0">Department:</h6>
-                      <p className="text-muted ms-2 mb-0">Cardiology</p>
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <ul className="list-unstyled mb-0">
-                    <li className="d-flex ms-0">
-                      <h6>Date:</h6>
-                      <p className="text-muted ms-2">20th Dec 2020</p>
-                    </li>
-
-                    <li className="d-flex ms-0">
-                      <h6>Time:</h6>
-                      <p className="text-muted ms-2">11:00 AM</p>
-                    </li>
-
-                    <li className="d-flex ms-0">
-                      <h6 className="mb-0">Doctor:</h6>
-                      <p className="text-muted ms-2 mb-0">Dr. Calvin Carlo</p>
-                    </li>
-                  </ul>
-                </li>
-              </ul>
-            </div>
-          </Modal.Body>
-        </Modal>
-        <Modal
-          show={acceptsDepartments}
-          onHide={() => setAcceptsDepartments(!acceptsDepartments)}
-          animation={false}
-          centered
-        >
-          <Modal.Body>
-            <div className="modal-body py-5">
-              <div className="text-center">
-                <div
-                  className="icon d-flex align-items-center justify-content-center bg-soft-success rounded-circle mx-auto"
-                  style={{ height: "95px", width: "95px" }}
-                >
-                  <span className="mb-0">
-                    <MdOutlineCheckCircleOutline className="h1" />
-                  </span>
-                </div>
-                <div className="mt-4">
-                  <h4>Accept Deparments</h4>
-                  <p className="para-desc mx-auto text-muted mb-0">
-                    Great doctor if you need your family member to get immediate
-                    assistance, emergency treatment.
-                  </p>
-                  <div className="mt-4">
-                    <Link to="#" className="btn btn-soft-success">
-                      Accept
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Modal.Body>
-        </Modal>
         <Modal
           show={cancle}
           onHide={() => setCancle(!cancle)}

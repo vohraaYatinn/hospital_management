@@ -13,6 +13,8 @@ import { PaginationCountList, calculateAge, designStarsReviews, getTodayDate, ha
 import PatientName from "../../common-components/PatientName";
 import DateSearchComponent from "../../common-components/DateSearch";
 import { Link } from "react-router-dom";
+import { Tooltip } from 'antd';
+
 
 export default function PatientReview(){
     let [show, setShow] = useState('')
@@ -100,19 +102,17 @@ export default function PatientReview(){
                                             <tr>
                                                 <th className="border-bottom p-3">Id</th>
                                                 <th className="border-bottom p-3" style={{minWidth:'100px'}}>Name</th>
-                                                <th className="border-bottom p-3">Age</th>
-                                                <th className="border-bottom p-3" >District</th>
-                                                <th className="border-bottom p-3">Star</th>
+                                                <th className="border-bottom p-3">Review</th>
+                                                <th className="border-bottom p-3">Rating</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {patientReviews.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
-                                                return(
+                                                return(  
                                                     <tr key={index}>
                                                         <td className="p-3">{item?.patient?.ujur_id}</td>
                                                         <td className="p-3">{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</td>
-                                                        <td className="p-3">{calculateAge(item?.patient?.date_of_birth)}</td>
-                                                        <td className="p-3">{item?.patient?.district}</td>
+                                                        <td className="p-3">{item?.comment && item?.comment.length > 40 ? <><Tooltip placement="topRight" title={item?.comment} >{item?.comment.slice(0,40)} <span style={{color:"blue", cursor:"pointer", fontSize:"0.7rem"}}>....Read More</span> </Tooltip></>: item?.comment }</td>
                                                         <td className="p-3">{designStarsReviews(item?.reviews_star)}</td>
 
 

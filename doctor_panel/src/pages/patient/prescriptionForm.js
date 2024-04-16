@@ -2,10 +2,14 @@ import React, { useState } from "react";
 import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
-import { checkNotAllNull, getCurrentDate } from "../../utils/commonFunctions";
+import { checkNotAllNull, compareObjects, getCurrentDate } from "../../utils/commonFunctions";
 import BulletTextbox from "../../common-components/BulletTextBox";
 import { useSelector } from 'react-redux';
-import { medicinesDetails } from "../../redux/reducers/functionalities.reducer";
+import { medicinesDetails, updateMedicines } from "../../redux/reducers/functionalities.reducer";
+import { useEffect } from "react";
+import useAxios from "../../network/useAxios";
+import { fetchDoctorMedicinesDashboard } from "../../urls/urls";
+import { useDispatch } from "react-redux";
 
 
 const optionsa = [
@@ -193,17 +197,43 @@ function DoctorPrescriptionForm({
     });
   };
 
+  const [medicinesResponse, medicinesError, medicinesLoading, medicinesFetch] = useAxios();
+  const dispatch = useDispatch();
 
   const handlePrescriptionSubmit = (e) => {
     e.preventDefault();
   };
   let [activeIndex, setActiveIndex] = useState(1)
-  let options = []
+  const [options, setOptions] = useState([])
   let medicines = useSelector(medicinesDetails);
-  options.push({ value:"Add New", label: "Add New" });
-  medicines.forEach(option => {
-    options.push({ value:option.name, label: option.name });
-  });
+  useEffect(()=>{
+    if(typeof(medicines) == "object" && compareObjects(medicines, {})){
+      medicinesFetch(fetchDoctorMedicinesDashboard())
+    }
+    else{
+      let options = []
+      options.push({ value:"Add New", label: <span style={{fontWeight:"600"}}>Add New</span> });
+      medicines.forEach(option => {
+        options.push({ value:option.name, label: option.name });
+      });
+      setOptions(options)
+    }
+  },[medicines])
+  useEffect(() => {
+    if (medicinesResponse?.result == "success") {
+      let options = []
+      console.log("abdscbdsbdsbds")
+        dispatch(updateMedicines(medicinesResponse?.data))
+        options.push({ value:"Add New", label:  <span style={{fontWeight:"600"}}>Add New</span>  });
+        medicinesResponse?.data.forEach(option => {
+          options.push({ value:option.name, label: option.name });
+        });
+        setOptions(options)
+
+    }
+
+}, [medicinesResponse])
+
 
   return (
     <div className="tab-pane fade show active">

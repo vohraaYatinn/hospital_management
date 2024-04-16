@@ -767,12 +767,24 @@ fontSize:"1.4rem"      }}/>
             >
               <div style={{
                 display:"flex",
-                justifyContent:"space-between"
+                justifyContent:"space-between",
+                alignItems:"center"
               }}>
             <h3 
             className="font-presc"
             >Prescription</h3>
-            
+            <button className="btn btn-primary"
+        style={{
+          position:"relative",
+          float:"right",
+          marginTop:"1rem"
+        }}
+      onClick={() => {
+        setActiveIndex(1)
+        setActiveSubIndex(1)
+        showNewPrescriptionDrawer()
+      }}
+    >Submit</button>
 
               </div>
               <div style={{

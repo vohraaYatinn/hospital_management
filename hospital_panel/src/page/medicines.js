@@ -10,13 +10,11 @@ import {
 import Modal from "react-bootstrap/Modal";
 import { useEffect } from "react";
 import {
-  addDepartmentHospital,
-  fetchDepartmentHospital,
-  fetchSoftwareDepartmentHospital,
+  addHospitalMedicine,
+  fetchHospitalMedicine,
 } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { Alert } from "antd";
-import DepartmentSearch from "../common-components/DepartmentSearch";
 
 export default function Departments() {
   const [filters, setFilters] = useState({});
@@ -29,12 +27,7 @@ export default function Departments() {
   });
   let [cancle, setCancle] = useState(false);
   const [departmentsValues, setDepartmentValues] = useState([]);
-  const [
-    departmentsResponse,
-    departmentsError,
-    departmentsLoading,
-    departmentsFetch,
-  ] = useAxios();
+
   const [
     getSoftwareDepartmentsResponse,
     getSoftwareDepartmentssError,
@@ -47,30 +40,21 @@ export default function Departments() {
     addDepartmentssLoading,
     addDepartmentssFetch,
   ] = useAxios();
-  const fetchDepartmentFunc = () => {
-    departmentsFetch(fetchDepartmentHospital(filters));
-  };
+
   const fetchSoftwaresDepartmentFunc = () => {
-    getSoftwareDepartmentssFetch(fetchSoftwareDepartmentHospital());
+    getSoftwareDepartmentssFetch(fetchHospitalMedicine());
   };
   const addDepartmentSoftware = () => {
-    addDepartmentssFetch(addDepartmentHospital(formValues));
+    addDepartmentssFetch(addHospitalMedicine(formValues));
   };
   useEffect(() => {
-    fetchDepartmentFunc();
     fetchSoftwaresDepartmentFunc();
   }, [filters]);
-  useEffect(() => {
-    if (departmentsResponse?.result == "success" && departmentsResponse?.data) {
-      setDepartmentValues(departmentsResponse?.data);
-    }
-  }, [departmentsResponse]);
+
   useEffect(() => {
     if (
-      getSoftwareDepartmentsResponse?.result == "success" &&
-      getSoftwareDepartmentsResponse?.data
-    ) {
-      setSoftwaresData(getSoftwareDepartmentsResponse?.data);
+      getSoftwareDepartmentsResponse?.result == "success" ) {
+      setDepartmentValues(getSoftwareDepartmentsResponse?.data);
     }
   }, [getSoftwareDepartmentsResponse]);
   const [message, setMessage] = useState({
@@ -83,8 +67,9 @@ export default function Departments() {
         message: addDepartmentsResponse?.message,
         showMessage: true,
       });
+      fetchSoftwaresDepartmentFunc();
+
       setShow(!show);
-      fetchDepartmentFunc();
     }
   }, [addDepartmentsResponse]);
 
@@ -131,44 +116,18 @@ export default function Departments() {
                       >
                         <Modal.Header closeButton>
                           <Modal.Title className="h5">
-                            Book an Departments
+                            Add New Medicine
                           </Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                           <div className="modal-body p-3 pt-4">
                             <div className="row">
-                              <div className="col-lg-12">
-                                <div className="mb-3">
-                                  <label className="form-label">
-                                    Departments
-                                  </label>
-                                  <select
-                                    className="form-select form-control"
-                                    onChange={(e) => {
-                                      setFormValues((prev) => ({
-                                        ...prev,
-                                        departmentId: e.target.value,
-                                      }));
-                                    }}
-                                  >
-                                    <option value="new">
-                                      Add New Department
-                                    </option>
-                                    {departmentsSoftware.map((items) => {
-                                      return (
-                                        <option value={items.id}>
-                                          {items.name}
-                                        </option>
-                                      );
-                                    })}
-                                  </select>
-                                </div>
-                              </div>
+                             
 
                               <div className="col-lg-12">
                                 <div className="mb-3">
                                   <label className="form-label">
-                                    Add New Department{" "}
+                                  Medicine Name{" "}
                                     <span className="text-danger">*</span>
                                   </label>
                                   <input
@@ -176,12 +135,12 @@ export default function Departments() {
                                     id="comments"
                                     rows="4"
                                     className="form-control"
-                                    placeholder="New Department Name :"
+                                    placeholder="New Medicine Name :"
                                     disabled={formValues?.departmentId != "new"}
                                     onChange={(e) => {
                                       setFormValues((prev) => ({
                                         ...prev,
-                                        departmentName: e.target.value,
+                                        name: e.target.value,
                                       }));
                                     }}
                                   ></input>
@@ -190,7 +149,7 @@ export default function Departments() {
                               <div className="col-lg-12">
                                 <div className="mb-3">
                                   <label className="form-label">
-                                    Comments{" "}
+                                    Description{" "}
                                     <span className="text-danger">*</span>
                                   </label>
                                   <textarea
@@ -198,12 +157,12 @@ export default function Departments() {
                                     id="comments"
                                     rows="4"
                                     className="form-control"
-                                    placeholder="Your Message :"
+                                    placeholder="Medicine Description :"
                                     disabled={formValues?.departmentId != "new"}
                                     onChange={(e) => {
                                       setFormValues((prev) => ({
                                         ...prev,
-                                        departmentComments: e.target.value,
+                                        description: e.target.value,
                                       }));
                                     }}
                                   ></textarea>
@@ -217,7 +176,7 @@ export default function Departments() {
                                     onClick={addDepartmentSoftware}
                                     className="btn btn-primary"
                                   >
-                                    Add An Department
+                                    Add
                                   </button>
                                 </div>
                               </div>
@@ -247,25 +206,9 @@ export default function Departments() {
                 />
               )}
               <div className="row" style={{ marginTop: "1rem" }}>
-                <div className="col-sm-6 col-lg-3">
-                  <DepartmentSearch filters={filters} setFilters={setFilters} />
-                </div>
+    
                 <div className="col-sm-6 col-lg-1">
-                  <button
-                    className="form-control btn-check-reset"
-                    onClick={() => {
-                      setFilters({
-                        department: "",
-                      });
-                    }}
-                    style={{
-                      backgroundColor: "red",
-                      width: "100px",
-                      textAlign: "center",
-                    }}
-                  >
-                    Reset
-                  </button>
+            
                 </div>
               </div>
               <div className="col-12 mt-4">
@@ -273,39 +216,33 @@ export default function Departments() {
                   <table className="table mb-0 table-center">
                     <thead>
                       <tr>
-                        <th
-                          className="border-bottom p-3"
-                          style={{ minWidth: "50px" }}
-                        >
-                          #
-                        </th>
+                       
                         <th
                           className="border-bottom p-3"
                           style={{ minWidth: "180px" }}
                         >
                           Name
                         </th>
-                        <th className="border-bottom p-3">Department</th>
+                        <th className="border-bottom p-3">Description</th>
                       </tr>
                     </thead>
                     <tbody>
                       {departmentsValues.map((item, index) => {
                         return (
                           <tr key={index}>
-                            <td className="p-3">{item.id}</td> {/* ID */}
                             <td className="p-3">
                               <Link to="#" className="text-dark">
                                 <div className="d-flex align-items-center">
                                   {/* Assuming you want to show some avatar/name related to the department or client, adjust as needed */}
                                   <span className="ms-2">
-                                    {item.department.name}
+                                    {item.name}
                                   </span>{" "}
                                   {/* Department Name */}
                                 </div>
                               </Link>
                             </td>
                             <td className="p-3">
-                              {item.department.description}
+                              {item.description}
                             </td>{" "}
                             {/* Department Description */}
                             {/* Removed other <td>'s as they are not defined in your <th>'s */}

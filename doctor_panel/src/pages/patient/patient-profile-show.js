@@ -671,13 +671,7 @@ export default function PatientProfile() {
             </ul>
           </div>
         }
-        {medication.nextVisit &&
-          <div className="col-md-12 mt-4">
-            <h5 className="mb-0">Next Visit:</h5>
-            <ul className="check-patient-dashboard-prescription">
-              {medication.nextVisit} Days
-            </ul>
-          </div>}
+
         {prescription.instructions && prescription.instructions.length > 0 ? (
           <div className="col-md-12 mt-4">
             <h5 className="mb-0">Instructions:</h5>
@@ -716,6 +710,13 @@ export default function PatientProfile() {
         ) : (
           ""
         )}
+                {medication.nextVisit &&
+          <div className="col-md-12 mt-4">
+            <h5 className="mb-0">Next Visit:</h5>
+            <ul className="check-patient-dashboard-prescription">
+              {medication.nextVisit} Days
+            </ul>
+          </div>}
       </Drawer>
       <Footer />
       <ScrollTop />

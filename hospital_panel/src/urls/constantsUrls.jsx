@@ -22,6 +22,10 @@ export class Urls {
     static FETCH_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-hospital-admin/';
     static ADD_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/add-hospital-admin-user/';
     static FETCH_HOSPITAL_ADMIN_DASHBOARD = Urls.MPHRMS_API_PREFIX + 'admin/fetch-dashboard-details-hospital/';
+    static FETCH_HOSPITAL_MEDICINE = Urls.MPHRMS_API_PREFIX + 'hospitals/handle-medicines-hospital/';
+    static ADD_HOSPITAL_MEDICINE = Urls.MPHRMS_API_PREFIX + 'hospitals/add-medicines-hospital/';
+    static FETCH_HOSPITAL_REFER_TO = Urls.MPHRMS_API_PREFIX + 'hospitals/handle-hospital-refer-to/';
+    static ADD_HOSPITAL_REFER_TO = Urls.MPHRMS_API_PREFIX + 'hospitals/add-hospital-refer-to/';
 
 
 
