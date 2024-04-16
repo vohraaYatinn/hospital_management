@@ -265,7 +265,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         ) : (
           ""
         )}
-                {medication?.nextVisit &&
+{medication?.nextVisit &&
                 <div className="col-md-12 mt-4">
                                      <p style={patientInfoTextStyle}><strong>Next Visit</strong></p>
 

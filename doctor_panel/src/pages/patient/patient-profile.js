@@ -1065,35 +1065,7 @@ fontSize:"1.4rem"      }}/>
             </div>
           </div>
         }
-        {medication.nextVisit &&
-          <div className="col-md-12 mt-4 row">
-            <div className="col-md-12" style={{ fontWeight: "800" }}>
-              Next Visit
-            </div>
-            <div className="row">
-              <>
-              <div className="col-md-10 mt-2">
-              {medication.nextVisit} Days
 
-</div>
-<div className="col-md-2 mt-2">
-<button style={{
-                                     background:"red",
-                                      color:"white",
-                                      border:"transparent"
-                                   }}
-                                   onClick={()=>{
-                                    setMedication((prev)=>({
-                                      ...prev, nextVisit : ""
-                                    }))
-
-                                     onClose()
-                                   }}
-                                   ><FiTrash2  /></button>
-</div>
-              </>
-            </div>
-          </div>}
         {prescription.instructions.length > 0 ? (
           <div className="col-md-12 mt-4 row">
             <div className="col-md-12" style={{ fontWeight: "800" }}>
@@ -1181,13 +1153,43 @@ fontSize:"1.4rem"      }}/>
         ) : (
           ""
         )}
+                {medication.nextVisit &&
+          <div className="col-md-12 mt-4 row">
+            <div className="col-md-12" style={{ fontWeight: "800" }}>
+              Next Visit
+            </div>
+            <div className="row">
+              <>
+              <div className="col-md-10 mt-2">
+              {medication.nextVisit} Days
+
+</div>
+<div className="col-md-2 mt-2">
+<button style={{
+                                     background:"red",
+                                      color:"white",
+                                      border:"transparent"
+                                   }}
+                                   onClick={()=>{
+                                    setMedication((prev)=>({
+                                      ...prev, nextVisit : ""
+                                    }))
+
+                                     onClose()
+                                   }}
+                                   ><FiTrash2  /></button>
+</div>
+              </>
+            </div>
+          </div>}
 </div>
 <div>
 <button className="btn btn-primary"
         style={{
           position:"relative",
           float:"right",
-          marginTop:"1rem"
+          marginTop:"1rem",
+          marginBottom:"1rem"
         }}
       onClick={() => {
         setActiveIndex(1)
