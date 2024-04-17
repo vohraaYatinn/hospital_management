@@ -20,6 +20,7 @@ import { test_url_images } from "../config/environment";
 import { Button } from "antd";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import DoctorSearch from "../common-components/DoctorsSearch";
+import { PaginationCountList, handlePagination } from "../utils/commonFunctions";
 
 export default function DoctorLeave() {
   let [editProfile, setEditProfile] = useState(false);
@@ -39,6 +40,11 @@ export default function DoctorLeave() {
     performActionLoading,
     performActionFetch,
   ] = useAxios();
+  const [paginationNumber, setPaginationNumber] = useState({
+    from:0,
+    to:10,
+    currentTab:1
+})
   const fetchLeaveRequestFunc = () => {
     leaveDoctorFetch(fetchLeaveRequest(filters));
   };
@@ -123,7 +129,7 @@ export default function DoctorLeave() {
               <div className="col-sm-6 col-lg-3">
                 <DepartmentSearch filters={filters} setFilters={setFilters} />
               </div>
-              <div className="col-sm-6 col-lg-1">
+              <div className="col-sm-6 col-lg-3">
                 <button
                   className="form-control btn-check-reset"
                   onClick={() => {
@@ -170,7 +176,7 @@ export default function DoctorLeave() {
                     </tr>
                   </thead>
                   <tbody>
-                    {requestData.map((item, index) => {
+                    {requestData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                       return (
                         <tr key={index}>
                           <th className="p-3">{item.id}</th>
@@ -296,35 +302,10 @@ export default function DoctorLeave() {
           <div className="row text-center">
             <div className="col-12 mt-4">
               <div className="d-md-flex align-items-center text-center justify-content-between">
-                <span className="text-muted me-3">
-                  Showing 1 - 10 out of 50
-                </span>
+             
                 <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                  <li className="page-item">
-                    <Link className="page-link" to="#" aria-label="Previous">
-                      Prev
-                    </Link>
-                  </li>
-                  <li className="page-item active">
-                    <Link className="page-link" to="#">
-                      1
-                    </Link>
-                  </li>
-                  <li className="page-item">
-                    <Link className="page-link" to="#">
-                      2
-                    </Link>
-                  </li>
-                  <li className="page-item">
-                    <Link className="page-link" to="#">
-                      3
-                    </Link>
-                  </li>
-                  <li className="page-item">
-                    <Link className="page-link" to="#" aria-label="Next">
-                      Next
-                    </Link>
-                  </li>
+                { PaginationCountList(handlePagination, paginationNumber , requestData, setPaginationNumber) }
+
                 </ul>
               </div>
             </div>

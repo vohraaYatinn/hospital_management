@@ -15,6 +15,7 @@ import AppointmentSlots from "../../common-components/SlotsSearch";
 import DateSearchComponent from "../../common-components/DateSearch";
 import DoctorSearch from "../../common-components/DoctorsSearch";
 import PatientName from "../../common-components/PatientName";
+import { PaginationCountList, handlePagination } from "../../../../hospital_panel/src/utils/commonFunctions";
 
 
 export default function HospitalAdmins(){
@@ -23,6 +24,11 @@ export default function HospitalAdmins(){
     const [filters, setFilters] = useState({
     })
     const [HospitalData, setHospitalData] = useState([]);
+    const [paginationNumber, setPaginationNumber] = useState({
+        from:0,
+        to:10,
+        currentTab:1
+    })
     const [
       hospitalAdminListResponse,
       hospitalAdminListError,
@@ -228,14 +234,8 @@ export default function HospitalAdmins(){
                     <div className="row text-center">
                         <div className="col-12 mt-4">
                             <div className="d-md-flex align-items-center text-center justify-content-between">
-                                <span className="text-muted me-3">Showing 1 - 10 out of 50</span>
-                                <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                                    <li className="page-item"><Link className="page-link" to="#" aria-label="Previous">Prev</Link></li>
-                                    <li className="page-item active"><Link className="page-link" to="#">1</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#">2</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#">3</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#" aria-label="Next">Next</Link></li>
-                                </ul>
+                            { PaginationCountList(handlePagination, paginationNumber , HospitalData, setPaginationNumber) }
+                             
                             </div>
                         </div>
                     </div>

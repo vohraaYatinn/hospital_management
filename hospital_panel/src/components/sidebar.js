@@ -185,7 +185,7 @@ export default function Sidebar({ manuClass }) {
           <li className={`${manu === "refers-to" ? "active" : ""} ms-0`}>
             <Link to="/refers-to">
               <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
-              Refers-To
+              Refers To
             </Link>
           </li>
           <li className={`${manu === "review" ? "active" : ""} ms-0`}>
@@ -312,9 +312,7 @@ export default function Sidebar({ manuClass }) {
       </SimpleBar>
       <ul className="sidebar-footer list-unstyled mb-0">
         <li className="list-inline-item mb-0 ms-1">
-          <Link to="#" className="btn btn-icon btn-pills btn-soft-primary">
-            <FaRegComment />
-          </Link>
+         
         </li>
       </ul>
     </nav>

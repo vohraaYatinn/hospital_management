@@ -15,6 +15,7 @@ import {
 } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { Alert } from "antd";
+import { PaginationCountList, handlePagination } from "../utils/commonFunctions";
 
 export default function Departments() {
   const [filters, setFilters] = useState({});
@@ -40,7 +41,11 @@ export default function Departments() {
     addDepartmentssLoading,
     addDepartmentssFetch,
   ] = useAxios();
-
+  const [paginationNumber, setPaginationNumber] = useState({
+    from:0,
+    to:10,
+    currentTab:1
+})
   const fetchSoftwaresDepartmentFunc = () => {
     getSoftwareDepartmentssFetch(fetchHospitalMedicine());
   };
@@ -227,7 +232,7 @@ export default function Departments() {
                       </tr>
                     </thead>
                     <tbody>
-                      {departmentsValues.map((item, index) => {
+                      {departmentsValues.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                         return (
                           <tr key={index}>
                             <td className="p-3">
@@ -258,35 +263,10 @@ export default function Departments() {
             <div className="row text-center">
               <div className="col-12 mt-4">
                 <div className="d-md-flex align-items-center text-center justify-content-between">
-                  <span className="text-muted me-3">
-                    Showing 1 - 10 out of 50
-                  </span>
+                 
                   <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                    <li className="page-item">
-                      <Link className="page-link" to="#" aria-label="Previous">
-                        Prev
-                      </Link>
-                    </li>
-                    <li className="page-item active">
-                      <Link className="page-link" to="#">
-                        1
-                      </Link>
-                    </li>
-                    <li className="page-item">
-                      <Link className="page-link" to="#">
-                        2
-                      </Link>
-                    </li>
-                    <li className="page-item">
-                      <Link className="page-link" to="#">
-                        3
-                      </Link>
-                    </li>
-                    <li className="page-item">
-                      <Link className="page-link" to="#" aria-label="Next">
-                        Next
-                      </Link>
-                    </li>
+                  { PaginationCountList(handlePagination, paginationNumber , departmentsValues, setPaginationNumber) }
+
                   </ul>
                 </div>
               </div>

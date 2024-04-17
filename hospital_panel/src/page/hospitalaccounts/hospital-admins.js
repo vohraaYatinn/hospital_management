@@ -8,11 +8,17 @@ import { useEffect } from "react";
 import { fetchHospitalAdminData } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import moment from "moment";
+import { PaginationCountList, handlePagination } from "../../utils/commonFunctions";
 
 
 export default function HospitalAdmins(){
     let [viewProfile, setViewProfile] = useState(false)
     let [editProfile, setEditProfile] = useState(false)
+    const [paginationNumber, setPaginationNumber] = useState({
+        from:0,
+        to:10,
+        currentTab:1
+    })
     const [filters, setFilters] = useState({
     })
     const [HospitalData, setHospitalData] = useState([]);
@@ -52,7 +58,7 @@ export default function HospitalAdmins(){
                                 <table className="table table-center bg-white mb-0">
                                     <thead>
                                         <tr>
-                                            <th className="border-bottom p-3" style={{minWidth:'50px'}}>Id</th>
+                                            <th className="border-bottom p-3" style={{minWidth:'50px'}}>Sno.</th>
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Name</th>
                                             <th className="border-bottom p-3">Email</th>
                                             <th className="border-bottom p-3">Hospital</th>
@@ -60,10 +66,10 @@ export default function HospitalAdmins(){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {HospitalData.map((item, index) =>{
+                                        {HospitalData.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                             return(
                                                 <tr key={index}>
-                                                    <th className="p-3">{item.id}</th>
+                                                    <th className="p-3">{index+paginationNumber.from+1}</th>
                                                     <td className="py-3">
                                                         <Link to="#" className="text-dark">
                                                             <div className="d-flex align-items-center">
@@ -203,13 +209,9 @@ export default function HospitalAdmins(){
                     <div className="row text-center">
                         <div className="col-12 mt-4">
                             <div className="d-md-flex align-items-center text-center justify-content-between">
-                                <span className="text-muted me-3">Showing 1 - 10 out of 50</span>
                                 <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                                    <li className="page-item"><Link className="page-link" to="#" aria-label="Previous">Prev</Link></li>
-                                    <li className="page-item active"><Link className="page-link" to="#">1</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#">2</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#">3</Link></li>
-                                    <li className="page-item"><Link className="page-link" to="#" aria-label="Next">Next</Link></li>
+                                { PaginationCountList(handlePagination, paginationNumber , HospitalData, setPaginationNumber) }
+
                                 </ul>
                             </div>
                         </div>

@@ -17,6 +17,7 @@ import {
 import useAxios from "../network/useAxios";
 import { Alert } from "antd";
 import DepartmentSearch from "../common-components/DepartmentSearch";
+import { PaginationCountList, handlePagination } from "../utils/commonFunctions";
 
 export default function Departments() {
   const [filters, setFilters] = useState({});
@@ -24,6 +25,11 @@ export default function Departments() {
   let [showDetail, setShowDetail] = useState(false);
   let [acceptsDepartments, setAcceptsDepartments] = useState(false);
   const [departmentsSoftware, setSoftwaresData] = useState([]);
+  const [paginationNumber, setPaginationNumber] = useState({
+    from:0,
+    to:10,
+    currentTab:1
+})
   const [formValues, setFormValues] = useState({
     departmentId: "new",
   });
@@ -250,7 +256,7 @@ export default function Departments() {
                 <div className="col-sm-6 col-lg-3">
                   <DepartmentSearch filters={filters} setFilters={setFilters} />
                 </div>
-                <div className="col-sm-6 col-lg-1">
+                <div className="col-sm-6 col-lg-3">
                   <button
                     className="form-control btn-check-reset"
                     onClick={() => {
@@ -289,7 +295,7 @@ export default function Departments() {
                       </tr>
                     </thead>
                     <tbody>
-                      {departmentsValues.map((item, index) => {
+                      {departmentsValues.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                         return (
                           <tr key={index}>
                             <td className="p-3">{item.id}</td> {/* ID */}
@@ -321,35 +327,10 @@ export default function Departments() {
             <div className="row text-center">
               <div className="col-12 mt-4">
                 <div className="d-md-flex align-items-center text-center justify-content-between">
-                  <span className="text-muted me-3">
-                    Showing 1 - 10 out of 50
-                  </span>
+                 
                   <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                    <li className="page-item">
-                      <Link className="page-link" to="#" aria-label="Previous">
-                        Prev
-                      </Link>
-                    </li>
-                    <li className="page-item active">
-                      <Link className="page-link" to="#">
-                        1
-                      </Link>
-                    </li>
-                    <li className="page-item">
-                      <Link className="page-link" to="#">
-                        2
-                      </Link>
-                    </li>
-                    <li className="page-item">
-                      <Link className="page-link" to="#">
-                        3
-                      </Link>
-                    </li>
-                    <li className="page-item">
-                      <Link className="page-link" to="#" aria-label="Next">
-                        Next
-                      </Link>
-                    </li>
+                  { PaginationCountList(handlePagination, paginationNumber , departmentsValues, setPaginationNumber) }
+
                   </ul>
                 </div>
               </div>

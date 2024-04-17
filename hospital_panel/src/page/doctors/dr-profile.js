@@ -136,7 +136,11 @@ export default function DrProfile(){
                     <div className="card rounded shadow overflow-hidden mt-4 border-0">
                         <div className="p-5 bg-primary bg-gradient"></div>
                         <div className="avatar-profile d-flex margin-nagative mt-n5 position-relative ps-3">
-                            <img src={test_url_images + doctorsData?.profile_picture} className="rounded-circle shadow-md avatar avatar-medium" alt=""/>
+                            <img src={test_url_images + doctorsData?.profile_picture} className="rounded-circle shadow-md avatar avatar-medium" alt=""
+                            style={{
+                                objectFit: "cover"
+                            }}
+                            />
                             <div className="mt-4 ms-3 pt-3">
                                 <h5 className="mt-3 mb-1">{doctorsData?.full_name}</h5>
                                 <p className="text-muted mb-0">{doctorsData?.education}</p>

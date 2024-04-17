@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import logoDark from "../../assets/images/logo-dark.png";
 
@@ -18,6 +18,8 @@ import { Alert } from "antd";
 
 export default function Login() {
   const [formValues, setFormValues] = useState();
+  const loginButtonRef = React.useRef(null);
+
   const [message, setMessage] = useState({
     message: "",
     showMessage: "",
@@ -110,6 +112,11 @@ export default function Login() {
                           className="form-control"
                           placeholder="Password"
                           required=""
+                          onKeyPress={(e) => {
+                            if (e.key === "Enter") {
+                                loginButtonRef.current.click();
+                            }
+                        }}
                           onChange={(e) => {
                             setFormValues((prev) => ({
                               ...prev,
@@ -158,6 +165,7 @@ export default function Login() {
                       <div className="d-grid">
                         <button
                           className="btn btn-primary"
+                          ref={loginButtonRef}
                           onClick={() => {
                             LoginFunction();
                           }}

@@ -9,7 +9,7 @@ import useAxios from "../network/useAxios";
 import { fetchAllHospitalReviews } from "../urls/urls";
 import { useEffect } from "react";
 import { test_url_images } from "../config/environment";
-import { changeDateFormat, designStarsReviews } from "../utils/commonFunctions";
+import { PaginationCountList, changeDateFormat, designStarsReviews, handlePagination } from "../utils/commonFunctions";
 import PatientName from "../common-components/PatientName";
 import DoctorSearch from "../common-components/DoctorsSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
@@ -26,6 +26,11 @@ export default function Review() {
   useEffect(() => {
     adminReviewsFetch(fetchAllHospitalReviews(filters));
   }, [filters]);
+  const [paginationNumber, setPaginationNumber] = useState({
+    from:0,
+    to:10,
+    currentTab:1
+})
   useEffect(() => {
     if (
       adminReviewsResponse?.result == "success" &&
@@ -71,7 +76,7 @@ export default function Review() {
               <div className="col-sm-6 col-lg-3">
                 <DepartmentSearch filters={filters} setFilters={setFilters} />
               </div>
-              <div className="col-sm-6 col-lg-1">
+              <div className="col-sm-6 col-lg-3">
                 <button
                   className="form-control btn-check-reset"
                   onClick={() => {
@@ -99,11 +104,11 @@ export default function Review() {
                     <table className="table mb-0 table-center">
                       <thead>
                         <tr>
-                          <th
+                        <th
                             className="border-bottom p-3"
-                            style={{ minWidth: "50px" }}
+                            style={{ minWidth: "150px" }}
                           >
-                            #
+                            Doctor ID
                           </th>
                           <th
                             className="border-bottom p-3"
@@ -117,23 +122,18 @@ export default function Review() {
                           >
                             Patient Name
                           </th>
+
                           <th
                             className="border-bottom p-3"
                             style={{ minWidth: "150px" }}
                           >
-                            Email
-                          </th>
-                          <th
-                            className="border-bottom p-3"
-                            style={{ minWidth: "150px" }}
-                          >
-                            Stars
+                            Rating
                           </th>
                           <th
                             className="border-bottom p-3"
                             style={{ minWidth: "350px" }}
                           >
-                            Comments
+                            Reviews
                           </th>
                           <th
                             className="border-bottom p-3"
@@ -144,10 +144,11 @@ export default function Review() {
                         </tr>
                       </thead>
                       <tbody>
-                        {reviewsData.map((item, index) => {
+                        {reviewsData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                           return (
                             <tr key={index}>
-                              <th className="p-3">{item.id}</th>
+                                                            <td className="p-3">{item.doctor.email}</td>
+
                               <td className="p-3">
                                 <Link to="#" className="text-dark">
                                   <div className="d-flex align-items-center">
@@ -166,7 +167,6 @@ export default function Review() {
                                 </Link>
                               </td>
                               <td className="p-3">{item.patient.full_name}</td>
-                              <td className="p-3">{item.doctor.email}</td>
                               <td className="p-3">
                                 <ul className="list-unstyled mb-0">
                                   {item?.reviews_star &&
@@ -189,39 +189,10 @@ export default function Review() {
               <div className="row text-center">
                 <div className="col-12 mt-4">
                   <div className="d-md-flex align-items-center text-center justify-content-between">
-                    <span className="text-muted me-3">
-                      Showing 1 - 10 out of 50
-                    </span>
+                   
                     <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                      <li className="page-item">
-                        <Link
-                          className="page-link"
-                          to="#"
-                          aria-label="Previous"
-                        >
-                          Prev
-                        </Link>
-                      </li>
-                      <li className="page-item active">
-                        <Link className="page-link" to="#">
-                          1
-                        </Link>
-                      </li>
-                      <li className="page-item">
-                        <Link className="page-link" to="#">
-                          2
-                        </Link>
-                      </li>
-                      <li className="page-item">
-                        <Link className="page-link" to="#">
-                          3
-                        </Link>
-                      </li>
-                      <li className="page-item">
-                        <Link className="page-link" to="#" aria-label="Next">
-                          Next
-                        </Link>
-                      </li>
+                    { PaginationCountList(handlePagination, paginationNumber , reviewsData, setPaginationNumber) }
+
                     </ul>
                   </div>
                 </div>
