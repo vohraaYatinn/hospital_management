@@ -15,7 +15,7 @@ import AppointmentSlots from "../../common-components/SlotsSearch";
 import DateSearchComponent from "../../common-components/DateSearch";
 import DoctorSearch from "../../common-components/DoctorsSearch";
 import PatientName from "../../common-components/PatientName";
-import { PaginationCountList, handlePagination } from "../../../../hospital_panel/src/utils/commonFunctions";
+import { PaginationCountList, handlePagination } from "../../utils/commonFunctions";
 
 
 export default function HospitalAdmins(){
@@ -64,7 +64,7 @@ export default function HospitalAdmins(){
                                         <HospitalNameSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
-                                    <div className="col-sm-6 col-lg-1">
+                                    <div className="col-sm-6 col-lg-3 ">
                                        <button
                                         className="form-control btn-check-reset"
                                         onClick={()=>{
@@ -83,7 +83,6 @@ export default function HospitalAdmins(){
                                 <table className="table table-center bg-white mb-0">
                                     <thead>
                                         <tr>
-                                            <th className="border-bottom p-3" style={{minWidth:'50px'}}>Id</th>
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Name</th>
                                             <th className="border-bottom p-3">Email</th>
                                             <th className="border-bottom p-3">Hospital</th>
@@ -91,10 +90,9 @@ export default function HospitalAdmins(){
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        {HospitalData.map((item, index) =>{
+                                        {HospitalData.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                             return(
                                                 <tr key={index}>
-                                                    <th className="p-3">{item.id}</th>
                                                     <td className="py-3">
                                                         <Link to="#" className="text-dark">
                                                             <div className="d-flex align-items-center">
@@ -234,8 +232,10 @@ export default function HospitalAdmins(){
                     <div className="row text-center">
                         <div className="col-12 mt-4">
                             <div className="d-md-flex align-items-center text-center justify-content-between">
+                            <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
+
                             { PaginationCountList(handlePagination, paginationNumber , HospitalData, setPaginationNumber) }
-                             
+                             </ul>
                             </div>
                         </div>
                     </div>

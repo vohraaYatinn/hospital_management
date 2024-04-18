@@ -77,7 +77,7 @@ export default function Doctors() {
                                         <DepartmentSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
-                                    <div className="col-sm-6 col-lg-1">
+                                    <div className="col-sm-6 col-lg-3">
                                        <button
                                         className="form-control btn-check-reset"
                                         onClick={()=>{

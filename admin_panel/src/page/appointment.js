@@ -10,7 +10,7 @@ import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircl
 import Modal from 'react-bootstrap/Modal';
 import { fetchAppointmentsAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { calculateAge } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -29,6 +29,11 @@ export default function Appointment() {
     const [appointmentData, setAppointmentsData] = useState([]);
     const [filters, setFilters] = useState({
 
+    })
+    const [paginationNumber, setPaginationNumber] = useState({
+        from:0,
+        to:10,
+        currentTab:1
     })
     const searchStatusConstants = [
         {
@@ -223,7 +228,7 @@ export default function Appointment() {
                                         <DepartmentSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
-                                    <div className="col-sm-6 col-lg-1">
+                                    <div className="col-sm-6 col-lg-3">
                                        <button
                                         className="form-control btn-check-reset"
                                         onClick={()=>{
@@ -248,7 +253,7 @@ export default function Appointment() {
                                     <table className="table mb-0 table-center">
                                         <thead>
                                             <tr>
-                                                <th className="border-bottom p-3" style={{ minWidth: '50px' }}>#</th>
+                                                <th className="border-bottom p-3" style={{ minWidth: '50px' }}>Slot No.</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '180px' }}>Name</th>
                                                 <th className="border-bottom p-3">Age</th>
                                                 <th className="border-bottom p-3">Gender</th>
@@ -260,7 +265,7 @@ export default function Appointment() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {appointmentData.map((item, index) => {
+                                            {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                                                 return (
                                                     <tr key={index}>
                                                         <th className="p-3">{item.id}</th>
@@ -278,7 +283,7 @@ export default function Appointment() {
                                                         <td className="p-3">
                                                             <Link to="#" className="text-dark">
                                                                 <div className="d-flex align-items-center">
-                                                                    <img src={test_url_images + item.doctor.profile_picture} className="avatar avatar-md-sm rounded-circle border shadow" alt="" />
+                                                                    <img src={test_url_images + item.doctor.profile_picture} className="avatar avatar-md-sm rounded-circle border shadow" alt="" style={{objectFit:"cover"}}/>
                                                                     <span className="ms-2">{item.doctor.full_name}</span>
                                                                 </div>
                                                             </Link>
@@ -301,13 +306,9 @@ export default function Appointment() {
                         <div className="row text-center">
                             <div className="col-12 mt-4">
                                 <div className="d-md-flex align-items-center text-center justify-content-between">
-                                    <span className="text-muted me-3">Showing 1 - 10 out of 50</span>
                                     <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                                        <li className="page-item"><Link className="page-link" to="#" aria-label="Previous">Prev</Link></li>
-                                        <li className="page-item active"><Link className="page-link" to="#">1</Link></li>
-                                        <li className="page-item"><Link className="page-link" to="#">2</Link></li>
-                                        <li className="page-item"><Link className="page-link" to="#">3</Link></li>
-                                        <li className="page-item"><Link className="page-link" to="#" aria-label="Next">Next</Link></li>
+                                    { PaginationCountList(handlePagination, paginationNumber , appointmentData, setPaginationNumber) }
+
                                     </ul>
                                 </div>
                             </div>

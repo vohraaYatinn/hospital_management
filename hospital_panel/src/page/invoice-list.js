@@ -79,7 +79,6 @@ export default function InvoiceList(){
                     <div className="row text-center">
                         <div className="col-12 mt-4">
                             <div className="d-md-flex align-items-center text-center justify-content-between">
-                                <span className="text-muted me-3">Showing 1 - 10 out of 50</span>
                                 <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
                                     <li className="page-item"><Link className="page-link" to="" aria-label="Previous">Prev</Link></li>
                                     <li className="page-item active"><Link className="page-link" to="">1</Link></li>
