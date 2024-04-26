@@ -9,7 +9,11 @@ import { test_url_images } from "../../config/environment";
 import { Alert } from "antd";
 
 export default function AddHospitalProfile() {
-  const [formValue, setFormValue] = useState([]);
+  
+  // const [formValue, setFormValue] = useState([]);
+  const [formValue, setFormValue] = useState({
+    phoneNumber: "+91-" // Initialize phoneNumber with '91'
+  });
   const [errors, setErrors] = useState({});
   const [
     addHospitalResponse,
@@ -37,7 +41,7 @@ export default function AddHospitalProfile() {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
     if (!values.website) {
-      errors.website = "Website is required!";
+      // errors.website = "Website is required!";
     }
     if (!values.description) {
       errors.description = "Description is required!";
@@ -204,8 +208,10 @@ export default function AddHospitalProfile() {
                         name="number"
                         id="number"
                         type="text"
+                        maxLength={14}
                         className="form-control"
-                        placeholder="Phone no. :"
+                        placeholder="Phone no. :91"
+                        value={formValue.phoneNumber}
                         onChange={(e) => {
                           setFormValue((prev) => ({
                             ...prev,

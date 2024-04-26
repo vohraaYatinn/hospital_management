@@ -6,6 +6,8 @@ import doctor from "../../assets/images/doctors/01.jpg";
 import useAxios from "../../network/useAxios";
 import { addDoctorByHospital, fetchAllHospital } from "../../urls/urls.jsx";
 import { Alert } from "antd";
+// import { TimePicker } from 'antd';
+import { TimePicker } from "antd";
 
 export default function AddDoctor() {
   const [formValues, setFormValues] = useState({});
@@ -421,7 +423,7 @@ export default function AddDoctor() {
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Education :"
+                        placeholder="Medical License :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -436,13 +438,13 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-12">
                     <div className="mb-3">
-                      <label className="form-label">address</label>
+                      <label className="form-label">Address</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Full Name :"
+                        placeholder="Address  :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -483,7 +485,16 @@ export default function AddDoctor() {
                   <div className="col-md-4">
                     <div className="mb-3">
                       <label className="form-label">Morning Timings</label>
-                      <input
+                      <TimePicker.RangePicker
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            morningTime: e.target.value,
+                          }));
+                        }}
+                      />
+
+                      {/* <input
                         name="name"
                         id="name"
                         type="text"
@@ -495,13 +506,21 @@ export default function AddDoctor() {
                             morningTime: e.target.value,
                           }));
                         }}
-                      />
+                      /> */}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
                       <label className="form-label">Afternoon Timings</label>
-                      <input
+                      <TimePicker.RangePicker
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            afternoonTime: e.target.value,
+                          }));
+                        }}
+                      />
+                      {/* <input
                         name="name"
                         id="name"
                         type="text"
@@ -513,13 +532,22 @@ export default function AddDoctor() {
                             afternoonTime: e.target.value,
                           }));
                         }}
-                      />
+                      /> */}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
                       <label className="form-label">Evening Timings</label>
-                      <input
+                      <TimePicker.RangePicker
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            eveningTime: e.target.value,
+                          }));
+                        }}
+                      />
+
+                      {/* <input
                         name="name"
                         id="name"
                         type="text"
@@ -531,16 +559,76 @@ export default function AddDoctor() {
                             eveningTime: e.target.value,
                           }));
                         }}
+                      /> */}
+                    </div>
+                  </div>
+
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Morning Slots</label>
+                      <input
+                        name="morningSlots"
+                        id="morningSlots"
+                        type="number" // Change input type to "number"
+                        // maxLength={3}
+                        className="form-control"
+                        placeholder="Morning Slots :"
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            morningSlots: e.target.value,
+                          }));
+                        }}
                       />
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
+                      <label className="form-label">Afternoon Slots</label>
+                      <input
+                        name="afternoonSlots"
+                        id="afternoonSlots"
+                        type="number" // Change input type to "number"
+                        className="form-control"
+                        // maxLength={3}
+                        placeholder="Afternoon Slots :"
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            afternoonSlots: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Evening Slots</label>
+                      <input
+                        name="eveningSlots"
+                        id="eveningSlots"
+                        type="number" // Change input type to "number"
+                        className="form-control"
+                        // maxLength={3}
+                        placeholder="Evening Slots :"
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            eveningSlots: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+
+                  {/* <div className="col-md-4">
+                    <div className="mb-3">
                       <label className="form-label">Morning Slots</label>
                       <input
                         name="name"
                         id="name"
-                        type="text"
+                        type="number"
+                        maxLength={999}
                         className="form-control"
                         placeholder="Morning Slots :"
                         onChange={(e) => {
@@ -587,14 +675,14 @@ export default function AddDoctor() {
                         }}
                       />
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-md-4">
                     <div className="mb-3">
                       <label className="form-label">Morning Price</label>
                       <input
                         name="name"
                         id="name"
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Morning Price :"
                         onChange={(e) => {
@@ -612,7 +700,7 @@ export default function AddDoctor() {
                       <input
                         name="name"
                         id="name"
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Afternoon Price :"
                         onChange={(e) => {
@@ -630,7 +718,7 @@ export default function AddDoctor() {
                       <input
                         name="name"
                         id="name"
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Evening Price :"
                         onChange={(e) => {

@@ -465,7 +465,7 @@ const performActionRequest = () => {
 																					id="number"
 																					type="text"
 																					className="form-control"
-																					placeholder="Phone no. :"
+																					placeholder="Phone no :"
 																				/>
 																			</div>
 																		</div>

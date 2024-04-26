@@ -143,7 +143,7 @@ export default function Sidebar({ manuClass }) {
               }`}
             ></div>
           </li>
-          <li
+          {/* <li
             className={`sidebar-dropdown ms-0 ${
               ["hospitals-admin", "add-hospital-admin"].includes(manu)
                 ? "active"
@@ -169,23 +169,11 @@ export default function Sidebar({ manuClass }) {
               }`}
             >
               <ul>
-                <li
-                  className={`${
-                    manu === "hospitals-admin" ? "active" : ""
-                  } ms-0`}
-                >
-                  <Link to="/hospitals-admin">All Hospital Account</Link>
-                </li>
-                <li
-                  className={`${
-                    manu === "add-hospital-admin" ? "active" : ""
-                  } ms-0`}
-                >
-                  <Link to="/add-hospital-admin">Add Hospital Admins</Link>
-                </li>
+               
+              
               </ul>
             </div>
-          </li>
+          </li> */}
           <li
             className={`sidebar-dropdown ms-0 ${
               [
@@ -193,6 +181,7 @@ export default function Sidebar({ manuClass }) {
                 "add-hospital",
                 "hospital-profile",
                 "hospital-item",
+                "hospitals-admin", "add-hospital-admin"
               ].includes(manu)
                 ? "active"
                 : ""
@@ -214,19 +203,35 @@ export default function Sidebar({ manuClass }) {
                   "add-hospital",
                   "hospital-profile",
                   "hospital-item",
+                  "hospitals-admin", "add-hospital-admin"
                 ].includes(subManu)
                   ? "d-block"
                   : ""
               }`}
             >
               <ul>
-                <li className={`${manu === "hospitals" ? "active" : ""} ms-0`}>
-                  <Link to="/hospitals">Hospitals</Link>
-                </li>
-                <li
+              <li
                   className={`${manu === "add-hospital" ? "active" : ""} ms-0`}
                 >
                   <Link to="/add-hospital">Add Hospital</Link>
+                </li>
+                <li className={`${manu === "hospitals" ? "active" : ""} ms-0`}>
+                  <Link to="/hospitals">Current Hospitals</Link>
+                </li>
+                <li
+                  className={`${
+                    manu === "add-hospital-admin" ? "active" : ""
+                  } ms-0`}
+                >
+                  <Link to="/add-hospital-admin">Add Hospital Admins</Link>
+                </li>
+
+                <li
+                  className={`${
+                    manu === "hospitals-admin" ? "active" : ""
+                  } ms-0`}
+                >
+                  <Link to="/hospitals-admin">All Hospital Account</Link>
                 </li>
               </ul>
             </div>
@@ -263,12 +268,13 @@ export default function Sidebar({ manuClass }) {
               }`}
             >
               <ul>
+              <li className={`${manu === "add-doctor" ? "active" : ""} ms-0`}>
+                  <Link to="/add-doctor">Add Doctor</Link>
+                </li>
                 <li className={`${manu === "doctors" ? "active" : ""} ms-0`}>
                   <Link to="/doctors">Doctors</Link>
                 </li>
-                <li className={`${manu === "add-doctor" ? "active" : ""} ms-0`}>
-                  <Link to="/add-doctor">Add Doctor</Link>
-                </li>
+               
               </ul>
             </div>
           </li>

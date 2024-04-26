@@ -170,6 +170,7 @@ export default function AddPatient() {
                         name="number"
                         id="number"
                         type="text"
+                        maxLength={10}
                         className="form-control"
                         placeholder="Phone no. :"
                         onChange={(e) => {
