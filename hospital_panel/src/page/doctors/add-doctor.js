@@ -379,7 +379,7 @@ export default function AddDoctor() {
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Education :"
+                        placeholder="Medical License :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -394,13 +394,13 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-12">
                     <div className="mb-3">
-                      <label className="form-label">address</label>
+                      <label className="form-label">Address</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Full Name :"
+                        placeholder="Address :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
