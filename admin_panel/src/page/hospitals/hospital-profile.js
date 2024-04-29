@@ -33,7 +33,14 @@ export default function HospitalProfile() {
 	const router = useRouter();
 	let params = useParams();
 	let id = params.id;
-	const [formValues, setFormValues] = useState({});
+	const [formValues, setFormValues] = useState({
+		hospital_name: "",
+		email: "",
+		phoneNumber: "",
+		website: "",
+		address: "",
+		description: "",
+	});
 	let [show, setShow] = useState(false);
 
 const [
@@ -61,6 +68,15 @@ const performActionRequest = () => {
 	  useEffect(() => {
 		if (hospitalsResponse?.result == "success" && hospitalsResponse?.data) {
 		  setHospitalData(hospitalsResponse?.data);
+		  console.log(hospitalsResponse.data)
+		  setFormValues({
+			hospital_name: hospitalsResponse?.data?.name,
+			address: hospitalsResponse?.data?.address,
+			email: hospitalsResponse?.data?.email,
+			description: hospitalsResponse?.data?.description,
+			website: hospitalsResponse?.data?.website,
+			phoneNumber: hospitalsResponse?.data?.contact_number,
+		  })
 		}
 	  }, [hospitalsResponse]);
 	  useEffect(() => {
@@ -435,7 +451,8 @@ const performActionRequest = () => {
 																					id="name"
 																					type="text"
 																					className="form-control"
-																					placeholder="First Name :"
+																					placeholder="Hospital Name :"
+																					value={formValues.hospital_name}
 																				/>
 																			</div>
 																		</div>
@@ -451,6 +468,7 @@ const performActionRequest = () => {
 																					type="email"
 																					className="form-control"
 																					placeholder="Your email :"
+																					value={formValues.email}
 																				/>
 																			</div>
 																		</div>
@@ -466,6 +484,7 @@ const performActionRequest = () => {
 																					type="text"
 																					className="form-control"
 																					placeholder="Phone no. :"
+																					value={formValues.phoneNumber}
 																				/>
 																			</div>
 																		</div>
@@ -480,6 +499,7 @@ const performActionRequest = () => {
 																					type="text"
 																					className="form-control"
 																					placeholder="website link :"
+																					value={formValues.website}
 																				/>
 																			</div>
 																		</div>
@@ -494,7 +514,9 @@ const performActionRequest = () => {
 																					id="address"
 																					rows="2"
 																					className="form-control"
-																					placeholder="Address :"></textarea>
+																					placeholder="Address :"
+																					value={formValues.address}
+																					></textarea>
 																			</div>
 																		</div>
 																		<div className="col-md-12">
@@ -507,7 +529,9 @@ const performActionRequest = () => {
 																					id="description"
 																					rows="3"
 																					className="form-control"
-																					placeholder="Description :"></textarea>
+																					placeholder="Description :"
+																					value={formValues.description}
+																					></textarea>
 																			</div>
 																		</div>
 																	</div>
