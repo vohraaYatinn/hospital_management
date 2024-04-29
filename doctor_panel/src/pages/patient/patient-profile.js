@@ -24,6 +24,7 @@ import PrescriptionHistory from "./prescriptionHistory";
 import BulletTextbox from "../../common-components/BulletTextBox";
 import { updateMedicines } from "../../redux/reducers/functionalities.reducer";
 import { useDispatch } from "react-redux";
+import { test_url_images } from "../../config/environment";
 
 
 export default function PatientProfile() {
@@ -414,6 +415,11 @@ fontSize:"1.4rem"      }}/>
                           <p className="text-muted mt-4 mb-0">
                             {patientsData?.appointments?.find(appointments => appointments.id == appointment)?.patients_query}
                           </p>
+                         { patientsData?.appointments?.find(appointments => appointments.id == appointment)?.patient_documents && <button className="btn btn-primary mt-4" 
+                         onClick={()=>{
+                          window.open(test_url_images+patientsData?.appointments?.find(appointments => appointments.id == appointment)?.patient_documents, "_blank");
+                         }}
+                         >View Attached Patient Document</button>} 
 
                           <div className="row">
                             <div className="col-lg-12 col-12 mt-4">
