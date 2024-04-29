@@ -81,9 +81,7 @@ export default function AddDoctor() {
     }
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
-    } else if (values.phoneNumber.length < 11) {
-      errors.phoneNumber = "Phone number is not valid";
-    }
+    } 
     return errors;
   };
 
@@ -239,7 +237,7 @@ export default function AddDoctor() {
 
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <label className="form-label">Phone no.</label>
+                      <label className="form-label">Phone no (without +91</label>
                       <input
                         name="number"
                         id="number"
@@ -254,7 +252,7 @@ export default function AddDoctor() {
                         }}
                       />
                       {errors.phoneNumber && (
-                        <div className="text-danger">{errors.phoneNumber}</div>
+                        <div className="text-danger"> {errors.phoneNumber}</div>
                       )}
                     </div>
                   </div>

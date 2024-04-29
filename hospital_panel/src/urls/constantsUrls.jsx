@@ -16,16 +16,19 @@ export class Urls {
     static FETCH_SOFTWARE_DEPARTMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-software-department/';
     static ADD_DEPARTMENTS_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'hospitals/add-department-hospital/';
     static DELETE_HANDLE = Urls.MPHRMS_API_PREFIX + 'hospitals/delete_handle/';
+    static EDIT_DOCTOR_PROFILE = Urls.MPHRMS_API_PREFIX + 'hospitals/edit-doctor-profile/';
     static FETCH_HOSPITAL_ALL_DEPARMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-departments/';
     static FETCH_HOSPITAL_ALL_DOCTORS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-doctors/';
     static FEFETCH_ALL_DOCTOR_REVIEWS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-doctors-hospital-reviews/';
     static FETCH_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-hospital-admin/';
+    static DELETE_HOSPITAL_ADMIN = Urls.MPHRMS_API_PREFIX + 'hospitals/delete-hospital-admin/';
     static ADD_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/add-hospital-admin-user/';
     static FETCH_HOSPITAL_ADMIN_DASHBOARD = Urls.MPHRMS_API_PREFIX + 'admin/fetch-dashboard-details-hospital/';
     static FETCH_HOSPITAL_MEDICINE = Urls.MPHRMS_API_PREFIX + 'hospitals/handle-medicines-hospital/';
     static ADD_HOSPITAL_MEDICINE = Urls.MPHRMS_API_PREFIX + 'hospitals/add-medicines-hospital/';
     static FETCH_HOSPITAL_REFER_TO = Urls.MPHRMS_API_PREFIX + 'hospitals/handle-hospital-refer-to/';
     static ADD_HOSPITAL_REFER_TO = Urls.MPHRMS_API_PREFIX + 'hospitals/add-hospital-refer-to/';
+    static CANCEL_APPOINTMENT_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'hospitals/cancel-given-appointment/';
 
 
 

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
+import { useSelector } from 'react-redux';
 
 import {
   GrDashboard,
@@ -23,12 +24,30 @@ import {
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
 import { isNumber } from "../utils/commonFunctions";
+import { test_url_images } from "../config/environment";
+import { GetHospitalDetails } from "../redux/reducers/functionalities.reducer";
 
 export default function Sidebar({ manuClass }) {
   const [manu, setManu] = useState("");
   const [subManu, setSubManu] = useState("");
   const location = useLocation();
+  const [hospital_details, setHospitalImage] = useState("")
+  let redux_image = useSelector(GetHospitalDetails);
+  let local_redux_image = localStorage.getItem("hospitalLogo")
 
+
+  useEffect(()=>{
+    if (redux_image != ""){
+      console.log(redux_image)
+      setHospitalImage(redux_image)
+    } 
+    else{
+      if (local_redux_image){
+        setHospitalImage(local_redux_image)
+      }
+    }
+  },[])
+  
   useEffect(() => {
     let current = location.pathname.substring(
       location.pathname.lastIndexOf("/") + 1
@@ -58,6 +77,12 @@ export default function Sidebar({ manuClass }) {
             <img
               src={logoDark}
               height="22"
+              className="logo-light-mode"
+              alt=""
+            />
+            <img
+              src={test_url_images+hospital_details}
+              style={{height:"4rem"}}
               className="logo-light-mode"
               alt=""
             />
@@ -194,6 +219,12 @@ export default function Sidebar({ manuClass }) {
               Reviews
             </Link>
           </li>
+          <li className={`${manu === "patients" ? "active" : ""} ms-0`}>
+            <Link to="/patients">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Patients
+            </Link>
+          </li>
           <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}>
             <Link to="/doctor-leave">
               <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
@@ -201,7 +232,7 @@ export default function Sidebar({ manuClass }) {
             </Link>
           </li>
 
-          <li
+          {/* <li
             className={`sidebar-dropdown ms-0 ${
               [
                 "patients",
@@ -238,14 +269,10 @@ export default function Sidebar({ manuClass }) {
                 <li className={`${manu === "patients" ? "active" : ""} ms-0`}>
                   <Link to="/patients">All Patients</Link>
                 </li>
-                <li
-                  className={`${manu === "add-patient" ? "active" : ""} ms-0`}
-                >
-                  <Link to="/add-patient">Add Patients</Link>
-                </li>
+             
               </ul>
             </div>
-          </li>
+          </li> */}
 
           {/* <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li> */}
 
