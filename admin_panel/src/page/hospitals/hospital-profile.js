@@ -485,6 +485,7 @@ const performActionRequest = () => {
 																					className="form-control"
 																					placeholder="Phone no. :"
 																					value={formValues.phoneNumber}
+																					placeholder="Phone no :"
 																				/>
 																			</div>
 																		</div>
