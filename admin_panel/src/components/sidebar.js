@@ -72,7 +72,17 @@ export default function Sidebar({ manuClass }) {
               <img src={logoLight} height="22" alt="" />
             </span>
           </Link>
+          <img
+              src={logoDark}
+              height="22"
+              className="logo-light-mode"
+              alt=""
+            />
+            
         </div>
+       
+            
+         
 
         <ul className="sidebar-menu">
           <li className={`${manu === "index" || "" ? "active" : ""} ms-0`}>

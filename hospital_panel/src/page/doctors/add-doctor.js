@@ -379,7 +379,7 @@ export default function AddDoctor() {
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Education :"
+                        placeholder="Medical License :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -400,7 +400,7 @@ export default function AddDoctor() {
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Full Name :"
+                        placeholder="address :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
