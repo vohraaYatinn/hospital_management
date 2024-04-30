@@ -10,7 +10,7 @@ import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircl
 import Modal from 'react-bootstrap/Modal';
 import { fetchAppointmentsAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { PaginationCountList, calculateAge, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -28,7 +28,7 @@ export default function Appointment() {
     let [acceptsAppointment, setAcceptsAppointment] = useState(false);
     const [appointmentData, setAppointmentsData] = useState([]);
     const [filters, setFilters] = useState({
-
+        "date":getTodayDate()
     })
     const [paginationNumber, setPaginationNumber] = useState({
         from:0,

@@ -72,8 +72,6 @@ export default function Sidebar({ manuClass }) {
               <img src={logoLight} height="22" alt="" />
             </span>
           </Link>
-          <img src={logoLight} height="22" alt="" />
-
         </div>
 
         <ul className="sidebar-menu">
