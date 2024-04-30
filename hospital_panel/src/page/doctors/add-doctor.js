@@ -6,6 +6,7 @@ import doctor from "../../assets/images/doctors/01.jpg";
 import useAxios from "../../network/useAxios";
 import { addDoctorByHospital } from "../../urls/urls.jsx";
 import { Alert } from "antd";
+import { useRouter } from "../../hooks/use-router.js";
 
 export default function AddDoctor() {
   const [formValues, setFormValues] = useState({});
@@ -37,7 +38,8 @@ export default function AddDoctor() {
       setIsUploaded(true);
     }
   };
-
+      
+  const router = useRouter();
   const handleRemove = () => {
     setIsUploaded(false);
     console.log("Remove button clicked");
@@ -82,6 +84,33 @@ export default function AddDoctor() {
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
     } 
+    if(!values.morningTime){
+      errors.morningTime = "Morning time is required"
+    }
+    if(!values.afternoonTime){
+      errors.afternoonTime = "Afternoon time is required"
+    }
+    if(!values.eveningTime){
+      errors.eveningTime = "Evening time is required"
+    }
+    if(!values.morningSlots){
+      errors.morningSlots = "Morning slot is required"
+    }
+    if(!values.afternoonSlots){
+      errors.afternoonSlots = "Afternoon slot is required"
+    }
+    if(!values.eveningSlots){
+      errors.eveningSlots = "Evening slot is required"
+    }
+    if(!values.morningPrice){
+      errors.morningPrice = "Morning slot price is required"
+    }
+    if(!values.afternoonPrice){
+      errors.afternoonPrice = "Afternoon slot price is required"
+    }
+    if(!values.eveningPrice){
+      errors.eveningPrice = "Evening slot price is required"
+    }
     return errors;
   };
 
@@ -97,6 +126,7 @@ export default function AddDoctor() {
     console.log(doctorProfileResponse);
     console.log(doctorProfileError);
     if (doctorProfileResponse?.result == "success") {
+      router.push('/doctors')
       setMessage({
         message: doctorProfileResponse?.message,
         showMessage: true,
@@ -452,6 +482,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.morningTime && (
+                        <div className="text-danger">{errors.morningTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -470,6 +503,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                       {errors.afternoonTime && (
+                        <div className="text-danger">{errors.afternoonTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -488,6 +524,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.eveningTime && (
+                        <div className="text-danger">{errors.eveningTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -506,6 +545,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.morningSlots && (
+                        <div className="text-danger">{errors.morningSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -524,6 +566,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.afternoonSlots && (
+                        <div className="text-danger">{errors.afternoonSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -542,6 +587,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.eveningSlots && (
+                        <div className="text-danger">{errors.eveningSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -560,6 +608,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.morningPrice && (
+                        <div className="text-danger">{errors.morningPrice}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -578,6 +629,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.afternoonPrice && (
+                        <div className="text-danger">{errors.afternoonPrice}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -596,6 +650,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.eveningPrice && (
+                        <div className="text-danger">{errors.eveningPrice}</div>
+                      )}
                     </div>
                   </div>
                 </div>
