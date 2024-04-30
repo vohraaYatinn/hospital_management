@@ -95,6 +95,11 @@ export default function Doctors() {
                   <div className="card team border-0 rounded shadow overflow-hidden h-100">
                     <div className="team-img position-relative">
                       <img
+                      style={{
+                        height:"10rem",
+                        width:"100%",
+                        objectFit:"cover"
+                      }}
                         src={
                           item?.profile_picture
                             ? test_url_images + item.profile_picture

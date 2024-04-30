@@ -213,7 +213,7 @@ export default function DoctorLeave() {
                               </span>
                             ) : (
                               <span className="badge bg-soft-warning">
-                                Pending
+                                Waiting for approval
                               </span>
                             )}
                           </td>

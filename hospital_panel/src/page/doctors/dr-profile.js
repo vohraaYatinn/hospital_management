@@ -10,7 +10,7 @@ import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
 
 import {RiTimeFill, FiPhone, FiMail} from '../../assets/icons/vander'
-import { fetchHospitalDoctorsProfile, handleDelete } from "../../urls/urls";
+import { editDoctorProfile, fetchHospitalDoctorsProfile, handleDelete } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
 import { useRouter } from "../../hooks/use-router";
@@ -63,14 +63,28 @@ export default function DrProfile(){
         performActionLoading,
         performActionFetch,
       ] = useAxios();
+    const [
+        performEdttResponse,
+        performEdttError,
+        performEdttLoading,
+        performEdttFetch,
+      ] = useAxios();
     const performActionRequest = () => {
       performActionFetch(handleDelete(formValues))
+    }
+    const editDoctor = () =>{
+      performEdttFetch(editDoctorProfile({...formValues, doctor_id:id}))
     }
     useEffect(() => {
 		if (performActionResponse?.result == "success") {
 			router.push("/doctors")
 		}
 	  }, [performActionResponse]);
+    useEffect(() => {
+		if (performEdttResponse?.result == "success") {
+			router.push("/doctors")
+		}
+	  }, [performEdttResponse]);
     useEffect(() => {
         if(id){
             doctorProfileFetch(fetchHospitalDoctorsProfile({
@@ -90,18 +104,19 @@ export default function DrProfile(){
             specialization: doctorProfileResponse?.data?.specialization,
             license: doctorProfileResponse?.data?.license,
             address: doctorProfileResponse?.data?.address,
+            bio: doctorProfileResponse?.data?.bio,
 
-            morningPrice: doctorProfileResponse?.data?.morningPrice,
-            morningSlots: doctorProfileResponse?.data?.morningSlots,
-            morningTime: doctorProfileResponse?.data?.morningTime,
+            morningPrice: doctorProfileResponse?.data?.doctor_slots[0].morning_slots_price,
+            morningSlots: doctorProfileResponse?.data?.doctor_slots[0].morning_slots,
+            morningTime: doctorProfileResponse?.data?.doctor_slots[0].morning_timings,
 
-            afternoonPrice: doctorProfileResponse?.data?.afternoonPrice,
-            afternoonTime: doctorProfileResponse?.data?.afternoonTime,
-            afternoonSlots: doctorProfileResponse?.data?.afternoonSlots,
+            afternoonPrice: doctorProfileResponse?.data?.doctor_slots[0].afternoon_slots_price,
+            afternoonTime: doctorProfileResponse?.data?.doctor_slots[0].afternoon_timings,
+            afternoonSlots: doctorProfileResponse?.data?.doctor_slots[0].afternoon_slots,
 
-            eveningPrice: doctorProfileResponse?.data?.eveningPrice,
-            eveningSlots: doctorProfileResponse?.data?.eveningSlots,
-            eveningTime: doctorProfileResponse?.data?.eveningTime,
+            eveningPrice: doctorProfileResponse?.data?.doctor_slots[0].evening_slots_price,
+            eveningSlots: doctorProfileResponse?.data?.doctor_slots[0].evening_slots,
+            eveningTime: doctorProfileResponse?.data?.doctor_slots[0].evening_timings,
         })
       }
     }, [doctorProfileResponse]);
@@ -133,11 +148,11 @@ export default function DrProfile(){
         gutter: 16,
       }
       
-      useEffect(()=>{
-        if(formValues?.action == "active"){
-            performActionRequest()
-        }
-      },[formValues])
+      // useEffect(()=>{
+      //   if(formValues?.action == "active"){
+      //       performActionRequest()
+      //   }
+      // },[formValues])
 
 
 
@@ -179,9 +194,9 @@ export default function DrProfile(){
         if (!values.fullName) {
           errors.fullName = "Fullname is required!";
         }
-        if (!values.license) {
-          errors.license = "Medical license is required!";
-        }
+        // if (!values.license) {
+        //   errors.license = "Medical license is required!";
+        // }
         if (!values.experience) {
           errors.experience = "Experience is required!";
         }
@@ -456,20 +471,7 @@ export default function DrProfile(){
           </div>
 
           <div className="row">
-            {message?.showMessage && (
-              <Alert
-                style={{ marginTop: "1rem" }}
-                message={message?.message}
-                type={message?.isError ? "error" : "success"}
-                closable
-                onClose={() => {
-                  setMessage({
-                    message: "",
-                    showMessage: false,
-                  });
-                }}
-              />
-            )}
+          
             <div className="col-lg-12 mt-4">
               <div className="card border-0 p-4 rounded shadow">
                 <div className="row align-items-center">
@@ -693,7 +695,7 @@ export default function DrProfile(){
                       )}
                     </div>
                   </div>
-                  <div className="col-md-12">
+                  {/* <div className="col-md-12">
                     <div className="mb-3">
                       <label className="form-label">Medical License</label>
                       <input
@@ -714,7 +716,7 @@ export default function DrProfile(){
                         <div className="text-danger">{errors.license}</div>
                       )}
                     </div>
-                  </div>
+                  </div> */}
                   <div className="col-md-12">
                     <div className="mb-3">
                       <label className="form-label">address</label>
@@ -936,7 +938,7 @@ export default function DrProfile(){
                   </div>
                 </div>
 
-                <button className="btn btn-primary" onClick={submitValues}>
+                <button className="btn btn-primary" onClick={editDoctor}>
                   Edit Doctor Profile
                 </button>
               </div>

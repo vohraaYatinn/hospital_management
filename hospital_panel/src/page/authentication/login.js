@@ -13,7 +13,7 @@ import { useRouter } from "../../hooks/use-router";
 import { useDispatch } from "react-redux";
 import useAxios from "../../network/useAxios";
 import { loginHospitalAdmin } from "../../../src/urls/urls";
-import { updateToken } from "../../redux/reducers/functionalities.reducer";
+import { updateHospitalDetails, updateToken } from "../../redux/reducers/functionalities.reducer";
 import { Alert } from "antd";
 
 export default function Login() {
@@ -47,6 +47,10 @@ export default function Login() {
     if (authDetailsResponse?.result == "success") {
       localStorage.setItem("storedToken", authDetailsResponse?.token);
       dispatch(updateToken(authDetailsResponse?.token));
+      dispatch(updateHospitalDetails(authDetailsResponse?.hospital));
+      localStorage.setItem("hospitalLogo", authDetailsResponse?.hospital);
+
+      
       router.push("/hospital-dashboard");
     } else if (authDetailsResponse?.result == "failure") {
       setMessage({

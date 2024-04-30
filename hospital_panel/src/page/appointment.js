@@ -13,9 +13,9 @@ import {
 } from "../assets/icons/vander";
 
 import Modal from "react-bootstrap/Modal";
-import { fetchAppointmentsHospital } from "../urls/urls";
+import { CancelAppointmentHospital, fetchAppointmentsHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { PaginationCountList, calculateAge, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -24,24 +24,37 @@ import DateSearchComponent from "../common-components/DateSearch";
 import AppointmentSlots from "../common-components/SlotsSearch";
 import StatusSearch from "../common-components/StatusSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
+import { Alert } from "antd";
+
 
 export default function Appointment() {
   let [show, setShow] = useState(false);
   let [showDetail, setShowDetail] = useState(false);
   let [acceptsAppointment, setAcceptsAppointment] = useState(false);
   const [appointmentData, setAppointmentsData] = useState([]);
+  const [selectedAppointment, setSelectedAppointment]= useState()
   let [cancle, setCancle] = useState(false);
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    date: getTodayDate()
+  });
   const [paginationNumber, setPaginationNumber] = useState({
     from:0,
     to:10,
     currentTab:1
 })
+
+
   const [
     appointmentsResponse,
     appointmentsError,
     appointmentsLoading,
     appointmentsFetch,
+  ] = useAxios();
+  const [
+    appointmentsCancelResponse,
+    appointmentsCancelError,
+    appointmentsCancelLoading,
+    appointmentsCancelFetch,
   ] = useAxios();
   const searchStatusConstants = [
     {
@@ -61,8 +74,16 @@ export default function Appointment() {
       name: "Canceled",
     },
   ];
+  const [message, setMessage] = useState({
+    message: "",
+    showMessage: "",
+    type: "error",
+  });
   const fetchAppointmentsData = () => {
     appointmentsFetch(fetchAppointmentsHospital(filters));
+  };
+  const cancelGivenAppointment = () => {
+    appointmentsCancelFetch(CancelAppointmentHospital({appointmentId:selectedAppointment}));
   };
   useEffect(() => {
     fetchAppointmentsData();
@@ -75,6 +96,37 @@ export default function Appointment() {
       setAppointmentsData(appointmentsResponse?.data);
     }
   }, [appointmentsResponse]);
+  useEffect(() => {
+    if (
+      appointmentsCancelResponse?.result == "success"
+    ) {
+      fetchAppointmentsData()
+
+      setMessage({
+        message: appointmentsCancelResponse?.message,
+        showMessage: true,
+        type: "success",
+      });
+
+      setCancle(!cancle)
+    }
+  }, [appointmentsCancelResponse]);
+  useEffect(() => {
+    if(appointmentsCancelError){
+      setMessage({
+        message: appointmentsCancelError?.response?.data?.message,
+        showMessage: true,
+        type: "error",
+      });
+    }
+    
+  }, [appointmentsCancelError]);
+  // useEffect(() => {
+  //   setFilters((prevFilters) => ({
+  //     ...prevFilters,
+  //     date: getTodayDate(),
+  //   }));
+  // }, []); 
   return (
     <>
       <Wrapper>
@@ -94,7 +146,20 @@ export default function Appointment() {
                   </ul>
                 </nav>
               </div>
-
+              {message?.showMessage && (
+                      <Alert
+                        style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                        message={message?.message}
+                        type={message?.type}
+                        closable
+                        onClose={() => {
+                          setMessage({
+                            message: "",
+                            showMessage: false,
+                          });
+                        }}
+                      />
+                    )}
               <div className="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
                 <div className="justify-content-md-end">
                   <form>
@@ -369,7 +434,7 @@ export default function Appointment() {
                           className="border-bottom p-3"
                           style={{ minWidth: "50px" }}
                         >
-                          #
+                          Slot Number
                         </th>
                         <th
                           className="border-bottom p-3"
@@ -403,7 +468,7 @@ export default function Appointment() {
                       {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                         return (
                           <tr key={index}>
-                            <th className="p-3">{item.id}</th>
+                            <th className="p-3">{item.appointment_slot}</th>
                             <td className="p-3">
                               <Link to="#" className="text-dark">
                                 <div className="d-flex align-items-center">
@@ -442,15 +507,18 @@ export default function Appointment() {
                             </td>
                             <td className="p-3">{item.status}</td>
                             <td className="text-end p-3">
-                              {/* <Link to="#" className="btn btn-icon btn-pills btn-soft-primary" onClick={() =>setShowDetail(!showDetail)}><FiEye /></Link>
-                                                        <Link to="#" className="btn btn-icon btn-pills btn-soft-success mx-1" onClick={() =>setAcceptsAppointment(!acceptsAppointment)}><MdOutlineCheckCircleOutline /></Link> */}
+                            {item.status == "pending" &&
+                              
                               <Link
                                 to="#"
                                 className="btn btn-icon btn-pills btn-soft-danger"
-                                onClick={() => setCancle(!cancle)}
+                                onClick={() => {
+                                  setSelectedAppointment(item.id)
+                                  setCancle(!cancle)
+                                }}
                               >
                                 <AiOutlineCloseCircle />
-                              </Link>
+                              </Link>}
                             </td>
                           </tr>
                         );
@@ -587,11 +655,12 @@ export default function Appointment() {
                 <div className="mt-4">
                   <h4>Cancel Appointment</h4>
                   <p className="para-desc mx-auto text-muted mb-0">
-                    Great doctor if you need your family member to get immediate
-                    assistance, emergency treatment.
+                    Are you sure , you want to cancel the given appointment 
                   </p>
                   <div className="mt-4">
-                    <Link to="#" className="btn btn-soft-danger">
+                    <Link onClick={()=>{
+                      cancelGivenAppointment()
+                    }} className="btn btn-soft-danger">
                       Cancel
                     </Link>
                   </div>
