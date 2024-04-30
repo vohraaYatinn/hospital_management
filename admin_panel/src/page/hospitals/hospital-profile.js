@@ -28,6 +28,7 @@ import { fetchHospitalProfile, handleDelete } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
 import { useRouter } from "../../hooks/use-router";
+import { designStarsReviews } from "../../utils/commonFunctions";
 
 export default function HospitalProfile() {
 	const router = useRouter();
@@ -53,6 +54,7 @@ const performActionRequest = () => {
   performActionFetch(handleDelete(formValues))
 }
 	const [hospitalData, setHospitalData] = useState([])
+	const [reviewsData, setReviews] = useState([])
 	const [
 		hospitalsResponse,
 		hospitalsError,
@@ -68,7 +70,7 @@ const performActionRequest = () => {
 	  useEffect(() => {
 		if (hospitalsResponse?.result == "success" && hospitalsResponse?.data) {
 		  setHospitalData(hospitalsResponse?.data);
-		  console.log(hospitalsResponse.data)
+		  setReviews(hospitalsResponse?.reviews)
 		  setFormValues({
 			hospital_name: hospitalsResponse?.data?.name,
 			address: hospitalsResponse?.data?.address,
@@ -287,21 +289,22 @@ const performActionRequest = () => {
 									
 										{activeIndex === 4 ? (
 											<div className="tab-pane fade show active">
-												<h5 className="mb-1">Client Reviews:</h5>
+												<h5 className="mb-1">Client Reviews</h5>
 												<div className="row row-cols-md-2 row-cols-lg-4">
-													{clientReview.map((item, index) => {
+													{reviewsData.map((item, index) => {
 														return (
 															<div className="col mt-4" key={index}>
 																<div className="card team border-0 rounded shadow overflow-hidden h-100">
 																	<div className="card-body content text-center">
 																		<div className="title text-dark h5 d-block mb-0">
-																			{item.name}
+																			{designStarsReviews(item.reviews_star)}
+																			
 																		</div>
 																		<small className="text-muted speciality">
-																			{item.title}
+																			{item?.doctor.full_name}
 																		</small>
 																		<p className="text-muted speciality flex-grow-1 mt-2">
-																			{item.desc}
+																			{item.comment}
 																		</p>
 																	</div>
 																</div>

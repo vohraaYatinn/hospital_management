@@ -30,7 +30,8 @@ export class Urls {
     static FETCH_HOSPITAL_ADMIN = Urls.MPHRMS_API_PREFIX + 'admin/fetch-hospital-admin/';
     static ADD_HOSPITAL_ADMIN = Urls.MPHRMS_API_PREFIX + 'admin/add-hospital-admin-user/';
     static FETCH_ADMIN_DASHBOARD = Urls.MPHRMS_API_PREFIX + 'admin/fetch-dashboard-details-admin/';
-
-
+    static DELETE_HOSPITAL_ADMIN_BY_UJUR = Urls.MPHRMS_API_PREFIX + 'admin/delete-hospital-admin-by-ujur/';
+    static DELETE_PATIENT_ADMIN_BY_UJUR = Urls.MPHRMS_API_PREFIX + 'admin/delete-patient-admin-by-ujur/';
+    static CANCEL_APPOINTMENTS_ADMIN_BY_UJUR = Urls.MPHRMS_API_PREFIX + 'admin/cancel-appointment-admin-by-ujur/';
 
 }

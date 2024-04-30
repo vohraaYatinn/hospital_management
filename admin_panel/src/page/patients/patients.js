@@ -6,7 +6,7 @@ import doctor from '../../assets/images/doctors/01.jpg'
 import Wrapper from "../../components/wrapper";
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
-import { fetchPatientsAdmin } from "../../urls/urls";
+import { deletePatientAdminByUjur, fetchPatientsAdmin } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { PaginationCountList, calculateAge, handlePagination } from "../../utils/commonFunctions";
 import moment from "moment";
@@ -14,13 +14,19 @@ import PatientName from "../../common-components/PatientName";
 import DoctorSearch from "../../common-components/DoctorsSearch";
 import HospitalNameSearch from "../../common-components/HospitalName";
 import DepartmentSearch from "../../common-components/DepartmentSearch";
-
+import {
+    LiaTimesCircleSolid,
+    AiOutlineCloseCircle
+  } from "../../assets/icons/vander";
+  import { Alert } from "antd";
 
 export default function Patients(){
     let [viewProfile, setViewProfile] = useState(false)
     let [editProfile, setEditProfile] = useState(false)
     const [filters, setFilters] = useState({
     })
+    let [selectedAdmin, setSelectedAdmin] = useState()
+    let [cancle, setCancle] = useState(false);
     const [patientData, setPatientsData] = useState([]);
     const [
       patientListResponse,
@@ -28,6 +34,15 @@ export default function Patients(){
       patientListLoading,
       patientListFetch,
     ] = useAxios();
+    const [
+        actionAdminListResponse,
+        actionAdminListError,
+        actionAdminListLoading,
+        actionAdminListFetch,
+      ] = useAxios();
+      const deleteGivenAdmin = () => {
+        actionAdminListFetch(deletePatientAdminByUjur({adminId:selectedAdmin}))
+    }
     useEffect(()=>{
         patientListFetch(fetchPatientsAdmin(filters))
     },[filters])
@@ -36,6 +51,22 @@ export default function Patients(){
             setPatientsData(patientListResponse?.data)
         }
     },[patientListResponse])
+    const [message, setMessage] = useState({
+        message: "",
+        showMessage: false,
+        type: "error",
+      });
+    useEffect(()=>{
+        if(actionAdminListResponse?.result == "success"){
+            setMessage({
+                message: actionAdminListResponse?.message,
+                showMessage: true,
+                type: "success",
+              });
+            setCancle(!cancle)
+            patientListFetch(fetchPatientsAdmin(filters))
+        }
+    },[actionAdminListResponse])
     const [paginationNumber, setPaginationNumber] = useState({
         from:0,
         to:10,
@@ -55,7 +86,20 @@ export default function Patients(){
                             </ul>
                         </nav>
                     </div>
-                    
+                    {message?.showMessage && (
+                      <Alert
+                        style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                        message={message?.message}
+                        type={message?.type}
+                        closable
+                        onClose={() => {
+                          setMessage({
+                            message: "",
+                            showMessage: false,
+                          });
+                        }}
+                      />
+                    )}
                     <div className="row">
                     <div className="row" style={{ marginTop: "1rem" }}>
                                 <div className="col-sm-6 col-lg-3">
@@ -128,7 +172,18 @@ export default function Patients(){
                                                     <td className="p-3">{item.blood_group}</td>
                                                     <td className="p-3">{item.weight}</td>
                                                     <td className="p-3">{moment(item.created_at).format('YYYY-MM-DD')}</td>
-
+                                                    <td className="p-3">{
+                                                           <Link
+                                                           to="#"
+                                                           className="btn btn-icon btn-pills btn-soft-danger"
+                                                           onClick={() => {
+                                                            setSelectedAdmin(item.id)
+                                                             setCancle(!cancle)
+                                                           }}
+                                                         >
+                                                           <AiOutlineCloseCircle />
+                                                         </Link>
+                                                    }</td>
                                                 </tr>
                                             )
                                         })}
@@ -265,6 +320,40 @@ export default function Patients(){
                     </div>
                 </div>
             </div>
+            <Modal
+          show={cancle}
+          onHide={() => setCancle(!cancle)}
+          animation={false}
+          centered
+        >
+          <Modal.Body>
+            <div className="modal-body py-5">
+              <div className="text-center">
+                <div
+                  className="icon d-flex align-items-center justify-content-center bg-soft-danger rounded-circle mx-auto"
+                  style={{ height: "95px", width: "95px" }}
+                >
+                  <span className="mb-0">
+                    <LiaTimesCircleSolid className="h1" />
+                  </span>
+                </div>
+                <div className="mt-4">
+                  <h4>Delete Patient</h4>
+                  <p className="para-desc mx-auto text-muted mb-0">
+                    Are you sure , you want to delete the selected patient 
+                  </p>
+                  <div className="mt-4">
+                    <Link onClick={()=>{
+                      deleteGivenAdmin()
+                    }} className="btn btn-soft-danger">
+                      Delete
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </Modal.Body>
+        </Modal>
         </Wrapper>
     )
 }

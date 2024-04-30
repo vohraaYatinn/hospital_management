@@ -93,3 +93,12 @@ export const fetchAllReviews = (payload_data) => {
 export const fetchAdminDashboard = (payload_data) => {
   return project.get(Urls.FETCH_ADMIN_DASHBOARD, payload_data);
 };
+export const deleteHospitalAdminByUjur = (payload_data) => {
+  return project.post(Urls.DELETE_HOSPITAL_ADMIN_BY_UJUR, payload_data);
+};
+export const deletePatientAdminByUjur = (payload_data) => {
+  return project.post(Urls.DELETE_PATIENT_ADMIN_BY_UJUR, payload_data);
+};
+export const CancelAppointmentAdmin = (payload_data) => {
+  return project.post(Urls.CANCEL_APPOINTMENTS_ADMIN_BY_UJUR, payload_data);
+};

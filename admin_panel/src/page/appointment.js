@@ -8,7 +8,7 @@ import Wrapper from "../components/wrapper";
 import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircleSolid } from '../assets/icons/vander'
 
 import Modal from 'react-bootstrap/Modal';
-import { fetchAppointmentsAllHospital } from "../urls/urls";
+import { CancelAppointmentAdmin, fetchAppointmentsAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
@@ -20,6 +20,7 @@ import DoctorSearch from "../common-components/DoctorsSearch";
 import StatusSearch from "../common-components/StatusSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import HospitalNameSearch from "../common-components/HospitalName";
+import { Alert } from "antd";
 
 
 export default function Appointment() {
@@ -27,6 +28,8 @@ export default function Appointment() {
     let [showDetail, setShowDetail] = useState(false);
     let [acceptsAppointment, setAcceptsAppointment] = useState(false);
     const [appointmentData, setAppointmentsData] = useState([]);
+    const [selectedAppointment, setSelectedAppointment]= useState()
+
     const [filters, setFilters] = useState({
         "date":getTodayDate()
     })
@@ -35,6 +38,12 @@ export default function Appointment() {
         to:10,
         currentTab:1
     })
+    const [
+        appointmentsCancelResponse,
+        appointmentsCancelError,
+        appointmentsCancelLoading,
+        appointmentsCancelFetch,
+      ] = useAxios();
     const searchStatusConstants = [
         {
             value: "completed",
@@ -54,6 +63,9 @@ export default function Appointment() {
         },
 
     ]
+    const cancelGivenAppointment = () => {
+        appointmentsCancelFetch(CancelAppointmentAdmin({appointmentId:selectedAppointment}));
+      };
     let [cancle, setCancle] = useState(false);
     const [
         appointmentsResponse,
@@ -61,6 +73,11 @@ export default function Appointment() {
         appointmentsLoading,
         appointmentsFetch,
     ] = useAxios();
+    const [message, setMessage] = useState({
+        message: "",
+        showMessage: "",
+        type: "success",
+      });
     const fetchAppointmentsData = () => {
         appointmentsFetch(fetchAppointmentsAllHospital(filters))
     }
@@ -72,7 +89,21 @@ export default function Appointment() {
             setAppointmentsData(appointmentsResponse?.data)
         }
     }, [appointmentsResponse])
-
+    useEffect(() => {
+        if (
+          appointmentsCancelResponse?.result == "success"
+        ) {
+          fetchAppointmentsData()
+    
+          setMessage({
+            message: appointmentsCancelResponse?.message,
+            showMessage: true,
+            type: "success",
+          });
+    
+          setCancle(!cancle)
+        }
+      }, [appointmentsCancelResponse]);
     return (
         <>
             <Wrapper>
@@ -88,8 +119,9 @@ export default function Appointment() {
                                     </ul>
                                 </nav>
                             </div>
-
+                  
                             <div className="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
+                                
                                 <div className="justify-content-md-end">
                                     <form>
                                         <div className="row justify-content-between align-items-center">
@@ -199,7 +231,20 @@ export default function Appointment() {
                                 </div>
                             </div>
                         </div>
-
+                        {message?.showMessage && (
+                      <Alert
+                        style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                        message={message?.message}
+                        type={message?.type}
+                        closable
+                        onClose={() => {
+                          setMessage({
+                            message: "",
+                            showMessage: false,
+                          });
+                        }}
+                      />
+                    )}
                         <div className="row">
                             <div className="row" style={{ marginTop: "1rem" }}>
                                 <div className="col-sm-6 col-lg-3">
@@ -292,7 +337,14 @@ export default function Appointment() {
                                                         <td className="text-end p-3">
                                                             {/* <Link to="#" className="btn btn-icon btn-pills btn-soft-primary" onClick={() =>setShowDetail(!showDetail)}><FiEye /></Link>
                                                         <Link to="#" className="btn btn-icon btn-pills btn-soft-success mx-1" onClick={() =>setAcceptsAppointment(!acceptsAppointment)}><MdOutlineCheckCircleOutline /></Link> */}
-                                                            <Link to="#" className="btn btn-icon btn-pills btn-soft-danger" onClick={() => setCancle(!cancle)}><AiOutlineCloseCircle /></Link>
+                                                            <Link to="#" className="btn btn-icon btn-pills btn-soft-danger" onClick={() =>
+                                                                {
+                                                                    setSelectedAppointment(item.id)
+                                                                    setCancle(!cancle)
+                                                                }
+                                                               
+                                                                
+                                                                }><AiOutlineCloseCircle /></Link>
                                                         </td>
                                                     </tr>
                                                 )
@@ -393,9 +445,11 @@ export default function Appointment() {
                                 </div>
                                 <div className="mt-4">
                                     <h4>Cancel Appointment</h4>
-                                    <p className="para-desc mx-auto text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment.</p>
+                                    <p className="para-desc mx-auto text-muted mb-0">Are you sure , you want to cancel the given appointment.</p>
                                     <div className="mt-4">
-                                        <Link to="#" className="btn btn-soft-danger">Cancel</Link>
+                                        <Link to="#" onClick={()=>{
+                      cancelGivenAppointment()
+                    }} className="btn btn-soft-danger">Cancel</Link>
                                     </div>
                                 </div>
                             </div>
