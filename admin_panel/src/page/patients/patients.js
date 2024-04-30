@@ -75,7 +75,7 @@ export default function Patients(){
                                     </div>
                                     <div className="row" style={{ marginTop: "1rem" }}>
 
-                                    <div className="col-sm-6 col-lg-1">
+                                    <div className="col-sm-6 col-lg-3">
                                        <button
                                         className="form-control btn-check-reset"
                                         onClick={()=>{

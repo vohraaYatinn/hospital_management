@@ -6,8 +6,11 @@ import doctor from "../../assets/images/doctors/01.jpg";
 import useAxios from "../../network/useAxios";
 import { addDoctorByHospital } from "../../urls/urls.jsx";
 import { Alert } from "antd";
+import { useRouter } from "../../hooks/use-router.js";
 
 export default function AddDoctor() {
+  const router = useRouter();
+
   const [formValues, setFormValues] = useState({});
   const [isUploaded, setIsUploaded] = useState(false);
   const [errors, setErrors] = useState({});
@@ -94,9 +97,8 @@ export default function AddDoctor() {
     }
   };
   useEffect(() => {
-    console.log(doctorProfileResponse);
-    console.log(doctorProfileError);
     if (doctorProfileResponse?.result == "success") {
+      router.push("/doctors")
       setMessage({
         message: doctorProfileResponse?.message,
         showMessage: true,
