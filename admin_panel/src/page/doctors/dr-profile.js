@@ -3,7 +3,6 @@ import { Link, useParams } from "react-router-dom";
 
 import doctor1 from "../../assets/images/client/01.jpg";
 import Wrapper from "../../components/wrapper";
-import { Modal } from "antd";
 import {
   clientReview,
   companyLogo,
@@ -11,25 +10,46 @@ import {
   drTimetable,
   experienceData,
 } from "../../data/data";
+import Modal from "react-bootstrap/Modal";
 
 import TinySlider from "tiny-slider-react";
 import "tiny-slider/dist/tiny-slider.css";
 
 import { RiTimeFill, FiPhone, FiMail } from "../../assets/icons/vander";
-import { fetchHospitalDoctorsProfile } from "../../urls/urls";
+import { addDoctorByHospital, editDoctorProfile, fetchHospitalDoctorsProfile, handleDelete } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
 import { designStarsReviews } from "../../utils/commonFunctions";
+import { useRouter } from "../../hooks/use-router";
 
 export default function DrProfile() {
   let params = useParams();
+  const router = useRouter();
+
   let id = params.id;
   let [editMode, setEditMode] = useState(false);
   let [morningTiming, setMorningTiming] = useState("");
   let [morningPrice, setMorningPrice] = useState("");
   let data = doctorData.find((doctor) => doctor.id === parseInt(id));
   let [activeIndex, setActiveIndex] = useState(1);
+  const [isUploaded, setIsUploaded] = useState(false);
+  const [
+    performEdttResponse,
+    performEdttError,
+    performEdttLoading,
+    performEdttFetch,
+  ] = useAxios();
+  const [
+    performActionResponse,
+    performActionError,
+    performActionLoading,
+    performActionFetch,
+  ] = useAxios();
+  const fileInputRef = React.useRef(null);
 
+  const openFile = () => {
+    fileInputRef.current.click();
+  };
   // Function to handle edit button click
   const handleEditClick = () => {
     // Set initial values for edit fields
@@ -49,7 +69,31 @@ export default function DrProfile() {
     // Reset edit mode
     setEditMode(false);
   };
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log("Selected file:", file);
+      setFormValues((prev) => ({
+        ...prev,
+        profilePhoto: file,
+      }));
+      setIsUploaded(true);
+    }
+  };    
+  useEffect(() => {
+		if (performActionResponse?.result == "success") {
+			router.push("/doctors")
+		}
+	  }, [performActionResponse]);
 
+  const handleRemove = () => {
+    setIsUploaded(false);
+    console.log("Remove button clicked");
+    setFormValues((prev) => ({
+      ...prev,
+      profilePhoto: "",
+    }));
+  };
   const [doctorsData, setDoctorsData] = useState([]);
   const [
     doctorProfileResponse,
@@ -72,8 +116,62 @@ export default function DrProfile() {
       doctorProfileResponse?.data
     ) {
       setDoctorsData(doctorProfileResponse?.data);
+      setFormValues({
+        fullName: doctorProfileResponse?.data?.full_name,
+        email: doctorProfileResponse?.data?.email,
+        phoneNumber: doctorProfileResponse?.data?.user?.phone,
+        experience: doctorProfileResponse?.data?.experience,
+        education: doctorProfileResponse?.data?.education,
+        specialization: doctorProfileResponse?.data?.specialization,
+        license: doctorProfileResponse?.data?.license,
+        address: doctorProfileResponse?.data?.address,
+        bio: doctorProfileResponse?.data?.bio,
+
+        morningPrice: doctorProfileResponse?.data?.doctor_slots[0].morning_slots_price,
+        morningSlots: doctorProfileResponse?.data?.doctor_slots[0].morning_slots,
+        morningTime: doctorProfileResponse?.data?.doctor_slots[0].morning_timings,
+
+        afternoonPrice: doctorProfileResponse?.data?.doctor_slots[0].afternoon_slots_price,
+        afternoonTime: doctorProfileResponse?.data?.doctor_slots[0].afternoon_timings,
+        afternoonSlots: doctorProfileResponse?.data?.doctor_slots[0].afternoon_slots,
+
+        eveningPrice: doctorProfileResponse?.data?.doctor_slots[0].evening_slots_price,
+        eveningSlots: doctorProfileResponse?.data?.doctor_slots[0].evening_slots,
+        eveningTime: doctorProfileResponse?.data?.doctor_slots[0].evening_timings,
+    })
     }
   }, [doctorProfileResponse]);
+
+  const [formValuesForDelete, setFormValuesForDelete] = useState({
+
+  })
+  const performActionRequest = () => {
+    performActionFetch(handleDelete(formValuesForDelete))
+  }
+  const [formValues, setFormValues] = useState({
+    fullName: '',
+    email: '',
+    phoneNumber: '',
+    department: '',
+    gender: '',
+    experience: '',
+    education: '',
+    specialization: '',
+    license: '',
+    address: '',
+    bio: "",
+    morningTime: "",
+    morningPrice: "",
+    morningSlots: "",
+    afternoonTime: "",
+    afternoonPrice: "",
+    afternoonSlots: "",
+    eveningPrice: "",
+    eveningTime: "",
+    eveningSlots: "",
+  });
+  const [errors, setErrors] = useState({});
+  let [show, setShow] = useState(false);
 
   let settings2 = {
     container: ".client-review-slider",
@@ -89,10 +187,89 @@ export default function DrProfile() {
     speed: 400,
     gutter: 16,
   };
+  const editDoctor = () =>{
+    performEdttFetch(editDoctorProfile({...formValues, doctor_id:id}))
+  }
 
+        const submitValues = () => {
+        const errors = validate(formValues);
+        if (Object.keys(errors).length !== 0) {
+          setErrors(errors);
+        } else {
+          doctorProfileFetch(addDoctorByHospital(formValues));
+        }
+      };
+      const validate = (values) => {
+        const errors = {};
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    
+        if (!values.fullName) {
+          errors.fullName = "Fullname is required!";
+        }
+        // if (!values.license) {
+        //   errors.license = "Medical license is required!";
+        // }
+        if (!values.experience) {
+          errors.experience = "Experience is required!";
+        }
+        if (!values.bio) {
+          errors.bio = "Bio is required!";
+        }
+        if (!values.specialization) {
+          errors.specialization = "Specialization is required!";
+        }
+        if (!values.education) {
+          errors.education = "Education is required!";
+        }
+        if (!values.department) {
+          errors.department = "Department is required!";
+        }
+        if (!values.address) {
+          errors.address = "Address is required!";
+        }
+        if (!values.email) {
+          errors.email = "Email is required!";
+        } else if (!regex.test(values.email)) {
+          errors.email = "This is not a valid email format!";
+        }
+        if (!values.phoneNumber) {
+          errors.phoneNumber = "Phone number is required";
+        } else if (values.phoneNumber.length < 11) {
+          errors.phoneNumber = "Phone number is not valid";
+        }
+        return errors;
+      }
+      useEffect(() => {
+        if (performEdttResponse?.result == "success") {
+          router.push("/doctors")
+        }
+        }, [performEdttResponse]);
   return (
     <Wrapper>
       <div className="container-fluid">
+      <Modal show={show} onHide={() =>setShow(false)} centered>
+                                        <Modal.Header closeButton>
+                                            <h5 className="modal-title" id="LoginForm-title">Are You Sure To {formValues?.action}?</h5>
+                                        </Modal.Header>
+                                        <Modal.Body>
+                                            <div className="p-3 rounded box-shadow">
+                                                <p className="text-muted mb-0">
+                                                    Are you sure to perform action on this request?
+                                                    </p>                                                        
+                                            </div>
+                                        </Modal.Body>
+                                        <Modal.Footer>
+                                            <button type="button" className="btn btn-secondary" onClick={() =>setShow(false)}>Close</button>
+                                            <button type="button" className="btn btn-primary" onClick={() =>{
+                                            performActionRequest()
+                                            setShow(false)
+                                          }
+                                          
+                                          }
+                                            
+                                            >Confirm</button>
+                                        </Modal.Footer>
+                                    </Modal>
         <div className="layout-specing">
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Doctor Profile & Settings</h5>
@@ -243,13 +420,7 @@ export default function DrProfile() {
                       <div className="tab-pane fade show active">
                         <div className="row">
                           <div className="col-lg-6 col-md-12">
-                            <button
-                              type="button"
-                              className="btn btn-primary w-10 h-20"
-                              onClick={handleEditClick} // Changed "class" to "className"
-                            >
-                              Edit
-                            </button>
+                        
 
                             {editMode ? (
                               <div className="modal">
@@ -518,78 +689,578 @@ export default function DrProfile() {
                     ) : (
                       ""
                     )}} */}
-                    {activeIndex === 5 ? (
-                      <div className="tab-pane fade show active">
-                        <h5 className="mb-1">Settings</h5>
-                        <div className="row">
-                          <div className="col-lg-6">
-                            <div className="rounded shadow mt-4">
-                              <div className="p-4 border-bottom">
-                                <h6 className="mb-0">
-                                  Account Notifications :
-                                </h6>
-                              </div>
+                   {activeIndex === 5 ? 
+                                        <>
+    <h5 className="mb-1">Settings</h5>
 
-                              <div className="p-4">
-                                <form>
-                                  <div className="row">
-                                    <div className="col-lg-12">
-                                      <div className="mb-3">
-                                        <label className="form-label">
-                                          Old password :
-                                        </label>
-                                        <input
-                                          type="password"
-                                          className="form-control"
-                                          placeholder="Old password"
-                                          required=""
-                                        />
-                                      </div>
-                                    </div>
+                                                
+      <div className="container-fluid">
+        <div className="">
+          <div className="d-md-flex justify-content-between">
 
-                                    <div className="col-lg-12">
-                                      <div className="mb-3">
-                                        <label className="form-label">
-                                          New password :
-                                        </label>
-                                        <input
-                                          type="password"
-                                          className="form-control"
-                                          placeholder="New password"
-                                          required=""
-                                        />
-                                      </div>
-                                    </div>
+            <nav
+              aria-label="breadcrumb"
+              className="d-inline-block mt-4 mt-sm-0"
+            >
+              <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
+                <li className="breadcrumb-item">
+                  <Link to="/index">UJUR</Link>
+                </li>
+                <li className="breadcrumb-item">
+                  <Link to="/doctors">Doctors</Link>
+                </li>
+                <li
+                  className="breadcrumb-item active"
+                  aria-current="page"
+                  onChange={submitValues}
+                >
+                  Add Doctor
+                </li>
+              </ul>
+            </nav>
+          </div>
 
-                                    <div className="col-lg-12">
-                                      <div className="mb-3">
-                                        <label className="form-label">
-                                          Re-type New password :
-                                        </label>
-                                        <input
-                                          type="password"
-                                          className="form-control"
-                                          placeholder="Re-type New password"
-                                          required=""
-                                        />
-                                      </div>
-                                    </div>
+          <div className="row">
+          
+            <div className="col-lg-12 mt-4">
+              <div className="card border-0 p-4 rounded shadow">
+                <div className="row align-items-center">
+                  <div className="row">
+                    <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
+                      <h5 className="">Upload doctors picture</h5>
+                      <p className="text-muted mb-0">
+                        For best results, use an image at least 600px by 600px
+                        in either .jpg or .png format
+                      </p>
+                    </div>
+                    <input
+                      type="file"
+                      ref={fileInputRef}
+                      style={{ display: "none" }}
+                      onChange={handleUpload}
+                    />
 
-                                    <div className="col-lg-12 mt-2 mb-0">
-                                      <button className="btn btn-primary">
-                                        Save password
-                                      </button>
-                                    </div>
-                                  </div>
-                                </form>
-                              </div>
-                            </div>
-                          </div>
+                    <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
+                      {!isUploaded && (
+                        <button className="btn btn-primary" onClick={openFile}>
+                          Upload
+                        </button>
+                      )}
+                      {isUploaded && (
+                        <button
+                          className="btn btn-soft-primary ms-2"
+                          onClick={handleRemove}
+                        >
+                          Remove
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="row">
+                  <div className="col-md-12">
+                    <div className="mb-3">
+                      <label className="form-label">Full Name</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Full Name :"
+                        value={formValues.fullName}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            fullName: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.fullName && (
+                        <div className="text-danger">{errors.fullName}</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="mb-3">
+                      <label className="form-label">Your Email</label>
+                      <input
+                        name="email"
+                        id="email"
+                        type="email"
+                        className="form-control"
+                        placeholder="Your email :"
+                        value={formValues.email}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            email: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.email && (
+                        <div className="text-danger">{errors.email}</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="mb-3">
+                      <label className="form-label">Phone no.</label>
+                      <input
+                        name="number"
+                        id="number"
+                        type="text"
+                        className="form-control"
+                        placeholder="Phone no. :"
+                        value={formValues.phoneNumber}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            phoneNumber: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.phoneNumber && (
+                        <div className="text-danger">{errors.phoneNumber}</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="mb-3">
+                      <label className="form-label">Departments</label>
+                      <select
+                        className="form-select form-control"
+                        value={formValues.department}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            department: e.target.value,
+                          }));
+                        }}
+                      >
+                        <option value="1">Eye Care</option>
+                        <option value="2">Gynecologist</option>
+                        <option value="3">Psychotherapist</option>
+                        <option value="4">Orthopedic</option>
+                        <option value="5">Dentist</option>
+                        <option value="6">Gastrologist</option>
+                        <option value="7">Urologist</option>
+                        <option value="8">Neurologist</option>
+                      </select>
+                      {errors.department && (
+                        <div className="text-danger">{errors.department}</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="col-md-6">
+                    <div className="mb-3">
+                      <label className="form-label">Gender</label>
+                      <select
+                        className="form-select form-control"
+                        value={formValues.gender}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            gender: e.target.value,
+                          }));
+                        }}
+                      >
+                        <option defaultValue="Male">Male</option>
+                        <option defaultValue="Female">Female</option>
+                      </select>
+                      {errors.gender && (
+                        <div className="text-danger">{errors.gender}</div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="mb-3">
+                      <label className="form-label">Experience</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Experience in years :"
+                        value={formValues.experience}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            experience: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.experience && (
+                        <div className="text-danger">{errors.experience}</div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="mb-3">
+                      <label className="form-label">Education</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Education :"
+                        value={formValues.education}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            education: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.education && (
+                        <div className="text-danger">{errors.education}</div>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="mb-3">
+                      <label className="form-label">Specialization</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Specialization :"
+                        value={formValues.specialization}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            specialization: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.specialization && (
+                        <div className="text-danger">
+                          {errors.specialization}
                         </div>
-                      </div>
-                    ) : (
-                      ""
-                    )}
+                      )}
+                    </div>
+                  </div>
+                  {/* <div className="col-md-12">
+                    <div className="mb-3">
+                      <label className="form-label">Medical License</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Medical license :"
+                        value={formValues.license}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            license: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.license && (
+                        <div className="text-danger">{errors.license}</div>
+                      )}
+                    </div>
+                  </div> */}
+                  <div className="col-md-12">
+                    <div className="mb-3">
+                      <label className="form-label">address</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="address :"
+                        value={formValues.address}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            address: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.address && (
+                        <div className="text-danger">{errors.address}</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <div className="col-md-12">
+                    <div className="mb-3">
+                      <label className="form-label">Your Bio Here</label>
+                      <textarea
+                        name="comments"
+                        id="comments"
+                        rows="3"
+                        className="form-control"
+                        placeholder="Bio :"
+                        value={formValues.bio}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            bio: e.target.value,
+                          }));
+                        }}
+                      ></textarea>
+                      {errors.bio && (
+                        <div className="text-danger">{errors.bio}</div>
+                      )}
+                    </div>
+                  </div>
+
+                  <h3>Slots</h3>
+
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Morning Timings</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Morning Time :"
+                        value={formValues.morningTime}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            morningTime: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Afternoon Timings</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Afternoon Time :"
+                        value={formValues.afternoonTime}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            afternoonTime: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Evening Timings</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Evening Time :"
+                        value={formValues.eveningTime}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            eveningTime: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Morning Slots</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Morning Slots :"
+                        value={formValues.morningSlots}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            morningSlots: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Afternoon Slots</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Afternoon Slots :"
+                        value={formValues.afternoonSlots}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            afternoonSlots: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Evening Slots</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Evening Slots :"
+                        value={formValues.eveningSlots}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            eveningSlots: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Morning Price</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Morning Price :"
+                        value={formValues.morningPrice}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            morningPrice: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Afternoon Price</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Afternoon Price :"
+                        value={formValues.afternoonPrice}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            afternoonPrice: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-4">
+                    <div className="mb-3">
+                      <label className="form-label">Evening Price</label>
+                      <input
+                        name="name"
+                        id="name"
+                        type="text"
+                        className="form-control"
+                        placeholder="Evening Price :"
+                        value={formValues.eveningPrice}
+                        onChange={(e) => {
+                          setFormValues((prev) => ({
+                            ...prev,
+                            eveningPrice: e.target.value,
+                          }));
+                        }}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <button className="btn btn-primary" onClick={editDoctor}>
+                  Edit Doctor Profile
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+    <div className="tab-pane fade show active ">
+
+
+                                                <div className="row">
+
+                                                    {/* <div className="col-lg-6">
+                                                        <div className="rounded shadow mt-4">
+                                                           
+                                
+                                                            <div className="p-4">
+                                                            
+                                                                <div className="d-flex justify-content-between py-4 border-top">
+                                                                    <h6 className="mb-0 fw-normal">Doctor Is Active</h6>
+                                                                    <div className="form-check">
+                                                                        <input type="checkbox" className="form-check-input" id="customSwitch2" 
+                                                                        checked={doctorsData?.is_active}
+                                                                        onChange={(e)=>[
+                                                                            setFormValues({
+                                                                                action:"active",
+                                                                                id:doctorsData?.id,
+                                                                                type:"doctor"
+                                                                            })
+                                                                        ]}
+                                                                        />
+                                                                        <label className="form-check-label" htmlFor="customSwitch2"></label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        </div> */}
+
+                                                        
+                                                        <div className="col-lg-6">
+                                                        <div className="rounded shadow mt-4">
+                                                          
+                                
+                                                            <div className="p-4">
+                                                                <div className="p-4 border-bottom">
+                                                                    <h5 className="mb-0 text-danger"
+
+                                                                    >Delete Account :</h5>
+                                                                </div>
+
+                                                                <div className="p-4">
+                                                                    <h6 className="mb-0 fw-normal">Do you want to delete the account? Please press below "Delete" button</h6>
+                                                                    <div className="mt-4">
+                                                                        <button className="btn btn-danger"
+                                                                        onClick={()=>{
+                                                                            setFormValuesForDelete({
+                                                                                action:"delete",
+                                                                                id:doctorsData?.id,
+                                                                                type:"doctor"
+                                                                            })
+                                                                            setShow(true)
+                                                                        }}
+                                                                        >Delete Account</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div> </>: ''
+                                        }
                   </div>
                 </div>
               </div>

@@ -4,12 +4,15 @@ import Wrapper from "../../components/wrapper";
 
 import doctor from "../../assets/images/doctors/01.jpg";
 import useAxios from "../../network/useAxios";
-import { addDoctorByHospital, fetchAllHospital } from "../../urls/urls.jsx";
+import { addDoctorByAdmin, fetchAllHospital } from "../../urls/urls.jsx";
 import { Alert } from "antd";
 // import { TimePicker } from 'antd';
 import { TimePicker } from "antd";
+import { useRouter } from "../../hooks/use-router.js";
 
 export default function AddDoctor() {
+  const router = useRouter();
+
   const [formValues, setFormValues] = useState({});
   const [isUploaded, setIsUploaded] = useState(false);
   const fileInputRef = React.useRef(null);
@@ -95,10 +98,41 @@ export default function AddDoctor() {
     } else if (!regex.test(values.email)) {
       errors.email = "This is not a valid email format!";
     }
+    if(!values.profilePhoto){
+      errors.profilePhoto = "Profile Photo is required"
+    }
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
-    } else if (values.phoneNumber.length < 11) {
+    } else if (values.phoneNumber.length != 10) {
       errors.phoneNumber = "Phone number is not valid";
+    }
+    if(!values.morningTime){
+      errors.morningTime = "Morning time is required"
+    }
+   
+    if(!values.afternoonTime){
+      errors.afternoonTime = "Afternoon time is required"
+    }
+    if(!values.eveningTime){
+      errors.eveningTime = "Evening time is required"
+    }
+    if(!values.morningSlots){
+      errors.morningSlots = "Morning slot is required"
+    }
+    if(!values.afternoonSlots){
+      errors.afternoonSlots = "Afternoon slot is required"
+    }
+    if(!values.eveningSlots){
+      errors.eveningSlots = "Evening slot is required"
+    }
+    if(!values.morningPrice){
+      errors.morningPrice = "Morning slot price is required"
+    }
+    if(!values.afternoonPrice){
+      errors.afternoonPrice = "Afternoon slot price is required"
+    }
+    if(!values.eveningPrice){
+      errors.eveningPrice = "Evening slot price is required"
     }
     return errors;
   };
@@ -108,7 +142,7 @@ export default function AddDoctor() {
     if (Object.keys(errors).length !== 0) {
       setErrors(errors);
     } else {
-      doctorProfileFetch(addDoctorByHospital(formValues));
+      doctorProfileFetch(addDoctorByAdmin(formValues));
     }
   };
   const fetchAllHospitalFunc = () => {
@@ -123,6 +157,7 @@ export default function AddDoctor() {
         message: doctorProfileResponse?.message,
         showMessage: true,
       });
+      router.push('/doctors')
     }
   }, [doctorProfileResponse]);
   useEffect(() => {
@@ -134,6 +169,7 @@ export default function AddDoctor() {
       });
     }
   }, [doctorProfileError]);
+  
   return (
     <Wrapper>
       <div className="container-fluid">
@@ -184,11 +220,15 @@ export default function AddDoctor() {
                   <div className="row">
                     <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
                       <h5 className="">Upload doctors picture</h5>
+                      {errors.profilePhoto && (
+                        <div className="text-danger">{errors.profilePhoto}</div>
+                      )}
                       <p className="text-muted mb-0">
                         For best results, use an image at least 600px by 600px
                         in either .jpg or .png format
                       </p>
                     </div>
+                    
                     <input
                       type="file"
                       ref={fileInputRef}
@@ -485,16 +525,16 @@ export default function AddDoctor() {
                   <div className="col-md-4">
                     <div className="mb-3">
                       <label className="form-label">Morning Timings</label>
-                      <TimePicker.RangePicker
+                      {/* <TimePicker.RangePicker
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
                             morningTime: e.target.value,
                           }));
                         }}
-                      />
+                      /> */}
 
-                      {/* <input
+                      <input
                         name="name"
                         id="name"
                         type="text"
@@ -506,21 +546,24 @@ export default function AddDoctor() {
                             morningTime: e.target.value,
                           }));
                         }}
-                      /> */}
+                      />
+                        {errors.morningTime && (
+                        <div className="text-danger">{errors.morningTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
                       <label className="form-label">Afternoon Timings</label>
-                      <TimePicker.RangePicker
+                      {/* <TimePicker.RangePicker
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
                             afternoonTime: e.target.value,
                           }));
                         }}
-                      />
-                      {/* <input
+                      /> */}
+                      <input
                         name="name"
                         id="name"
                         type="text"
@@ -532,22 +575,25 @@ export default function AddDoctor() {
                             afternoonTime: e.target.value,
                           }));
                         }}
-                      /> */}
+                      />
+                        {errors.afternoonTime && (
+                        <div className="text-danger">{errors.afternoonTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
                       <label className="form-label">Evening Timings</label>
-                      <TimePicker.RangePicker
+                      {/* <TimePicker.RangePicker
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
                             eveningTime: e.target.value,
                           }));
                         }}
-                      />
+                      /> */}
 
-                      {/* <input
+                      <input
                         name="name"
                         id="name"
                         type="text"
@@ -559,7 +605,10 @@ export default function AddDoctor() {
                             eveningTime: e.target.value,
                           }));
                         }}
-                      /> */}
+                      />
+                        {errors.eveningTime && (
+                        <div className="text-danger">{errors.eveningTime}</div>
+                      )}
                     </div>
                   </div>
 
@@ -580,6 +629,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.morningSlots && (
+                        <div className="text-danger">{errors.morningSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -599,6 +651,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.afternoonSlots && (
+                        <div className="text-danger">{errors.afternoonSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -618,6 +673,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.eveningSlots && (
+                        <div className="text-danger">{errors.eveningSlots}</div>
+                      )}
                     </div>
                   </div>
 
@@ -691,7 +749,9 @@ export default function AddDoctor() {
                             morningPrice: e.target.value,
                           }));
                         }}
-                      />
+                      />     {errors.morningPrice && (
+                        <div className="text-danger">{errors.morningPrice}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -709,7 +769,9 @@ export default function AddDoctor() {
                             afternoonPrice: e.target.value,
                           }));
                         }}
-                      />
+                      />     {errors.afternoonPrice && (
+                        <div className="text-danger">{errors.afternoonPrice}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -727,7 +789,9 @@ export default function AddDoctor() {
                             eveningPrice: e.target.value,
                           }));
                         }}
-                      />
+                      />     {errors.afternoonSlots && (
+                        <div className="text-danger">{errors.eveningPrice}</div>
+                      )}
                     </div>
                   </div>
                 </div>

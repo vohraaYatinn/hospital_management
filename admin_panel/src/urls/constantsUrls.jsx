@@ -5,6 +5,8 @@ export class Urls {
     static FETCH_HOSPITAL_DOCTORS = Urls.MPHRMS_API_PREFIX + 'hospitals/hospital-doctors/';
     static FETCH_ALL_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'admin/all-hospitals/';
     static FETCH_HOSPITAL_DETAILS = Urls.MPHRMS_API_PREFIX + 'admin/hospital-profile/';
+    static ADD_ADMIN_DOCTOR = Urls.MPHRMS_API_PREFIX + 'admin/add-admin-doctors/';
+    static FETCH_HOSPITAL_EDIT_DETAILS = Urls.MPHRMS_API_PREFIX + 'admin/edit-hospital-profile/';
     static FETCH_HOSPITAL_DOCTORS_PROFILE = Urls.MPHRMS_API_PREFIX + 'hospitals/doctor-profile-hospital/';
     static FETCH_MAIN_ADMIN = Urls.MPHRMS_API_PREFIX + 'admin/login-main-admin/';
     static ADD_ADMIN_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'admin/add-hospital-admin/';
@@ -33,5 +35,5 @@ export class Urls {
     static DELETE_HOSPITAL_ADMIN_BY_UJUR = Urls.MPHRMS_API_PREFIX + 'admin/delete-hospital-admin-by-ujur/';
     static DELETE_PATIENT_ADMIN_BY_UJUR = Urls.MPHRMS_API_PREFIX + 'admin/delete-patient-admin-by-ujur/';
     static CANCEL_APPOINTMENTS_ADMIN_BY_UJUR = Urls.MPHRMS_API_PREFIX + 'admin/cancel-appointment-admin-by-ujur/';
-
+    static EDIT_DOCTOR_PROFILE = Urls.MPHRMS_API_PREFIX + 'admin/edit-admin-doctors/';
 }

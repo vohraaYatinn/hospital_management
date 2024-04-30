@@ -13,6 +13,7 @@ import {
 } from "../../data/data";
 
 import "tiny-slider/dist/tiny-slider.css";
+import { Alert } from "antd";
 
 import {
 	FaStar,
@@ -24,7 +25,7 @@ import {
 	FiMail,
 	FiInstagram,
 } from "../../assets/icons/vander";
-import { fetchHospitalProfile, handleDelete } from "../../urls/urls";
+import { fetchHospitalEditProfile, fetchHospitalProfile, handleDelete } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
 import { useRouter } from "../../hooks/use-router";
@@ -34,6 +35,8 @@ export default function HospitalProfile() {
 	const router = useRouter();
 	let params = useParams();
 	let id = params.id;
+	const [isUploaded, setIsUploaded] = useState(false);
+
 	const [formValues, setFormValues] = useState({
 		hospital_name: "",
 		email: "",
@@ -54,6 +57,8 @@ const performActionRequest = () => {
   performActionFetch(handleDelete(formValues))
 }
 	const [hospitalData, setHospitalData] = useState([])
+	const fileInputRef = React.useRef(null);
+
 	const [reviewsData, setReviews] = useState([])
 	const [
 		hospitalsResponse,
@@ -61,12 +66,55 @@ const performActionRequest = () => {
 		hospitalsLoading,
 		hospitalsFetch,
 	  ] = useAxios();
+	const [
+		hospitalsEditResponse,
+		hospitalsEditError,
+		hospitalsEditLoading,
+		hospitalsEditFetch,
+	  ] = useAxios();
+	  
+  useEffect(() => {
+    if (hospitalsEditResponse?.result == "success") {
+      setMessage({
+        message: hospitalsEditResponse?.message,
+        showMessage: true,
+      });
+	  router.push("/hospitals")
+    }
+  }, [hospitalsEditResponse]);
+	  const handleUpload = (e) => {
+		const file = e.target.files[0];
+		if (file) {
+		  console.log("Selected file:", file);
+		  setFormValues((prev) => ({
+			...prev,
+			logo: file,
+		  }));
+		  setIsUploaded(true);
+		}
+	  };
+	
+	  const handleRemove = () => {
+		setIsUploaded(false);
+		console.log("Remove button clicked");
+		setFormValues((prev) => ({
+		  ...prev,
+		  logo: "",
+		}));
+	  };
+	  const openFile = () => {
+		fileInputRef.current.click();
+	  };
 	  useEffect(() => {
 		hospitalsFetch(fetchHospitalProfile({
 			hospitalId:id
 		}
 		));
 	  }, []);
+
+	  const EditHospitalProfileFunction = () => {
+		hospitalsEditFetch(fetchHospitalEditProfile({...formValues, hospitalId:id}))
+	  }
 	  useEffect(() => {
 		if (hospitalsResponse?.result == "success" && hospitalsResponse?.data) {
 		  setHospitalData(hospitalsResponse?.data);
@@ -88,9 +136,19 @@ const performActionRequest = () => {
 	  }, [performActionResponse]);
 
 	let [activeIndex, setActiveIndex] = useState(1);
-
+	const [message, setMessage] = useState({
+		message: "",
+		showMessage: "",
+	  });
+	
 	return (
 		<Wrapper>
+			        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleUpload}
+        />
 			                        <div className="modal fade" id="LoginForm">
                                     <Modal show={show} onHide={() =>setShow(false)} centered>
                                         <Modal.Header closeButton>
@@ -345,7 +403,7 @@ const performActionRequest = () => {
 															<div className="card-body p-0 mt-4">
 																<h5 className="title fw-bold">Website</h5>
 																<p className="text-muted">
-																Navigate the digital corridors of healthcare excellence: Explore our hospital's website.
+																Navigate the hospital's website.
 
 																</p>
 																<Link to="tel:+152534-468" className="link">
@@ -408,7 +466,20 @@ const performActionRequest = () => {
 															<div className="p-4 border-bottom">
 																<h6 className="mb-0">Hospital Information :</h6>
 															</div>
-
+															{message?.showMessage && (
+              <Alert
+                style={{ marginTop: "1rem" }}
+                message={message?.message}
+                type="success"
+                closable
+                onClose={() => {
+                  setMessage({
+                    message: "",
+                    showMessage: false,
+                  });
+                }}
+              />
+            )}
 															<div className="p-4">
 																<div className="row align-items-center">
 																	<div className="col-lg-2 col-md-4">
@@ -431,19 +502,24 @@ const performActionRequest = () => {
 																	</div>
 
 																	<div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
-																		<Link to="#" className="btn btn-primary">
-																			Upload
-																		</Link>
-																		<Link
-																			to="#"
-																			className="btn btn-soft-primary ms-2">
-																			Remove
-																		</Link>
+																	{!isUploaded && (
+                      <Link className="btn btn-primary" onClick={openFile}>
+                        Upload
+                      </Link>
+                    )}
+                    {isUploaded && (
+                      <Link
+                        className="btn btn-soft-primary ms-2"
+                        onClick={handleRemove}
+                      >
+                        Remove
+                      </Link>
+                    )}
 																	</div>
 																</div>
 
-																<form className="mt-4">
-																	<div className="row">
+																
+																	<div className="row mt-4">
 																		<div className="col-md-6">
 																			<div className="mb-3">
 																				<label className="form-label">
@@ -456,6 +532,10 @@ const performActionRequest = () => {
 																					className="form-control"
 																					placeholder="Hospital Name :"
 																					value={formValues.hospital_name}
+																					onChange={(e)=>{
+																						setFormValues((prev)=>({...prev, 
+																							hospital_name:e.target.value}))
+																					}}
 																				/>
 																			</div>
 																		</div>
@@ -472,6 +552,10 @@ const performActionRequest = () => {
 																					className="form-control"
 																					placeholder="Your email :"
 																					value={formValues.email}
+																					onChange={(e)=>{
+																						setFormValues((prev)=>({...prev, 
+																							email:e.target.value}))
+																					}}
 																				/>
 																			</div>
 																		</div>
@@ -488,7 +572,10 @@ const performActionRequest = () => {
 																					className="form-control"
 																					placeholder="Phone no. :"
 																					value={formValues.phoneNumber}
-																					placeholder="Phone no :"
+																					onChange={(e)=>{
+																						setFormValues((prev)=>({...prev, 
+																							phoneNumber:e.target.value}))
+																					}}
 																				/>
 																			</div>
 																		</div>
@@ -504,6 +591,10 @@ const performActionRequest = () => {
 																					className="form-control"
 																					placeholder="website link :"
 																					value={formValues.website}
+																					onChange={(e)=>{
+																						setFormValues((prev)=>({...prev, 
+																							website:e.target.value}))
+																					}}
 																				/>
 																			</div>
 																		</div>
@@ -520,6 +611,10 @@ const performActionRequest = () => {
 																					className="form-control"
 																					placeholder="Address :"
 																					value={formValues.address}
+																					onChange={(e)=>{
+																						setFormValues((prev)=>({...prev, 
+																							address:e.target.value}))
+																					}}
 																					></textarea>
 																			</div>
 																		</div>
@@ -535,15 +630,23 @@ const performActionRequest = () => {
 																					className="form-control"
 																					placeholder="Description :"
 																					value={formValues.description}
+																					onChange={(e)=>{
+																						setFormValues((prev)=>({...prev, 
+																							description:e.target.value}))
+																					}}
 																					></textarea>
 																			</div>
 																		</div>
 																	</div>
 
-																	<button className="btn btn-primary">
+																	<button className="btn btn-primary"
+																	onClick={()=>{
+																		EditHospitalProfileFunction()
+																	}}
+																	>
 																		Edit Hospital
 																	</button>
-																</form>
+																
 															</div>
 														</div>
 													</div>

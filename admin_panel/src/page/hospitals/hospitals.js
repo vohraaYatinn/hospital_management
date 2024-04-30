@@ -79,6 +79,11 @@ export default function Hospitals() {
                       <div className="team-img position-relative">
                         <img
                           src={test_url_images + item.logo}
+                          style={{
+                            height:"10rem",
+                            width:"100%", 
+                            objectFit:"cover"
+                          }}
                           className="img-fluid"
                           alt=""
                         />

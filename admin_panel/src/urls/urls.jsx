@@ -10,6 +10,9 @@ const project = new HttpAxiosService(test_url);
 export const addDoctorByHospital = (payload_data) => {
   return project.multiPartFormData(Urls.ADD_DOCTOR_HOSPITAL, payload_data);
 };
+export const addDoctorByAdmin = (payload_data) => {
+  return project.multiPartFormData(Urls.ADD_ADMIN_DOCTOR, payload_data);
+};
 export const addAdminHospital = (payload_data) => {
   return project.multiPartFormData(Urls.ADD_ADMIN_HOSPITAL, payload_data);
 };
@@ -21,6 +24,9 @@ export const fetchAllHospital = (payload_data) => {
 };
 export const fetchHospitalProfile = (payload_data) => {
   return project.get(Urls.FETCH_HOSPITAL_DETAILS, payload_data);
+};
+export const fetchHospitalEditProfile = (payload_data) => {
+  return project.multiPartFormData(Urls.FETCH_HOSPITAL_EDIT_DETAILS, payload_data);
 };
 export const fetchAllDoctors = (payload_data) => {
   return project.get(Urls.FETCH_ALL_DOCTORS, payload_data);
@@ -101,4 +107,7 @@ export const deletePatientAdminByUjur = (payload_data) => {
 };
 export const CancelAppointmentAdmin = (payload_data) => {
   return project.post(Urls.CANCEL_APPOINTMENTS_ADMIN_BY_UJUR, payload_data);
+};
+export const editDoctorProfile = (payload_data) => {
+  return project.multiPartFormData(Urls.EDIT_DOCTOR_PROFILE, payload_data);
 };
