@@ -40,7 +40,7 @@ export default function AddDoctor() {
       setIsUploaded(true);
     }
   };
-
+      
   const handleRemove = () => {
     setIsUploaded(false);
     console.log("Remove button clicked");
@@ -85,6 +85,33 @@ export default function AddDoctor() {
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
     } 
+    if(!values.morningTime){
+      errors.morningTime = "Morning time is required"
+    }
+    if(!values.afternoonTime){
+      errors.afternoonTime = "Afternoon time is required"
+    }
+    if(!values.eveningTime){
+      errors.eveningTime = "Evening time is required"
+    }
+    if(!values.morningSlots){
+      errors.morningSlots = "Morning slot is required"
+    }
+    if(!values.afternoonSlots){
+      errors.afternoonSlots = "Afternoon slot is required"
+    }
+    if(!values.eveningSlots){
+      errors.eveningSlots = "Evening slot is required"
+    }
+    if(!values.morningPrice){
+      errors.morningPrice = "Morning slot price is required"
+    }
+    if(!values.afternoonPrice){
+      errors.afternoonPrice = "Afternoon slot price is required"
+    }
+    if(!values.eveningPrice){
+      errors.eveningPrice = "Evening slot price is required"
+    }
     return errors;
   };
 
@@ -98,7 +125,7 @@ export default function AddDoctor() {
   };
   useEffect(() => {
     if (doctorProfileResponse?.result == "success") {
-      router.push("/doctors")
+      router.push('/doctors')
       setMessage({
         message: doctorProfileResponse?.message,
         showMessage: true,
@@ -379,7 +406,7 @@ export default function AddDoctor() {
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Education :"
+                        placeholder="Medical License :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -394,13 +421,13 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-12">
                     <div className="mb-3">
-                      <label className="form-label">address</label>
+                      <label className="form-label">Address</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Full Name :"
+                        placeholder="Address :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -454,6 +481,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.morningTime && (
+                        <div className="text-danger">{errors.morningTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -472,6 +502,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                       {errors.afternoonTime && (
+                        <div className="text-danger">{errors.afternoonTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -490,6 +523,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.eveningTime && (
+                        <div className="text-danger">{errors.eveningTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -508,6 +544,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.morningSlots && (
+                        <div className="text-danger">{errors.morningSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -526,6 +565,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.afternoonSlots && (
+                        <div className="text-danger">{errors.afternoonSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -544,6 +586,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.eveningSlots && (
+                        <div className="text-danger">{errors.eveningSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -562,6 +607,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.morningPrice && (
+                        <div className="text-danger">{errors.morningPrice}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -580,6 +628,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.afternoonPrice && (
+                        <div className="text-danger">{errors.afternoonPrice}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
@@ -598,6 +649,9 @@ export default function AddDoctor() {
                           }));
                         }}
                       />
+                      {errors.eveningPrice && (
+                        <div className="text-danger">{errors.eveningPrice}</div>
+                      )}
                     </div>
                   </div>
                 </div>
