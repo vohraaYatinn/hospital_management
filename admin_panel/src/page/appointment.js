@@ -114,7 +114,7 @@ export default function Appointment() {
                                 <h5 className="mb-0">Appointment</h5>
                                 <nav aria-label="breadcrumb" className="d-inline-block mt-2">
                                     <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
-                                        <li className="breadcrumb-item"><Link to="/">UJUR</Link></li>
+                                        <li className="breadcrumb-item">UJUR </li>
                                         <li className="breadcrumb-item active" aria-current="page">Appointment</li>
                                     </ul>
                                 </nav>
@@ -270,7 +270,7 @@ export default function Appointment() {
 
                                     </div>
                                     <div className="col-sm-6 col-lg-3">
-                                        <DepartmentSearch filters={filters} setFilters={setFilters} />
+                                        {/* <DepartmentSearch filters={filters} setFilters={setFilters} /> */}
 
                                     </div>
                                     <div className="col-sm-6 col-lg-3">
@@ -334,9 +334,8 @@ export default function Appointment() {
                                                             </Link>
                                                         </td>
                                                         <td className="p-3">{item.status}</td>
-                                                        <td className="text-end p-3">
-                                                            {/* <Link to="#" className="btn btn-icon btn-pills btn-soft-primary" onClick={() =>setShowDetail(!showDetail)}><FiEye /></Link>
-                                                        <Link to="#" className="btn btn-icon btn-pills btn-soft-success mx-1" onClick={() =>setAcceptsAppointment(!acceptsAppointment)}><MdOutlineCheckCircleOutline /></Link> */}
+                                                        {/* <td className="text-end p-3">
+                                                            
                                                             <Link to="#" className="btn btn-icon btn-pills btn-soft-danger" onClick={() =>
                                                                 {
                                                                     setSelectedAppointment(item.id)
@@ -345,7 +344,7 @@ export default function Appointment() {
                                                                
                                                                 
                                                                 }><AiOutlineCloseCircle /></Link>
-                                                        </td>
+                                                        </td> */}
                                                     </tr>
                                                 )
                                             })}

@@ -403,13 +403,7 @@ export default function Sidebar({ manuClass }) {
                         </li> */}
         </ul>
       </SimpleBar>
-      <ul className="sidebar-footer list-unstyled mb-0">
-        <li className="list-inline-item mb-0 ms-1">
-          <Link to="#" className="btn btn-icon btn-pills btn-soft-primary">
-            <FaRegComment />
-          </Link>
-        </li>
-      </ul>
+      
     </nav>
   );
 }

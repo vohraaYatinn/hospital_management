@@ -172,7 +172,7 @@ export default function Patients(){
                                                     <td className="p-3">{item.blood_group}</td>
                                                     <td className="p-3">{item.weight}</td>
                                                     <td className="p-3">{moment(item.created_at).format('YYYY-MM-DD')}</td>
-                                                    <td className="p-3">{
+                                                    {/* <td className="p-3">{
                                                            <Link
                                                            to="#"
                                                            className="btn btn-icon btn-pills btn-soft-danger"
@@ -183,7 +183,7 @@ export default function Patients(){
                                                          >
                                                            <AiOutlineCloseCircle />
                                                          </Link>
-                                                    }</td>
+                                                    }</td> */}
                                                 </tr>
                                             )
                                         })}

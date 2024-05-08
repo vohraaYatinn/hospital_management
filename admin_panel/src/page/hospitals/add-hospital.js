@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import hospital from "../../assets/images/hospitals/01.jpg";
 import Wrapper from "../../components/wrapper";
@@ -35,6 +35,8 @@ export default function AddHospitalProfile() {
       // setDoctorsData(addHospitalResponse?.data);
     }
   }, [addHospitalResponse]);
+  
+  const router = useNavigate();
 
   const validate = (values) => {
     const errors = {};
@@ -43,9 +45,9 @@ export default function AddHospitalProfile() {
     if (!values.website) {
       // errors.website = "Website is required!";
     }
-    if (!values.description) {
-      errors.description = "Description is required!";
-    }
+    // if (!values.description) {
+    //   errors.description = "Description is required!";
+    // }
     if (!values.address) {
       errors.address = "Address is required!";
     }
@@ -71,6 +73,7 @@ export default function AddHospitalProfile() {
       setErrors(errors);
     } else {
       addHospitalFetch(addAdminHospital(formValue));
+      router('/hospitals')
     }
   };
   const fileInputRef = React.useRef(null);
@@ -165,7 +168,7 @@ export default function AddHospitalProfile() {
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="First Name :"
+                        placeholder="Hospital Name :"
                         onChange={(e) => {
                           setFormValue((prev) => ({
                             ...prev,
@@ -187,7 +190,7 @@ export default function AddHospitalProfile() {
                         id="email"
                         type="email"
                         className="form-control"
-                        placeholder="Your email :"
+                        placeholder="Hospital email :"
                         onChange={(e) => {
                           setFormValue((prev) => ({
                             ...prev,

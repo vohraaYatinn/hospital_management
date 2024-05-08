@@ -166,7 +166,6 @@ export default function HospitalAdmins(){
                                             <th className="border-bottom p-3">Email</th>
                                             <th className="border-bottom p-3">Hospital</th>
                                             <th className="border-bottom p-3">Created At</th>
-                                            <th className="border-bottom p-3">Actions</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -184,18 +183,7 @@ export default function HospitalAdmins(){
                                                     <td className="p-3">{item.username}</td>
                                                     <td className="p-3">{item.hospital.name}</td>
                                                     <td className="p-3">{moment(item.created_at).format('YYYY-MM-DD')}</td>
-                                                    <td className="p-3">{
-                                                           <Link
-                                                           to="#"
-                                                           className="btn btn-icon btn-pills btn-soft-danger"
-                                                           onClick={() => {
-                                                            setSelectedAdmin(item.id)
-                                                             setCancle(!cancle)
-                                                           }}
-                                                         >
-                                                           <AiOutlineCloseCircle />
-                                                         </Link>
-                                                    }</td>
+                                                    
                                                 </tr>
                                             )
                                         })}

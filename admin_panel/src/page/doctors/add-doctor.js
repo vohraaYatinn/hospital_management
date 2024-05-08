@@ -384,6 +384,7 @@ export default function AddDoctor() {
                       >
                         <option defaultValue="Male">Male</option>
                         <option defaultValue="Female">Female</option>
+                        <option defaultValue="Others">Others</option>
                       </select>
                       {errors.gender && (
                         <div className="text-danger">{errors.gender}</div>
