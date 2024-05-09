@@ -58,6 +58,7 @@ const performActionRequest = () => {
 }
 	const [hospitalData, setHospitalData] = useState([])
 	const fileInputRef = React.useRef(null);
+	const fileInputLogoRef = React.useRef(null);
 
 	const [reviewsData, setReviews] = useState([])
 	const [
@@ -102,9 +103,13 @@ const performActionRequest = () => {
 		  logo: "",
 		}));
 	  };
+	  
 	  const openFile = () => {
 		fileInputRef.current.click();
 	  };
+	  const openFileLogo = () => {
+		fileInputLogoRef.current.click();
+	  };	
 	  useEffect(() => {
 		hospitalsFetch(fetchHospitalProfile({
 			hospitalId:id
@@ -210,6 +215,9 @@ const performActionRequest = () => {
 								</h5>
 								<p className="text-muted mb-0 ">
 									{hospitalData?.website}
+								</p>
+								<p className="text-muted mb-0 ">
+									{hospitalData?.google_link ? hospitalData?.google_link : ""}
 								</p>
 							</div>
 						</div>
@@ -406,7 +414,7 @@ const performActionRequest = () => {
 																Navigate the hospital's website.
 
 																</p>
-																<Link to="tel:+152534-468" className="link">
+																<Link to={hospitalData?.website} className="link">
 																	{hospitalData?.website}
 																</Link>
 															</div>
@@ -484,7 +492,7 @@ const performActionRequest = () => {
 																<div className="row align-items-center">
 																	<div className="col-lg-2 col-md-4">
 																		<img
-																			src={test_url_images + hospitalData?.logo}
+																			src={test_url_images + hospitalData?.hospital_image}
 																			className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
 																			alt=""
 																		/>
@@ -504,6 +512,42 @@ const performActionRequest = () => {
 																	<div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
 																	{!isUploaded && (
                       <Link className="btn btn-primary" onClick={openFile}>
+                        Upload
+                      </Link>
+                    )}
+                    {isUploaded && (
+                      <Link
+                        className="btn btn-soft-primary ms-2"
+                        onClick={handleRemove}
+                      >
+                        Remove
+                      </Link>
+                    )}
+																	</div>
+																</div>
+																<div className="row align-items-center mt-4">
+																	<div className="col-lg-2 col-md-4">
+																		<img
+																			src={test_url_images + hospitalData?.logo}
+																			className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+																			alt=""
+																		/>
+																	</div>
+
+																	<div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
+																		<h6 className="">
+																			Upload hospital Logo
+																		</h6>
+																		<p className="text-muted mb-0">
+																			For best results, use an image at least
+																			256px by 256px in either .jpg or .png
+																			format
+																		</p>
+																	</div>
+
+																	<div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
+																	{!isUploaded && (
+                      <Link className="btn btn-primary" onClick={openFileLogo}>
                         Upload
                       </Link>
                     )}
@@ -650,18 +694,35 @@ const performActionRequest = () => {
 															</div>
 														</div>
 													</div>
-													<div className="col-lg-4" >
-														<button style={{color:"white", background:"red", border:"0px solid", padding:"1rem"}}
-														onClick={()=>{
-															setFormValues({
-																action:"delete",
-																id:hospitalData?.id,
-																type:"hospital"
-															})
-															setShow(true)
-														}}
-														>DELETE HOSPITAL</button>
-														</div>
+													<div className="col-lg-6">
+                                                        <div className="rounded shadow mt-4">
+                                                          
+                                
+                                                            <div className="p-4">
+                                                                <div className="p-4 border-bottom">
+                                                                    <h5 className="mb-0 text-danger"
+
+                                                                    >Delete Account :</h5>
+                                                                </div>
+
+                                                                <div className="p-4">
+                                                                    <h6 className="mb-0 fw-normal">Do you want to delete the account? Please press below "Delete" button</h6>
+                                                                    <div className="mt-4">
+                                                                        <button className="btn btn-danger"
+                                                                        onClick={()=>{
+                                                                          setFormValues({
+                                                                            action:"delete",
+                                                                            id:hospitalData?.id,
+                                                                            type:"hospital"
+                                                                          })
+                                                                          setShow(true)
+                                                                        }}
+                                                                        >Delete Account</button>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
 
 													
 												</div>

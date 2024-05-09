@@ -11,6 +11,9 @@ import { Alert } from "antd";
 export default function AddHospitalProfile() {
   
   // const [formValue, setFormValue] = useState([]);
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const [uploadedFileLogo, setUploadedFileLogo] = useState(null);
+
   const [formValue, setFormValue] = useState({
     phoneNumber: "+91-" // Initialize phoneNumber with '91'
   });
@@ -28,6 +31,7 @@ export default function AddHospitalProfile() {
 
   useEffect(() => {
     if (addHospitalResponse?.result == "success") {
+      router('/hospitals')
       setMessage({
         message: addHospitalResponse?.message,
         showMessage: true,
@@ -73,11 +77,13 @@ export default function AddHospitalProfile() {
       setErrors(errors);
     } else {
       addHospitalFetch(addAdminHospital(formValue));
-      router('/hospitals')
+      
     }
   };
   const fileInputRef = React.useRef(null);
+  const fileInputLogoRef = React.useRef(null);
   const [isUploaded, setIsUploaded] = useState(false);
+  const [isUploadedLogo, setIsLogoUploaded] = useState(false);
 
   const openFile = () => {
     fileInputRef.current.click();
@@ -88,15 +94,50 @@ export default function AddHospitalProfile() {
       console.log("Selected file:", file);
       setFormValue((prev) => ({
         ...prev,
-        logo: file,
+        profile: file,
       }));
       setIsUploaded(true);
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setUploadedFile(e.target.result);
+      };
+      reader.readAsDataURL(file);
+
     }
   };
 
   const handleRemove = () => {
     setIsUploaded(false);
-    console.log("Remove button clicked");
+    setUploadedFile("");
+    setFormValue((prev) => ({
+      ...prev,
+      profile: "",
+    }));
+  };
+  const openFileLogo = () => {
+    fileInputLogoRef.current.click();
+  };
+  const handleUploadLogo = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log("Selected file:", file);
+      setFormValue((prev) => ({
+        ...prev,
+        logo: file
+      }));
+      setIsLogoUploaded(true);
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setUploadedFileLogo(e.target.result);
+      };
+      reader.readAsDataURL(file);
+
+    }
+  };
+
+  const handleRemoveLogo = () => {
+    setIsLogoUploaded(false);
+    setUploadedFileLogo("");
     setFormValue((prev) => ({
       ...prev,
       logo: "",
@@ -110,6 +151,12 @@ export default function AddHospitalProfile() {
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleUpload}
+        />
+        <input
+          type="file"
+          ref={fileInputLogoRef}
+          style={{ display: "none" }}
+          onChange={handleUploadLogo}
         />
         <div className="layout-specing">
           <div className="d-md-flex justify-content-between">
@@ -133,7 +180,20 @@ export default function AddHospitalProfile() {
             )}
             <div className="rounded shadow mt-4">
               <div className="p-4">
+          
+
                 <div className="row align-items-center">
+                  {uploadedFile &&
+                <div className="col-lg-2 col-md-2">
+																		<img
+																			src={uploadedFile || ''}
+																			className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                      style={{
+                                        objectFit:"cover"
+                                      }}
+																			alt=""
+																		/>
+																	</div>}
                   <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
                     <h6 className="">Upload hospital picture</h6>
                     <p className="text-muted mb-0">
@@ -159,7 +219,44 @@ export default function AddHospitalProfile() {
                   </div>
                 </div>
 
-                <div className="row">
+                <div className="row align-items-center mt-4">
+                  {uploadedFileLogo &&
+                <div className="col-lg-2 col-md-2">
+																		<img
+																			src={uploadedFileLogo || ''}
+																			className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                      style={{
+                                        objectFit:"cover"
+                                      }}
+																			alt=""
+																		/>
+																	</div>}
+                  <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
+                    <h6 className="">Upload hospital Logo</h6>
+                    <p className="text-muted mb-0">
+                      For best results, use an image at least 256px by 256px in
+                      either .jpg or .png format
+                    </p>
+                  </div>
+
+                  <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
+                    {!uploadedFileLogo && (
+                      <Link className="btn btn-primary" onClick={openFileLogo}>
+                        Upload
+                      </Link>
+                    )}
+                    {isUploaded && (
+                      <Link
+                        className="btn btn-soft-primary ms-2"
+                        onClick={handleRemoveLogo}
+                      >
+                        Remove
+                      </Link>
+                    )}
+                  </div>
+                </div>
+
+                <div className="row mt-4">
                   <div className="col-md-6">
                     <div className="mb-3">
                       <label className="form-label">Hospital Name</label>
@@ -289,6 +386,25 @@ export default function AddHospitalProfile() {
                       {errors.description && (
                         <div className="text-danger">{errors.description}</div>
                       )}
+                    </div>
+                  </div>
+                  <div className="col-md-12">
+                    <div className="mb-3">
+                      <label className="form-label">Hospital Maps</label>
+                      <textarea
+                        name="description"
+                        id="description"
+                        rows="3"
+                        className="form-control"
+                        placeholder="Google Map Link :"
+                        onChange={(e) => {
+                          setFormValue((prev) => ({
+                            ...prev,
+                            googleMap: e.target.value,
+                          }));
+                        }}
+                      ></textarea>
+                  
                     </div>
                   </div>
                 </div>
