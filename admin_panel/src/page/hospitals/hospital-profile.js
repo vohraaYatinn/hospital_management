@@ -644,7 +644,7 @@ const performActionRequest = () => {
 																		EditHospitalProfileFunction()
 																	}}
 																	>
-																		Edit Hospital
+																		Update Hospital
 																	</button>
 																
 															</div>

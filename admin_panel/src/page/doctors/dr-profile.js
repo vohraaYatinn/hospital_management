@@ -213,19 +213,19 @@ export default function DrProfile() {
           errors.experience = "Experience is required!";
         }
         if (!values.bio) {
-          errors.bio = "Bio is required!";
+          // errors.bio = "Biop is required!";
         }
         if (!values.specialization) {
-          errors.specialization = "Specialization is required!";
+          // errors.specialization = "Specialization is required!";
         }
         if (!values.education) {
-          errors.education = "Education is required!";
+          // errors.education = "Education is required!";
         }
         if (!values.department) {
           errors.department = "Department is required!";
         }
         if (!values.address) {
-          errors.address = "Address is required!";
+          // errors.address = "Address is required!";
         }
         if (!values.email) {
           errors.email = "Email is required!";
@@ -871,6 +871,7 @@ export default function DrProfile() {
                       >
                         <option defaultValue="Male">Male</option>
                         <option defaultValue="Female">Female</option>
+                        <option defaultValue="Others">Others</option>
                       </select>
                       {errors.gender && (
                         <div className="text-danger">{errors.gender}</div>

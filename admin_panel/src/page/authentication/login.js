@@ -49,9 +49,7 @@ export default function Login() {
     }, [authDetailsResponse])
     return (
         <>
-            <div className="back-to-home rounded d-none d-sm-block">
-                <Link to="/index" className="btn btn-icon btn-primary"><FiHome className="icons" /></Link>
-            </div>
+        
 
             <section className="bg-home d-flex bg-light align-items-center" style={{ backgroundImage: `url(${bg1})`, backgroundPosition: 'center' }}>
                 <div className="container">
@@ -64,8 +62,8 @@ export default function Login() {
                                     <div className="row mt-4">
                                         <div className="col-lg-12">
                                             <div className="mb-3">
-                                                <label className="form-label">ID <span className="text-danger">*</span></label>
-                                                <input type="email" className="form-control" placeholder="Enter ID" name="email" required=""
+                                                <label className="form-label">Email ID <span className="text-danger">*</span></label>
+                                                <input type="email" className="form-control" placeholder="Enter Email ID" name="email" required=""
                                                     onChange={(e) => {
                                                         setFormValues((prev) => ({ ...prev, 'email': e.target.value }))
                                                     }}
