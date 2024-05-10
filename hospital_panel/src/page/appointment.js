@@ -398,9 +398,9 @@ export default function Appointment() {
                     statusSearch={searchStatusConstants}
                   />
                 </div>
-                <div className="col-sm-6 col-lg-3">
+                {/* <div className="col-sm-6 col-lg-3">
                   <DepartmentSearch filters={filters} setFilters={setFilters} />
-                </div>
+                </div> */}
                 <div className="col-sm-6 col-lg-3">
                   <button
                     className="form-control btn-check-reset"
@@ -468,7 +468,7 @@ export default function Appointment() {
                       {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                         return (
                           <tr key={index}>
-                            <th className="p-3">{item.appointment_slot}</th>
+                            <th className="p-3">{index + 1}</th>
                             <td className="p-3">
                               <Link to="#" className="text-dark">
                                 <div className="d-flex align-items-center">
