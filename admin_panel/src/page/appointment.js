@@ -313,7 +313,7 @@ export default function Appointment() {
                                             {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                                                 return (
                                                     <tr key={index}>
-                                                        <th className="p-3">{item.id}</th>
+                                                        <th className="p-3">{index + 1}</th>
                                                         <td className="p-3">
                                                             <Link to="#" className="text-dark">
                                                                 <div className="d-flex align-items-center">

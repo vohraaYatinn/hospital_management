@@ -383,12 +383,12 @@ export default function Sidebar({ manuClass }) {
                                 </ul>
                             </div>
                         </li> */}
-          <li className={`${manu === "logout" ? "active" : ""} ms-0`}>
+          {/* <li className={`${manu === "logout" ? "active" : ""} ms-0`}>
             <Link to="/logout">
               <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
               logout
             </Link>
-          </li>
+          </li> */}
 
           {/* <li className={`sidebar-dropdown ms-0 ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'miscellaneous-item' ? '' : 'miscellaneous-item')}}><BsPostcard className="me-2 d-inline-block mb-0 icon"/>Miscellaneous </Link>
