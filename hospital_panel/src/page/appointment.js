@@ -506,7 +506,7 @@ export default function Appointment() {
                               </Link>
                             </td>
                             <td className="p-3">{item.status}</td>
-                            <td className="text-end p-3">
+                            {/* <td className="text-end p-3">
                             {item.status == "pending" &&
                               
                               <Link
@@ -519,7 +519,7 @@ export default function Appointment() {
                               >
                                 <AiOutlineCloseCircle />
                               </Link>}
-                            </td>
+                            </td> */}
                           </tr>
                         );
                       })}

@@ -92,14 +92,11 @@ export default function Doctors() {
             {doctorsData?.map((item, index) => {
               return (
                 <div className="col mt-4" key={index}>
-                  <div className="card team border-0 rounded shadow overflow-hidden h-100">
+                 <Link  to={`/dr-profile/${item.id}`}>
+                 <div className="card team border-0 rounded shadow overflow-hidden h-100">
                     <div className="team-img position-relative">
                       <img
-                      style={{
-                        height:"10rem",
-                        width:"100%",
-                        objectFit:"cover"
-                      }}
+                      
                         src={
                           item?.profile_picture
                             ? test_url_images + item.profile_picture
@@ -107,20 +104,26 @@ export default function Doctors() {
                         }
                         className="img-fluid"
                         alt=""
+                        style={{
+                          height:"14rem",
+                          width:"100%", 
+                          objectFit:"cover"
+                        }}
                       />
                     </div>
                     <div className="card-body content text-center">
-                      <Link
-                        to={`/dr-profile/${item.id}`}
+                      <p
+                       
                         className="title text-dark h5 d-block mb-0"
                       >
                         {item.full_name}
-                      </Link>
+                      </p>
                       <small className="text-muted speciality">
                         {item.education}
                       </small>
                     </div>
                   </div>
+                 </Link>
                 </div>
               );
             })}

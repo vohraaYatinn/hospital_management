@@ -56,27 +56,27 @@ export default function AddDoctor() {
     if (!values.fullName) {
       errors.fullName = "Fullname is required!";
     }
-    if (!values.license) {
-      errors.license = "Medical license is required!";
-    }
+    // if (!values.license) {
+    //   errors.license = "Medical license is required!";
+    // }
     if (!values.experience) {
       errors.experience = "Experience is required!";
     }
-    if (!values.bio) {
-      errors.bio = "Bio is required!";
-    }
-    if (!values.specialization) {
-      errors.specialization = "Specialization is required!";
-    }
-    if (!values.education) {
-      errors.education = "Education is required!";
-    }
+    // if (!values.bio) {
+      // errors.bio = "Bio is required!";
+    // }
+    // if (!values.specialization) {
+    //   // errors.specialization = "Specialization is required!";
+    // }
+    // if (!values.education) {
+    //   errors.education = "Education is required!";
+    // }
     if (!values.department) {
       errors.department = "Department is required!";
     }
-    if (!values.address) {
-      errors.address = "Address is required!";
-    }
+    // if (!values.address) {
+    //   errors.address = "Address is required!";
+    // }
     if (!values.email) {
       errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
