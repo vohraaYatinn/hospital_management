@@ -106,34 +106,7 @@ export default function AddDoctor() {
     } else if (values.phoneNumber.length != 10) {
       errors.phoneNumber = "Phone number is not valid";
     }
-    if(!values.morningTime){
-      errors.morningTime = "Morning time is required"
-    }
    
-    if(!values.afternoonTime){
-      errors.afternoonTime = "Afternoon time is required"
-    }
-    if(!values.eveningTime){
-      errors.eveningTime = "Evening time is required"
-    }
-    if(!values.morningSlots){
-      errors.morningSlots = "Morning slot is required"
-    }
-    if(!values.afternoonSlots){
-      errors.afternoonSlots = "Afternoon slot is required"
-    }
-    if(!values.eveningSlots){
-      errors.eveningSlots = "Evening slot is required"
-    }
-    if(!values.morningPrice){
-      errors.morningPrice = "Morning slot price is required"
-    }
-    if(!values.afternoonPrice){
-      errors.afternoonPrice = "Afternoon slot price is required"
-    }
-    if(!values.eveningPrice){
-      errors.eveningPrice = "Evening slot price is required"
-    }
     return errors;
   };
 

@@ -99,21 +99,27 @@ export default function Doctors() {
                         {doctorsData?.map((item, index) => {
                             return (
                                 <div className="col mt-4" key={index}>
-                                    <div className="card team border-0 rounded shadow overflow-hidden">
+                                  <Link to={`/dr-profile/${item.id}`}>
+                                    <div className="card team border-0 rounded shadow overflow-hidden ">
                                         <div className="team-img position-relative">
                                             <img
                         src={test_url_images + item?.profile_picture}
                         className="img-fluid"
                         alt=""
+                        style={{
+                          height:"14rem",
+                          width:"100%", 
+                          objectFit:"cover"
+                        }}
                       />
                                         </div>
                                         <div className="card-body content text-center">
-                                            <Link
-                        to={`/dr-profile/${item.id}`}
+                                            <p
+                        
                         className="title text-dark h5 d-block mb-0"
                       >
                         {item.full_name}
-                      </Link>
+                      </p>
                                             <small
                         className="text-muted speciality"
                       >
@@ -121,6 +127,7 @@ export default function Doctors() {
                       </small>
                                         </div>
                                     </div>
+                                    </Link>
                                 </div>
                             );
                         })}

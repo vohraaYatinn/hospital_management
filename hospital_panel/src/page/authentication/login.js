@@ -62,11 +62,7 @@ export default function Login() {
   }, [authDetailsResponse]);
   return (
     <>
-      <div className="back-to-home rounded d-none d-sm-block">
-        <Link to="/index" className="btn btn-icon btn-primary">
-          <FiHome className="icons" />
-        </Link>
-      </div>
+
 
       <section
         className="bg-home d-flex bg-light align-items-center"
@@ -88,12 +84,12 @@ export default function Login() {
                     <div className="col-lg-12">
                       <div className="mb-3">
                         <label className="form-label">
-                          ID <span className="text-danger">*</span>
+                          Enter Email <span className="text-danger">*</span>
                         </label>
                         <input
                           type="email"
                           className="form-control"
-                          placeholder="ID"
+                          placeholder="Enter Email ID"
                           name="email"
                           required=""
                           onChange={(e) => {

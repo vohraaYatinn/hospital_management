@@ -939,7 +939,7 @@ export default function DrProfile(){
                 </div>
 
                 <button className="btn btn-primary" onClick={editDoctor}>
-                  Edit Doctor Profile
+                  Update Doctor Profile
                 </button>
               </div>
             </div>
