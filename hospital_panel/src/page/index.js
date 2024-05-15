@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Charts from "../components/chart";
 import PersonChat from "../components/personChat";
 
-import { aboutData, latestAppointment, patientsReviews } from "../data/data";
+import { aboutData, departmentData, latestAppointment, patientsReviews } from "../data/data";
 
 import {
   FiCalendar,
@@ -111,9 +111,9 @@ export default function Index() {
                       <LiaFileMedicalAltSolid className="h3 mb-0" />
                     </div>
                     <div className="flex-1 ms-2">
-                      <h5 className="mb-0">{dashboardDetails?.lab}</h5>
+                      <h5 className="mb-0">{departmentData?.length}</h5>
 
-                      <p className="text-muted mb-0">Total Reports</p>
+                      <p className="text-muted mb-0">Total Departments</p>
                     </div>
                   </div>
                 </div>

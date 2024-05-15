@@ -5,7 +5,7 @@ import Sidebar from "../../components/sidebar";
 import Chart from "../../components/dashboard/chart";
 import AdminFooter from "../../components/dashboard/adminFooter";
 import ScrollTop from "../../components/scrollTop";
-import { FiCalendar, FiArrowRight, RiCalendar2Line } from '../../assets/icons/vander'
+import { FiCalendar, FiArrowRight, RiCalendar2Line, GiAbstract020 } from '../../assets/icons/vander'
 import { useRouter } from "../../hooks/use-router";
 import useAxios from "../../network/useAxios";
 import { fetchDoctorDashboard, fetchDoctorMedicinesDashboard, fetchDoctorPatientsDashboard } from "../../urls/urls";
@@ -16,6 +16,7 @@ import { test_url_images } from "../../config/environment";
 import { calculateAge } from "../../utils/commonFunctions";
 import { useDispatch } from "react-redux";
 import { updateMedicines } from "../../redux/reducers/functionalities.reducer";
+import ab from '../../assets/images/ab02.jpg'
 
 
 export default function DoctorDashBoard() {
@@ -156,14 +157,16 @@ export default function DoctorDashBoard() {
                                                             <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="row ">
                                                             <div className="col-3">
-                                                                <img src={test_url_images + item?.patient?.profile_picture} 
-                                                                style={{
-                                                                    width:"3rem",
-                                                                    height:"3rem",
-                                                                    border:"1px solid transparent",
-                                                                    borderRadius:"100px"
-                                                                }}
-                                                                />
+                                                            <img
+    src={ab}
+    style={{
+        width: "3rem",
+        height: "3rem",
+        border: "1px solid transparent",
+        borderRadius: "100px"
+    }}
+/>
+
                                                             </div>
                                                             <div className="col-9">
                                                                 <div className="row " style={{marginLeft:"0.5rem", color:"black", fontSize:"0.9rem"}}>
@@ -245,7 +248,7 @@ export default function DoctorDashBoard() {
                                                             <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="row ">
                                                             <div className="col-3">
-                                                                <img src={test_url_images + item?.patient?.profile_picture} 
+                                                                <img src={ab} 
                                                                 style={{
                                                                     width:"3rem",
                                                                     height:"3rem",
@@ -326,7 +329,7 @@ export default function DoctorDashBoard() {
                                                             <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="row ">
                                                             <div className="col-3">
-                                                                <img src={test_url_images + item?.patient?.profile_picture} 
+                                                                <img src={ab} 
                                                                 style={{
                                                                     width:"3rem",
                                                                     height:"3rem",
@@ -411,7 +414,7 @@ export default function DoctorDashBoard() {
                                                             <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="row">
                                                             <div className="col-3">
-                                                                <img src={test_url_images + item?.patient?.profile_picture} 
+                                                                <img src={ab} 
                                                                 style={{
                                                                     width:"3rem",
                                                                     height:"3rem",

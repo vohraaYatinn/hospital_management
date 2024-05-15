@@ -56,27 +56,27 @@ export default function AddDoctor() {
     if (!values.fullName) {
       errors.fullName = "Fullname is required!";
     }
-    if (!values.license) {
-      errors.license = "Medical license is required!";
-    }
+    // if (!values.license) {
+    //   errors.license = "Medical license is required!";
+    // }
     if (!values.experience) {
       errors.experience = "Experience is required!";
     }
-    if (!values.bio) {
-      errors.bio = "Bio is required!";
-    }
-    if (!values.specialization) {
-      errors.specialization = "Specialization is required!";
-    }
-    if (!values.education) {
-      errors.education = "Education is required!";
-    }
+    // if (!values.bio) {
+      // errors.bio = "Bio is required!";
+    // }
+    // if (!values.specialization) {
+    //   // errors.specialization = "Specialization is required!";
+    // }
+    // if (!values.education) {
+    //   errors.education = "Education is required!";
+    // }
     if (!values.department) {
       errors.department = "Department is required!";
     }
-    if (!values.address) {
-      errors.address = "Address is required!";
-    }
+    // if (!values.address) {
+    //   errors.address = "Address is required!";
+    // }
     if (!values.email) {
       errors.email = "Email is required!";
     } else if (!regex.test(values.email)) {
@@ -85,33 +85,33 @@ export default function AddDoctor() {
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
     } 
-    if(!values.morningTime){
-      errors.morningTime = "Morning time is required"
-    }
-    if(!values.afternoonTime){
-      errors.afternoonTime = "Afternoon time is required"
-    }
-    if(!values.eveningTime){
-      errors.eveningTime = "Evening time is required"
-    }
-    if(!values.morningSlots){
-      errors.morningSlots = "Morning slot is required"
-    }
-    if(!values.afternoonSlots){
-      errors.afternoonSlots = "Afternoon slot is required"
-    }
-    if(!values.eveningSlots){
-      errors.eveningSlots = "Evening slot is required"
-    }
-    if(!values.morningPrice){
-      errors.morningPrice = "Morning slot price is required"
-    }
-    if(!values.afternoonPrice){
-      errors.afternoonPrice = "Afternoon slot price is required"
-    }
-    if(!values.eveningPrice){
-      errors.eveningPrice = "Evening slot price is required"
-    }
+    // if(!values.morningTime){
+    //   errors.morningTime = "Morning time is required"
+    // }
+    // if(!values.afternoonTime){
+    //   errors.afternoonTime = "Afternoon time is required"
+    // }
+    // if(!values.eveningTime){
+    //   errors.eveningTime = "Evening time is required"
+    // }
+    // if(!values.morningSlots){
+    //   errors.morningSlots = "Morning slot is required"
+    // }
+    // if(!values.afternoonSlots){
+    //   errors.afternoonSlots = "Afternoon slot is required"
+    // }
+    // if(!values.eveningSlots){
+    //   errors.eveningSlots = "Evening slot is required"
+    // }
+    // if(!values.morningPrice){
+    //   errors.morningPrice = "Morning slot price is required"
+    // }
+    // if(!values.afternoonPrice){
+    //   errors.afternoonPrice = "Afternoon slot price is required"
+    // }
+    // if(!values.eveningPrice){
+    //   errors.eveningPrice = "Evening slot price is required"
+    // }
     return errors;
   };
 

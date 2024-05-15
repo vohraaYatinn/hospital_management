@@ -122,8 +122,8 @@ export default function TopHeader({ toggle, setToggle }) {
                 </Link>
                 <div className="dropdown-divider border-top"></div>
                 <Link
+                  to={"/logout"}
                   className="dropdown-item text-dark d-flex align-items-center"
-                  to="/logout"
                 >
                   <span className="mb-0 d-inline-block me-1">
                     <RiLogoutCircleRLine className="align-middle h6 mb-0" />
