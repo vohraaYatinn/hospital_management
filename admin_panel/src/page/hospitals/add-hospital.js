@@ -185,14 +185,14 @@ export default function AddHospitalProfile() {
                 <div className="row align-items-center">
                   {uploadedFile &&
                 <div className="col-lg-2 col-md-2">
-																		<img
-																			src={uploadedFile || ''}
-																			className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
-                                      style={{
-                                        objectFit:"cover"
-                                      }}
-																			alt=""
-																		/>
+                                      <img
+                                        src={uploadedFile || ''}
+                                        className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                        style={{
+                                          objectFit:"cover"
+                                        }}
+                                        alt=""
+                                      />
 																	</div>}
                   <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
                     <h6 className="">Upload hospital picture</h6>

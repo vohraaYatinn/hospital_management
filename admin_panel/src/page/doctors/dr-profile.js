@@ -21,6 +21,8 @@ import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
 import { designStarsReviews } from "../../utils/commonFunctions";
 import { useRouter } from "../../hooks/use-router";
+import { useSelector } from "react-redux";
+import { GetAllDepartments } from "../../redux/reducers/functionalities.reducer";
 
 export default function DrProfile() {
   let params = useParams();
@@ -69,6 +71,8 @@ export default function DrProfile() {
     // Reset edit mode
     setEditMode(false);
   };
+  const allDepartments = useSelector(GetAllDepartments);
+
   const handleUpload = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -126,18 +130,18 @@ export default function DrProfile() {
         license: doctorProfileResponse?.data?.license,
         address: doctorProfileResponse?.data?.address,
         bio: doctorProfileResponse?.data?.bio,
+        department:doctorProfileResponse?.data?.department,
+        morningPrice: doctorProfileResponse?.data?.doctor_slots[0]?.morning_slots_price,
+        morningSlots: doctorProfileResponse?.data?.doctor_slots[0]?.morning_slots,
+        morningTime: doctorProfileResponse?.data?.doctor_slots[0]?.morning_timings,
 
-        morningPrice: doctorProfileResponse?.data?.doctor_slots[0].morning_slots_price,
-        morningSlots: doctorProfileResponse?.data?.doctor_slots[0].morning_slots,
-        morningTime: doctorProfileResponse?.data?.doctor_slots[0].morning_timings,
+        afternoonPrice: doctorProfileResponse?.data?.doctor_slots[0]?.afternoon_slots_price,
+        afternoonTime: doctorProfileResponse?.data?.doctor_slots[0]?.afternoon_timings,
+        afternoonSlots: doctorProfileResponse?.data?.doctor_slots[0]?.afternoon_slots,
 
-        afternoonPrice: doctorProfileResponse?.data?.doctor_slots[0].afternoon_slots_price,
-        afternoonTime: doctorProfileResponse?.data?.doctor_slots[0].afternoon_timings,
-        afternoonSlots: doctorProfileResponse?.data?.doctor_slots[0].afternoon_slots,
-
-        eveningPrice: doctorProfileResponse?.data?.doctor_slots[0].evening_slots_price,
-        eveningSlots: doctorProfileResponse?.data?.doctor_slots[0].evening_slots,
-        eveningTime: doctorProfileResponse?.data?.doctor_slots[0].evening_timings,
+        eveningPrice: doctorProfileResponse?.data?.doctor_slots[0]?.evening_slots_price,
+        eveningSlots: doctorProfileResponse?.data?.doctor_slots[0]?.evening_slots,
+        eveningTime: doctorProfileResponse?.data?.doctor_slots[0]?.evening_timings,
     })
     }
   }, [doctorProfileResponse]);
@@ -841,14 +845,11 @@ export default function DrProfile() {
                           }));
                         }}
                       >
-                        <option value="1">Eye Care</option>
-                        <option value="2">Gynecologist</option>
-                        <option value="3">Psychotherapist</option>
-                        <option value="4">Orthopedic</option>
-                        <option value="5">Dentist</option>
-                        <option value="6">Gastrologist</option>
-                        <option value="7">Urologist</option>
-                        <option value="8">Neurologist</option>
+                           {allDepartments.map((item)=>{
+                    return(
+                        <option value={item.id}>{item.name}</option>
+                    )
+                })}
                       </select>
                       {errors.department && (
                         <div className="text-danger">{errors.department}</div>

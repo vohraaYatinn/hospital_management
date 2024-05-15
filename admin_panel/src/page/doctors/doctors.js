@@ -19,8 +19,11 @@ import AppointmentSlots from "../../common-components/SlotsSearch";
 import DateSearchComponent from "../../common-components/DateSearch";
 import DoctorSearch from "../../common-components/DoctorsSearch";
 import PatientName from "../../common-components/PatientName";
+import { useRouter } from "../../hooks/use-router";
 
 export default function Doctors() {
+  const router = useRouter();
+
   const [doctorsData, setDoctorsData] = useState([]);
   const [
     patientListResponse,
@@ -98,16 +101,19 @@ export default function Doctors() {
 
                         {doctorsData?.map((item, index) => {
                             return (
-                                <div className="col mt-4" key={index}>
+                                <div className="col mt-4" key={index} onClick={()=>{
+                                  router.push(`/dr-profile/${item.id}`)
+                                }}>
                                     <div className="card team border-0 rounded shadow overflow-hidden">
-                                        <div className="team-img position-relative">
+                                        <div className="team-img position-relative" >
                                             <img
                         src={test_url_images + item?.profile_picture}
+                        style={{objectFit:"cover", height:"13rem", width:"100%"}}
                         className="img-fluid"
                         alt=""
                       />
                                         </div>
-                                        <div className="card-body content text-center">
+                                        <div className="card-body content text-center" > 
                                             <Link
                         to={`/dr-profile/${item.id}`}
                         className="title text-dark h5 d-block mb-0"

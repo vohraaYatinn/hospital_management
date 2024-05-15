@@ -9,11 +9,98 @@ import { Alert } from "antd";
 // import { TimePicker } from 'antd';
 import { TimePicker } from "antd";
 import { useRouter } from "../../hooks/use-router.js";
+import { GetAllDepartments } from "../../redux/reducers/functionalities.reducer.js";
+import { useSelector } from "react-redux";
 
 export default function AddDoctor() {
   const router = useRouter();
+  const allDepartments = useSelector(GetAllDepartments);
 
-  const [formValues, setFormValues] = useState({});
+  const [formValues, setFormValues] = useState({
+    phoneNumber:"+91-"
+  });
+
+  const formatTime = (time) => {
+    let [hour, minute, second] = time.split(':').map(Number);
+    let period = hour < 12 ? 'AM' : 'PM';
+    hour = hour % 12 || 12;
+
+    return { hour, minute, period };
+  };
+
+  const [uploadedFile, setUploadedFile] = useState(null);
+  const onChangeTime = (time, timeString) => {
+    console.log(timeString)
+    if (timeString[0]!='' && timeString[1]!=''){
+      let time1 = timeString[0]
+      let time2 = timeString[1]
+      const time1Formatted = formatTime(time1);
+      const time2Formatted = formatTime(time2);    
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+      console.log(finalFormat)
+      
+    setFormValues((prev) => ({
+      ...prev,
+      morningTime: finalFormat,
+    }));
+    }
+    else{
+    setFormValues((prev) => ({
+      ...prev,
+      morningTime: "",
+    }));
+    }
+
+
+  };
+  const onChangeTimeAfternoon = (time, timeString) => {
+    console.log(timeString)
+    if (timeString[0]!='' && timeString[1]!=''){
+      let time1 = timeString[0]
+      let time2 = timeString[1]
+      const time1Formatted = formatTime(time1);
+      const time2Formatted = formatTime(time2);    
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+      console.log(finalFormat)
+      
+    setFormValues((prev) => ({
+      ...prev,
+      afternoonTime: finalFormat,
+    }));
+    }
+    else{
+    setFormValues((prev) => ({
+      ...prev,
+      afternoonTime: "",
+    }));
+    }
+
+
+  };
+  const onChangeTimeEvening = (time, timeString) => {
+    console.log(timeString)
+    if (timeString[0]!='' && timeString[1]!=''){
+      let time1 = timeString[0]
+      let time2 = timeString[1]
+      const time1Formatted = formatTime(time1);
+      const time2Formatted = formatTime(time2);    
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+      console.log(finalFormat)
+      
+    setFormValues((prev) => ({
+      ...prev,
+      eveningTime: finalFormat,
+    }));
+    }
+    else{
+    setFormValues((prev) => ({
+      ...prev,
+      eveningTime: "",
+    }));
+    }
+
+
+  };
   const [isUploaded, setIsUploaded] = useState(false);
   const fileInputRef = React.useRef(null);
   const [errors, setErrors] = useState({});
@@ -50,6 +137,11 @@ export default function AddDoctor() {
         ...prev,
         profilePhoto: file,
       }));
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setUploadedFile(e.target.result);
+      };
+      reader.readAsDataURL(file);
       setIsUploaded(true);
     }
   };
@@ -67,29 +159,29 @@ export default function AddDoctor() {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
 
     if (!values.fullName) {
-      errors.fullName = "Fullname is required!";
+      errors.fullName = "Full name is required!";
     }
-    if (!values.license) {
-      errors.license = "Medical license is required!";
-    }
+    // if (!values.license) {
+    //   errors.license = "Medical license is required!";
+    // }
     if (!values.experience) {
       errors.experience = "Experience is required!";
     }
-    if (!values.bio) {
-      errors.bio = "Bio is required!";
-    }
-    if (!values.specialization) {
-      errors.specialization = "Specialization is required!";
-    }
-    if (!values.education) {
-      errors.education = "Education is required!";
-    }
+    // if (!values.bio) {
+    //   errors.bio = "Bio is required!";
+    // }
+    // if (!values.specialization) {
+    //   errors.specialization = "Specialization is required!";
+    // }
+    // if (!values.education) {
+    //   errors.education = "Education is required!";
+    // }
     if (!values.department) {
       errors.department = "Department is required!";
     }
-    if (!values.address) {
-      errors.address = "Address is required!";
-    }
+    // if (!values.address) {
+    //   errors.address = "Address is required!";
+    // }
     if (!values.HospitalsId) {
       errors.HospitalsId = "Hospital is required!";
     }
@@ -103,37 +195,37 @@ export default function AddDoctor() {
     }
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
-    } else if (values.phoneNumber.length != 10) {
+    } else if (values.phoneNumber.length > 10 && values.phoneNumber.length <13) {
       errors.phoneNumber = "Phone number is not valid";
     }
-    if(!values.morningTime){
-      errors.morningTime = "Morning time is required"
-    }
+    // if(!values.morningTime){
+    //   errors.morningTime = "Morning time is required"
+    // }
    
-    if(!values.afternoonTime){
-      errors.afternoonTime = "Afternoon time is required"
-    }
-    if(!values.eveningTime){
-      errors.eveningTime = "Evening time is required"
-    }
-    if(!values.morningSlots){
-      errors.morningSlots = "Morning slot is required"
-    }
-    if(!values.afternoonSlots){
-      errors.afternoonSlots = "Afternoon slot is required"
-    }
-    if(!values.eveningSlots){
-      errors.eveningSlots = "Evening slot is required"
-    }
-    if(!values.morningPrice){
-      errors.morningPrice = "Morning slot price is required"
-    }
-    if(!values.afternoonPrice){
-      errors.afternoonPrice = "Afternoon slot price is required"
-    }
-    if(!values.eveningPrice){
-      errors.eveningPrice = "Evening slot price is required"
-    }
+    // if(!values.afternoonTime){
+    //   errors.afternoonTime = "Afternoon time is required"
+    // }
+    // if(!values.eveningTime){
+    //   errors.eveningTime = "Evening time is required"
+    // }
+    // if(!values.morningSlots){
+    //   errors.morningSlots = "Morning slot is required"
+    // }
+    // if(!values.afternoonSlots){
+    //   errors.afternoonSlots = "Afternoon slot is required"
+    // }
+    // if(!values.eveningSlots){
+    //   errors.eveningSlots = "Evening slot is required"
+    // }
+    // if(!values.morningPrice){
+    //   errors.morningPrice = "Morning slot price is required"
+    // }
+    // if(!values.afternoonPrice){
+    //   errors.afternoonPrice = "Afternoon slot price is required"
+    // }
+    // if(!values.eveningPrice){
+    //   errors.eveningPrice = "Evening slot price is required"
+    // }
     return errors;
   };
 
@@ -142,6 +234,7 @@ export default function AddDoctor() {
     if (Object.keys(errors).length !== 0) {
       setErrors(errors);
     } else {
+      setErrors({});
       doctorProfileFetch(addDoctorByAdmin(formValues));
     }
   };
@@ -215,9 +308,21 @@ export default function AddDoctor() {
               />
             )}
             <div className="col-lg-12 mt-4">
+              <p style={{color:"green"}}>The Default Password of the account will be : demo@123</p>
               <div className="card border-0 p-4 rounded shadow">
                 <div className="row align-items-center">
                   <div className="row">
+                  {isUploaded &&
+                <div className="col-lg-2 col-md-2">
+                                      <img
+                                        src={uploadedFile || ''}
+                                        className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                        style={{
+                                          objectFit:"cover"
+                                        }}
+                                        alt=""
+                                      />
+																	</div>}
                     <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
                       <h5 className="">Upload doctors picture</h5>
                       {errors.profilePhoto && (
@@ -255,7 +360,7 @@ export default function AddDoctor() {
                 </div>
 
                 <div className="row">
-                  <div className="col-md-12">
+                  <div className="col-md-12 mt-3">
                     <div className="mb-3">
                       <label className="form-label">Full Name</label>
                       <input
@@ -307,6 +412,7 @@ export default function AddDoctor() {
                         id="number"
                         type="text"
                         className="form-control"
+                        value={formValues?.phoneNumber}
                         placeholder="Phone no. :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
@@ -355,14 +461,11 @@ export default function AddDoctor() {
                           }));
                         }}
                       >
-                        <option value="1">Eye Care</option>
-                        <option value="2">Gynecologist</option>
-                        <option value="3">Psychotherapist</option>
-                        <option value="4">Orthopedic</option>
-                        <option value="5">Dentist</option>
-                        <option value="6">Gastrologist</option>
-                        <option value="7">Urologist</option>
-                        <option value="8">Neurologist</option>
+                    {allDepartments.map((item)=>{
+                    return(
+                        <option value={item.id}>{item.name}</option>
+                    )
+                })}
                       </select>
                       {errors.department && (
                         <div className="text-danger">{errors.department}</div>
@@ -393,7 +496,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-6">
                     <div className="mb-3">
-                      <label className="form-label">Experience</label>
+                      <label className="form-label">Experience (in years)</label>
                       <input
                         name="name"
                         id="name"
@@ -521,33 +624,26 @@ export default function AddDoctor() {
                     </div>
                   </div>
 
-                  <h3>Slots</h3>
+                  {/* <h3>Slots</h3> */}
 
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Morning Slots</b></label>
+                    </div>
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Afternoon Slots</b></label>
+                    </div>
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Evening Slots</b></label>
+                    </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Timings</label>
-                      {/* <TimePicker.RangePicker
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            morningTime: e.target.value,
-                          }));
-                        }}
-                      /> */}
-
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        className="form-control"
-                        placeholder="Morning Time :"
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            morningTime: e.target.value,
-                          }));
-                        }}
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                      onChange={onChangeTime}
+                      className="form-control"
+                        
                       />
+
                         {errors.morningTime && (
                         <div className="text-danger">{errors.morningTime}</div>
                       )}
@@ -555,28 +651,12 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Timings</label>
-                      {/* <TimePicker.RangePicker
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            afternoonTime: e.target.value,
-                          }));
-                        }}
-                      /> */}
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        className="form-control"
-                        placeholder="Afternoon Time :"
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            afternoonTime: e.target.value,
-                          }));
-                        }}
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                      onChange={onChangeTimeAfternoon}
+                      className="form-control"
                       />
+                   
                         {errors.afternoonTime && (
                         <div className="text-danger">{errors.afternoonTime}</div>
                       )}
@@ -584,29 +664,12 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Timings</label>
-                      {/* <TimePicker.RangePicker
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            eveningTime: e.target.value,
-                          }));
-                        }}
-                      /> */}
-
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                        onChange={onChangeTimeEvening}
                         className="form-control"
-                        placeholder="Evening Time :"
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            eveningTime: e.target.value,
-                          }));
-                        }}
                       />
+
                         {errors.eveningTime && (
                         <div className="text-danger">{errors.eveningTime}</div>
                       )}
@@ -615,7 +678,7 @@ export default function AddDoctor() {
 
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Slots</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="morningSlots"
                         id="morningSlots"
@@ -637,7 +700,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Slots</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="afternoonSlots"
                         id="afternoonSlots"
@@ -659,7 +722,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Slots</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="eveningSlots"
                         id="eveningSlots"
@@ -737,7 +800,7 @@ export default function AddDoctor() {
                   </div> */}
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
@@ -757,7 +820,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
@@ -777,7 +840,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"

@@ -36,6 +36,7 @@ export default function HospitalProfile() {
 	let params = useParams();
 	let id = params.id;
 	const [isUploaded, setIsUploaded] = useState(false);
+	const [isUploadedLogo, setIsLogoUploaded] = useState(false);
 
 	const [formValues, setFormValues] = useState({
 		hospital_name: "",
@@ -46,6 +47,8 @@ export default function HospitalProfile() {
 		description: "",
 	});
 	let [show, setShow] = useState(false);
+	const [uploadedFileLogo, setUploadedFileLogo] = useState(null);
+	const [uploadedFile, setUploadedFile] = useState(null);
 
 const [
     performActionResponse,
@@ -83,27 +86,58 @@ const performActionRequest = () => {
 	  router.push("/hospitals")
     }
   }, [hospitalsEditResponse]);
-	  const handleUpload = (e) => {
+  
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log("Selected file:", file);
+      setFormValues((prev) => ({
+        ...prev,
+        profile: file,
+      }));
+      setIsUploaded(true);
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setUploadedFile(e.target.result);
+      };
+      reader.readAsDataURL(file);
+
+    }
+  };
+  const handleRemoveLogo = () => {
+    setIsLogoUploaded(false);
+    setUploadedFileLogo("");
+    setFormValues((prev) => ({
+      ...prev,
+      logo: "",
+    }));
+  };
+  const handleRemove = () => {
+    setIsUploaded(false);
+    setUploadedFile("");
+    setFormValues((prev) => ({
+      ...prev,
+      profile: "",
+    }));
+  };
+	
+	  const handleUploadLogo = (e) => {
 		const file = e.target.files[0];
 		if (file) {
 		  console.log("Selected file:", file);
 		  setFormValues((prev) => ({
 			...prev,
-			logo: file,
+			logo: file
 		  }));
-		  setIsUploaded(true);
+		  setIsLogoUploaded(true);
+		  const reader = new FileReader();
+		  reader.onload = function (e) {
+			setUploadedFileLogo(e.target.result);
+		  };
+		  reader.readAsDataURL(file);
+	
 		}
 	  };
-	
-	  const handleRemove = () => {
-		setIsUploaded(false);
-		console.log("Remove button clicked");
-		setFormValues((prev) => ({
-		  ...prev,
-		  logo: "",
-		}));
-	  };
-	  
 	  const openFile = () => {
 		fileInputRef.current.click();
 	  };
@@ -490,14 +524,18 @@ const performActionRequest = () => {
             )}
 															<div className="p-4">
 																<div className="row align-items-center">
-																	<div className="col-lg-2 col-md-4">
-																		<img
-																			src={test_url_images + hospitalData?.hospital_image}
+																	
+																		{isUploaded &&<div className="col-lg-2 col-md-4">
+																	<img
+																			src={uploadedFile || ''}
 																			className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                      style={{
+                                        objectFit:"cover"
+                                      }}
 																			alt=""
-																		/>
-																	</div>
-
+																		/></div>
+																	}
+																	
 																	<div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
 																		<h6 className="">
 																			Upload hospital picture
@@ -526,13 +564,16 @@ const performActionRequest = () => {
 																	</div>
 																</div>
 																<div className="row align-items-center mt-4">
-																	<div className="col-lg-2 col-md-4">
-																		<img
-																			src={test_url_images + hospitalData?.logo}
+																	
+																	{uploadedFileLogo && <div className="col-lg-2 col-md-4"><img
+																			src={uploadedFileLogo || ''}
 																			className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                      style={{
+                                        objectFit:"cover"
+                                      }}
 																			alt=""
-																		/>
-																	</div>
+																		/></div>}
+																	
 
 																	<div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
 																		<h6 className="">
@@ -546,15 +587,15 @@ const performActionRequest = () => {
 																	</div>
 
 																	<div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
-																	{!isUploaded && (
+																	{!isUploadedLogo && (
                       <Link className="btn btn-primary" onClick={openFileLogo}>
                         Upload
                       </Link>
                     )}
-                    {isUploaded && (
+                    {isUploadedLogo && (
                       <Link
                         className="btn btn-soft-primary ms-2"
-                        onClick={handleRemove}
+                        onClick={handleRemoveLogo}
                       >
                         Remove
                       </Link>
@@ -569,6 +610,12 @@ const performActionRequest = () => {
 																				<label className="form-label">
 																					Hospital Name
 																				</label>
+																				<input
+          type="file"
+          ref={fileInputLogoRef}
+          style={{ display: "none" }}
+          onChange={handleUploadLogo}
+        />
 																				<input
 																					name="name"
 																					id="name"

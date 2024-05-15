@@ -36,4 +36,5 @@ export class Urls {
     static DELETE_PATIENT_ADMIN_BY_UJUR = Urls.MPHRMS_API_PREFIX + 'admin/delete-patient-admin-by-ujur/';
     static CANCEL_APPOINTMENTS_ADMIN_BY_UJUR = Urls.MPHRMS_API_PREFIX + 'admin/cancel-appointment-admin-by-ujur/';
     static EDIT_DOCTOR_PROFILE = Urls.MPHRMS_API_PREFIX + 'admin/edit-admin-doctors/';
+    static EDIT_HOSPITAL_ADMIN_PASSWORD = Urls.MPHRMS_API_PREFIX + 'admin/edit-hospital-admin-password/';
 }

@@ -111,3 +111,6 @@ export const CancelAppointmentAdmin = (payload_data) => {
 export const editDoctorProfile = (payload_data) => {
   return project.multiPartFormData(Urls.EDIT_DOCTOR_PROFILE, payload_data);
 };
+export const editAdminPassword = (payload_data) => {
+  return project.post(Urls.EDIT_HOSPITAL_ADMIN_PASSWORD, payload_data);
+};

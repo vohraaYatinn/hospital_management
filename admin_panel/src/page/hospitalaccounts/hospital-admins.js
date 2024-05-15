@@ -5,7 +5,7 @@ import doctor from '../../assets/images/doctors/01.jpg'
 import Wrapper from "../../components/wrapper";
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
-import { deleteHospitalAdminByUjur, fetchHospitalAdminData } from "../../urls/urls";
+import { deleteHospitalAdminByUjur, editAdminPassword, fetchHospitalAdminData } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import moment from "moment";
 import DepartmentSearch from "../../common-components/DepartmentSearch";
@@ -18,7 +18,10 @@ import PatientName from "../../common-components/PatientName";
 import { PaginationCountList, handlePagination } from "../../utils/commonFunctions";
 import {
     LiaTimesCircleSolid,
-    AiOutlineCloseCircle
+    AiOutlineCloseCircle,
+    AiOutlineCodepen,
+    AiOutlineCodepenCircle,
+    LiaUserCircle
   } from "../../assets/icons/vander";
   import { Alert } from "antd";
 
@@ -26,6 +29,8 @@ export default function HospitalAdmins(){
     let [viewProfile, setViewProfile] = useState(false)
     let [editProfile, setEditProfile] = useState(false)
     let [selectedAdmin, setSelectedAdmin] = useState()
+    const [password, setPassword] = useState("");
+    const [selectedAppointment, setSelectedAppointment]= useState()
 
     const [filters, setFilters] = useState({
     })
@@ -42,7 +47,7 @@ export default function HospitalAdmins(){
       });
     let [cancle, setCancle] = useState(false);
     const deleteGivenAdmin = () => {
-        actionAdminListFetch(deleteHospitalAdminByUjur({adminId:selectedAdmin}))
+        actionAdminListFetch(editAdminPassword({adminId:selectedAdmin, password:password}))
     }
     const [
       hospitalAdminListResponse,
@@ -91,19 +96,20 @@ export default function HospitalAdmins(){
                   style={{ height: "95px", width: "95px" }}
                 >
                   <span className="mb-0">
-                    <LiaTimesCircleSolid className="h1" />
+                    <LiaUserCircle className="h1" />
                   </span>
                 </div>
                 <div className="mt-4">
-                  <h4>Delete Admin</h4>
-                  <p className="para-desc mx-auto text-muted mb-0">
-                    Are you sure , you want to delete the given user 
-                  </p>
+                  <h4>Change Password</h4>
+                 <input className="form-control" onChange={(e)=>{
+                    setPassword(e.target.value)
+                 }}/>
                   <div className="mt-4">
                     <Link onClick={()=>{
+                        
                       deleteGivenAdmin()
                     }} className="btn btn-soft-danger">
-                      Delete
+                      Submit
                     </Link>
                   </div>
                 </div>
@@ -166,6 +172,7 @@ export default function HospitalAdmins(){
                                             <th className="border-bottom p-3">Email</th>
                                             <th className="border-bottom p-3">Hospital</th>
                                             <th className="border-bottom p-3">Created At</th>
+                                            <th className="border-bottom p-3"></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -183,6 +190,18 @@ export default function HospitalAdmins(){
                                                     <td className="p-3">{item.username}</td>
                                                     <td className="p-3">{item.hospital.name}</td>
                                                     <td className="p-3">{moment(item.created_at).format('YYYY-MM-DD')}</td>
+                                                    <td className="p-3">{
+                                                           <Link
+                                                           to="#"
+                                                           className="btn btn-icon btn-pills btn-soft-danger"
+                                                           onClick={() => {
+                                                            setSelectedAdmin(item.id)
+                                                             setCancle(!cancle)
+                                                           }}
+                                                         >
+                                                           <AiOutlineCodepenCircle />
+                                                         </Link>
+                                                    }</td>
                                                     
                                                 </tr>
                                             )
