@@ -39,7 +39,7 @@ export default function Chats(){
 
                         <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-                                <li className="breadcrumb-item"><Link to="/">UJUR</Link></li>
+                                <li className="breadcrumb-item"><Link>UJUR</Link></li>
                                 <li className="breadcrumb-item"><Link to="#">Apps</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Chat</li>
                             </ul>

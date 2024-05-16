@@ -6,7 +6,7 @@ import doctor from '../../assets/images/doctors/01.jpg'
 import Wrapper from "../../components/wrapper";
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
-import { deletePatientAdminByUjur, fetchPatientsAdmin } from "../../urls/urls";
+import { editCustomerPassword, fetchPatientsAdmin } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { PaginationCountList, calculateAge, handlePagination } from "../../utils/commonFunctions";
 import moment from "moment";
@@ -14,9 +14,12 @@ import PatientName from "../../common-components/PatientName";
 import DoctorSearch from "../../common-components/DoctorsSearch";
 import HospitalNameSearch from "../../common-components/HospitalName";
 import DepartmentSearch from "../../common-components/DepartmentSearch";
+
 import {
     LiaTimesCircleSolid,
-    AiOutlineCloseCircle
+    AiOutlineCodepenCircle,
+    AiOutlineCloseCircle,
+    LiaUserCircle
   } from "../../assets/icons/vander";
   import { Alert } from "antd";
 
@@ -25,6 +28,8 @@ export default function Patients(){
     let [editProfile, setEditProfile] = useState(false)
     const [filters, setFilters] = useState({
     })
+    const [password, setPassword] = useState("");
+
     let [selectedAdmin, setSelectedAdmin] = useState()
     let [cancle, setCancle] = useState(false);
     const [patientData, setPatientsData] = useState([]);
@@ -41,7 +46,7 @@ export default function Patients(){
         actionAdminListFetch,
       ] = useAxios();
       const deleteGivenAdmin = () => {
-        actionAdminListFetch(deletePatientAdminByUjur({adminId:selectedAdmin}))
+        actionAdminListFetch(editCustomerPassword({patientId:selectedAdmin, password:password}))
     }
     useEffect(()=>{
         patientListFetch(fetchPatientsAdmin(filters))
@@ -81,7 +86,7 @@ export default function Patients(){
 
                         <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-                                <li className="breadcrumb-item"><Link to="/">UJUR</Link></li>
+                                <li className="breadcrumb-item"><Link>UJUR</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Patients</li>
                             </ul>
                         </nav>
@@ -172,7 +177,7 @@ export default function Patients(){
                                                     <td className="p-3">{item.blood_group}</td>
                                                     <td className="p-3">{item.weight}</td>
                                                     <td className="p-3">{moment(item.created_at).format('YYYY-MM-DD')}</td>
-                                                    {/* <td className="p-3">{
+                                                    <td className="p-3">{
                                                            <Link
                                                            to="#"
                                                            className="btn btn-icon btn-pills btn-soft-danger"
@@ -181,9 +186,9 @@ export default function Patients(){
                                                              setCancle(!cancle)
                                                            }}
                                                          >
-                                                           <AiOutlineCloseCircle />
+                                                           <AiOutlineCodepenCircle />
                                                          </Link>
-                                                    }</td> */}
+                                                    }</td>
                                                 </tr>
                                             )
                                         })}
@@ -334,19 +339,20 @@ export default function Patients(){
                   style={{ height: "95px", width: "95px" }}
                 >
                   <span className="mb-0">
-                    <LiaTimesCircleSolid className="h1" />
+                    <LiaUserCircle className="h1" />
                   </span>
                 </div>
                 <div className="mt-4">
-                  <h4>Delete Patient</h4>
-                  <p className="para-desc mx-auto text-muted mb-0">
-                    Are you sure , you want to delete the selected patient 
-                  </p>
+                  <h4>Change Password</h4>
+                 <input className="form-control" onChange={(e)=>{
+                    setPassword(e.target.value)
+                 }}/>
                   <div className="mt-4">
                     <Link onClick={()=>{
+                        
                       deleteGivenAdmin()
                     }} className="btn btn-soft-danger">
-                      Delete
+                      Submit
                     </Link>
                   </div>
                 </div>

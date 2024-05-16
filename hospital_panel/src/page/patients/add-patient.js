@@ -109,7 +109,7 @@ export default function AddPatient() {
             >
               <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
                 <li className="breadcrumb-item">
-                  <Link to="/">UJUR</Link>
+                  <Link>UJUR</Link>
                 </li>
                 <li className="breadcrumb-item">
                   <Link to="/patients">Patients</Link>

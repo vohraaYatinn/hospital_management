@@ -25,7 +25,7 @@ export default function Blogs(){
                         
                             <nav aria-label="breadcrumb" className="d-inline-block mt-3">
                                 <ul className="breadcrumb bg-light rounded mb-0 py-1 px-2">
-                                    <li className="breadcrumb-item"><Link to="/">UJUR</Link></li>
+                                    <li className="breadcrumb-item"><Link>UJUR</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Blogs</li>
                                 </ul>
                             </nav>

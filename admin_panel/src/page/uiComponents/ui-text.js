@@ -12,7 +12,7 @@ export default function UiText(){
 
                             <nav aria-label="breadcrumb" className="d-inline-block mt-2 mt-sm-0">
                                 <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
-                                    <li className="breadcrumb-item text-capitalize"><Link to="/">UJUR</Link></li>
+                                    <li className="breadcrumb-item text-capitalize"><Link>UJUR</Link></li>
                                     <li className="breadcrumb-item text-capitalize"><Link to="">Components</Link></li>
                                     <li className="breadcrumb-item text-capitalize active" aria-current="page">Text Color</li>
                                 </ul>

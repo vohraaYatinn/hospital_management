@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import logoDark from "../assets/images/logo-dark.png";
@@ -41,16 +41,31 @@ export default function TopHeader({ toggle, setToggle }) {
     const closeUserModal = () => {
       setUserModal(false);
     };
-    document.addEventListener("mousedown", handleclose);
-    document.addEventListener("mousedown", closeMail);
-    document.addEventListener("mousedown", closeUserModal);
+    // document.addEventListener("mousedown", handleclose);
+    // document.addEventListener("mousedown", closeMail);
+    // document.addEventListener("mousedown", closeUserModal);
 
     return () => {
-      document.removeEventListener("mousedown", handleclose);
-      document.removeEventListener("mousedown", closeMail);
-      document.removeEventListener("mousedown", closeUserModal);
+      // document.removeEventListener("mousedown", handleclose);
+      // document.removeEventListener("mousedown", closeMail);
+      // document.removeEventListener("mousedown", closeUserModal);
     };
   });
+  const dropdownRef = useRef(null);
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setUserModal(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
     <div className="top-header">
@@ -82,8 +97,6 @@ export default function TopHeader({ toggle, setToggle }) {
           </Link>
         </div>
 
-        <ul className="list-unstyled mb-0">
-          <li className="list-inline-item mb-0 ms-1">
             <div className="dropdown dropdown-primary">
               <button
                 type="button"
@@ -97,10 +110,11 @@ export default function TopHeader({ toggle, setToggle }) {
                 />
               </button>
               <div
+              ref={dropdownRef}
                 className={`${
-                  userModal ? "show" : ""
-                } dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3`}
-                style={{ minWidth: "200px", position: "absolute", right: "0" }}
+                  userModal ? "div-div-check-show" : "" 
+                } div-div-check`}
+                style={{ minWidth: "200px", position: "absolute", right: "0", background:"white" }}
               >
                 <Link
                   className="dropdown-item text-dark d-flex align-items-center"
@@ -132,8 +146,7 @@ export default function TopHeader({ toggle, setToggle }) {
                 </Link>
               </div>
             </div>
-          </li>
-        </ul>
+         
       </div>
     </div>
   );

@@ -24,7 +24,7 @@ export default function DoctorTeamThree(){
                         
                             <nav aria-label="breadcrumb" className="d-inline-block mt-3">
                                 <ul className="breadcrumb bg-transparent mb-0">
-                                    <li className="breadcrumb-item"><Link to="/">UJUR</Link></li>
+                                    <li className="breadcrumb-item"><Link>UJUR</Link></li>
                                     <li className="breadcrumb-item"><Link to="#">Doctors</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Team three</li>
                                 </ul>

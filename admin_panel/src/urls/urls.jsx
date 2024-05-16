@@ -114,3 +114,6 @@ export const editDoctorProfile = (payload_data) => {
 export const editAdminPassword = (payload_data) => {
   return project.post(Urls.EDIT_HOSPITAL_ADMIN_PASSWORD, payload_data);
 };
+export const editCustomerPassword = (payload_data) => {
+  return project.post(Urls.EDIT_CUSTOMER_PASSWORD, payload_data);
+};

@@ -18,7 +18,7 @@ export default function CheckOut(){
                         
                             <nav aria-label="breadcrumb" className="d-inline-block mt-3">
                                 <ul className="breadcrumb bg-light rounded mb-0 bg-transparent">
-                                    <li className="breadcrumb-item"><Link to="/">UJUR</Link></li>
+                                    <li className="breadcrumb-item"><Link>UJUR</Link></li>
                                     <li className="breadcrumb-item"><Link to="/pharmacy">Pharmacy</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Checkout</li>
                                 </ul>

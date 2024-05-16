@@ -20,7 +20,7 @@ export default function Privacy(){
                             
                             <nav aria-label="breadcrumb" className="d-inline-block mt-3">
                                 <ul className="breadcrumb bg-transparent rounded mb-0">
-                                    <li className="breadcrumb-item"><Link to="/">UJUR</Link></li>
+                                    <li className="breadcrumb-item"><Link>UJUR</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Privacy</li>
                                 </ul>
                             </nav>

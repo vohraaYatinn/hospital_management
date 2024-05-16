@@ -307,7 +307,7 @@ export default function Sidebar({ manuClass }) {
             }`}
           >
             <Link
-              to="#"
+              to="/patients"
               onClick={(e) => {
                 setSubManu(subManu === "patient-item" ? "" : "patient-item");
               }}
@@ -327,16 +327,7 @@ export default function Sidebar({ manuClass }) {
                   : ""
               }`}
             >
-              <ul>
-                <li className={`${manu === "patients" ? "active" : ""} ms-0`}>
-                  <Link to="/patients">All Patients</Link>
-                </li>
-                <li
-                  className={`${manu === "add-patient" ? "active" : ""} ms-0`}
-                >
-                  <Link to="/add-patient">Add Patients</Link>
-                </li>
-              </ul>
+             
             </div>
           </li>
 

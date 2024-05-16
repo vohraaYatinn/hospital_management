@@ -1,0 +1,11 @@
+.div-div-check{
+    padding: 1rem;
+    display: none;
+}
+.div-div-check a{
+    margin: 0.5rem;
+   
+}
+.div-div-check-show{
+    display: block !important;
+}
