@@ -67,21 +67,12 @@ let options = {
 let options2 = {
     chart: {
         height: 350,
-        type: 'radialBar',
-        dropShadow: {
-          enabled: true,
-          top: 10,
-          left: 0,
-          bottom: 0,
-          right: 0,
-          blur: 2,
-          color: '#45404a2e',
-          opacity: 0.35
-        },
+        type: 'pie',
+
     },
     colors: ['#396cf0', '#53c797', '#f1b561', '#f0735a'],
     plotOptions: {
-        radialBar: {
+        pie: {
             track: {
               background: '#b9c1d4',
               opacity: 0.5,            
@@ -113,16 +104,32 @@ let options2 = {
 export default function Charts(){
     return(
         <>
-        <div className="col-xl-8 col-lg-7 mt-4">
+        <div className="col-xl-6 col-lg-6 mt-4">
             <div className="card shadow border-0 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h6 className="align-items-center mb-0">Patients visit by Gender</h6>
                     
                     <div className="mb-0 position-relative">
                         <select className="form-select form-control" id="yearchart">
-                            <option defaultValue>2020</option>
-                            <option>2019</option>
-                            <option>2018</option>
+                            <option defaultValue>Week</option>
+                            <option>Month</option>
+                            <option>Year</option>
+                        </select>
+                    </div>
+                </div>
+                <Chart options={options} series={options.series} type="bar" width='100%' height={350} />
+            </div>
+        </div>
+        <div className="col-xl-6 col-lg-6 mt-4">
+            <div className="card shadow border-0 p-4">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h6 className="align-items-center mb-0">Patients visit by Age</h6>
+                    
+                    <div className="mb-0 position-relative">
+                        <select className="form-select form-control" id="yearchart">
+                        <option defaultValue>Week</option>
+                            <option>Month</option>
+                            <option>Year</option>
                         </select>
                     </div>
                 </div>
@@ -130,19 +137,20 @@ export default function Charts(){
             </div>
         </div>
 
-        <div className="col-xl-4 col-lg-5 mt-4">
+        <div className="col-xl-12 col-lg-12 mt-4">
             <div className="card shadow border-0 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h6 className="align-items-center mb-0">Patients by Department</h6>
                     
                     <div className="mb-0 position-relative">
                         <select className="form-select form-control" id="dailychart">
-                            <option defaultValue>Today</option>
-                            <option>Yesterday</option>
+                        <option defaultValue>Week</option>
+                            <option>Month</option>
+                            <option>Year</option>
                         </select>
                     </div>
                 </div>
-                <Chart options={options2} series={options2.series} type="radialBar" width='100%' height={350} />
+                <Chart options={options2} series={options2.series} type="pie" width='100%' height={350} />
             </div>
         </div>
         </>
