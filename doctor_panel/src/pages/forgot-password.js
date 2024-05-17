@@ -8,6 +8,8 @@ import {FiHome } from '../assets/icons/vander'
 import { forgotPasswordRequest } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { useState } from "react";
+import { Alert } from 'antd';
+import { useEffect } from "react";
 
 export default function ForgotPassword(){
     const [
@@ -23,6 +25,21 @@ export default function ForgotPassword(){
         email:"",
         comment:""
     })
+    const [message, setMessage] = useState({
+        message: "",
+        showMessage: "",
+        type: "error"
+    })
+    useEffect(() => {
+        if (recoverPassResponse?.result == "success") {
+            setMessage({
+                message: "Reset Password Request has been raised.",
+                showMessage: true,
+                type: "success"
+            })
+        }
+
+    }, [recoverPassResponse])
     return(
         <>
 
@@ -41,6 +58,18 @@ export default function ForgotPassword(){
                             <div className="card-body">
                                 <h4 className="text-center">Recover Account</h4>  
                                     <div className="row">
+                                    {message?.showMessage && <Alert
+                                                style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                                                message={message?.message} type={message?.type}
+                                                closable
+
+                                                onClose={() => {
+                                                    setMessage({
+                                                        message: "",
+                                                        showMessage: false
+                                                    })
+                                                }}
+                                            />}
                                         <div className="col-lg-12">
                                             <p className="text-muted">Please enter your ID. Your hospital will share you a new password.</p>
                                             <div className="mb-3">

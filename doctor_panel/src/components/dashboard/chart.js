@@ -5,7 +5,7 @@ import Chart from 'react-apexcharts'
 export default function Charts({data, time_period_dict}){
     let options = {
         series: [{
-            data: data?.total
+            data: Math.floor(data?.total || 0)
         }],
         chart: {
             type: 'area',
@@ -53,7 +53,7 @@ export default function Charts({data, time_period_dict}){
     };
     let options2 = {
         series: [{
-            data: data?.completed
+            data: Math.floor(data?.completed || 0)
         }],
         chart: {
             type: 'area',
@@ -101,7 +101,7 @@ export default function Charts({data, time_period_dict}){
     };
     let options3 = {
         series: [{
-            data: data?.pending
+            data: Math.floor(data?.pending || 0)
         }],
         chart: {
             type: 'area',
@@ -149,7 +149,7 @@ export default function Charts({data, time_period_dict}){
     };
     let options4 = {
         series: [{
-            data: data?.canceled
+            data: Math.floor(data?.pending || 0)
         }],
         chart: {
             type: 'area',

@@ -21,13 +21,27 @@ import SimpleBar from "simplebar-react";
 
 import Offcanvas from "react-bootstrap/Offcanvas";
 import PersonChatTwo from "./personChatTwo";
+import { useRef } from "react";
 
 export default function TopHeader({ toggle, setToggle }) {
   let [countryModal, setCountryModal] = useState(false);
   let [mailModal, setMailModal] = useState(false);
   let [userModal, setUserModal] = useState(false);
   let [show, setShow] = useState(false);
+  const dropdownRef = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setUserModal(false);
+      }
+    };
 
+    document.addEventListener('mousedown', handleClickOutside);
+    
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
 
@@ -41,15 +55,7 @@ export default function TopHeader({ toggle, setToggle }) {
     const closeUserModal = () => {
       setUserModal(false);
     };
-    document.addEventListener("mousedown", handleclose);
-    document.addEventListener("mousedown", closeMail);
-    document.addEventListener("mousedown", closeUserModal);
 
-    return () => {
-      document.removeEventListener("mousedown", handleclose);
-      document.removeEventListener("mousedown", closeMail);
-      document.removeEventListener("mousedown", closeUserModal);
-    };
   });
 
   return (
@@ -152,6 +158,7 @@ export default function TopHeader({ toggle, setToggle }) {
                 />
               </button>
               <div
+                ref={dropdownRef}
                 className={`${
                   userModal ? "show" : ""
                 } dropdown-menu dd-menu dropdown-menu-end shadow border-0 mt-3 py-3`}
@@ -168,7 +175,7 @@ export default function TopHeader({ toggle, setToggle }) {
                 </Link>
                 <Link
                   className="dropdown-item text-dark d-flex align-items-center"
-                  to="/hospital-admin"
+                  to="/hospitals-admin"
                 >
                   <span className="mb-0 d-inline-block me-1">
                     <FiSettings className="align-middle h6 mb-0" />

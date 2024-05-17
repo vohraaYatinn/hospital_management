@@ -70,17 +70,20 @@ import AddAdmin from "./page/admins/add-admin";
 import Admins from "./page/admins/admins";
 import AddHospitalAccount from "./page/hospitalaccounts/add-hospital-admin";
 import HospitalAdmins from "./page/hospitalaccounts/hospital-admins";
+import AdminReviews from "./page/AdminReviews";
 
 
 function App() {
   return (
    <>
    <Routes>
+    <Route path="/admin-reviews" element={<Index/>}/>
     <Route path="/admin-dashboard" element={<Index/>}/>
     <Route path="/index" element={<Index/>}/>
     <Route path="/index-sidebar-dark" element={<IndexDarkSidebar/>}/>
     <Route path="/index-sidebar-colored" element={<IndexSidebarColored/>}/>
     <Route path="/appointment" element={<Appointment/>}/>
+    <Route path="/admin-reviews" element={<AdminReviews/>}/>
     <Route path="/departments" element={<Departments/>}/>
     <Route path="/doctors" element={<Doctors/>}/>
     <Route path="/doctor-leave" element={<DoctorLeave/>}/>

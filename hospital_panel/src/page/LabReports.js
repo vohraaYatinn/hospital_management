@@ -10,11 +10,13 @@ import {
   MdOutlineCheckCircleOutline,
   AiOutlineCloseCircle,
   LiaTimesCircleSolid,
+  AiOutlineCloudUpload,
+  LiaFileUploadSolid,
   AiOutlineFileExcel,
 } from "../assets/icons/vander";
 
 import Modal from "react-bootstrap/Modal";
-import { CancelAppointmentHospital, fetchAppointmentsHospital } from "../urls/urls";
+import { CancelAppointmentHospital, UploadLabReport, fetchAppointmentsHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
@@ -27,24 +29,26 @@ import StatusSearch from "../common-components/StatusSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import { Alert } from "antd";
 
-
-export default function Appointment() {
+export default function LabReports() {
   let [show, setShow] = useState(false);
   let [showDetail, setShowDetail] = useState(false);
   let [acceptsAppointment, setAcceptsAppointment] = useState(false);
   const [appointmentData, setAppointmentsData] = useState([]);
-  const [selectedAppointment, setSelectedAppointment]= useState()
+  const [selectedAppointment, setSelectedAppointment] = useState()
   let [cancle, setCancle] = useState(false);
   const [filters, setFilters] = useState({
     date: getTodayDate()
   });
   const [paginationNumber, setPaginationNumber] = useState({
-    from:0,
-    to:10,
-    currentTab:1
-})
+    from: 0,
+    to: 10,
+    currentTab: 1
+  })
 
-
+  const fileInputRef = React.useRef(null);
+  const openFile = () => {
+    fileInputRef.current.click();
+  };
   const [
     appointmentsResponse,
     appointmentsError,
@@ -57,6 +61,11 @@ export default function Appointment() {
     appointmentsCancelLoading,
     appointmentsCancelFetch,
   ] = useAxios();
+
+  const [formValues, setFormValues] = useState({
+  });
+  const [uploadedFile, setUploadedFile] = useState(null);
+
   const searchStatusConstants = [
     {
       value: "completed",
@@ -80,11 +89,38 @@ export default function Appointment() {
     showMessage: "",
     type: "error",
   });
+  const [isUploaded, setIsUploaded] = useState(false);
+
+  const handleUpload = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      console.log("Selected file:", file);
+      setFormValues((prev) => ({
+        ...prev,
+        profilePhoto: file,
+      }));
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setUploadedFile(e.target.result);
+      };
+      reader.readAsDataURL(file);
+      setIsUploaded(true);
+    }
+  };
+
+  const handleRemove = () => {
+    setIsUploaded(false);
+    console.log("Remove button clicked");
+    setFormValues((prev) => ({
+      ...prev,
+      profilePhoto: "",
+    }));
+  };
   const fetchAppointmentsData = () => {
     appointmentsFetch(fetchAppointmentsHospital(filters));
   };
   const cancelGivenAppointment = () => {
-    appointmentsCancelFetch(CancelAppointmentHospital({appointmentId:selectedAppointment}));
+    appointmentsCancelFetch(UploadLabReport({ appointmentId: selectedAppointment, labReport:formValues?.profilePhoto }));
   };
   useEffect(() => {
     fetchAppointmentsData();
@@ -108,19 +144,19 @@ export default function Appointment() {
         showMessage: true,
         type: "success",
       });
-
+      handleRemove()
       setCancle(!cancle)
     }
   }, [appointmentsCancelResponse]);
   useEffect(() => {
-    if(appointmentsCancelError){
+    if (appointmentsCancelError) {
       setMessage({
         message: appointmentsCancelError?.response?.data?.message,
         showMessage: true,
         type: "error",
       });
     }
-    
+
   }, [appointmentsCancelError]);
   // useEffect(() => {
   //   setFilters((prevFilters) => ({
@@ -131,39 +167,45 @@ export default function Appointment() {
   return (
     <>
       <Wrapper>
+        <input
+          type="file"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={handleUpload}
+        />
+
         <div className="container-fluid">
           <div className="layout-specing">
             <div className="row">
               <div className="col-xl-9 col-lg-6 col-md-4">
-                <h5 className="mb-0">Appointment</h5>
+                <h5 className="mb-0">Lab Reports</h5>
                 <nav aria-label="breadcrumb" className="d-inline-block mt-2">
                   <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
                     <li className="breadcrumb-item">
                       <Link>UJUR</Link>
                     </li>
                     <li className="breadcrumb-item active" aria-current="page">
-                      Appointment
+                      Lab Reports
                     </li>
                   </ul>
                 </nav>
               </div>
               {message?.showMessage && (
-                      <Alert
-                        style={{ marginTop: "1rem", marginBottom: "1rem" }}
-                        message={message?.message}
-                        type={message?.type}
-                        closable
-                        onClose={() => {
-                          setMessage({
-                            message: "",
-                            showMessage: false,
-                          });
-                        }}
-                      />
-                    )}
+                <Alert
+                  style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                  message={message?.message}
+                  type={message?.type}
+                  closable
+                  onClose={() => {
+                    setMessage({
+                      message: "",
+                      showMessage: false,
+                    });
+                  }}
+                />
+              )}
               <div className="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
                 <div className="justify-content-md-end">
-                  <form>
                     <div className="row justify-content-between align-items-center">
                       <div className="col-sm-12 col-md-5"></div>
 
@@ -184,7 +226,6 @@ export default function Appointment() {
                           </Modal.Header>
                           <Modal.Body>
                             <div className="modal-body p-3 pt-4">
-                              <form>
                                 <div className="row">
                                   <div className="col-lg-12">
                                     <div className="mb-3">
@@ -362,13 +403,11 @@ export default function Appointment() {
                                     </div>
                                   </div>
                                 </div>
-                              </form>
                             </div>
                           </Modal.Body>
                         </Modal>
                       </div>
                     </div>
-                  </form>
                 </div>
               </div>
             </div>
@@ -507,8 +546,10 @@ export default function Appointment() {
                               </Link>
                             </td>
                             <td className="p-3">{item.status}</td>
-                            <td className="p-3">
-                            {
+                            <td className="text-end p-3">
+                              {
+                                <>
+                                {
                                   item.lab_report &&  <Link
                                   to="#"
                                   style={{marginRight:"1rem"}}
@@ -520,22 +561,20 @@ export default function Appointment() {
                                 </Link>
                                 }
                                
+                                  
+                                <Link
+                                  to="#"
+                                  className="btn btn-icon btn-pills btn-soft-primary"
+                                  onClick={() => {
+                                    setSelectedAppointment(item.id)
+                                    setCancle(!cancle)
+                                  }}
+                                >
+                                  <AiOutlineCloudUpload />
+                                </Link>
+                                </>
+                                }
                             </td>
-                            
-                            {/* <td className="text-end p-3">
-                            {item.status == "pending" &&
-                              
-                              <Link
-                                to="#"
-                                className="btn btn-icon btn-pills btn-soft-danger"
-                                onClick={() => {
-                                  setSelectedAppointment(item.id)
-                                  setCancle(!cancle)
-                                }}
-                              >
-                                <AiOutlineCloseCircle />
-                              </Link>}
-                            </td> */}
                           </tr>
                         );
                       })}
@@ -550,7 +589,7 @@ export default function Appointment() {
                 <div className="d-md-flex align-items-center text-center justify-content-between">
 
                   <ul className="pagination justify-content-center mb-0 mt-3 mt-sm-0">
-                  { PaginationCountList(handlePagination, paginationNumber , appointmentData, setPaginationNumber) }
+                    {PaginationCountList(handlePagination, paginationNumber, appointmentData, setPaginationNumber)}
 
                   </ul>
                 </div>
@@ -660,24 +699,34 @@ export default function Appointment() {
           <Modal.Body>
             <div className="modal-body py-5">
               <div className="text-center">
-                <div
-                  className="icon d-flex align-items-center justify-content-center bg-soft-danger rounded-circle mx-auto"
-                  style={{ height: "95px", width: "95px" }}
-                >
-                  <span className="mb-0">
-                    <LiaTimesCircleSolid className="h1" />
-                  </span>
-                </div>
+
+
+                <span className="mb-0">
+                  {!isUploaded && (
+                    <LiaFileUploadSolid className='h1' onClick={openFile}/>
+             
+
+                  )}
+                  {isUploaded && (
+                    <button
+                      className="btn btn-soft-primary ms-2 mt-2"
+                      onClick={handleRemove}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </span>
                 <div className="mt-4">
-                  <h4>Cancel Appointment</h4>
+                  <h4>Upload Lab Report</h4>
                   <p className="para-desc mx-auto text-muted mb-0">
-                    Are you sure , you want to cancel the given appointment 
+                    Are you sure , you want to upload lab report for the given appointment
                   </p>
-                  <div className="mt-4">
-                    <Link onClick={()=>{
+
+                  <div className="mt-3">
+                    <Link onClick={() => {
                       cancelGivenAppointment()
-                    }} className="btn btn-soft-danger">
-                      Cancel
+                    }} className="btn btn-primary">
+                      Submit
                     </Link>
                   </div>
                 </div>

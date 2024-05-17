@@ -5,13 +5,13 @@ import doctor from '../../assets/images/doctors/01.jpg'
 import Wrapper from "../../components/wrapper";
 import Modal from 'react-bootstrap/Modal';
 import { useEffect } from "react";
-import { deleteHospitalAdmin, fetchHospitalAdminData } from "../../urls/urls";
+import { deleteHospitalAdmin, fetchHospitalAdminData, editAdminPassword } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import moment from "moment";
 import { PaginationCountList, handlePagination } from "../../utils/commonFunctions";
 import {
     LiaTimesCircleSolid,
-    AiOutlineCloseCircle
+    AiOutlineCloseCircle,LiaUserCircle
   } from "../../assets/icons/vander";
   import { Alert } from "antd";
 
@@ -20,6 +20,8 @@ export default function HospitalAdmins(){
     let [viewProfile, setViewProfile] = useState(false)
     let [editProfile, setEditProfile] = useState(false)
     let [selectedAdmin, setSelectedAdmin] = useState()
+    const [password, setPassword] = useState("");
+
     const [paginationNumber, setPaginationNumber] = useState({
         from:0,
         to:10,
@@ -48,7 +50,7 @@ export default function HospitalAdmins(){
       actionAdminListFetch,
     ] = useAxios();
     const deleteGivenAdmin = () => {
-        actionAdminListFetch(deleteHospitalAdmin({adminId:selectedAdmin}))
+        actionAdminListFetch(editAdminPassword({adminId:selectedAdmin, password:password}))
     }
     useEffect(()=>{
         hospitalAdminListFetch(fetchHospitalAdminData(filters))
@@ -165,19 +167,20 @@ export default function HospitalAdmins(){
                   style={{ height: "95px", width: "95px" }}
                 >
                   <span className="mb-0">
-                    <LiaTimesCircleSolid className="h1" />
+                    <LiaUserCircle className="h1" />
                   </span>
                 </div>
                 <div className="mt-4">
-                  <h4>Delete Admin</h4>
-                  <p className="para-desc mx-auto text-muted mb-0">
-                    Are you sure , you want to delete the given user 
-                  </p>
+                  <h4>Change Password</h4>
+                 <input className="form-control" onChange={(e)=>{
+                    setPassword(e.target.value)
+                 }}/>
                   <div className="mt-4">
                     <Link onClick={()=>{
+                        
                       deleteGivenAdmin()
                     }} className="btn btn-soft-danger">
-                      Delete
+                      Submit
                     </Link>
                   </div>
                 </div>

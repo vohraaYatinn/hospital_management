@@ -291,6 +291,12 @@ export default function Sidebar({ manuClass }) {
               Departments
             </Link>
           </li>
+          {/* <li className={`${manu === "departments" ? "active" : ""} ms-0`}>
+            <Link to="/admin-reviews">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Reviews
+            </Link>
+          </li> */}
           {/* <li className={`${manu === "review" ? "active" : ""} ms-0`}><Link to="/review"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reviews</Link></li> */}
           {/* <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}><Link to="/doctor-leave"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Leave Request</Link></li> */}
 
@@ -331,7 +337,7 @@ export default function Sidebar({ manuClass }) {
             </div>
           </li>
 
-          <li className={`${manu === "review" ? "active" : ""} ms-0`}>
+          <li className={`${manu === "admin-review" ? "active" : ""} ms-0`}>
             <Link to="/review">
               <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
               Reviews

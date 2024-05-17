@@ -54,6 +54,9 @@ export const addDepartmentHospital = (payload_data) => {
 export const CancelAppointmentHospital = (payload_data) => {
   return project.post(Urls.CANCEL_APPOINTMENT_HOSPITAL, payload_data);
 };
+export const UploadLabReport = (payload_data) => {
+  return project.multiPartFormData(Urls.UPLOAD_LAB_REPORT, payload_data);
+};
 
 export const handleDelete = (payload_data) => {
   return project.post(Urls.DELETE_HANDLE, payload_data);
@@ -93,4 +96,7 @@ export const addHospitalReferTo = (payload_data) => {
 };
 export const fetchHospitalReferTo = (payload_data) => {
   return project.get(Urls.FETCH_HOSPITAL_REFER_TO, payload_data);
+};
+export const editAdminPassword = (payload_data) => {
+  return project.post(Urls.EDIT_HOSPITAL_ADMIN_PASSWORD, payload_data);
 };

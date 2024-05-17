@@ -29,6 +29,8 @@ export class Urls {
     static FETCH_HOSPITAL_REFER_TO = Urls.MPHRMS_API_PREFIX + 'hospitals/handle-hospital-refer-to/';
     static ADD_HOSPITAL_REFER_TO = Urls.MPHRMS_API_PREFIX + 'hospitals/add-hospital-refer-to/';
     static CANCEL_APPOINTMENT_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'hospitals/cancel-given-appointment/';
+    static EDIT_HOSPITAL_ADMIN_PASSWORD = Urls.MPHRMS_API_PREFIX + 'admin/edit-hospital-admin-password/';
+    static UPLOAD_LAB_REPORT = Urls.MPHRMS_API_PREFIX + 'hospitals/upload-lab-reports/';
 
 
 

@@ -13,6 +13,8 @@ import StatusSearch from "../../common-components/StatusSearch";
 import PatientName from "../../common-components/PatientName";
 import Modal from "react-bootstrap/Modal";
 import PrescriptionHistory from "../patient/prescriptionHistory";
+import { test_url_images } from "../../config/environment";
+import convertToPDF from "../../utils/convertToPdf";
 
 
 
@@ -211,7 +213,20 @@ export default function DoctorAppointment(){
                                                             setHTMLData(item.pdf_content)
                                                         }}
                                                         >View</button>}</td>
-
+                            <td className="p-3">
+                            {
+                                  item.lab_report &&  <Link
+                                  to="#"
+                                  style={{marginRight:"1rem", color:"black" }}
+                                  className="btn btn-icon "
+                                  onClick={() => {
+                                    window.open(test_url_images + item.lab_report, '_blank');
+                                  }}
+                                >Lab Report
+                                </Link>
+                                }
+                               
+                            </td>
                                                     </tr>
                                                 )
                                             })}
@@ -231,6 +246,14 @@ export default function DoctorAppointment(){
                             </Modal.Header>
                             <Modal.Body>
                               <PrescriptionHistory htmlContent={htmlDataS} />
+                              <button
+     className="btn btn-primary"
+     style={{marginRight:"1rem" , marginTop:"2rem"}}
+     onClick={()=>{
+       convertToPDF(        htmlDataS
+,"Prescription"        )
+     }}
+     >Download</button>
                             </Modal.Body>
                           </Modal>
                             </div>

@@ -195,6 +195,12 @@ export default function Sidebar({ manuClass }) {
               Appointment
             </Link>
           </li>
+          <li className={`${manu === "lab-tests" ? "active" : ""} ms-0`}>
+            <Link to="/lab-tests">
+              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              Lab Reports
+            </Link>
+          </li>
           <li className={`${manu === "departments" ? "active" : ""} ms-0`}>
             <Link to="/departments">
               <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
@@ -317,12 +323,7 @@ export default function Sidebar({ manuClass }) {
                                 </ul>
                             </div>
                         </li> */}
-          <li className={`${manu === "logout" ? "active" : ""} ms-0`}>
-            <Link to="/logout">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
-              logout
-            </Link>
-          </li>
+       
 
           {/* <li className={`sidebar-dropdown ms-0 ${["comingsoon","maintenance",'error',"thankyou", "miscellaneous-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'miscellaneous-item' ? '' : 'miscellaneous-item')}}><BsPostcard className="me-2 d-inline-block mb-0 icon"/>Miscellaneous </Link>

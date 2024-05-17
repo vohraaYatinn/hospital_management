@@ -16,6 +16,8 @@ import { test_url_images } from "../../config/environment";
 import { useRouter } from "../../hooks/use-router";
 import { addDoctorByHospital } from "../../urls/urls.jsx";
 import { Alert } from "antd";
+import { GetAllDepartments } from "../../redux/reducers/functionalities.reducer.js";
+import { useSelector } from "react-redux";
 
 
 export default function DrProfile(){
@@ -27,6 +29,7 @@ export default function DrProfile(){
 
     let data = doctorData.find((doctor)=>doctor.id === parseInt(id))
     let [activeIndex, setActiveIndex] = useState(1)
+    const allDepartments = useSelector(GetAllDepartments);
 
     const [formValues, setFormValues] = useState({
         fullName: '',
@@ -591,14 +594,11 @@ export default function DrProfile(){
                           }));
                         }}
                       >
-                        <option value="1">Eye Care</option>
-                        <option value="2">Gynecologist</option>
-                        <option value="3">Psychotherapist</option>
-                        <option value="4">Orthopedic</option>
-                        <option value="5">Dentist</option>
-                        <option value="6">Gastrologist</option>
-                        <option value="7">Urologist</option>
-                        <option value="8">Neurologist</option>
+                           {allDepartments.map((item)=>{
+                    return(
+                        <option value={item.id}>{item.name}</option>
+                    )
+                })}
                       </select>
                       {errors.department && (
                         <div className="text-danger">{errors.department}</div>

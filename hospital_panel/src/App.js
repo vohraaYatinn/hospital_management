@@ -67,6 +67,7 @@ import DoctorLeave from "./page/doctorLeave";
 import Logout from "./page/logout";
 import HospitalAdmins from "./page/hospitalaccounts/hospital-admins";
 import AddHospitalAccount from "./page/hospitalaccounts/add-hospital-admin";
+import LabReports from "./page/LabReports";
 
 function App() {
   return (
@@ -79,6 +80,7 @@ function App() {
           path="/index-sidebar-colored"
           element={<IndexSidebarColored />}
         />
+        <Route path="/lab-tests" element={<LabReports />} />
         <Route path="/appointment" element={<Appointment />} />
         <Route path="/departments" element={<Departments />} />
         <Route path="/medicines" element={<Medicines />} />
@@ -106,7 +108,7 @@ function App() {
         <Route path="/blog-detail" element={<BlogDetail />} />
         <Route path="/blog-detail/:id" element={<BlogDetail />} />
         <Route path="/faqs" element={<Faqs />} />
-        <Route path="/review" element={<Review />} />
+        <Route path="/review" element={<Review/>}/>
         <Route path="/invoice-list" element={<InvoiceList />} />
         <Route path="/invoice" element={<Invoice />} />
         <Route path="/terms" element={<Terms />} />
