@@ -1,0 +1,98 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+body{
+    height: 100%;
+    width: 100%;
+}
+.green-background-color-1{
+    background-color: #ccffd7;
+    display: flex;
+    justify-content: space-evenly;
+    padding-top: 15px;
+    padding-bottom: 10px;
+}
+.hospital-logo-top-side{
+    height: 100px;
+    width: 100px;
+}
+.top-heading-name-ss{
+  padding-top: 8px;
+}
+.ujur-logo-ss{
+    height: 100px;
+    width: 100px;
+}
+.middle-names-section{
+
+    padding: 10px 40px;
+}
+.flexible-items{
+    display: flex;
+    justify-content: space-between;
+}
+.flexible-items-2{
+    display: flex;
+    padding-top: 8px;
+    padding-bottom: 8px;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.flexible-items-3{
+    display: flex;
+    padding-bottom: 12px;
+    justify-content: space-between;
+    flex-direction: column;
+}
+.names-address-section{
+    min-height: 20rem;
+    border-top: 0.5px solid black;
+    border: 0.5px solid black;
+    display: flex;
+}
+.right-side-border{
+    border-right: 0.5px solid black;
+    padding: 10px;
+    padding-bottom: 5rem;
+}
+.ul-list-dot{
+    padding-left: 20px;
+}
+.top-n{
+    margin-top: 8px;
+}
+.rx-top{ 
+    padding: 12px;
+}
+.tabletss{
+    margin-top: 5px;
+    padding-left: 8px;
+}
+.absolute-sign{
+    position: absolute;
+    right: "2rem";
+}
+.green-background-color-2{
+    background-color: #ccffd7;
+    display: flex;
+    justify-content: end;
+    gap: 50px;
+}
+.text-bottom{
+    display: flex;
+    align-items: end;
+}
+.images-low{
+    height: 100px;
+}
+.images-low-1{
+    height: 40px;
+}
+.absolute-images-bottom{
+    display: flex;
+}
+.something{
+    text-align: center;
+}

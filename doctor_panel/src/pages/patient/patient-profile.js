@@ -119,8 +119,8 @@ export default function PatientProfile() {
 
   const [medication, setMedication] = useState({
     medicineName: "",
-    dosage: "1",
-    timings: "Before Food",
+    dosage: "",
+    timings: "BF",
     comments: "",
     duration: "day",
     labReports: "",
@@ -1042,8 +1042,8 @@ fontSize:"1.4rem"      }}/>
 <div className="col-md-10 mt-2">
 
                 <li key={indexAr}>
-                {capitalizeFirst(med?.medicineName)}{med?.medicationType && ("-" + med?.medicationType)}{med?.Strength && ("-" + med?.Strength)}{" "}{med?.medicineConsume}  <br />  {med?.dosage} Per {" "}
-                  {med.duration} {"-"} {med.timings}
+                {med.medicationType ? med.medicationType : ""}{' '}{med.medicationType == "Inj" && med.InjectionType}{" "}{capitalizeFirst(med.medicineName)}{" "}{med?.Strength && (med?.Strength)}{" "}{med?.medicineConsume}{" "}{med.amount}{""}{med.medicationType=="Syp"||med.medicationType=="Inj" ? "Ml" : med.medicationType}{" "}{med.dosage}{" "}{med.timings}{" "} X {" "}
+                {med.dayduration} {med.duration}
 
                 <br />
               </li>

@@ -100,3 +100,12 @@ export const fetchHospitalReferTo = (payload_data) => {
 export const editAdminPassword = (payload_data) => {
   return project.post(Urls.EDIT_HOSPITAL_ADMIN_PASSWORD, payload_data);
 };
+export const graphsFetch = (payload_data) => {
+  return project.get(Urls.HOSPITAL_ANALYTICS_GRAPHS, payload_data);
+};
+export const genderGraphsFetch = (payload_data) => {
+  return project.get(Urls.GENDER_GRAPHS_FETCH, payload_data);
+};
+export const ageGraphsFetch = (payload_data) => {
+  return project.get(Urls.AGE_GRAPHS_FETCH, payload_data);
+};

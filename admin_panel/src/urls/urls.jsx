@@ -117,3 +117,12 @@ export const editAdminPassword = (payload_data) => {
 export const editCustomerPassword = (payload_data) => {
   return project.post(Urls.EDIT_CUSTOMER_PASSWORD, payload_data);
 };
+export const addPromoCode = (payload_data) => {
+  return project.post(Urls.ADD_PROMO_CODE, payload_data);
+};
+export const fetchPromoCode = (payload_data) => {
+  return project.get(Urls.VIEW_PROMO_CODE, payload_data);
+};
+export const deletePromoCode = (payload_data) => {
+  return project.post(Urls.DELETE_PROMO_CODE, payload_data);
+};

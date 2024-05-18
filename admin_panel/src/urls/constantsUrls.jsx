@@ -38,4 +38,7 @@ export class Urls {
     static EDIT_DOCTOR_PROFILE = Urls.MPHRMS_API_PREFIX + 'admin/edit-admin-doctors/';
     static EDIT_HOSPITAL_ADMIN_PASSWORD = Urls.MPHRMS_API_PREFIX + 'admin/edit-hospital-admin-password/';
     static EDIT_CUSTOMER_PASSWORD = Urls.MPHRMS_API_PREFIX + 'admin/edit-customer-password/';
+    static ADD_PROMO_CODE = Urls.MPHRMS_API_PREFIX + 'admin/add-promo-code/';
+    static VIEW_PROMO_CODE = Urls.MPHRMS_API_PREFIX + 'admin/view-promo-code/';
+    static DELETE_PROMO_CODE = Urls.MPHRMS_API_PREFIX + 'admin/delete-promo-code/';
 }

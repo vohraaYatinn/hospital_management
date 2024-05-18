@@ -21,9 +21,12 @@ import {
 import SimpleBar from "simplebar-react";
 import Wrapper from "../components/wrapper";
 import {
+  ageGraphsFetch,
   fetchAdminDashboard,
   fetchAllDoctors,
   fetchDepartmentAll,
+  genderGraphsFetch,
+  graphsFetch,
 } from "../urls/urls";
 import {
   updateDepartments,
@@ -35,6 +38,12 @@ import { useState } from "react";
 
 export default function Index() {
   const [dashboardDetails, setDashboardDetails] = useState({});
+  const [pieChart, setPieChart] = useState([]);
+  const [genderChart, setGenderChart] = useState([]);
+  const [ageChart, setAgeChart] = useState([]);
+  const [formPie, setFormPie] = useState("week")
+  const [ageGraph, setAgeGraph] = useState("week")
+  const [genderGraph, setGenderGraph] = useState("week")
   const [
     allDepartmentsResponse,
     allDepartmentsError,
@@ -53,10 +62,37 @@ export default function Index() {
     allDoctorsLoading,
     allDoctorsFetch,
   ] = useAxios();
+  const [
+    graphsDoctorsResponse,
+    graphsDoctorsError,
+    graphsDoctorsLoading,
+    graphsDoctorsFetch,
+  ] = useAxios();
+  const [
+    graphsHospitalResponse,
+    graphsHospitalError,
+    graphsHospitalLoading,
+    graphsHospitalFetch,
+  ] = useAxios();
+  const [
+    ageGraphsHospitalResponse,
+    ageGraphsHospitalError,
+    ageGraphsHospitalLoading,
+    ageGraphsHospitalFetch,
+  ] = useAxios();
   const dispatch = useDispatch();
 
   const fetchAllDashboardDetailsFunc = () => {
     dashboardDetailsFetch(fetchAdminDashboard());
+  };
+  const graphsFetchHospital = () => {
+    graphsDoctorsFetch(graphsFetch({"time":formPie}));
+  };
+  const ageGraphsFetchHospital = () => {
+    ageGraphsHospitalFetch(genderGraphsFetch({"time":ageGraph}));
+  };
+  const GendergraphsFetchHospital = () => {
+    graphsHospitalFetch(genderGraphsFetch({"time":genderGraph}));
   };
   const fetchAllDepartmentsFunc = () => {
     allDepartmentsFetch(fetchDepartmentAll());
@@ -70,6 +106,15 @@ export default function Index() {
     fetchAllDashboardDetailsFunc();
   }, []);
   useEffect(() => {
+    graphsFetchHospital();
+  }, [formPie]);
+  useEffect(() => {
+    ageGraphsFetchHospital();
+  }, [ageGraph]);
+  useEffect(() => {
+    GendergraphsFetchHospital();
+  }, [genderGraph]);
+  useEffect(() => {
     if (allDoctorsResponse?.result == "success") {
       dispatch(updateDoctors(allDoctorsResponse?.data));
     }
@@ -82,6 +127,21 @@ export default function Index() {
       setDashboardDetails(dashboardDetailsResponse?.data);
     }
   }, [dashboardDetailsResponse]);
+  useEffect(() => {
+    if (graphsDoctorsResponse?.result == "success") {
+      setPieChart(graphsDoctorsResponse?.data);
+    }
+  }, [graphsDoctorsResponse]);
+  useEffect(() => {
+    if (graphsHospitalResponse?.result == "success") {
+      setGenderChart(graphsHospitalResponse?.data);
+    }
+  }, [graphsHospitalResponse]);
+  useEffect(() => {
+    if (ageGraphsHospitalResponse?.result == "success") {
+      setAgeChart(ageGraphsHospitalResponse?.data);
+    }
+  }, [ageGraphsHospitalResponse]);
 
   return (
     <>
@@ -177,7 +237,7 @@ export default function Index() {
             </div>
 
             <div className="row">
-              <Charts />
+              <Charts pieChart={pieChart} ageGraph={ageChart} setFormPie={setFormPie} ageFilter={ageGraph} setAgeGraph={setAgeGraph} genderChart={genderChart} setGenderGraph={setGenderGraph} />
             </div>
           </div>
         </div>

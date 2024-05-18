@@ -102,7 +102,7 @@ const optionsDosageCvsExtend = [
 ];
 const optionsDosageRespExtend = [
   { value: "Wheeze", label: "Wheeze" },
-  { value: "Rhmchi", label: "Rhmchi" },
+  { value: "Rhonchi", label: "Rhonchi" },
   { value: "Crepitation", label: "Crepitation" }
 ];
 const gynicOptions = [
@@ -125,6 +125,7 @@ const gynicOptionsStoppedExtend = [
   { value: "8", label: "8" },
   { value: "9", label: "9" },
   { value: "10", label: "10" },
+  { value: "11", label: "11" },
 ];
 const optionsAbdominal = [
   { value: "Soft", label: "Soft" },
@@ -136,21 +137,21 @@ const optionsAbdominal = [
 ];
 const optionsAbdominalExtend = [
   { value: "Epigastric", label: "Epigastric" },
-  { value: "Unibilical", label: "Unibilical" },
+  { value: "Umbilical", label: "Umbilical" },
   { value: "Hypogastric", label: "Hypogastric" },
   { value: "Right Hypochondriac", label: "Right Hypochondriac" },
-  { value: "Leftt Hypochondriac", label: "Leftt Hypochondriac" },
+  { value: "Left Hypochondriac", label: "Left Hypochondriac" },
   { value: "Right Lumbar", label: "Right Lumbar" },
   { value: "Left Lumbar", label: "Left Lumbar" },
-  { value: "Right Tnguinal", label: "Right Tnguinal" },
-  { value: "Left Tnguinal", label: "Left Tnguinal" },
+  { value: "Right Inguinal", label: "Right Inguinal" },
+  { value: "Left Inguinal", label: "Left Inguinal" },
 ];
 const gynicOptionsTime = [
-  { value: "day", label: "day" },
+  { value: "week", label: "week" },
   { value: "month", label: "month" }
 ];
 const gynicOptionsTimePlu = [
-  { value: "days", label: "days" },
+  { value: "weeks", label: "weeks" },
   { value: "months", label: "months" }
 ];
 
@@ -469,31 +470,7 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                       />
                     </div>
                   </div>
-                  <div className="row mt-4">
-                    <div className="col-md-2 mb-2">
-                      <div
-                        style={{
-                          fontWeight: "600"
-                        }}
-                      >
-                        RR</div>
-                    </div>
-                    <div className="col-md-4">
-                      <Select
-                        name="dosage"
-                        style={{ height: "2rem" }}
-                        value={{
-                          value: medication.RR,
-                          label: medication.RR,
-                        }}
-                        onChange={(e) => handleMedicationChange(e, "RR")}
-                        options={optionsDosageRR}
-                        placeholder="Select Dosage"
-                        isSearchable
-                        required
-                      />
-                    </div>
-                  </div>
+
 
                 </div>
 
@@ -813,7 +790,7 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                                                 />
                                               </div>}
 
-                      {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Stopped Since"  : systemic.Gynic == "Stopped Since" )  &&
+                      {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Stopped Since" ||  systemic.Gynic.split("-")[0] == "Menopause" : systemic.Gynic == "Stopped Since" || systemic.Gynic == "Menopause"  )  &&
                         <>
                           <div className="col-3">
                             <label>{"Duration"}</label>
@@ -839,9 +816,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                               required
                             />
                           </div>
-                          {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Stopped Since"  : systemic.Gynic == "Stopped Since" )  &&
+                          {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Stopped Since" ||  systemic.Gynic.split("-")[0] == "Menopause" : systemic.Gynic == "Stopped Since"  || systemic.Gynic == "Menopause" )  &&
                             <div className="col-3">
-                              <label>D/M</label>
+                              <label>W/M</label>
 
                               <Select
                                 name="dosage"

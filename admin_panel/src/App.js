@@ -71,7 +71,7 @@ import Admins from "./page/admins/admins";
 import AddHospitalAccount from "./page/hospitalaccounts/add-hospital-admin";
 import HospitalAdmins from "./page/hospitalaccounts/hospital-admins";
 import AdminReviews from "./page/AdminReviews";
-
+import PromoCodes from "./page/promocode";
 
 function App() {
   return (
@@ -80,8 +80,6 @@ function App() {
     <Route path="/admin-reviews" element={<Index/>}/>
     <Route path="/admin-dashboard" element={<Index/>}/>
     <Route path="/index" element={<Index/>}/>
-    <Route path="/index-sidebar-dark" element={<IndexDarkSidebar/>}/>
-    <Route path="/index-sidebar-colored" element={<IndexSidebarColored/>}/>
     <Route path="/appointment" element={<Appointment/>}/>
     <Route path="/admin-reviews" element={<AdminReviews/>}/>
     <Route path="/departments" element={<Departments/>}/>
@@ -101,15 +99,7 @@ function App() {
     <Route path="/email" element={<Email/>}/>
     <Route path="/calendar" element={<Calendar/>}/>
     <Route path="/reset-password" element={<ResetPassword/>}/>
-    <Route path="/drugs" element={<Drugs/>}/>
-    <Route path="/shop" element={<Shop/>}/>
-    <Route path="/product-detail" element={<ProductDetail/>}/>
-    <Route path="/product-detail/:id" element={<ProductDetail/>}/>
-    <Route path="/shopcart" element={<ShopCart/>}/>
-    <Route path="/checkout" element={<Checkout/>}/>
-    <Route path="/blogs" element={<Blogs/>}/>
-    <Route path="/blog-detail" element={<BlogDetail/>}/>
-    <Route path="/blog-detail/:id" element={<BlogDetail/>}/>
+    <Route path="/promocode" element={<PromoCodes/>}/>
 					<Route path="/hospitals" element={<Hospital />} />
 				<Route path="/add-hospital" element={<AddHospital />} />
 				<Route path="/hospital-profile" element={<HospitalProfile />} />
@@ -119,37 +109,12 @@ function App() {
     <Route path="/invoice-list" element={<InvoiceList/>}/>
     <Route path="/invoice" element={<Invoice/>}/>
     <Route path="/terms" element={<Terms/>}/>
-    <Route path="/privacy" element={<Privacy/>}/>
-    <Route path="/blank-page" element={<BlankPage/>}/>
-    <Route path="/email-confirmation" element={<EmailConfirmation/>}/>
-    <Route path="/email-password-reset" element={<EmailPasswordReset/>}/>
-    <Route path="/email-alert" element={<EmailAlert/>}/>
-    <Route path="/email-invoice" element={<EmailInvoice/>}/>
     <Route path="/" element={<Login/>}/>
     <Route path="/login" element={<Login/>}/>
     <Route path="/signup" element={<Signup/>}/>
     <Route path="/forgot-password" element={<ForgotPassword/>}/>
-    <Route path="/lock-screen" element={<LockScreen/>}/>
-    <Route path="/ui-button" element={<UiButton/>}/>
-    <Route path="/ui-badges" element={<UiBadges/>}/>
-    <Route path="/ui-alert" element={<UiAlert/>}/>
-    <Route path="/ui-dropdown" element={<UiDropDown/>}/>
-    <Route path="/ui-typography" element={<UiTypography/>}/>
-    <Route path="/ui-background" element={<UiBackground/>}/>
-    <Route path="/ui-text" element={<UiText/>}/>
-    <Route path="/ui-tooltip-popover" element={<UiTooltipPopover/>}/>
-    <Route path="/ui-shadow" element={<UiShadow/>}/>
-    <Route path="/ui-border" element={<UiBorder/>}/>
-    <Route path="/ui-form" element={<UiForm/>}/>
-    <Route path="/ui-pagination" element={<UiPagination/>}/>
-    <Route path="/ui-avatar" element={<UiAvatar/>}/>
-    <Route path="/ui-modals" element={<UiModals/>}/>
-    <Route path="/ui-icons" element={<UiIcon/>}/>
-    <Route path="/comingsoon" element={<Comingsoon/>}/>
-    <Route path="/maintenance" element={<Maintenance/>}/>
     <Route path="/error" element={<Error/>}/>
     <Route path="*" element={<Error/>}/>
-    <Route path="thankyou" element={<ThankYou/>}/>
     <Route path="/logout" element={<Logout/>}/>
   </Routes>
    

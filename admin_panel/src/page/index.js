@@ -90,7 +90,7 @@ export default function Index() {
             <h5 className="mb-0">Dashboard</h5>
 
             <div className="row">
-              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+              <div className="col-xl-6 col-lg-6 col-md-6 mt-4">
                 <div className="card features feature-primary rounded border-0 shadow p-4">
                   <div className="d-flex align-items-center">
                     <div className="icon text-center rounded-md">
@@ -103,7 +103,7 @@ export default function Index() {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+              <div className="col-xl-6 col-lg-6 col-md-6 mt-4">
                 <div className="card features feature-primary rounded border-0 shadow p-4">
                   <div className="d-flex align-items-center">
                     <div className="icon text-center rounded-md">
@@ -117,7 +117,7 @@ export default function Index() {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+              <div className="col-xl-6 col-lg-6 col-md-6 mt-4">
                 <div className="card features feature-primary rounded border-0 shadow p-4">
                   <div className="d-flex align-items-center">
                     <div className="icon text-center rounded-md">
@@ -131,7 +131,7 @@ export default function Index() {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+              <div className="col-xl-6 col-lg-6 col-md-6 mt-4">
                 <div className="card features feature-primary rounded border-0 shadow p-4">
                   <div className="d-flex align-items-center">
                     <div className="icon text-center rounded-md">
@@ -145,7 +145,7 @@ export default function Index() {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+              <div className="col-xl-6 col-lg-6 col-md-6 mt-4">
                 <div className="card features feature-primary rounded border-0 shadow p-4">
                   <div className="d-flex align-items-center">
                     <div className="icon text-center rounded-md">
@@ -159,7 +159,7 @@ export default function Index() {
                   </div>
                 </div>
               </div>
-              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+              <div className="col-xl-6 col-lg-6 col-md-6 mt-4">
                 <div className="card features feature-primary rounded border-0 shadow p-4">
                   <div className="d-flex align-items-center">
                     <div className="icon text-center rounded-md">
@@ -176,7 +176,7 @@ export default function Index() {
             </div>
 
             <div className="row">
-              <Charts />
+              {/* <Charts /> */}
             </div>
           </div>
         </div>

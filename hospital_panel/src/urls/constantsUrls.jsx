@@ -31,6 +31,9 @@ export class Urls {
     static CANCEL_APPOINTMENT_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'hospitals/cancel-given-appointment/';
     static EDIT_HOSPITAL_ADMIN_PASSWORD = Urls.MPHRMS_API_PREFIX + 'admin/edit-hospital-admin-password/';
     static UPLOAD_LAB_REPORT = Urls.MPHRMS_API_PREFIX + 'hospitals/upload-lab-reports/';
+    static HOSPITAL_ANALYTICS_GRAPHS = Urls.MPHRMS_API_PREFIX + 'hospitals/hospital-analytics-graphs/';
+    static GENDER_GRAPHS_FETCH = Urls.MPHRMS_API_PREFIX + 'hospitals/gender-graphs-fetch/';
+    static AGE_GRAPHS_FETCH = Urls.MPHRMS_API_PREFIX + 'hospitals/age-graphs-fetch/';
 
 
 

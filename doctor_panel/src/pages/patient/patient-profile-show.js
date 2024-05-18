@@ -87,8 +87,8 @@ export default function PatientProfile() {
 
   const [medication, setMedication] = useState({
     medicineName: "",
-    dosage: "1",
-    timings: "Before Food",
+    dosage: "",
+    timings: "BF",
     comments: "",
     duration: "day",
     labReports: "",
@@ -662,9 +662,8 @@ export default function PatientProfile() {
             <ul className="check-patient-dashboard-prescription">
               {prescription.medications.map((med, index) => (
                 <li key={index}>
-                  {capitalizeFirst(med.medicineName)}{"-"}{med.medicationType}{'-'}{med.Strength}{" "}{med.medicineConsume}  <br /> {med.dosage} Per {" "}
-                  {med.duration} {"-"} {med.timings}
-
+                {med.medicationType ? med.medicationType : ""}{' '}{med.medicationType == "Inj" && med.InjectionType}{" "}{capitalizeFirst(med.medicineName)}{" "}{med?.Strength && (med?.Strength)}{" "}{med?.medicineConsume}{" "}{med.amount}{""}{med.medicationType=="Syp"||med.medicationType=="Inj" ? "Ml" : med.medicationType}{" "}{med.dosage}{" "}{med.timings}{" "} X {" "}
+                {med.dayduration} {med.duration}
                   <br />
                 </li>
               ))}

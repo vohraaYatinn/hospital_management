@@ -152,6 +152,9 @@ export default function DoctorDashBoard() {
                                                         borderBottom:"1px solid rgb(0 0 0 / 19%)",
                                                         paddingBottom:"1rem",
                                                     }}
+                                                    onClick={()=>{
+                                                        router.push(`/patient-profile/${item?.patient?.id}/${item?.id}`)
+                                                    }}
                                                     >
                                                         <Link to="#">
                                                             <div className="d-flex align-items-center justify-content-between">

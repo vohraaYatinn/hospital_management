@@ -24,7 +24,7 @@ export default function Sidebar({colClass}){
                 </div>
 
                 <div className="text-center avatar-profile margin-nagative mt-n5 position-relative pb-4 border-bottom">
-                    <img src={test_url_images + token?.profile_picture} className="rounded-circle shadow-md avatar avatar-md-md" alt=""/>
+                    <img src={test_url_images + token?.profile_picture} className="rounded-circle shadow-md avatar avatar-md-md" alt="" style={{objectFit:"cover"}}/>
                     <h5 className="mt-3 mb-1">Dr.{token?.full_name}</h5>
                     <p className="text-muted mb-0">{token?.specialization}</p>
                     <p className="text-muted mb-0">( {token?.hospital?.name} )</p>

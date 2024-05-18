@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import useAxios from "../../network/useAxios";
 import { fetchDoctorMedicinesDashboard } from "../../urls/urls";
 import { useDispatch } from "react-redux";
+import Modal from 'react-bootstrap/Modal';
 
 
 const optionsa = [
@@ -63,10 +64,16 @@ const optionsa = [
   { value: "lorazepam", label: "Lorazepam" },
 ];
 const medicationType = [
-  { value: "Tablet", label: "Tablet" },
-  { value: "Syrup", label: "Syrup" },
-  { value: "Injection", label: "Injection" },
-  { value: "Capsule", label: "Capsule" }
+  { value: "Tab", label: "Tab" },
+  { value: "Syp", label: "Syp" },
+  { value: "Cap", label: "Cap" },
+  { value: "Inj", label: "Inj" }
+]
+const injectionStrength = [ 
+  { value: "IM", label: "IM" },
+  { value: "SC", label: "SC" },
+  { value: "IV", label: "IV" },
+  { value: "ID", label: "ID" }
 ]
 const medicationStrength = [];
 
@@ -74,45 +81,48 @@ for (let i = 5; i <= 1000; i += 5) {
   medicationStrength.push({ value: `${i}`, label: `${i}` });
 }
 const medicineConsumeOptions = [
-  { value: "ml", label: "ml" },
-  { value: "mg", label: "mg" }]
-const optionsDosage = [
+  { value: "¼,", label: "¼," },
+  { value: "½", label: "½" },
   { value: "1", label: "1" },
-  { value: "2", label: "2" },
-  { value: "3", label: "3" },
-  { value: "4", label: "4" },
+  { value: "2", label: "2" }
+]
+const amountBox = [
   { value: "5", label: "5" },
-  { value: "6", label: "6" },
-  { value: "7", label: "7" },
-  { value: "8", label: "8" },
-  { value: "9", label: "9" },
+  { value: "10", label: "10" },
+  { value: "15", label: "15" },
+  { value: "20", label: "20" }
+]
+const amountBoxSyp = [
+  { value: "ml", label: "ml" },
+  { value: "mg", label: "mg" }
+]
+const optionsDosage = [
+  { value: "OD", label: "OD" },
+  { value: "BD", label: "BD" },
+  { value: "TDS", label: "TDS" },
+  { value: "QDS", label: "QDS" },
+  { value: "HS", label: "HS" },
+  { value: "5 times a day", label: "5 times a day" },
+  { value: "6 times a day", label: "6 times a day" }
 ];
 const weeksOptions = [
   { value: "Day", label: "Day" },
   { value: "Week", label: "Week" },
   { value: "Month", label: "Month" },
 ];
-const time = [
-  { value: "Before Food", label: "Before Food" },
-  { value: "After Food", label: "After Food" },
-  { value: "Empty Stomach", label: "Empty Stomach" },
+const dayDuration = [
+  { value: "1", label: "1" },
+  { value: "2", label: "2" },
+  { value: "3", label: "3" },
+  { value: "4", label: "4" },
+  { value: "5", label: "5" },
+  { value: "10", label: "10" },
+  { value: "15", label: "15" },
 ];
-const dummyHospitalData = [
-  { value: "Dr. Rakesh - Ganga Hospital", label: "Dr. Rakesh - Ganga Hospital" },
-  { value: "Dr. Priya - City Medical Center", label: "Dr. Priya - City Medical Center" },
-  { value: "Dr. Gupta - Riverside Clinic", label: "Dr. Gupta - Riverside Clinic" },
-  { value: "Dr. Sharma - Hilltop Hospital", label: "Dr. Sharma - Hilltop Hospital" },
-  { value: "Dr. Patel - Lakeside Health Center", label: "Dr. Patel - Lakeside Health Center" },
-  { value: "Dr. Singh - Sunrise Hospital", label: "Dr. Singh - Sunrise Hospital" },
-  { value: "Dr. Khan - Valley Clinic", label: "Dr. Khan - Valley Clinic" },
-  { value: "Dr. Joshi - Oceanview Medical Center", label: "Dr. Joshi - Oceanview Medical Center" },
-  { value: "Dr. Das - Pine Hospital", label: "Dr. Das - Pine Hospital" },
-  { value: "Dr. Banerjee - Skyline Healthcare", label: "Dr. Banerjee - Skyline Healthcare" },
-  { value: "Dr. Chowdhury - Sunset Clinic", label: "Dr. Chowdhury - Sunset Clinic" },
-  { value: "Dr. Roy - Greenfield Medical Center", label: "Dr. Roy - Greenfield Medical Center" },
-  { value: "Dr. Verma - Silverlake Hospital", label: "Dr. Verma - Silverlake Hospital" },
-  { value: "Dr. Dasgupta - Mountainview Clinic", label: "Dr. Dasgupta - Mountainview Clinic" },
-  { value: "Dr. Mishra - Riverside Medical Center", label: "Dr. Mishra - Riverside Medical Center" }
+const time = [
+  { value: "AF", label: "AF" },
+  { value: "BF", label: "BF" },
+  { value: "Empty Stomach(Morning)", label: "Empty Stomach(Morning)" },
 ];
 
 const nextVisit = Array.from({ length: 60 }, (_, index) => ({
@@ -130,6 +140,31 @@ function DoctorPrescriptionForm({
   setMedication,
   onNewshowNewMedicinesShow
 }) {
+  let [editProfile, setEditProfile] = useState(false)
+  let [editRefer, setEditRefer] = useState(false)
+  const [newRefer, setNewRefer] = useState()
+
+const [dummyHospitalData, setdummyHospitalData] = useState([
+  { value: "", label: <><button style={{width:"100%", background:"green", color:"white"}} onClick={()=>{
+    setEditRefer(true)
+  }}>Add New</button></> },
+  { value: "Dr. Rakesh - Ganga Hospital", label: "Dr. Rakesh - Ganga Hospital" },
+  { value: "Dr. Priya - City Medical Center", label: "Dr. Priya - City Medical Center" },
+  { value: "Dr. Gupta - Riverside Clinic", label: "Dr. Gupta - Riverside Clinic" },
+  { value: "Dr. Sharma - Hilltop Hospital", label: "Dr. Sharma - Hilltop Hospital" },
+  { value: "Dr. Patel - Lakeside Health Center", label: "Dr. Patel - Lakeside Health Center" },
+  { value: "Dr. Singh - Sunrise Hospital", label: "Dr. Singh - Sunrise Hospital" },
+  { value: "Dr. Khan - Valley Clinic", label: "Dr. Khan - Valley Clinic" },
+  { value: "Dr. Joshi - Oceanview Medical Center", label: "Dr. Joshi - Oceanview Medical Center" },
+  { value: "Dr. Das - Pine Hospital", label: "Dr. Das - Pine Hospital" },
+  { value: "Dr. Banerjee - Skyline Healthcare", label: "Dr. Banerjee - Skyline Healthcare" },
+  { value: "Dr. Chowdhury - Sunset Clinic", label: "Dr. Chowdhury - Sunset Clinic" },
+  { value: "Dr. Roy - Greenfield Medical Center", label: "Dr. Roy - Greenfield Medical Center" },
+  { value: "Dr. Verma - Silverlake Hospital", label: "Dr. Verma - Silverlake Hospital" },
+  { value: "Dr. Dasgupta - Mountainview Clinic", label: "Dr. Dasgupta - Mountainview Clinic" },
+  { value: "Dr. Mishra - Riverside Medical Center", label: "Dr. Mishra - Riverside Medical Center" }
+]);
+
   const handleMedicationChange = (e, name = false) => {
     if (e?.target) {
       const { name, value } = e.target;
@@ -138,10 +173,30 @@ function DoctorPrescriptionForm({
         [name]: value,
       }));
     } else {
+     if(name == "medicationType"){
+      let power = ""
+      if(e.value == "Tab" || e.value == "Cap" ){
+        power = "Mg"
+      }
+      else if(e.value == "Syp" ){
+        power = "Ml"
+      }
+      else if(e.value == "Inj" ){
+        power = "Ml/Mg"
+      }
+      setMedication((prevMedication) => ({
+        ...prevMedication,
+        [name]: e.value,
+        "medicineConsume":power
+      }));
+     }
+     else{
       setMedication((prevMedication) => ({
         ...prevMedication,
         [name]: e.value,
       }));
+     }
+
     }
   };
 
@@ -190,8 +245,8 @@ function DoctorPrescriptionForm({
 
     setMedication({
       medicineName: "",
-      dosage: "1",
-      timings: "Before Food",
+      dosage: "",
+      timings: "BF",
       comments: "",
       duration: "day",
     });
@@ -212,7 +267,7 @@ function DoctorPrescriptionForm({
     }
     else{
       let options = []
-      options.push({ value:"Add New", label: <span style={{fontWeight:"600"}}>Add New</span> });
+      options.push({ value:"Add New", label: <button style={{fontWeight:"600", color:"white", background:"green",}}>Add New</button> });
       medicines.forEach(option => {
         options.push({ value:option.name, label: option.name });
       });
@@ -237,6 +292,39 @@ function DoctorPrescriptionForm({
 
   return (
     <div className="tab-pane fade show active">
+                                 <Modal show={editRefer} onHide={()=>setEditRefer(false)} centered size="lg">
+                        <Modal.Header closeButton>
+                            <h5 className="modal-title" id="exampleModalLabel1">Add New Refer To</h5>
+                        </Modal.Header>
+                        <Modal.Body>
+                        <div className="row align-items-center">
+                         
+
+                                <div className="col-md-6">
+                                    <div className="mb-3">
+                                        <input name="number" id="number" type="text" className="form-control" value={newRefer} placeholder="type refer to (doctor-hospital)" onChange={(e)=>{
+                                          setNewRefer(e.target.value)
+                                        }}/>
+                                    </div>                                                                               
+                                </div>
+
+                            </div>
+                            
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <input type="submit" id="submit" name="send" className="btn btn-primary" value="Add"
+                                    onClick={()=>{
+                                      setdummyHospitalData([...dummyHospitalData,{value:newRefer, label:newRefer}])
+                                      setEditRefer(false)
+
+                                    }
+                                  }
+                                    />
+                                </div>
+                            </div>
+                        
+                        </Modal.Body>
+                    </Modal>
       <h5 className="mb-0">Doctor's Prescription:</h5>
       <form className="mt-4" onSubmit={handlePrescriptionSubmit}>
         <div className="row">
@@ -280,6 +368,42 @@ function DoctorPrescriptionForm({
           <div className="col-md-12">
             <div className="mb-3">
               <div className="row">
+              <div className="col-md-4 mb-2">
+                  <label className="form-label">Type</label>
+
+                  <Select
+                    name="medicineName"
+                    value={{
+                      value: medication.medicationType,
+                      label: medication.medicationType,
+                    }}
+                    onChange={(e) => handleMedicationChange(e, "medicationType")}
+                    options={medicationType}
+                    placeholder="Select Medicine"
+                    isSearchable
+                    required
+                  />
+                </div>
+                {
+                  medication.medicationType == "Inj" &&
+ <div className="col-md-4 mb-2">
+ <label className="form-label">Injection Type</label>
+
+ <Select
+   name="InjectionType"
+   value={{
+     value: medication.InjectionType,
+     label: medication.InjectionType,
+   }}
+   onChange={(e) => handleMedicationChange(e, "InjectionType")}
+   options={injectionStrength}
+   placeholder="Select Injection Type"
+   isSearchable
+   required
+ />
+</div>
+                }
+               
                 <div className="col-md-4 mb-2">
                   <label className="form-label">Medications</label>
 
@@ -302,23 +426,8 @@ function DoctorPrescriptionForm({
                     required
                   />
                 </div>
-                <div className="col-md-3 mb-2">
-                  <label className="form-label">Type</label>
 
-                  <Select
-                    name="medicineName"
-                    value={{
-                      value: medication.medicationType,
-                      label: medication.medicationType,
-                    }}
-                    onChange={(e) => handleMedicationChange(e, "medicationType")}
-                    options={medicationType}
-                    placeholder="Select Medicine"
-                    isSearchable
-                    required
-                  />
-                </div>
-                <div className="col-md-3 mb-2">
+                <div className="col-md-4 mb-2">
                   <label className="form-label">Strength</label>
 
                   <Select
@@ -334,25 +443,31 @@ function DoctorPrescriptionForm({
                     required
                   />
                 </div>
-                <div className="col-md-2 mb-2">
-                  <label className="form-label">Mg/Ml</label>
+
+
+
+                <div className="col-md-4">
+                <label className="form-label">Amount</label>
 
                   <Select
-                    name="medicineConsume"
+                    name="amount"
+                    style={{ height: "2rem" }}
                     value={{
-                      value: medication.medicineConsume,
-                      label: medication.medicineConsume,
+                      value: medication.amount,
+                      label: medication.amount,
                     }}
-                    onChange={(e) => handleMedicationChange(e, "medicineConsume")}
-                    options={medicineConsumeOptions}
-                    placeholder="Select Strength"
+                    disabled={!medication?.medicationType}
+                    onChange={(e) => handleMedicationChange(e, "amount")}
+                    options={(medication?.medicationType == "Tab" ||medication?.medicationType == "Cap") ? medicineConsumeOptions :(medication?.medicationType == "Syp" || medication?.medicationType == "Inj"  ) ? amountBox : []  }
+                    placeholder="Select Amount"
                     isSearchable
                     required
                   />
                 </div>
+
+                <div className="col-md-4">
                 <label className="form-label">Dosage</label>
 
-                <div className="col-md-2">
                   <Select
                     name="dosage"
                     style={{ height: "2rem" }}
@@ -367,28 +482,8 @@ function DoctorPrescriptionForm({
                     required
                   />
                 </div>
-                <div className="col-md-1 ">
-                  <div
-                    style={{ height: "2.3rem", marginTop: "0.4rem" }}
-                  >Per
-                  </div>
-                </div>
-                <div className="col-md-3" style={{ marginLeft: "1rem" }}>
-                  <Select
-                    style={{ height: "2rem" }}
-                    name="duration"
-                    value={{
-                      value: medication.duration,
-                      label: medication.duration,
-                    }}
-                    onChange={(e) => handleMedicationChange(e, "duration")}
-                    options={weeksOptions}
-                    placeholder="Select Duration"
-                    isSearchable
-                    required
-                  />
-                </div>
-                <div className="col-md-12 mt-2">
+               
+                <div className="col-md-4 mt-2">
                   <label className="form-label">Consume</label>
 
                   <Select
@@ -405,21 +500,42 @@ function DoctorPrescriptionForm({
                   />
                 </div>
               </div>
-              {/* comments coments */}
-              {/* <div className="row mt-2">
+              <div className="row">
+              <div className="col-md-3 mt-2">
+              <label className="form-label">Duration</label>
 
-                <label className="form-label">Comments</label>
-               <div className="col-md-12">
-                <textarea 
-                placeholder='Comments'
-                name="comments"
-                value={medication.comments}
-
-                onChange={handleMedicationChange}
-                style={{width: '100%'}}
-                />
+                  <Select
+                    style={{ height: "2rem" }}
+                    name="dayduration"
+                    value={{
+                      value: medication.dayduration,
+                      label: medication.dayduration,
+                    }}
+                    onChange={(e) => handleMedicationChange(e, "dayduration")}
+                    options={dayDuration}
+                    placeholder="Select Duration"
+                    isSearchable
+                    required
+                  />
                 </div>
-               </div> */}
+              <div className="col-md-3 mt-2" style={{ marginLeft: "1rem" }}>
+              <label className="form-label">D/W/M</label>
+                  <Select
+                    style={{ height: "2rem" }}
+                    name="duration"
+                    value={{
+                      value: medication.duration,
+                      label: medication.duration,
+                    }}
+                    onChange={(e) => handleMedicationChange(e, "duration")}
+                    options={weeksOptions}
+                    placeholder="Select D/W/M"
+                    isSearchable
+                    required
+                  />
+                </div>
+                </div>
+
             </div>
           </div>
           <div className="col-md-12">

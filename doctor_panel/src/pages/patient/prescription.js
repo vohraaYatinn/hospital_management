@@ -1,7 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import convertToPDF from '../../utils/convertToPdf';
 import { test_url_images } from '../../config/environment';
-import { capitalizeFirst, checkNotNull } from '../../utils/commonFunctions';
+import { calculateAge, capitalizeFirst, checkNotNull } from '../../utils/commonFunctions';
+import "../../newcss.css"
+import ujur_logo from "../../../src/assets/images/logo-dark.png"
+import playstoreBar from "../../assets/play-store.jpg"
+import playstore from "../../assets/playstore.png"
+import { useSelector } from 'react-redux';
+import { doctorDetails } from '../../redux/reducers/functionalities.reducer';
 
 const prescriptionStyle = {
   fontFamily: 'Arial, sans-serif',
@@ -72,6 +78,8 @@ const doctorSignatureTextStyle = {
 };
 
 function Prescription({patient, prescription, medication, setPDFFile, generatePrescription}) {
+  let doctor = useSelector(doctorDetails);
+
   const [date, setDate] = useState('');
 
   // Function to get the current date in the format "ddth MMM. yyyy"
@@ -92,18 +100,53 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
 
   }
   useEffect(()=>{updateDate()})
+  const [doctorSign, setDoctorSign] = useState(false)
   return (
     <>
     <div style={prescriptionStyle} id="pres_new">
-      <div style={containerStyle}>
-        <div style={headerStyle}>
-          <h1 style={headerTextStyle}>Doctor's Prescription</h1>
-        </div>
-        <div style={patientInfoStyle}>
-          <p style={patientInfoTextStyle}><strong>Patient Name:</strong> {patient?.full_name}</p>
-          <p style={patientInfoTextStyle}><strong>Date:</strong> {date}</p>
-        </div>
-        {prescription?.symptoms.length >0 &&
+    <div>
+  <section className="green-background-color-1" style={{
+    display:"flex", alignItems:"center", justifyContent:"space-around"
+  }}>
+    <div>
+      <img
+        className="hospital-logo-top-side"
+        src={test_url_images + doctor?.hospital?.logo}
+        alt=""
+      />
+    </div>
+    <div className="top-heading-name-ss">
+      <h4>{doctor?.hospital?.name}</h4>
+      <h6>{doctor?.hospital?.address}</h6>
+      <div>
+        <p>Phone: {doctor?.hospital?.contact_number}</p>
+        <p style={{marginTop:"-1rem"}}>Email: {doctor?.hospital?.email}</p>
+      </div>
+    </div>
+    <div>
+      <img style={{height:"4rem", width:"7rem"}} src={ujur_logo} alt="" />
+    </div>
+  </section>
+  <section className="middle-names-section">
+    <p>Dr. {doctor?.full_name}</p>
+    <div className="flexible-items" style={{marginTop:"-1rem"}}>
+      <p>{doctor?.education}</p>
+      <p>Date: {getCurrentDate()}</p>
+    </div>
+    <p style={{marginTop:"-1rem"}}>{doctor?.specialization}</p>
+    <div className="flexible-items-2">
+      <p ><b>Name:</b> {patient?.full_name}</p>
+      <p style={{marginTop:"-1rem"}}><b>Age:</b>  {calculateAge(patient?.date_of_birth)}</p>
+      <p style={{marginTop:"-1rem"}}><b>Sex:</b> {patient?.gender}</p>
+      <p style={{marginTop:"-1rem"}}><b>
+        Address:</b>  {patient?.address}
+      </p>
+    </div>
+  </section>
+  <section>
+    <div className="names-address-section">
+      <div className="right-side-border">
+      {prescription?.symptoms.length >0 &&
               <div className="col-md-12 mt-4">
           <p style={patientInfoTextStyle}><strong>Chief Query</strong></p>
            <ul className='pres-ul-detail'>
@@ -208,22 +251,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         ) : (
           ""
         )}
-                {prescription?.medications.length > 0 &&
-        <div className="col-md-12 mt-4">
-                   <p style={patientInfoTextStyle}><strong>Prescribed Medications</strong></p>
-
-           <ul className='pres-ul-detail'>
-            {prescription?.medications.map((med, index) => (
-                <li key={index}>
-                  {capitalizeFirst(med.medicineName)}{"-"}{med.medicationType}{'-'}{med.Strength}{" "}{med.medicineConsume}  <br /> {med.dosage} Per {" "}
-                  {med.duration} {"-"} {med.timings}
-
-                <br />
-              </li>
-            ))}
-          </ul>
-        </div>
-        }
+         
 
         {prescription?.instructions.length > 0 ? (
           <div className="col-md-12 mt-4">
@@ -273,13 +301,61 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
             {medication?.nextVisit} Days
           </ul>
         </div>}
-        <div style={doctorSignatureStyle}>
-          <p style={doctorSignatureTextStyle}>Dr. {patient?.appointments?.[0]?.doctor?.full_name}</p>
-        </div>
-
+       
       </div>
+      <div className="left-border-section">
+        <div className="rx-top">
+          <h4>Rx</h4>
+          {prescription?.medications.length > 0 &&
+        <div className="col-md-12 mt-4">
+                   <p style={patientInfoTextStyle}><strong>Prescribed Medications</strong></p>
+
+           <ul className='pres-ul-detail'>
+            {prescription?.medications.map((med, index) => (
+                <li key={index}>
+                {med.medicationType ? med.medicationType : ""}{' '}{med.medicationType == "Inj" && med.InjectionType}{" "}{capitalizeFirst(med.medicineName)}{" "}{med?.Strength && (med?.Strength)}{" "}{med?.medicineConsume}{" "}{med.amount}{""}{med.medicationType=="Syp"||med.medicationType=="Inj" ? "Ml" : med.medicationType}{" "}{med.dosage}{" "}{med.timings}{" "} X {" "}
+                {med.dayduration} {med.duration}
+
+                <br />
+              </li>
+            ))}
+          </ul>
+        </div>
+        }
+          {/* <p className="tabletss">Tab Ascoral-D 250mg 2 Tabs BD Af x 15 Days</p> */}
+        </div>
+ 
+      </div>
+
+    </div>
+    
+  </section>
+  {doctorSign &&
+  <section style={{display:"flex", justifyContent:"flex-end"}}>
+         <div className="absolute-sign" style={{marginTop:"2.6rem"}}>
+        <p>Doctor's Signature <img src={test_url_images + doctor?.signature} style={{height:"3rem", marginLeft:"1rem"}}/></p>
+      </div>
+      </section>}
+  <section className="green-background-color-2" style={{marginTop:doctorSign && "7rem"}}>
+    <div className="text-bottom">
+      <p>www.ujurcare.com || support @ujurcare.com</p>
+    </div>
+    <div className="absolute-images-bottom">
+      <div className="something mr-2" style={{marginRight:"1rem", marginTop:"0.3rem"}}>
+        <p>Download UJUR</p>
+        <img className="images-low-1" src={playstore} alt="" />
+      </div>
+      <img className="images-low" src={playstoreBar}  alt="" />
+    </div>
+  </section>
+</div>
+
      
     </div>
+    <input type='checkbox' name='sign' onClick={()=>{
+      setDoctorSign(!doctorSign)
+    }}/>
+    <label for="sign" style={{marginLeft:"1rem"}}>Signature</label>
     <input placeholder='Comments'
     className="form-control" 
     style={{marginBottom:"1rem"}}

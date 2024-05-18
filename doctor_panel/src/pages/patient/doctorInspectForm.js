@@ -3,12 +3,8 @@ import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
 import { checkNotAllNull } from "../../utils/commonFunctions";
+import Modal from 'react-bootstrap/Modal';
 
-const options = [
-  { value: "fever", label: "Fever" },
-  { value: "vomit", label: "Vomit" },
-  { value: "chestpain", label: "Chest Pain" },
-];
 const optionsDosage = [
   { value: "1", label: "1" },
   { value: "2", label: "2" },
@@ -49,6 +45,16 @@ function DoctorInspectForm({
   medication,
   setMedication,
 }) {
+  let [editProfile, setEditProfile] = useState(false)
+
+const [options, setOptions] = useState([
+  { value: "", label: <><button style={{width:"100%", background:"green", color:"white"}} onClick={()=>{
+    setEditProfile(true)
+  }}>Add New</button></> },
+  { value: "fever", label: "Fever" },
+  { value: "vomit", label: "Vomit" },
+  { value: "chestpain", label: "Chest Pain" },
+]);
   const handleMedicationChange = (e, name = false) => {
 
     if (e?.target) {
@@ -64,6 +70,7 @@ function DoctorInspectForm({
       }));
     }
   };
+
   const handleTimeChange = (e, name = false) => {
 
     if (e?.target) {
@@ -133,10 +140,43 @@ function DoctorInspectForm({
     e.preventDefault();
   };
   let [activeIndex, setActiveIndex] = useState(1)
-
+  const [newSymptom, setNewSymptom] = useState()
 
   return (
     <div className="tab-pane fade show active">
+                     <Modal show={editProfile} onHide={()=>setEditProfile(false)} centered size="lg">
+                        <Modal.Header closeButton>
+                            <h5 className="modal-title" id="exampleModalLabel1">Add New Symptoms</h5>
+                        </Modal.Header>
+                        <Modal.Body>
+                        <div className="row align-items-center">
+                         
+
+                                <div className="col-md-6">
+                                    <div className="mb-3">
+                                        <input name="number" id="number" type="text" className="form-control" value={newSymptom} placeholder="type symptoms" onChange={(e)=>{
+                                          setNewSymptom(e.target.value)
+                                        }}/>
+                                    </div>                                                                               
+                                </div>
+
+                            </div>
+                            
+                            <div className="row">
+                                <div className="col-sm-12">
+                                    <input type="submit" id="submit" name="send" className="btn btn-primary" value="Add"
+                                    onClick={()=>{
+                                      setOptions([...options,{value:newSymptom, label:newSymptom}])
+                                      setEditProfile(false)
+
+                                    }
+                                  }
+                                    />
+                                </div>
+                            </div>
+                        
+                        </Modal.Body>
+                    </Modal>
       <h5 className="mb-0">Doctor's Inspect</h5>
       <form className="mt-4" onSubmit={handlePrescriptionSubmit}>
         <div className="row">

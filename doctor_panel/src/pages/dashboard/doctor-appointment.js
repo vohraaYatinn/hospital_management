@@ -174,6 +174,7 @@ export default function DoctorAppointment(){
                                                 <th className="border-bottom p-3">Block</th>
                                                 <th className="border-bottom p-3">Status</th>
                                                 <th className="border-bottom p-3">Report</th>
+                                                <th className="border-bottom p-3">Lab Report</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -206,7 +207,7 @@ export default function DoctorAppointment(){
                                                         }
                                                         >{item?.status}</td>
                                                         <td className="p-3">{item?.pdf_content && <button style={{
-                                                                background: "rgb(56, 108, 240)", color:"white"
+                                                                background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem", width:"4rem"
                                                         }}
                                                         onClick={()=>{
                                                             setShow(true)
@@ -215,15 +216,14 @@ export default function DoctorAppointment(){
                                                         >View</button>}</td>
                             <td className="p-3">
                             {
-                                  item.lab_report &&  <Link
-                                  to="#"
-                                  style={{marginRight:"1rem", color:"black" }}
+                                  item.lab_report &&  <button
+                                  style={{marginRight:"1rem", color:"black" ,background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem",width:"4rem"}}
                                   className="btn btn-icon "
                                   onClick={() => {
                                     window.open(test_url_images + item.lab_report, '_blank');
                                   }}
-                                >Lab Report
-                                </Link>
+                                >View
+                                </button>
                                 }
                                
                             </td>
