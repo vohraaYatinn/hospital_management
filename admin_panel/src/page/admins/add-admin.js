@@ -6,8 +6,11 @@ import { addAdmin } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { useEffect } from "react";
 import { Alert } from "antd";
+import { useRouter } from "../../hooks/use-router";
 
 export default function AddAdmin() {
+  const router = useRouter();
+
   const [formValues, setFormValues] = useState({
     phoneNumber: "",
     fullName: "",
@@ -60,10 +63,7 @@ export default function AddAdmin() {
   });
   useEffect(() => {
     if (addAdminAddResponse?.result == "success") {
-      setMessage({
-        message: addAdminAddResponse?.message,
-        showMessage: true,
-      });
+      router.push("admins")
     } else if (addAdminAddResponse?.result == "failure") {
       setMessage({
         message: addAdminAddResponse?.response?.message,

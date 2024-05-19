@@ -20,7 +20,6 @@ import {
   FaRegComment,
   CiHospital1,
 } from "../assets/icons/vander";
-
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
 import { isNumber } from "../utils/commonFunctions";
@@ -301,7 +300,7 @@ export default function Sidebar({ manuClass }) {
           {/* <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}><Link to="/doctor-leave"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Leave Request</Link></li> */}
 
           <li
-            className={`sidebar-dropdown ms-0 ${
+            className={` ms-0 ${
               [
                 "patients",
                 "add-patient",

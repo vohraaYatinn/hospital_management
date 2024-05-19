@@ -165,6 +165,7 @@ const performActionRequest = () => {
 			description: hospitalsResponse?.data?.description,
 			website: hospitalsResponse?.data?.website,
 			phoneNumber: hospitalsResponse?.data?.contact_number,
+			googleMap: hospitalsResponse?.data?.google_link,
 		  })
 		}
 	  }, [hospitalsResponse]);
@@ -724,6 +725,26 @@ const performActionRequest = () => {
 																					onChange={(e)=>{
 																						setFormValues((prev)=>({...prev, 
 																							description:e.target.value}))
+																					}}
+																					></textarea>
+																			</div>
+																		</div>
+																		<div className="col-md-12">
+																			<div className="mb-3">
+																				<label className="form-label">
+																					Google Map Link
+																				</label>
+																				<textarea
+																				name="description"
+																				id="description"
+																				rows="3"
+																				className="form-control"
+																				placeholder="Google Map Link :"
+																				value={formValues.googleMap}
+
+																					onChange={(e)=>{
+																						setFormValues((prev)=>({...prev, 
+																							googleMap:e.target.value}))
 																					}}
 																					></textarea>
 																			</div>

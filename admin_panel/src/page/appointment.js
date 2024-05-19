@@ -130,9 +130,7 @@ export default function Appointment() {
                                             </div>
 
                                             <div className="col-sm-12 col-md-7 mt-4 mt-sm-0">
-                                                <div className="d-grid">
-                                                    <Link to="#" className="btn btn-primary" onClick={() => setShow(!show)}>Appointment</Link>
-                                                </div>
+                                               
                                                 <Modal show={show} onHide={() => setShow(!show)} size="lg" centered>
                                                     <Modal.Header closeButton>
                                                         <Modal.Title className='h5'>Book an Appointment</Modal.Title>

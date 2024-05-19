@@ -147,6 +147,7 @@ export default function Patients(){
                                         <tr>
                                             <th className="border-bottom p-3" style={{minWidth:'50px'}}>Id</th>
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Name</th>
+                                            <th className="border-bottom p-3" style={{minWidth:'180px'}}>Email</th>
                                             <th className="border-bottom p-3">Age</th>
                                             <th className="border-bottom p-3">Gender</th>
                                             <th className="border-bottom p-3">Address</th>
@@ -170,6 +171,8 @@ export default function Patients(){
                                                             </div>
                                                         </Link>
                                                     </td>
+                                                    <td className="p-3">{item.user_email}</td>
+
                                                     <td className="p-3">{calculateAge(item.date_of_birth)}</td>
                                                     <td className="p-3">{item.gender}</td>
                                                     <td className="p-3">{item.address}</td>
