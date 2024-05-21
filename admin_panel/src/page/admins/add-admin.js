@@ -63,7 +63,7 @@ export default function AddAdmin() {
   });
   useEffect(() => {
     if (addAdminAddResponse?.result == "success") {
-      router.push("admins")
+      router.push("/admins")
     } else if (addAdminAddResponse?.result == "failure") {
       setMessage({
         message: addAdminAddResponse?.response?.message,
