@@ -133,12 +133,14 @@ const nextVisit = Array.from({ length: 60 }, (_, index) => ({
 const handleChange = (selectedOption) => { };
 
 function DoctorPrescriptionForm({
+  patientsData,
   showDrawer,
   prescription,
   setPrescription,
   medication,
   setMedication,
-  onNewshowNewMedicinesShow
+  onNewshowNewMedicinesShow,
+  departmentsName
 }) {
   let [editProfile, setEditProfile] = useState(false)
   let [editRefer, setEditRefer] = useState(false)
@@ -148,22 +150,20 @@ const [dummyHospitalData, setdummyHospitalData] = useState([
   { value: "", label: <><button style={{width:"100%", background:"green", color:"white"}} onClick={()=>{
     setEditRefer(true)
   }}>Add New</button></> },
-  { value: "Dr. Rakesh - Ganga Hospital", label: "Dr. Rakesh - Ganga Hospital" },
-  { value: "Dr. Priya - City Medical Center", label: "Dr. Priya - City Medical Center" },
-  { value: "Dr. Gupta - Riverside Clinic", label: "Dr. Gupta - Riverside Clinic" },
-  { value: "Dr. Sharma - Hilltop Hospital", label: "Dr. Sharma - Hilltop Hospital" },
-  { value: "Dr. Patel - Lakeside Health Center", label: "Dr. Patel - Lakeside Health Center" },
-  { value: "Dr. Singh - Sunrise Hospital", label: "Dr. Singh - Sunrise Hospital" },
-  { value: "Dr. Khan - Valley Clinic", label: "Dr. Khan - Valley Clinic" },
-  { value: "Dr. Joshi - Oceanview Medical Center", label: "Dr. Joshi - Oceanview Medical Center" },
-  { value: "Dr. Das - Pine Hospital", label: "Dr. Das - Pine Hospital" },
-  { value: "Dr. Banerjee - Skyline Healthcare", label: "Dr. Banerjee - Skyline Healthcare" },
-  { value: "Dr. Chowdhury - Sunset Clinic", label: "Dr. Chowdhury - Sunset Clinic" },
-  { value: "Dr. Roy - Greenfield Medical Center", label: "Dr. Roy - Greenfield Medical Center" },
-  { value: "Dr. Verma - Silverlake Hospital", label: "Dr. Verma - Silverlake Hospital" },
-  { value: "Dr. Dasgupta - Mountainview Clinic", label: "Dr. Dasgupta - Mountainview Clinic" },
-  { value: "Dr. Mishra - Riverside Medical Center", label: "Dr. Mishra - Riverside Medical Center" }
 ]);
+useEffect(()=>{
+  let arrayToAdd = [{ value: "", label: <><button style={{width:"100%", background:"green", color:"white"}} onClick={()=>{
+    setEditRefer(true)
+  }}>Add New</button></> }]
+
+  const updatedArray = arrayToAdd.concat(departmentsName.map(department => ({
+    value: department.id,
+    label: department.name
+  })));
+  setdummyHospitalData(updatedArray)
+
+},[departmentsName])
+
 
   const handleMedicationChange = (e, name = false) => {
     if (e?.target) {
@@ -277,7 +277,6 @@ const [dummyHospitalData, setdummyHospitalData] = useState([
   useEffect(() => {
     if (medicinesResponse?.result == "success") {
       let options = []
-      console.log("abdscbdsbdsbds")
         dispatch(updateMedicines(medicinesResponse?.data))
         options.push({ value:"Add New", label:  <span style={{fontWeight:"600"}}>Add New</span>  });
         medicinesResponse?.data.forEach(option => {
@@ -350,7 +349,7 @@ const [dummyHospitalData, setdummyHospitalData] = useState([
           </div>
           <div className="col-md-6">
             <div className="mb-3">
-              <label className="form-label">Date</label>
+              <label className="form-label">Today's Date</label>
               <input
                 type="date"
                 className="form-control"

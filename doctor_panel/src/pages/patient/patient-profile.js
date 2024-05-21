@@ -13,7 +13,7 @@ import DoctorInspectForm from "./doctorInspectForm";
 import DoctorExaminationForm from "./doctorExaminationForm";
 import DoctorInvestigationForm from "./investigationForm";
 import { useRouter } from "../../hooks/use-router";
-import { addNewMedicinesByDoctor, fetchDoctorMedicinesDashboard, fetchPatientProfile, uploadDocumentPrescription } from "../../urls/urls";
+import { addNewMedicinesByDoctor, fetchDoctorMedicinesDashboard, fetchPatientProfile, uploadDocumentPrescription, fetchDepartmentHospital } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { calculateAge, capitalizeFirst } from "../../utils/commonFunctions";
 import { FiUser, FiTrash2 } from "react-icons/fi";
@@ -35,10 +35,11 @@ export default function PatientProfile() {
   const [uploadDocumentResponse, uploadDocumentError, uploadDocumentLoading, uploadDocumentFetch] = useAxios();
   const [addNewResponse, addNewError, addNewLoading, addNewFetch] = useAxios();
   const [medicinesResponse, medicinesError, medicinesLoading, medicinesFetch] = useAxios();
+  const [departmentResponse, departmentError, departmentLoading, departmentFetch] = useAxios();
 
   const router = useRouter();
   const [patientsData, setPatientsData] = useState([])
-  
+  const [departmentsName, setDepartmentNames] = useState([])
   const [filterValues, setFilterValues] = useState({});
   const [pdfFile, setPDFFile] = useState(null);
   const [medicationNewName, setMedicationForm] = useState({
@@ -72,6 +73,11 @@ export default function PatientProfile() {
     }
   },[addNewResponse])
   useEffect(()=>{
+    if(departmentResponse?.result == "success"){
+      setDepartmentNames(departmentResponse?.data)
+    }
+  },[departmentResponse])
+  useEffect(()=>{
     if(medicinesResponse?.result == "success"){
       dispatch(updateMedicines(medicinesResponse?.data))
     }
@@ -82,6 +88,7 @@ export default function PatientProfile() {
   useEffect(() => {
     if (patientProfileResponse?.result == "success") {
       setPatientsData(patientProfileResponse?.data[0])
+      setPrescription((prev) => ({ ...prev, patientName: patientProfileResponse?.data[0]?.full_name }))
     }
   }, [patientProfileResponse])
   useEffect(() => {
@@ -97,7 +104,7 @@ export default function PatientProfile() {
   let [showNewMedicines, setshowNewMedicines] = useState(false);
   const [open, setOpen] = useState(false);
   const [prescription, setPrescription] = useState({
-    patientName: "Rahul Sharma",
+    patientName: "",
     date: "2024-01-20",
     provisionalDiagnosis: "",
     symptoms: [],
@@ -114,8 +121,8 @@ export default function PatientProfile() {
   },[prescription])
 
   useEffect(() => {
-
-  }, [id]);
+    fetchHospitalDepartments()
+  }, []);
 
   const [medication, setMedication] = useState({
     medicineName: "",
@@ -135,6 +142,7 @@ export default function PatientProfile() {
     dosage: "1",
     duration: "day"
   });
+  const [fetchDepartmentList, setDepartmentList] = useState([])
   const [examination, setExamination] = useState({
     HR: "",
     Bp: "",
@@ -173,6 +181,9 @@ export default function PatientProfile() {
   };
   const onNewshowNewMedicinesClose = () => {
     setshowNewMedicines(false);
+  };
+  const fetchHospitalDepartments = () => {
+    departmentFetch(fetchDepartmentHospital());
   };
 
   return (
@@ -675,6 +686,8 @@ fontSize:"1.4rem"      }}/>
                           <div className="row">
                             <div className="col-lg-12 col-12 mt-4">
                               <DoctorPrescriptionForm
+                                departmentsName={departmentsName}
+                                patientsData={patientsData}
                                 showDrawer={showDrawer}
                                 prescription={prescription}
                                 setPrescription={setPrescription}

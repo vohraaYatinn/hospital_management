@@ -29,6 +29,7 @@ export class Urls {
     static ADD_DEPARTMENTS_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'hospitals/add-department-hospital/';
     static ADD_DEPARTMENTS_ADMIN = Urls.MPHRMS_API_PREFIX + 'admin/add-department-admin/';
     static FETCH_ALL_REVIEWS = Urls.MPHRMS_API_PREFIX + 'admin/fetch-all-reviews/';
+    static FETCH_ALL_REVIEWS_HOSPITALS = Urls.MPHRMS_API_PREFIX + 'admin/fetch-all-reviews-hospitals/';
     static FETCH_HOSPITAL_ADMIN = Urls.MPHRMS_API_PREFIX + 'admin/fetch-hospital-admin/';
     static ADD_HOSPITAL_ADMIN = Urls.MPHRMS_API_PREFIX + 'admin/add-hospital-admin-user/';
     static FETCH_ADMIN_DASHBOARD = Urls.MPHRMS_API_PREFIX + 'admin/fetch-dashboard-details-admin/';

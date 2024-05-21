@@ -20,6 +20,7 @@ export class Urls {
     static FETCH_HOSPITAL_ALL_DEPARMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-departments/';
     static FETCH_HOSPITAL_ALL_DOCTORS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-doctors/';
     static FEFETCH_ALL_DOCTOR_REVIEWS = Urls.MPHRMS_API_PREFIX + 'hospitals/all-doctors-hospital-reviews/';
+    static FETCH_SELF_HOSPITAL_REVIEWS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-self-hospital-reviews/';
     static FETCH_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-hospital-admin/';
     static DELETE_HOSPITAL_ADMIN = Urls.MPHRMS_API_PREFIX + 'hospitals/delete-hospital-admin/';
     static ADD_HOSPITAL_ADMIN_ACCOUNTS = Urls.MPHRMS_API_PREFIX + 'hospitals/add-hospital-admin-user/';
@@ -34,6 +35,7 @@ export class Urls {
     static HOSPITAL_ANALYTICS_GRAPHS = Urls.MPHRMS_API_PREFIX + 'hospitals/hospital-analytics-graphs/';
     static GENDER_GRAPHS_FETCH = Urls.MPHRMS_API_PREFIX + 'hospitals/gender-graphs-fetch/';
     static AGE_GRAPHS_FETCH = Urls.MPHRMS_API_PREFIX + 'hospitals/age-graphs-fetch/';
+    static GRAPH_AGE_GENDER = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-patients-by-age-gender/';
 
 
 

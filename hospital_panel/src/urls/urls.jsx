@@ -73,6 +73,9 @@ export const fetchAllDoctors = (payload_data) => {
 export const fetchAllHospitalReviews = (payload_data) => {
   return project.get(Urls.FEFETCH_ALL_DOCTOR_REVIEWS, payload_data);
 };
+export const fetchselfHospitalReviews = (payload_data) => {
+  return project.get(Urls.FETCH_SELF_HOSPITAL_REVIEWS, payload_data);
+};
 export const fetchHospitalAdminData = (payload_data) => {
   return project.get(Urls.FETCH_HOSPITAL_ADMIN_ACCOUNTS, payload_data);
 };
@@ -106,6 +109,6 @@ export const graphsFetch = (payload_data) => {
 export const genderGraphsFetch = (payload_data) => {
   return project.get(Urls.GENDER_GRAPHS_FETCH, payload_data);
 };
-export const ageGraphsFetch = (payload_data) => {
-  return project.get(Urls.AGE_GRAPHS_FETCH, payload_data);
+export const ageGenderGraphsFetch = (payload_data) => {
+  return project.get(Urls.GRAPH_AGE_GENDER, payload_data);
 };

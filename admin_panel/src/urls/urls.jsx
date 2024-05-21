@@ -96,6 +96,9 @@ export const addDepartmentAdmin = (payload_data) => {
 export const fetchAllReviews = (payload_data) => {
   return project.get(Urls.FETCH_ALL_REVIEWS, payload_data);
 };
+export const fetchAllHospitalsReviews = (payload_data) => {
+  return project.get(Urls.FETCH_ALL_REVIEWS_HOSPITALS, payload_data);
+};
 export const fetchAdminDashboard = (payload_data) => {
   return project.get(Urls.FETCH_ADMIN_DASHBOARD, payload_data);
 };

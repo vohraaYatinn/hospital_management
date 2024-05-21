@@ -479,6 +479,7 @@ export default function PatientProfile() {
                           <div className="row">
                             <div className="col-lg-12 col-12 mt-4">
                               <DoctorPrescriptionForm
+                                patientsData={patientsData}
                                 showDrawer={showDrawer}
                                 prescription={prescription}
                                 setPrescription={setPrescription}

@@ -16,7 +16,7 @@ import { test_url_images } from "../../config/environment";
 import { calculateAge } from "../../utils/commonFunctions";
 import { useDispatch } from "react-redux";
 import { updateMedicines } from "../../redux/reducers/functionalities.reducer";
-import ab from '../../assets/images/ab02.jpg'
+import ab from "../../assets/profile.png"
 
 
 export default function DoctorDashBoard() {
@@ -161,14 +161,14 @@ export default function DoctorDashBoard() {
                                                                 <div className="row ">
                                                             <div className="col-3">
                                                             <img
-    src={ab}
-    style={{
-        width: "3rem",
-        height: "3rem",
-        border: "1px solid transparent",
-        borderRadius: "100px"
-    }}
-/>
+                                                                src={item?.patient?.profile_picture ? (test_url_images + item?.patient?.profile_picture) : (ab) }
+                                                                style={{
+                                                                    width: "3rem",
+                                                                    height: "3rem",
+                                                                    border: "1px solid transparent",
+                                                                    borderRadius: "100px"
+                                                                }}
+                                                            />
 
                                                             </div>
                                                             <div className="col-9">
@@ -177,7 +177,7 @@ export default function DoctorDashBoard() {
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black"}}>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                               <b> {"( Slot Token - "}{item?.id}{" )"}</b>
+                                                                <b> {"( Slot Token - "}{item?.appointment_slot}{" )"}</b>
                                                                 </div>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
                                                                <b> {"(Ujur Id - "}{item?.patient?.ujur_id}{" )"}</b>
@@ -254,7 +254,8 @@ export default function DoctorDashBoard() {
                                                             <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="row ">
                                                             <div className="col-3">
-                                                                <img src={ab} 
+                                                                <img 
+                                                                src={item?.patient?.profile_picture ? (test_url_images + item?.patient?.profile_picture) : (ab) }
                                                                 style={{
                                                                     width:"3rem",
                                                                     height:"3rem",
@@ -269,7 +270,7 @@ export default function DoctorDashBoard() {
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black"}}>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                                <b> {"( Slot Token - "}{item?.id}{" )"}</b>
+                                                                <b> {"( Slot Token - "}{item?.appointment_slot}{" )"}</b>
                                                                 </div>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
                                                                <b> {"(Ujur Id - "}{item?.patient?.ujur_id}{" )"}</b>
@@ -338,7 +339,8 @@ export default function DoctorDashBoard() {
                                                             <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="row ">
                                                             <div className="col-3">
-                                                                <img src={ab} 
+                                                                <img 
+                                                                src={item?.patient?.profile_picture ? (test_url_images + item?.patient?.profile_picture) : (ab) }
                                                                 style={{
                                                                     width:"3rem",
                                                                     height:"3rem",
@@ -353,7 +355,7 @@ export default function DoctorDashBoard() {
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black"}}>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                                <b> {"( Slot Token - "}{item?.id}{" )"}</b>
+                                                                <b> {"( Slot Token - "}{item?.appointment_slot}{" )"}</b>
                                                                 </div>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
                                                                <b> {"(Ujur Id - "}{item?.patient?.ujur_id}{" )"}</b>
@@ -426,7 +428,8 @@ export default function DoctorDashBoard() {
                                                             <div className="d-flex align-items-center justify-content-between">
                                                                 <div className="row">
                                                             <div className="col-3">
-                                                                <img src={ab} 
+                                                                <img 
+                                                                src={item?.patient?.profile_picture ? (test_url_images + item?.patient?.profile_picture) : (ab) }
                                                                 style={{
                                                                     width:"3rem",
                                                                     height:"3rem",
@@ -441,7 +444,7 @@ export default function DoctorDashBoard() {
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black"}}>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                                <b> {"( Slot Token - "}{item?.id}{" )"}</b>
+                                                                <b> {"( Slot Token - "}{item?.appointment_slot}{" )"}</b>
                                                                 </div>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
                                                                <b> {"(Ujur Id - "}{item?.patient?.ujur_id}{" )"}</b>

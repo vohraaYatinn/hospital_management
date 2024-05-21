@@ -22,6 +22,8 @@ export class Urls {
     static GET_DATA_FROM_TOKEN = Urls.MPHRMS_API_PREFIX + 'doctors/get-data-from-token/';
     static GET_MEDICINES_DOCTOR = Urls.MPHRMS_API_PREFIX + 'doctors/handle-medicines-doctor/';
     static ADD_MEDICINES_DOCTOR = Urls.MPHRMS_API_PREFIX + 'doctors/add-medicines-doctor/';
+    static FETCH_DEPARTMENT_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'doctors/fetch-department-hospital/';
+    static CHANGE_STATUS_TO_QUEUE = Urls.MPHRMS_API_PREFIX + 'doctors/change-status-to-queue/';
 
 
 }

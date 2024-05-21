@@ -7,7 +7,9 @@ import {FiFacebook, FiLinkedin, FiInstagram, FiTwitter,FiMail, FiPhone, FiMapPin
 
 export default function Footer(){
     return(
-        <footer className="py-4 fixed-footer">
+        <footer className="py-4 fixed-footer" style={{
+            zIndex:"-1"
+        }}>
             <div className="container-fluid">
                 <div className="row align-items-center">
                     <div className="col-sm-6">

@@ -119,7 +119,7 @@ export default function Doctors() {
                         {item.full_name}
                       </p>
                       <small className="text-muted speciality">
-                        {item.education}
+                      {item.department?.name}
                       </small>
                     </div>
                   </div>

@@ -213,12 +213,7 @@ export default function Sidebar({ manuClass }) {
               Medicines
             </Link>
           </li>
-          <li className={`${manu === "refers-to" ? "active" : ""} ms-0`}>
-            <Link to="/refers-to">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
-              Refers To
-            </Link>
-          </li>
+    
           <li className={`${manu === "review" ? "active" : ""} ms-0`}>
             <Link to="/review">
               <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />

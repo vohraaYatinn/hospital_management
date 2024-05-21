@@ -5,7 +5,7 @@ import Sidebar from "../../components/sidebar";
 import AdminFooter from "../../components/dashboard/adminFooter";
 import ScrollTop from "../../components/scrollTop";
 import useAxios from "../../network/useAxios";
-import { fetchDoctorAppointments } from "../../urls/urls";
+import { changeQueueStatus, fetchDoctorAppointments } from "../../urls/urls";
 import { useRouter } from "../../hooks/use-router";
 import { PaginationCountList, calculateAge, handlePagination } from "../../utils/commonFunctions";
 import DateSearchComponent from "../../common-components/DateSearch";
@@ -15,14 +15,20 @@ import Modal from "react-bootstrap/Modal";
 import PrescriptionHistory from "../patient/prescriptionHistory";
 import { test_url_images } from "../../config/environment";
 import convertToPDF from "../../utils/convertToPdf";
+import { Alert } from "antd";
 
 
 
 export default function DoctorAppointment(){
     const [appointmentsResponse, appointmentsError, appointmentsLoading, appointmentsFetch] = useAxios();
+    const [changeQueueResponse, changeQueueError, changeQueueLoading, changeQueueFetch] = useAxios();
     const router = useRouter();
     const { date, status } = useParams();
-
+    const [message, setMessage] = useState({
+        message: "",
+        showMessage: "",
+        type: "",
+      });
     let [show, setShow] = useState(false);
     const [htmlDataS, setHTMLData] = useState('');
 
@@ -33,6 +39,14 @@ export default function DoctorAppointment(){
         to:10,
         currentTab:1
     })
+    const changeStatusToQueue = (appointmentId) =>{
+        if(appointmentId){
+            changeQueueFetch(changeQueueStatus({
+                appointmentId:appointmentId
+            }))
+        }
+        
+    }
     const getTodayDate = () => {
         const today = new Date();
         const year = today.getFullYear();
@@ -90,6 +104,16 @@ export default function DoctorAppointment(){
         }
     },[filterValues])
     useEffect(()=>{
+        if(changeQueueResponse?.result == "success"){
+            setMessage({
+                message: changeQueueResponse?.message,
+                showMessage: true,
+                type: "success",
+              });
+              appointmentsFetch(fetchDoctorAppointments(filterValues))
+        }
+    },[changeQueueResponse])
+    useEffect(()=>{
         if(appointmentsResponse?.result == "success"){
             setAppointmentData(appointmentsResponse?.data)
             handlePagination(1, setPaginationNumber)
@@ -112,7 +136,20 @@ export default function DoctorAppointment(){
                             <div className="col-xl-5 col-lg-4 col-md-4">
                                 <h5 className="mb-0">Appointment</h5>
                             </div>
-
+                            {message?.showMessage && (
+                      <Alert
+                        style={{ marginTop: "1rem", marginBottom: "1rem" }}
+                        message={message?.message}
+                        type={message?.type}
+                        closable
+                        onClose={() => {
+                          setMessage({
+                            message: "",
+                            showMessage: false,
+                          });
+                        }}
+                      />
+                    )}
                             <div className="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
                                 <div style={{justifyContent:"space-between"}}>
                                     <form>
@@ -173,6 +210,7 @@ export default function DoctorAppointment(){
                                                 <th className="border-bottom p-3" >District</th>
                                                 <th className="border-bottom p-3">Block</th>
                                                 <th className="border-bottom p-3">Status</th>
+                                                <th className="border-bottom p-3">Action</th>
                                                 <th className="border-bottom p-3">Report</th>
                                                 <th className="border-bottom p-3">Lab Report</th>
                                             </tr>
@@ -181,7 +219,7 @@ export default function DoctorAppointment(){
                                             {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                                 return(
                                                     <tr key={index}>
-                                                        <th className="p-3">{item.id}</th>
+                                                        <th className="p-3">{item.appointment_slot}</th>
                                                         <td className="p-3">{item?.patient?.ujur_id}</td>
 
                                                         <td className="p-3" >
@@ -203,11 +241,20 @@ export default function DoctorAppointment(){
                                                         <td className="p-3">{item?.patient?.district}</td>
                                                         <td className="p-3">{item?.patient?.block}</td>
                                                         <td className={
-                                                            item?.status == "canceled" ? "p-3 color-red" : item?.status == "pending" ? "p-3 color-yellow" : item?.status == "completed" ? "p-3 color-green" :""
+                                                            item?.status == "canceled" ? "p-3 color-red" : (item?.status == "pending" || item?.status == "queue")? "p-3 color-yellow" : item?.status == "completed" ? "p-3 color-green" :""
                                                         }
                                                         >{item?.status}</td>
+                                                        <td className={
+                                                            "p-3"
+                                                        }
+                                                        ><button style={{
+                                                            background: "yellow", color:"black", padding:"0.3rem", width:"4rem", borderRadius:"100px"
+                                                           
+                                                    }}  onClick={(()=>{
+                                                                changeStatusToQueue(item?.id)
+                                                            })} >Queue</button></td>
                                                         <td className="p-3">{item?.pdf_content && <button style={{
-                                                                background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem", width:"4rem"
+                                                                background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem", width:"4rem", borderRadius:"100px"
                                                         }}
                                                         onClick={()=>{
                                                             setShow(true)
@@ -217,7 +264,7 @@ export default function DoctorAppointment(){
                             <td className="p-3">
                             {
                                   item.lab_report &&  <button
-                                  style={{marginRight:"1rem", color:"black" ,background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem",width:"4rem"}}
+                                  style={{marginRight:"1rem",  borderRadius:"100px",color:"black" ,background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem",width:"4rem", border:"2px solid black"}}
                                   className="btn btn-icon "
                                   onClick={() => {
                                     window.open(test_url_images + item.lab_report, '_blank');

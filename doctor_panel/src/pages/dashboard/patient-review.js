@@ -100,7 +100,7 @@ export default function PatientReview(){
                                     <table className="table mb-0 table-center">
                                         <thead>
                                             <tr>
-                                                <th className="border-bottom p-3">Id</th>
+                                                {/* <th className="border-bottom p-3">Ujur Id</th> */}
                                                 <th className="border-bottom p-3" style={{minWidth:'100px'}}>Name</th>
                                                 <th className="border-bottom p-3">Review</th>
                                                 <th className="border-bottom p-3">Rating</th>
@@ -110,7 +110,7 @@ export default function PatientReview(){
                                             {patientReviews.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                                 return(  
                                                     <tr key={index}>
-                                                        <td className="p-3">{item?.patient?.ujur_id}</td>
+                                                        {/* <td className="p-3">{item?.patient?.ujur_id}</td> */}
                                                         <td className="p-3">{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</td>
                                                         <td className="p-3">{item?.comment && item?.comment.length > 40 ? <><Tooltip placement="topRight" title={item?.comment} >{item?.comment.slice(0,40)} <span style={{color:"blue", cursor:"pointer", fontSize:"0.7rem"}}>....Read More</span> </Tooltip></>: item?.comment }</td>
                                                         <td className="p-3">{designStarsReviews(item?.reviews_star)}</td>

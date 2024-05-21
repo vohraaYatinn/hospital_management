@@ -690,50 +690,7 @@ export default function LabReports() {
             </div>
           </Modal.Body>
         </Modal>
-        <Modal
-          show={cancle}
-          onHide={() => setCancle(!cancle)}
-          animation={false}
-          centered
-        >
-          <Modal.Body>
-            <div className="modal-body py-5">
-              <div className="text-center">
-
-
-                <span className="mb-0">
-                  {!isUploaded && (
-                    <LiaFileUploadSolid className='h1' onClick={openFile}/>
-             
-
-                  )}
-                  {isUploaded && (
-                    <button
-                      className="btn btn-soft-primary ms-2 mt-2"
-                      onClick={handleRemove}
-                    >
-                      Remove
-                    </button>
-                  )}
-                </span>
-                <div className="mt-4">
-                  <h4>Upload Lab Report</h4>
-                  <p className="para-desc mx-auto text-muted mb-0">
-                    Are you sure , you want to upload lab report for the given appointment
-                  </p>
-
-                  <div className="mt-3">
-                    <Link onClick={() => {
-                      cancelGivenAppointment()
-                    }} className="btn btn-primary">
-                      Submit
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </Modal.Body>
-        </Modal>
+        cancle
       </Wrapper>
     </>
   );

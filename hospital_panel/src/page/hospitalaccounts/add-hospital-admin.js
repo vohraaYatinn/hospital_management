@@ -6,8 +6,11 @@ import { addAdmin, addHospitalAdminData } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { useEffect } from "react";
 import { Alert } from "antd";
+import { useRouter } from "../../hooks/use-router";
 
 export default function AddHospitalAccount() {
+  const router = useRouter();
+
   const [formValues, setFormValues] = useState({
     phoneNumber: "",
     fullName: "",
@@ -66,6 +69,7 @@ export default function AddHospitalAccount() {
   });
   useEffect(() => {
     if (addAdminAddResponse?.result == "success") {
+      router.push("/hospitals-admin")
       setMessage({
         message: addAdminAddResponse?.message,
         showMessage: true,

@@ -12,8 +12,6 @@ import { PaginationCountList, calculateAge, handlePagination } from "../../utils
 import moment from "moment";
 import PatientName from "../../common-components/PatientName";
 import DoctorSearch from "../../common-components/DoctorsSearch";
-import HospitalNameSearch from "../../common-components/HospitalName";
-import DepartmentSearch from "../../common-components/DepartmentSearch";
 
 import {
     LiaTimesCircleSolid,
@@ -113,14 +111,7 @@ export default function Patients(){
                                 <div className="col-sm-6 col-lg-3">
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>
-                                <div className="col-sm-6 col-lg-3">
-                                        <HospitalNameSearch filters={filters} setFilters={setFilters} />
-
-                                    </div>
-                                    <div className="col-sm-6 col-lg-3">
-                                        <DepartmentSearch filters={filters} setFilters={setFilters} />
-
-                                    </div>
+                            
                                     </div>
                                     <div className="row" style={{ marginTop: "1rem" }}>
 
@@ -171,7 +162,7 @@ export default function Patients(){
                                                             </div>
                                                         </Link>
                                                     </td>
-                                                    <td className="p-3">{item.user_email}</td>
+                                                    <td className="p-3">{item.user.email}</td>
 
                                                     <td className="p-3">{calculateAge(item.date_of_birth)}</td>
                                                     <td className="p-3">{item.gender}</td>

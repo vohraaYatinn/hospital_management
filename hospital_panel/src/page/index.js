@@ -27,6 +27,7 @@ import {
   fetchDepartmentAll,
   genderGraphsFetch,
   graphsFetch,
+  ageGenderGraphsFetch
 } from "../urls/urls";
 import {
   updateDepartments,
@@ -42,13 +43,19 @@ export default function Index() {
   const [genderChart, setGenderChart] = useState([]);
   const [ageChart, setAgeChart] = useState([]);
   const [formPie, setFormPie] = useState("week")
-  const [ageGraph, setAgeGraph] = useState("week")
-  const [genderGraph, setGenderGraph] = useState("week")
+  const [ageGraph, setAgeGraph] = useState("Week")
+  const [genderGraph, setGenderGraph] = useState("Week")
   const [
     allDepartmentsResponse,
     allDepartmentsError,
     allDepartmentsLoading,
     allDepartmentsFetch,
+  ] = useAxios();
+  const [
+    graphDepartmentsResponse,
+    graphDepartmentsError,
+    graphDepartmentsLoading,
+    graphDepartmentsFetch,
   ] = useAxios();
   const [
     dashboardDetailsResponse,
@@ -100,20 +107,36 @@ export default function Index() {
   const fetchallDoctorsFunc = () => {
     allDoctorsFetch(fetchAllDoctors());
   };
+  const ageGenderFunc = () => {
+    graphDepartmentsFetch(ageGenderGraphsFetch({
+      "time":genderGraph, 
+      "age":ageGraph
+    }))
+  }
+
   useEffect(() => {
     fetchAllDepartmentsFunc();
     fetchallDoctorsFunc();
     fetchAllDashboardDetailsFunc();
+    
   }, []);
+  const [genderData, setGenderData] = useState({})
   useEffect(() => {
     graphsFetchHospital();
   }, [formPie]);
   useEffect(() => {
+    if(graphDepartmentsResponse?.result == "success"){
+      setAgeChart(graphDepartmentsResponse?.age)
+      setGenderData(graphDepartmentsResponse?.data)
+
+    }
+  }, [graphDepartmentsResponse]);
+  useEffect(() => {
     ageGraphsFetchHospital();
   }, [ageGraph]);
   useEffect(() => {
-    GendergraphsFetchHospital();
-  }, [genderGraph]);
+    ageGenderFunc();
+  }, [genderGraph, ageGraph]);
   useEffect(() => {
     if (allDoctorsResponse?.result == "success") {
       dispatch(updateDoctors(allDoctorsResponse?.data));
@@ -135,13 +158,12 @@ export default function Index() {
   useEffect(() => {
     if (graphsHospitalResponse?.result == "success") {
       setGenderChart(graphsHospitalResponse?.data);
+      console.log(graphsHospitalResponse);
+
+      
     }
   }, [graphsHospitalResponse]);
-  useEffect(() => {
-    if (ageGraphsHospitalResponse?.result == "success") {
-      setAgeChart(ageGraphsHospitalResponse?.data);
-    }
-  }, [ageGraphsHospitalResponse]);
+
 
   return (
     <>
@@ -171,7 +193,7 @@ export default function Index() {
                       <LiaFileMedicalAltSolid className="h3 mb-0" />
                     </div>
                     <div className="flex-1 ms-2">
-                      <h5 className="mb-0">{departmentData?.length}</h5>
+                      <h5 className="mb-0">{dashboardDetails?.department}</h5>
 
                       <p className="text-muted mb-0">Total Departments</p>
                     </div>
@@ -237,7 +259,7 @@ export default function Index() {
             </div>
 
             <div className="row">
-              <Charts pieChart={pieChart} ageGraph={ageChart} setFormPie={setFormPie} ageFilter={ageGraph} setAgeGraph={setAgeGraph} genderChart={genderChart} setGenderGraph={setGenderGraph} />
+              <Charts ageChart={ageChart} genderData={genderData} pieChart={pieChart} ageGraph={ageChart} setFormPie={setFormPie} ageFilter={ageGraph} setAgeGraph={setAgeGraph} genderChart={genderChart} setGenderGraph={setGenderGraph} genderGraph={genderGraph}/>
             </div>
           </div>
         </div>

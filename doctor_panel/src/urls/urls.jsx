@@ -66,3 +66,9 @@ export const getDetailsFromToken = (payload_data) => {
 export const addNewMedicinesByDoctor = (payload_data) => {
   return project.post(Urls.ADD_MEDICINES_DOCTOR, payload_data);
 };
+export const fetchDepartmentHospital = (payload_data) => {
+  return project.get(Urls.FETCH_DEPARTMENT_HOSPITAL, payload_data);
+};
+export const changeQueueStatus = (payload_data) => {
+  return project.post(Urls.CHANGE_STATUS_TO_QUEUE, payload_data);
+};
