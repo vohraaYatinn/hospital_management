@@ -247,12 +247,17 @@ export default function DoctorAppointment(){
                                                         <td className={
                                                             "p-3"
                                                         }
-                                                        ><button style={{
+                                                        >
+                                                            {item?.status == "pending" &&
+                                                            <button style={{
                                                             background: "yellow", color:"black", padding:"0.3rem", width:"4rem", borderRadius:"100px"
                                                            
                                                     }}  onClick={(()=>{
                                                                 changeStatusToQueue(item?.id)
-                                                            })} >Queue</button></td>
+                                                            })} >Queue</button>}
+                                                            
+                                                            
+                                                            </td>
                                                         <td className="p-3">{item?.pdf_content && <button style={{
                                                                 background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem", width:"4rem", borderRadius:"100px"
                                                         }}

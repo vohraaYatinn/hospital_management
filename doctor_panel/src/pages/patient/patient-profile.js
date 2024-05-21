@@ -205,7 +205,7 @@ export default function PatientProfile() {
 
   <div className="text-center avatar-profile margin-nagative mt-n5 position-relative pb-4 border-bottom" style={{display:"flex", marginTop:"2rem"}}>
     <img
-      src={client1}
+      src={patientsData?.profile_picture ? test_url_images+patientsData?.profile_picture : client1}
       style={{marginLeft:"2rem"}}
       className="rounded-circle shadow-md avatar avatar-md-md"
       alt=""
@@ -502,6 +502,13 @@ fontSize:"1.4rem"      }}/>
                                       <span className="mb-0 mt-2" style={{ fontWeight: "600" }}>Dr. {item?.doctor?.full_name} - {moment(item?.date_appointment).format('YYYY-MM-DD')}</span>
 
                                     </div>
+                                    {
+                                  item.lab_report &&  <button style={{background:"rgb(56,108,240)", color:"white"}} onClick={() => {
+                                    window.open(test_url_images + item.lab_report, '_blank');
+                                  }}>Lab Report</button>
+                                }
+
+                                    
                                   </div>
                                 );
                               })}

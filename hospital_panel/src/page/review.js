@@ -152,7 +152,7 @@ export default function Review(){
                                                                     </div>
                                                                 </Link>
                                                             </td>
-                                                            <td className="p-3">{item?.doctor?.email}</td>
+                                                            {value4 == "doctors" && <td className="p-3">{item?.doctor?.email}</td>}
                                                             <td className="p-3">
                                                                 <ul className="list-unstyled mb-0">
                                                                     {item?.reviews_star && designStarsReviews(item?.reviews_star)}

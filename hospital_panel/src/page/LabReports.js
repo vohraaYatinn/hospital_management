@@ -406,6 +406,52 @@ export default function LabReports() {
                             </div>
                           </Modal.Body>
                         </Modal>
+                        <Modal
+                          show={cancle}
+                          onHide={() => setCancle(false)}
+                          size="lg"
+                          centered
+        >
+         
+            <div className="modal-body py-5">
+              <div className="text-center">
+
+
+                <span className="mb-0">
+                  {!isUploaded && (
+                    <button className='h1' style={{
+                      background:"transparent"
+                    }} onClick={openFile}><LiaFileUploadSolid/></button>
+             
+
+                  )}
+                  {isUploaded && (
+                    <button
+                      className="btn btn-soft-primary ms-2 mt-2"
+                      onClick={handleRemove}
+                    >
+                      Remove
+                    </button>
+                  )}
+                </span>
+                <div className="mt-4">
+                  <h4>Upload Lab Report</h4>
+                  <p className="para-desc mx-auto text-muted mb-0">
+                    Are you sure , you want to upload lab report for the given appointment
+                  </p>
+                  {isUploaded && (
+                  <button className="btn btn-primary mt-4" 
+                  onClick={()=>{
+                    cancelGivenAppointment()
+                  }}
+                  
+                  >Upload</button>)}
+                  
+                </div>
+              </div>
+            </div>
+          
+        </Modal>
                       </div>
                     </div>
                 </div>
@@ -567,7 +613,7 @@ export default function LabReports() {
                                   className="btn btn-icon btn-pills btn-soft-primary"
                                   onClick={() => {
                                     setSelectedAppointment(item.id)
-                                    setCancle(!cancle)
+                                    setCancle(true)
                                   }}
                                 >
                                   <AiOutlineCloudUpload />
