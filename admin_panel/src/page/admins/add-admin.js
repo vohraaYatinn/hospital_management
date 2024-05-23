@@ -79,7 +79,7 @@ export default function AddAdmin() {
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Add New Ujur Admin</h5>
 
-            <nav
+            {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
             >
@@ -94,7 +94,7 @@ export default function AddAdmin() {
                   Add Admin
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="row">

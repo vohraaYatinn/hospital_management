@@ -96,10 +96,10 @@ export default function Hospitals() {
                           {item.contact_number}
                         </small>
                         <small className="text-muted speciality flex-grow-1 mt-2">
-                          Description:{" "}
-                          {item.description.length > 50
-                            ? `${item.description.substring(0, 50)}...`
-                            : item.description}
+                          Address:{" "}
+                          {item.address.length > 50
+                            ? `${item.address.substring(0, 50)}...`
+                            : item.address}
                         </small>
                       </div>
                     </div>

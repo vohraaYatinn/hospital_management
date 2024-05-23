@@ -3,6 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import logoDark from "../assets/images/logo-dark.png";
 import logoLight from "../assets/images/logo-light.png";
 
+
 import {
   GrDashboard,
   PiBrowsers,
@@ -19,6 +20,9 @@ import {
   BsPostcard,
   FaRegComment,
   CiHospital1,
+  PiTreeStructureFill,
+  MdOutlineReviews,
+  LiaPercentageSolid,
 } from "../assets/icons/vander";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
@@ -95,7 +99,7 @@ export default function Sidebar({ manuClass }) {
                 setSubManu(subManu === "admin-item" ? "" : "admin-item");
               }}
             >
-              <PiWheelchairFill className="me-2 d-inline-block mb-0 icon" />
+              <LuUser2 className="me-2 d-inline-block mb-0 icon" />
               Admins Accounts
             </Link>
             <div
@@ -286,7 +290,8 @@ export default function Sidebar({ manuClass }) {
           </li>
           <li className={`${manu === "departments" ? "active" : ""} ms-0`}>
             <Link to="/departments">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              {/* <RiStethoscopeLine  /> */}
+              <PiTreeStructureFill className="me-2 d-inline-block mb-0 icon"/>
               Departments
             </Link>
           </li>
@@ -338,13 +343,13 @@ export default function Sidebar({ manuClass }) {
 
           <li className={`${manu === "admin-review" ? "active" : ""} ms-0`}>
             <Link to="/review">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <MdOutlineReviews  className="me-2 d-inline-block mb-0 icon" />
               Reviews
             </Link>
           </li>
           <li className={`${manu === "promocode" ? "active" : ""} ms-0`}>
             <Link to="/promocode">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <LiaPercentageSolid     className="me-2 d-inline-block mb-0 icon" />
               Promo Code
             </Link>
           </li>

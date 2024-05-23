@@ -82,12 +82,12 @@ export default function Patients(){
                     <div className="d-md-flex justify-content-between">
                         <h5 className="mb-0">Patients List</h5>
 
-                        <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
+                        {/* <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
                                 <li className="breadcrumb-item"><Link>UJUR</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Patients</li>
                             </ul>
-                        </nav>
+                        </nav> */}
                     </div>
                     {message?.showMessage && (
                       <Alert
@@ -136,12 +136,12 @@ export default function Patients(){
                                 <table className="table table-center bg-white mb-0">
                                     <thead>
                                         <tr>
-                                            <th className="border-bottom p-3" style={{minWidth:'50px'}}>Id</th>
+                                            <th className="border-bottom p-3" style={{minWidth:'50px'}}>Ujur Id</th>
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Name</th>
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Email</th>
                                             <th className="border-bottom p-3">Age</th>
                                             <th className="border-bottom p-3">Gender</th>
-                                            <th className="border-bottom p-3">Address</th>
+                                            {/* <th className="border-bottom p-3">Address</th> */}
                                             <th className="border-bottom p-3">District</th>
                                             <th className="border-bottom p-3">Blood Group</th>
                                             <th className="border-bottom p-3">Weight</th>

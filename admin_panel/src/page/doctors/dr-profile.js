@@ -23,6 +23,7 @@ import { designStarsReviews } from "../../utils/commonFunctions";
 import { useRouter } from "../../hooks/use-router";
 import { useSelector } from "react-redux";
 import { GetAllDepartments } from "../../redux/reducers/functionalities.reducer";
+import { TimePicker } from "antd";
 
 export default function DrProfile() {
   let params = useParams();
@@ -61,6 +62,89 @@ export default function DrProfile() {
 
     // Toggle edit mode
     setEditMode(true);
+  };
+
+  
+  const formatTime = (time) => {
+    let [hour, minute, second] = time.split(':').map(Number);
+    let period = hour < 12 ? 'AM' : 'PM';
+    hour = hour % 12 || 12;
+
+    return { hour, minute, period };
+  };
+
+  // const [uploadedFile, setUploadedFile] = useState(null);
+  const onChangeTime = (time, timeString) => {
+    console.log(timeString)
+    if (timeString[0]!='' && timeString[1]!=''){
+      let time1 = timeString[0]
+      let time2 = timeString[1]
+      const time1Formatted = formatTime(time1);
+      const time2Formatted = formatTime(time2);    
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+      console.log(finalFormat)
+      
+    setFormValues((prev) => ({
+      ...prev,
+      morningTime: finalFormat,
+    }));
+    }
+    else{
+    setFormValues((prev) => ({
+      ...prev,
+      morningTime: "",
+    }));
+    }
+
+
+  };
+  const onChangeTimeAfternoon = (time, timeString) => {
+    console.log(timeString)
+    if (timeString[0]!='' && timeString[1]!=''){
+      let time1 = timeString[0]
+      let time2 = timeString[1]
+      const time1Formatted = formatTime(time1);
+      const time2Formatted = formatTime(time2);    
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+      console.log(finalFormat)
+      
+    setFormValues((prev) => ({
+      ...prev,
+      afternoonTime: finalFormat,
+    }));
+    }
+    else{
+    setFormValues((prev) => ({
+      ...prev,
+      afternoonTime: "",
+    }));
+    }
+
+
+  };
+  const onChangeTimeEvening = (time, timeString) => {
+    console.log(timeString)
+    if (timeString[0]!='' && timeString[1]!=''){
+      let time1 = timeString[0]
+      let time2 = timeString[1]
+      const time1Formatted = formatTime(time1);
+      const time2Formatted = formatTime(time2);    
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+      console.log(finalFormat)
+      
+    setFormValues((prev) => ({
+      ...prev,
+      eveningTime: finalFormat,
+    }));
+    }
+    else{
+    setFormValues((prev) => ({
+      ...prev,
+      eveningTime: "",
+    }));
+    }
+
+
   };
 
   // Function to handle form submission
@@ -278,7 +362,7 @@ export default function DrProfile() {
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Doctor Profile & Settings</h5>
 
-            <nav
+            {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
             >
@@ -293,7 +377,7 @@ export default function DrProfile() {
                   Profile
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="card rounded shadow overflow-hidden mt-4 border-0">
@@ -306,7 +390,6 @@ export default function DrProfile() {
               />
               <div className="mt-4 ms-3 pt-3">
                 <h5 className="mt-3 mb-1">{doctorsData?.full_name}</h5>
-                <p className="text-muted mb-0">{doctorsData?.education}</p>
               </div>
             </div>
 
@@ -328,7 +411,7 @@ export default function DrProfile() {
                       </Link>
                     </li>
 
-                    <li className="nav-item">
+                    {/* <li className="nav-item">
                       <Link
                         className={`${
                           activeIndex === 3 ? "active" : ""
@@ -340,7 +423,7 @@ export default function DrProfile() {
                           <h5 className="mb-0">Reviews</h5>
                         </div>
                       </Link>
-                    </li>
+                    </li> */}
 
                     <li className="nav-item">
                       <Link
@@ -815,7 +898,7 @@ export default function DrProfile() {
                       <input
                         name="number"
                         id="number"
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Phone no. :"
                         value={formValues.phoneNumber}
@@ -1017,73 +1100,66 @@ export default function DrProfile() {
 
                   <h3>Slots</h3>
 
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Morning Slots</b></label>
+                    </div>
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Afternoon Slots</b></label>
+                    </div>
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Evening Slots</b></label>
+                    </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Timings</label>
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        className="form-control"
-                        placeholder="Morning Time :"
-                        value={formValues.morningTime}
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            morningTime: e.target.value,
-                          }));
-                        }}
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                      onChange={onChangeTime}
+                      className="form-control"
+                        
                       />
+
+                        {errors.morningTime && (
+                        <div className="text-danger">{errors.morningTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Timings</label>
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        className="form-control"
-                        placeholder="Afternoon Time :"
-                        value={formValues.afternoonTime}
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            afternoonTime: e.target.value,
-                          }));
-                        }}
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                      onChange={onChangeTimeAfternoon}
+                      className="form-control"
                       />
+                   
+                        {errors.afternoonTime && (
+                        <div className="text-danger">{errors.afternoonTime}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Timings</label>
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                        onChange={onChangeTimeEvening}
                         className="form-control"
-                        placeholder="Evening Time :"
-                        value={formValues.eveningTime}
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            eveningTime: e.target.value,
-                          }));
-                        }}
                       />
+
+                        {errors.eveningTime && (
+                        <div className="text-danger">{errors.eveningTime}</div>
+                      )}
                     </div>
                   </div>
+
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Slots</label>
+                      <label className="form-label">Capacity</label>
                       <input
-                        name="name"
-                        id="name"
-                        type="text"
+                        name="morningSlots"
+                        id="morningSlots"
+                        type="number" // Change input type to "number"
+                        // maxLength={3}
                         className="form-control"
-                        placeholder="Morning Slots :"
-                        value={formValues.morningSlots}
+                        placeholder="Morning Capacity :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -1091,18 +1167,21 @@ export default function DrProfile() {
                           }));
                         }}
                       />
+                      {errors.morningSlots && (
+                        <div className="text-danger">{errors.morningSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Slots</label>
+                      <label className="form-label">Capacity</label>
                       <input
-                        name="name"
-                        id="name"
-                        type="text"
+                        name="afternoonSlots"
+                        id="afternoonSlots"
+                        type="number" // Change input type to "number"
                         className="form-control"
-                        placeholder="Afternoon Slots :"
-                        value={formValues.afternoonSlots}
+                        // maxLength={3}
+                        placeholder="Afternoon Capacity :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -1110,18 +1189,21 @@ export default function DrProfile() {
                           }));
                         }}
                       />
+                      {errors.afternoonSlots && (
+                        <div className="text-danger">{errors.afternoonSlots}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Slots</label>
+                      <label className="form-label">Capacity</label>
                       <input
-                        name="name"
-                        id="name"
-                        type="text"
+                        name="eveningSlots"
+                        id="eveningSlots"
+                        type="number" // Change input type to "number"
                         className="form-control"
-                        placeholder="Evening Slots :"
-                        value={formValues.eveningSlots}
+                        // maxLength={3}
+                        placeholder="Evening Capacity :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -1129,66 +1211,75 @@ export default function DrProfile() {
                           }));
                         }}
                       />
+                      {errors.eveningSlots && (
+                        <div className="text-danger">{errors.eveningSlots}</div>
+                      )}
                     </div>
                   </div>
-                  <div className="col-md-4">
+                  
+                
+
+                <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Morning Price :"
-                        value={formValues.morningPrice}
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
                             morningPrice: e.target.value,
                           }));
                         }}
-                      />
+                      />     {errors.morningPrice && (
+                        <div className="text-danger">{errors.morningPrice}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Afternoon Price :"
-                        value={formValues.afternoonPrice}
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
                             afternoonPrice: e.target.value,
                           }));
                         }}
-                      />
+                      />     {errors.afternoonPrice && (
+                        <div className="text-danger">{errors.afternoonPrice}</div>
+                      )}
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Evening Price :"
-                        value={formValues.eveningPrice}
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
                             eveningPrice: e.target.value,
                           }));
                         }}
-                      />
+                      />     {errors.afternoonSlots && (
+                        <div className="text-danger">{errors.eveningPrice}</div>
+                      )}
                     </div>
                   </div>
-                </div>
+                  </div>
 
                 <button className="btn btn-primary" onClick={editDoctor}>
                   Update Doctor Profile
@@ -1216,7 +1307,7 @@ export default function DrProfile() {
                                                                         <input type="checkbox" className="form-check-input" id="customSwitch2" 
                                                                         checked={doctorsData?.is_active}
                                                                         onChange={(e)=>[
-                                                                            setFormValues({
+                                                                          setFormValues({
                                                                                 action:"active",
                                                                                 id:doctorsData?.id,
                                                                                 type:"doctor"
@@ -1224,42 +1315,43 @@ export default function DrProfile() {
                                                                         ]}
                                                                         />
                                                                         <label className="form-check-label" htmlFor="customSwitch2"></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        </div> */}
+                                                                        </div>
+                                                                        </div>
+                                                                        </div>
+                                                                        </div>
+                                                                      </div> */}
 
+                                                       
+                                                                      <div className="">
+                                                                                                                    <div className="rounded shadow mt-4">
+                                                                                                                      
+                                                                                            
+                                                                                                                        <div className="p-4">
+                                                                                                                            <div className="p-4 border-bottom">
+                                                                                                                                <h5 className="mb-0 text-danger"
+                                                            
+                                                                                                                                >Delete Account :</h5>
+                                                                                                                            </div>
+                                                            
+                                                                                                                            <div className="p-4">
+                                                                                                                                <h6 className="mb-0 fw-normal">Do you want to delete the account? Please press below "Delete" button</h6>
+                                                                                                                                <div className="mt-4">
+                                                                                                                                    <button className="btn btn-danger"
+                                                                                                                                    onClick={()=>{
+                                                                                                                                        setFormValuesForDelete({
+                                                                                                                                            action:"delete",
+                                                                                                                                            id:doctorsData?.id,
+                                                                                                                                            type:"doctor"
+                                                                                                                                        })
+                                                                                                                                        setShow(true)
+                                                                                                                                    }}
+                                                                                                                                    >Delete Account</button>
+                                                                                                                                </div>
+                                                                                                                            </div>
+                                                                                                                        </div>
+                                                                                                                    </div>
+                                                                                                                </div>
                                                         
-                                                        <div className="col-lg-6">
-                                                        <div className="rounded shadow mt-4">
-                                                          
-                                
-                                                            <div className="p-4">
-                                                                <div className="p-4 border-bottom">
-                                                                    <h5 className="mb-0 text-danger"
-
-                                                                    >Delete Account :</h5>
-                                                                </div>
-
-                                                                <div className="p-4">
-                                                                    <h6 className="mb-0 fw-normal">Do you want to delete the account? Please press below "Delete" button</h6>
-                                                                    <div className="mt-4">
-                                                                        <button className="btn btn-danger"
-                                                                        onClick={()=>{
-                                                                            setFormValuesForDelete({
-                                                                                action:"delete",
-                                                                                id:doctorsData?.id,
-                                                                                type:"doctor"
-                                                                            })
-                                                                            setShow(true)
-                                                                        }}
-                                                                        >Delete Account</button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
                                                 </div>
                                             </div> </>: ''
                                         }

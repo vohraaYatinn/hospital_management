@@ -105,7 +105,7 @@ export default function AddPatient() {
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Add New Patient</h5>
 
-            <nav
+            {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
             >
@@ -120,7 +120,7 @@ export default function AddPatient() {
                   Add Patient
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="row">

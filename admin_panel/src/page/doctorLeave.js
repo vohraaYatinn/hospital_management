@@ -83,7 +83,7 @@ if(leaveDoctorResponse?.result == "success"){
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Doctor Leaves</h5>
 
-            <nav
+            {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
             >
@@ -95,7 +95,7 @@ if(leaveDoctorResponse?.result == "success"){
                   Reset Password
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="row">
