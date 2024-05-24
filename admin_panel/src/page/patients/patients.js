@@ -144,7 +144,7 @@ export default function Patients(){
                                             {/* <th className="border-bottom p-3">Address</th> */}
                                             <th className="border-bottom p-3">District</th>
                                             <th className="border-bottom p-3">Blood Group</th>
-                                            <th className="border-bottom p-3">Weight</th>
+                                            <th className="border-bottom p-3">Weight (Kg)</th>
                                             <th className="border-bottom p-3">Created At</th>
                                             <th className="border-bottom p-3" style={{minWidth:'100px'}}></th>
                                         </tr>

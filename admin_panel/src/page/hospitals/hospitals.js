@@ -34,16 +34,7 @@ export default function Hospitals() {
           <div className="row">
             <div className="col-xl-9 col-md-6">
               <h5 className="mb-0">Hospitals</h5>
-              <nav aria-label="breadcrumb" className="d-inline-block mt-2">
-                <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
-                  <li className="breadcrumb-item">
-                    Hospitals
-                  </li>
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Hospitals
-                  </li>
-                </ul>
-              </nav>
+            
             </div>
             <div className="col-xl-3 col-md-6 mt-4 mt-md-0 text-md-end">
               <Link to="/add-hospital" className="btn btn-primary">
@@ -78,7 +69,7 @@ export default function Hospitals() {
                     <div className="card team border-0 rounded shadow overflow-hidden h-100">
                       <div className="team-img position-relative">
                         <img
-                          src={test_url_images + item.logo}
+                          src={test_url_images + item.hospital_image}
                           style={{
                             height:"10rem",
                             width:"100%", 

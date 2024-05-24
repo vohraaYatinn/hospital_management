@@ -20,6 +20,8 @@ export default function AddDoctor() {
     phoneNumber:"+91-"
   });
 
+  const format = 'HH:mm';
+
   const formatTime = (time) => {
     let [hour, minute, second] = time.split(':').map(Number);
     let period = hour < 12 ? 'AM' : 'PM';
@@ -461,6 +463,8 @@ export default function AddDoctor() {
                           }));
                         }}
                       >
+                   <option>Please Select from dropdown</option>
+
                     {allDepartments.map((item)=>{
                     return(
                         <option value={item.id}>{item.name}</option>
@@ -639,6 +643,7 @@ export default function AddDoctor() {
                     <div className="mb-3">
                       <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
+                      format={format}
                       onChange={onChangeTime}
                       className="form-control"
                         
@@ -653,6 +658,8 @@ export default function AddDoctor() {
                     <div className="mb-3">
                       <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
+                                            format={format}
+
                       onChange={onChangeTimeAfternoon}
                       className="form-control"
                       />
@@ -666,6 +673,8 @@ export default function AddDoctor() {
                     <div className="mb-3">
                       <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
+                                            format={format}
+
                         onChange={onChangeTimeEvening}
                         className="form-control"
                       />

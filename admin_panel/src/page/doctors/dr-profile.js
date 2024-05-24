@@ -28,6 +28,8 @@ import { TimePicker } from "antd";
 export default function DrProfile() {
   let params = useParams();
   const router = useRouter();
+  const [uploadedFile, setUploadedFile] = useState(null);
+
 
   let id = params.id;
   let [editMode, setEditMode] = useState(false);
@@ -165,6 +167,11 @@ export default function DrProfile() {
         ...prev,
         profilePhoto: file,
       }));
+      const reader = new FileReader();
+      reader.onload = function (e) {
+        setUploadedFile(e.target.result);
+      };
+      reader.readAsDataURL(file);
       setIsUploaded(true);
     }
   };    
@@ -390,6 +397,9 @@ export default function DrProfile() {
               />
               <div className="mt-4 ms-3 pt-3">
                 <h5 className="mt-3 mb-1">{doctorsData?.full_name}</h5>
+                <small>{doctorsData?.department?.name}</small>
+                <small> {" ( "}{doctorsData?.hospital?.name}{" )"}</small>
+
               </div>
             </div>
 
@@ -529,10 +539,15 @@ export default function DrProfile() {
                             <div className="card border-0 p-3 pt-0 rounded shadow">
                               <ul className="list-unstyled mb-0">
                                 <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
+                                <div style={{width:"25%", textAlign:"start"}}>
+
                                   <p className="text-muted mb-0">
                                     <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
                                     Morning
                                   </p>
+                                  </div>
+                                  <div style={{width:"60%", textAlign:"start"}}>
+
                                   <p className="text-primary mb-0">
                                     <span className="text-dark">Time:</span>{" "}
                                     {
@@ -541,6 +556,9 @@ export default function DrProfile() {
                                     }{" "}
                                     {/* Added "?" to handle null or undefined */}
                                   </p>
+                                  </div>
+                                  <div style={{width:"15%", textAlign:"start"}}>
+
                                   <p>
                                     Rs{" "}
                                     {
@@ -549,12 +567,17 @@ export default function DrProfile() {
                                     }{" "}
                                     {/* Added "?" to handle null or undefined */}
                                   </p>
+                                  </div>
                                 </li>
                                 <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
+                                  <div style={{width:"25%", textAlign:"start"}}>
                                   <p className="text-muted mb-0">
                                     <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
                                     Afternoon
                                   </p>
+                                  </div>
+                                  <div style={{width:"60%", textAlign:"start"}}>
+
                                   <p className="text-primary mb-0">
                                     <span className="text-dark">Time:</span>{" "}
                                     {
@@ -563,6 +586,9 @@ export default function DrProfile() {
                                     }{" "}
                                     {/* Added "?" to handle null or undefined */}
                                   </p>
+                                  </div>
+                                  <div style={{width:"15%", textAlign:"start"}}>
+
                                   <p>
                                     Rs{" "}
                                     {
@@ -571,12 +597,19 @@ export default function DrProfile() {
                                     }{" "}
                                     {/* Added "?" to handle null or undefined */}
                                   </p>
+                                  </div>
+
                                 </li>
                                 <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
+                                <div style={{width:"25%", textAlign:"start"}}>
+
                                   <p className="text-muted mb-0">
                                     <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
                                     Evening
                                   </p>
+                                  </div>
+                                  <div style={{width:"60%", textAlign:"start"}}>
+
                                   <p className="text-primary mb-0">
                                     <span className="text-dark">Time:</span>{" "}
                                     {
@@ -585,6 +618,9 @@ export default function DrProfile() {
                                     }{" "}
                                     {/* Added "?" to handle null or undefined */}
                                   </p>
+                                  </div>
+                                  <div style={{width:"15%", textAlign:"start"}}>
+
                                   <p>
                                     Rs{" "}
                                     {
@@ -593,6 +629,7 @@ export default function DrProfile() {
                                     }{" "}
                                     {/* Added "?" to handle null or undefined */}
                                   </p>
+                                  </div>
                                 </li>
                               </ul>
                             </div>
@@ -815,9 +852,19 @@ export default function DrProfile() {
                   <div className="row">
                     <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
                       <h5 className="">Upload doctors picture</h5>
+
                       <p className="text-muted mb-0">
-                        For best results, use an image at least 600px by 600px
-                        in either .jpg or .png format
+                                              {isUploaded ?
+                                      <img
+                                        src={uploadedFile || ''}
+                                        className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                        style={{
+                                          objectFit:"cover"
+                                        }}
+                                        alt=""
+                                      />:"For best results, use an image at least 600px by 600px in either .jpg or .png format"
+																	}
+                        
                       </p>
                     </div>
                     <input
@@ -845,8 +892,8 @@ export default function DrProfile() {
                   </div>
                 </div>
 
-                <div className="row">
-                  <div className="col-md-12">
+                <div className="row mt-4">
+                  <div className="col-md-12 ">
                     <div className="mb-3">
                       <label className="form-label">Full Name</label>
                       <input

@@ -144,7 +144,7 @@ export default function Departments(){
                                                                 </div>
                                                                 <div className="col-lg-12">
                                                                     <div className="mb-3">
-                                                                        <label className="form-label">Comments <span className="text-danger">*</span></label>
+                                                                        <label className="form-label">Description </label>
                                                                         <textarea name="comments" id="comments" rows="4" className="form-control" placeholder="Your Message :" disabled={formValues?.departmentId != "new"}
                                                                           onChange={(e)=>{
                                                                             setFormValues((prev)=>({...prev, departmentComments:e.target.value}))

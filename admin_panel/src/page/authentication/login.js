@@ -22,8 +22,12 @@ export default function Login() {
     })
     const [authDetailsResponse, authDetailsError, authDetailsLoading, authDetailsFetch] = useAxios();
     const router = useRouter();
-    const loginButtonRef = React.useRef(null);
+    const [passwordVisible, setPasswordVisible] = useState(false);
 
+    const loginButtonRef = React.useRef(null);
+    const togglePasswordVisibility = () => {
+        setPasswordVisible(!passwordVisible);
+    };
     const dispatch = useDispatch();
     const LoginFunction = () => {
         if (formValues?.email && formValues?.password) {
@@ -33,6 +37,13 @@ export default function Login() {
             }))
         }
     }
+    useEffect(() => {
+        let check_local_storage = localStorage.getItem('storedToken')
+        console.log(check_local_storage)
+        if(check_local_storage){
+            router.push("/index") 
+        }
+    }, [])
     useEffect(() => {
         if (authDetailsResponse?.result == "success") {
             localStorage.setItem('storedToken', authDetailsResponse?.token);
@@ -47,6 +58,7 @@ export default function Login() {
             })
         }
     }, [authDetailsResponse])
+
     return (
         <>
         
@@ -74,7 +86,7 @@ export default function Login() {
                                         <div className="col-lg-12">
                                             <div className="mb-3">
                                                 <label className="form-label">Password <span className="text-danger">*</span></label>
-                                                <input type="password" className="form-control" placeholder="Password" required=""
+                                                <input  type={passwordVisible ? "text" : "password"} className="form-control" placeholder="Password" required=""
                                                     onChange={(e) => {
                                                         setFormValues((prev) => ({ ...prev, 'password': e.target.value }))
                                                     }}
@@ -84,6 +96,17 @@ export default function Login() {
                                                         }
                                                     }}
                                                 />
+                                                   <button type="button" onClick={togglePasswordVisibility}
+                                                    style={{
+                                                        background: "transparent",
+                                                        border: 0,
+                                                        color: "blue",
+                                                        float: "right",
+                                                        marginBottom: "1rem",
+                                                    }}
+                                                >
+                                                    {passwordVisible ? "Hide" : "Show"}
+                                                </button>
                                             </div>
                                         </div>
                                         {message?.showMessage && <Alert
