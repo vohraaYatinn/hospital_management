@@ -81,7 +81,7 @@ for (let i = 5; i <= 1000; i += 5) {
   medicationStrength.push({ value: `${i}`, label: `${i}` });
 }
 const medicineConsumeOptions = [
-  { value: "¼,", label: "¼," },
+  { value: "¼", label: "¼" },
   { value: "½", label: "½" },
   { value: "1", label: "1" },
   { value: "2", label: "2" }

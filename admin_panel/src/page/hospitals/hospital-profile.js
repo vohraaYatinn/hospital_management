@@ -219,7 +219,7 @@ const performActionRequest = () => {
 					<div className="d-md-flex justify-content-between">
 						<h5 className="mb-0">Hospital Profile & Settings</h5>
 
-						<nav
+						{/* <nav
 							aria-label="breadcrumb"
 							className="d-inline-block mt-4 mt-sm-0">
 							<ul className="breadcrumb bg-transparent rounded mb-0 p-0">
@@ -233,7 +233,7 @@ const performActionRequest = () => {
 									Profile
 								</li>
 							</ul>
-						</nav>
+						</nav> */}
 					</div>
 
 					<div className="card rounded shadow overflow-hidden mt-4 border-0">
@@ -299,7 +299,7 @@ const performActionRequest = () => {
 											</Link>
 										</li> */}
 
-										<li className="nav-item">
+										{/* <li className="nav-item">
 											<Link
 												className={`${
 													activeIndex === 4 ? "active" : ""
@@ -310,7 +310,7 @@ const performActionRequest = () => {
 													<h5 className="mb-0">Reviews</h5>
 												</div>
 											</Link>
-										</li>
+										</li> */}
 
 										<li className="nav-item">
 											<Link
@@ -364,6 +364,7 @@ const performActionRequest = () => {
 																		<img
 																			src={test_url_images + item?.profile_picture}
 																			className="img-fluid"
+																			style={{height: "188px"}}
 																			alt=""
 																		/>
 															
@@ -761,8 +762,7 @@ const performActionRequest = () => {
 																
 															</div>
 														</div>
-													</div>
-													<div className="col-lg-6">
+													<div className="col-md-12">
                                                         <div className="rounded shadow mt-4">
                                                           
                                 
@@ -791,6 +791,7 @@ const performActionRequest = () => {
                                                             </div>
                                                         </div>
                                                     </div>
+													</div>
 
 													
 												</div>

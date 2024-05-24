@@ -20,12 +20,12 @@ export default function Email(){
                     <div className="d-md-flex justify-content-between">
                         <h5 className="mb-0">Email</h5>
 
-                        <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
+                        {/* <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
                                 <li className="breadcrumb-item"><Link to="/index">UJUR</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Email</li>
                             </ul>
-                        </nav>
+                        </nav> */}
                     </div>
                     
                     <div className="card rounded border-0 mt-4 overflow-hidden">

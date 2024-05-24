@@ -205,12 +205,12 @@ export default function Navbar({ navDark, containerClass }) {
             </span>{" "}
             Leave
           </Link>
-          <Link className="dropdown-item text-dark mb-2">
+          <a href="https://ujurcare.com/" target="_blank" className="dropdown-item text-dark mb-2">
             <span className="mb-0 d-inline-block me-1">
               <FiPhoneCall className="align-middle h6 mb-0" />
             </span>{" "}
             Contact UJUR
-          </Link>
+          </a>
           <div className="dropdown-divider border-top"></div>
           <Link className="dropdown-item text-dark" to="/logout">
             <span className="mb-0 d-inline-block me-1">

@@ -75,8 +75,8 @@ export default function Login() {
                                     <div className="row">
                                         <div className="col-lg-12">
                                             <div className="mb-3">
-                                                <label className="form-label">ID <span className="text-danger">*</span></label>
-                                                <input className="form-control" placeholder="ID" name="email" required=""
+                                                <label className="form-label">Email ID <span className="text-danger">*</span></label>
+                                                <input className="form-control" placeholder="Enter your Email ID" name="email" required=""
                                                     onChange={(e) => {
                                                         setFormValues((prev) => ({ ...prev, 'email': e.target.value }))
                                                     }}

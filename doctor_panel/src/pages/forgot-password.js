@@ -73,8 +73,8 @@ export default function ForgotPassword(){
                                         <div className="col-lg-12">
                                             <p className="text-muted">Please enter your ID. Your hospital will share you a new password.</p>
                                             <div className="mb-3">
-                                                <label className="form-label">ID <span className="text-danger">*</span></label>
-                                                <input type="email" className="form-control" placeholder="Enter Your Login ID" name="email" required=""
+                                                <label className="form-label">Email ID <span className="text-danger">*</span></label>
+                                                <input type="email" className="form-control" placeholder="Enter Your Email ID" name="email" required=""
                                                  onChange={(e)=>{
                                                     setFormValues((prev)=>({...prev, 'email':e.target.value}))
                                                 }}

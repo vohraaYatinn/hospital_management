@@ -75,9 +75,9 @@ export default function PatientReview(){
                         
                         <div className="row">
                             <div className="row" style={{marginTop:"2rem"}}>
-                            <div className="col-4">
+                            {/* <div className="col-4">
                                                 <PatientName filters={filterValues} setFilters={setFilterValues}/>
-                                                </div>
+                                                </div> */}
                                                 <div className="col-3">
                                        <button
                                         className="form-control btn-check-reset"

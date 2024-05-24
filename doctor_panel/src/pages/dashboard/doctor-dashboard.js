@@ -273,7 +273,7 @@ export default function DoctorDashBoard() {
                                                                 <b> {"( Slot Token - "}{item?.appointment_slot}{" )"}</b>
                                                                 </div>
                                                                 <div className="col-12" style={{fontSize:"0.6rem"}}>
-                                                               <b> {"(Ujur Id - "}{item?.patient?.ujur_id}{" )"}</b>
+                                                               <b> {"(Ujur Id - "}{item?.patient?.id}{" )"}</b>
                                                                 </div>
                                                                 </div>
                                                                 <div className="row" style={{marginLeft:"0.3rem", color:"black", marginTop:"0.3rem"}}>

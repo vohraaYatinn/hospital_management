@@ -131,12 +131,12 @@ export default function PromoCodes(){
                     <div className="row">
                         <div className="col-xl-9 col-lg-6 col-md-4">
                             <h5 className="mb-0">Promo Codes</h5>
-                            <nav aria-label="breadcrumb" className="d-inline-block mt-2">
+                            {/* <nav aria-label="breadcrumb" className="d-inline-block mt-2">
                                 <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
                                     <li className="breadcrumb-item">UJUR</li>
                                     <li className="breadcrumb-item active" aria-current="page">Promo Codes</li>
                                 </ul>
-                            </nav>
+                            </nav> */}
                         </div>
 
                         <div className="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">

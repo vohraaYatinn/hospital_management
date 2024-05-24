@@ -186,6 +186,7 @@ export default function PatientProfile() {
     departmentFetch(fetchDepartmentHospital());
   };
 
+  console.log(patientsData)
   return (
     <>
       <Navbar
@@ -212,7 +213,7 @@ export default function PatientProfile() {
     />
     <div style={{marginLeft:"2rem"}}>
     <h5 className="mt-3 mb-1">{patientsData?.full_name && capitalizeFirst(patientsData?.full_name)}</h5>
-    <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} Years old</p>
+    <p className="text-muted mb-0">Ujur ID: {patientsData?.id} </p>
     </div>
   </div>
 
@@ -224,6 +225,22 @@ export default function PatientProfile() {
 </div> 
 <div className="col-md-6 col-lg-8 shadow" style={{display:"flex", alignItems:"center"}}>
 <div className="list-unstyled p-4" style={{display:"flex", justifyContent:"space-around", fontWeight:600, width:"100%"}}>
+    <div
+      className="d-flex align-items-center mt-3"
+      style={{
+        flexDirection:"column",
+        alignItems:"center",
+        justifyContent:"center",
+        
+
+      }}
+    >
+      <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" style={{
+fontSize:"1.4rem"      }}/>
+      <h6 className="mb-0">{"Age"}</h6>
+      <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} Years </p>
+
+    </div>
     <div
       className="d-flex align-items-center mt-3"
       style={{
@@ -254,7 +271,7 @@ fontSize:"1.4rem"      }}/>
         fontSize:"1.4rem"      }}
       />
       <h6 className="mb-0">{"Height"}</h6>
-      <p className="text-muted mb-0 ms-2">{patientsData?.height} Foot</p>
+      <p className="text-muted mb-0 ms-2">{patientsData?.height} CM</p>
     </div>
     <div
       className="d-flex align-items-center mt-3"
