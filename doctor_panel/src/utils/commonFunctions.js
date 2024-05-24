@@ -3,6 +3,12 @@ import { Link } from "react-router-dom";
 export const calculateAge = (dateOfBirth) => {
   const currentDate = new Date();
   const birthDate = new Date(dateOfBirth);
+
+  // Check if dateOfBirth is a valid date and not in the future
+  if (isNaN(birthDate) || birthDate > currentDate) {
+    return 0; // or throw an error, or return a message indicating an invalid date
+  }
+
   let age = currentDate.getFullYear() - birthDate.getFullYear();
 
   if (
@@ -14,6 +20,7 @@ export const calculateAge = (dateOfBirth) => {
 
   return age;
 };
+
 
 export const PaginationCountList = (handlePagination, pageArray, data, setPaginationNumber) => {
   let list = [

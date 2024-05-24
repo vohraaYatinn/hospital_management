@@ -332,7 +332,7 @@ export default function DoctorProfileSettimg() {
                       <div className="col-md-12">
                         <div className="mb-3">
                           <label className="form-label">Your Bio Here</label>
-                          {formValues?.bio && (
+                          {formValues ? (
                             <textarea
                               name="comments"
                               id="comments"
@@ -344,7 +344,18 @@ export default function DoctorProfileSettimg() {
                             >
                               {formValues?.bio}
                             </textarea>
-                          )}
+                          ):  <textarea
+                              name="comments"
+                              id="comments"
+                              rows="4"
+                              className="form-control"
+                              onChange={(e)=>{
+                                setFormValues((prev)=>({...prev,"bio":e.target.value}))
+                            }}
+                            >
+                              ""
+                            </textarea>
+                          }
                         </div>
                       </div>
                     </div>
