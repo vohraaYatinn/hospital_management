@@ -239,7 +239,7 @@ export default function AddDoctor() {
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Add New Doctor</h5>
 
-            <nav
+            {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
             >
@@ -258,7 +258,7 @@ export default function AddDoctor() {
                   Add Doctor
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="row">
@@ -374,7 +374,7 @@ export default function AddDoctor() {
                       <input
                         name="number"
                         id="number"
-                        type="text"
+                        type="number"
                         className="form-control"
                         value={formValues?.phoneNumber}
                         placeholder="Phone no. :"
@@ -615,13 +615,13 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Slots</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Morning Slots :"
+                        placeholder="Morning Capacity :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -636,13 +636,13 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Slots</label>
+                      <label className="form-label">Afternoon Capacity</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Afternoon Slots :"
+                        placeholder="Afternoon Capacity :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -657,13 +657,13 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Slots</label>
+                      <label className="form-label">Evening Capacity</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Evening Slots :"
+                        placeholder="Evening Capacity :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,

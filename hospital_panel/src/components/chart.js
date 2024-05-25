@@ -102,7 +102,7 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
         },
         colors: ['#396cf0', '#53c797', '#f1b561'],
         xaxis: {
-            categories: genderGraph=="Year"  ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] :  genderGraph=="Month"  ? ["Week1", "Week2", "Week3", "Week4"]:["Monday", "Tuesday", "Wedneday", "Thursday", "Friday", "Saturday", "Sunday"],
+            categories: genderGraph=="Year"  ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] :  genderGraph=="Month"  ? ["Week1", "Week2", "Week3", "Week4"]:["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         },
         yaxis: {
             title: {

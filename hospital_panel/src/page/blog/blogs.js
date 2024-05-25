@@ -25,12 +25,12 @@ export default function Blogs(){
                         <div>
                             <h5 className="mb-0">Blogs</h5>
 
-                            <nav aria-label="breadcrumb" className="d-inline-block mt-1">
+                            {/* <nav aria-label="breadcrumb" className="d-inline-block mt-1">
                                 <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
                                     <li className="breadcrumb-item"><Link to="/index">UJUR</Link></li>
                                     <li className="breadcrumb-item active" aria-current="page">Blogs</li>
                                 </ul>
-                            </nav>
+                            </nav> */}
                         </div>
 
                         <div className="mt-4 mt-sm-0">

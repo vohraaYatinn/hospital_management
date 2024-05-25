@@ -19,6 +19,11 @@ import {
   TbFileInfo,
   BsPostcard,
   FaRegComment,
+  CiLock,
+  TbDoorExit,
+  FaPills,
+  PiTreeStructureFill,
+  PiWheelchairMotionFill,
 } from "../assets/icons/vander";
 
 import SimpleBar from "simplebar-react";
@@ -26,6 +31,7 @@ import "simplebar-react/dist/simplebar.min.css";
 import { isNumber } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import { GetHospitalDetails } from "../redux/reducers/functionalities.reducer";
+import { IoChatbubbleEllipsesOutline, IoDocumentTextOutline } from "react-icons/io5";
 
 export default function Sidebar({ manuClass }) {
   const [manu, setManu] = useState("");
@@ -101,7 +107,7 @@ export default function Sidebar({ manuClass }) {
         <ul className="sidebar-menu">
           <li className={`${manu === "index" || "" ? "active" : ""} ms-0`}>
             <Link to="/index">
-              <GrDashboard className="me-2 d-inline-block mb-0 icon" />
+              <PiTreeStructureFill className="me-2 d-inline-block mb-0 icon" />
               Dashboard
             </Link>
           </li>
@@ -121,7 +127,7 @@ export default function Sidebar({ manuClass }) {
               }}
             >
               <PiWheelchairFill className="me-2 d-inline-block mb-0 icon" />
-              Hospital Accounts
+              Hospital Admins
             </Link>
             <div
               className={`sidebar-submenu ${
@@ -197,43 +203,43 @@ export default function Sidebar({ manuClass }) {
           </li>
           <li className={`${manu === "lab-tests" ? "active" : ""} ms-0`}>
             <Link to="/lab-tests">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <IoDocumentTextOutline  className="me-2 d-inline-block mb-0 icon" />
               Lab Reports
             </Link>
           </li>
           <li className={`${manu === "departments" ? "active" : ""} ms-0`}>
             <Link to="/departments">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <PiTreeStructureFill className="me-2 d-inline-block mb-0 icon" />
               Departments
             </Link>
           </li>
           <li className={`${manu === "medicines" ? "active" : ""} ms-0`}>
             <Link to="/medicines">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <FaPills  className="me-2 d-inline-block mb-0 icon" />
               Medicines
             </Link>
           </li>
     
           <li className={`${manu === "review" ? "active" : ""} ms-0`}>
             <Link to="/review">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <IoChatbubbleEllipsesOutline  className="me-2 d-inline-block mb-0 icon" />
               Reviews
             </Link>
           </li>
           <li className={`${manu === "patients" ? "active" : ""} ms-0`}>
             <Link to="/patients">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <PiWheelchairMotionFill className="me-2 d-inline-block mb-0 icon" />
               Patients
             </Link>
           </li>
           <li className={`${manu === "doctor-leave" ? "active" : ""} ms-0`}>
             <Link to="/doctor-leave">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <TbDoorExit className="me-2 d-inline-block mb-0 icon" />
               Leave Request
             </Link>
           </li>
 
-          {/* <li
+          {/* <li 
             className={`sidebar-dropdown ms-0 ${
               [
                 "patients",
@@ -279,7 +285,7 @@ export default function Sidebar({ manuClass }) {
 
           <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}>
             <Link to="/reset-password">
-              <RiStethoscopeLine className="me-2 d-inline-block mb-0 icon" />
+              <CiLock  className="me-2 d-inline-block mb-0 icon" />
               Reset Password
             </Link>
           </li>

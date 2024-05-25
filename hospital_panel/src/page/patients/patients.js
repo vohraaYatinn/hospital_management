@@ -48,7 +48,7 @@ export default function Patients() {
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Patients List</h5>
 
-            <nav
+            {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
             >
@@ -60,7 +60,7 @@ export default function Patients() {
                   Patients
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="row">
@@ -103,7 +103,7 @@ export default function Patients() {
                         className="border-bottom p-3"
                         style={{ minWidth: "50px" }}
                       >
-                        Id
+                        UJUR ID
                       </th>
                       <th
                         className="border-bottom p-3"
@@ -113,10 +113,10 @@ export default function Patients() {
                       </th>
                       <th className="border-bottom p-3">Age</th>
                       <th className="border-bottom p-3">Gender</th>
-                      <th className="border-bottom p-3">Address</th>
+                      {/* <th className="border-bottom p-3">Address</th> */}
                       <th className="border-bottom p-3">District</th>
                       <th className="border-bottom p-3">Blood Group</th>
-                      <th className="border-bottom p-3">Weight</th>
+                      <th className="border-bottom p-3">Weight (Kg)</th>
                       <th className="border-bottom p-3">Created At</th>
                       <th
                         className="border-bottom p-3"
