@@ -288,13 +288,13 @@ export default function DrProfile(){
                     <div className="d-md-flex justify-content-between">
                         <h5 className="mb-0">Doctor Profile & Settings</h5>
 
-                        <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
+                        {/* <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
                                 <li className="breadcrumb-item"><Link>UJUR</Link></li>
                                 <li className="breadcrumb-item"><Link to="doctors">Doctor</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Profile</li>
                             </ul>
-                        </nav>
+                        </nav> */}
                     </div>
 
                     <div className="card rounded shadow overflow-hidden mt-4 border-0">
@@ -307,7 +307,7 @@ export default function DrProfile(){
                             />
                             <div className="mt-4 ms-3 pt-3">
                                 <h5 className="mt-3 mb-1">{doctorsData?.full_name}</h5>
-                                <p className="text-muted mb-0">{doctorsData?.education}</p>
+                                <p className="text-muted mb-0">{doctorsData?.department}</p>
                             </div>
                         </div>
                         
@@ -325,13 +325,13 @@ export default function DrProfile(){
                                         
                                         
                                         
-                                        <li className="nav-item">
+                                        {/* <li className="nav-item">
                                             <Link className={`${activeIndex === 3 ? 'active' : ''} nav-link rounded-0`} to="#" onClick={()=>setActiveIndex(3)}>
                                                 <div className="text-center pt-1 pb-1">
                                                     <h5 className="mb-0">Reviews</h5>
                                                 </div>
                                             </Link>
-                                        </li>
+                                        </li> */}
                                         
                                         <li className="nav-item">
                                             <Link className={`${activeIndex === 4 ? 'active' : ''} nav-link rounded-0`} to="#" onClick={()=>setActiveIndex(4)} >
@@ -451,7 +451,7 @@ export default function DrProfile(){
         <div className="">
           <div className="d-md-flex justify-content-between">
 
-            <nav
+            {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
             >
@@ -470,7 +470,7 @@ export default function DrProfile(){
                   Add Doctor
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="row">
@@ -564,7 +564,7 @@ export default function DrProfile(){
                       <input
                         name="number"
                         id="number"
-                        type="text"
+                        type="number"
                         className="form-control"
                         placeholder="Phone no. :"
                         value={formValues.phoneNumber}
@@ -824,13 +824,13 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Slots</label>
+                      <label className="form-label"> Capacity</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Morning Slots :"
+                        placeholder="Morning Capacity :"
                         value={formValues.morningSlots}
                         onChange={(e) => {
                           setFormValues((prev) => ({
@@ -843,13 +843,13 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Slots</label>
+                      <label className="form-label"> Capacity</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Afternoon Slots :"
+                        placeholder="Afternoon Capacity :"
                         value={formValues.afternoonSlots}
                         onChange={(e) => {
                           setFormValues((prev) => ({
@@ -862,13 +862,13 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Slots</label>
+                      <label className="form-label"> Capacity</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="Evening Slots :"
+                        placeholder="Evening Capacity :"
                         value={formValues.eveningSlots}
                         onChange={(e) => {
                           setFormValues((prev) => ({

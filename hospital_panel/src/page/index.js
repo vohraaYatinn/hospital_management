@@ -181,7 +181,7 @@ export default function Index() {
                     </div>
                     <div className="flex-1 ms-2">
                       <h5 className="mb-0">{dashboardDetails?.patient}</h5>
-                      <p className="text-muted mb-0">Total Paitents</p>
+                      <p className="text-muted mb-0">Total Patients</p>
                     </div>
                   </div>
                 </div>

@@ -13,12 +13,12 @@ export default function Privacy(){
                     <div className="d-md-flex justify-content-between">
                         <h5 className="mb-0">Privacy Policy</h5>
 
-                        <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
+                        {/* <nav aria-label="breadcrumb" className="d-inline-block mt-4 mt-sm-0">
                             <ul className="breadcrumb bg-transparent rounded mb-0 p-0">
                                 <li className="breadcrumb-item"><Link to="/index">UJUR</Link></li>
                                 <li className="breadcrumb-item active" aria-current="page">Privacy</li>
                             </ul>
-                        </nav>
+                        </nav> */}
                     </div>
                     
                     <div className="row justify-content-center">

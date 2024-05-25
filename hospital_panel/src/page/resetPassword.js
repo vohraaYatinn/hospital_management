@@ -107,7 +107,7 @@ export default function ResetPassword() {
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Reset Password</h5>
 
-            <nav
+            {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
             >
@@ -119,7 +119,7 @@ export default function ResetPassword() {
                   Reset Password
                 </li>
               </ul>
-            </nav>
+            </nav> */}
           </div>
 
           <div className="row">
@@ -159,7 +159,7 @@ export default function ResetPassword() {
                         className="border-bottom p-3"
                         style={{ minWidth: "50px" }}
                       >
-                        Id
+                        UJUR ID
                       </th>
                       <th
                         className="border-bottom p-3"

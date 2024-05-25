@@ -179,7 +179,7 @@ export default function LabReports() {
             <div className="row">
               <div className="col-xl-9 col-lg-6 col-md-4">
                 <h5 className="mb-0">Lab Reports</h5>
-                <nav aria-label="breadcrumb" className="d-inline-block mt-2">
+                {/* <nav aria-label="breadcrumb" className="d-inline-block mt-2">
                   <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
                     <li className="breadcrumb-item">
                       <Link>UJUR</Link>
@@ -188,7 +188,7 @@ export default function LabReports() {
                       Lab Reports
                     </li>
                   </ul>
-                </nav>
+                </nav> */}
               </div>
               {message?.showMessage && (
                 <Alert
@@ -520,7 +520,13 @@ export default function LabReports() {
                           className="border-bottom p-3"
                           style={{ minWidth: "50px" }}
                         >
-                          Slot Number
+                          Slot No
+                        </th>
+                        <th
+                          className="border-bottom p-3"
+                          style={{ minWidth: "50px" }}
+                        >
+                          UJUR ID
                         </th>
                         <th
                           className="border-bottom p-3"
@@ -555,6 +561,7 @@ export default function LabReports() {
                         return (
                           <tr key={index}>
                             <th className="p-3">{index + 1}</th>
+                            <th className="p-3">{item.patient.id}</th>
                             <td className="p-3">
                               <Link to="#" className="text-dark">
                                 <div className="d-flex align-items-center">
@@ -736,7 +743,6 @@ export default function LabReports() {
             </div>
           </Modal.Body>
         </Modal>
-        cancle
       </Wrapper>
     </>
   );
