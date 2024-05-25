@@ -22,6 +22,7 @@ import { useSelector } from "react-redux";
 
 export default function DrProfile(){
     const router = useRouter();
+    const [uploadedFile, setUploadedFile] = useState(null);
 
     let params = useParams();
     let id = params.id
@@ -108,6 +109,7 @@ export default function DrProfile(){
             license: doctorProfileResponse?.data?.license,
             address: doctorProfileResponse?.data?.address,
             bio: doctorProfileResponse?.data?.bio,
+            department: doctorProfileResponse?.data?.department?.id,
 
             morningPrice: doctorProfileResponse?.data?.doctor_slots[0].morning_slots_price,
             morningSlots: doctorProfileResponse?.data?.doctor_slots[0].morning_slots,
@@ -151,11 +153,11 @@ export default function DrProfile(){
         gutter: 16,
       }
       
-      // useEffect(()=>{
-      //   if(formValues?.action == "active"){
-      //       performActionRequest()
-      //   }
-      // },[formValues])
+      useEffect(()=>{
+        if(formValues?.action == "active"){
+            performActionRequest()
+        }
+      },[formValues])
 
 
 
@@ -178,6 +180,11 @@ export default function DrProfile(){
             ...prev,
             profilePhoto: file,
           }));
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            setUploadedFile(e.target.result);
+          };
+          reader.readAsDataURL(file);
           setIsUploaded(true);
         }
       };
@@ -307,7 +314,7 @@ export default function DrProfile(){
                             />
                             <div className="mt-4 ms-3 pt-3">
                                 <h5 className="mt-3 mb-1">{doctorsData?.full_name}</h5>
-                                <p className="text-muted mb-0">{doctorsData?.department}</p>
+                                <p className="text-muted mb-0">{doctorsData?.department?.name}</p>
                             </div>
                         </div>
                         
@@ -389,29 +396,103 @@ export default function DrProfile(){
                                             <div className="tab-pane fade show active">
                                                 <div className="row">
                                                     <div className="col-lg-6 col-md-12">
-                                                        <div className="card border-0 p-3 pt-0 rounded shadow">
-                                                            <ul className="list-unstyled mb-0">
-                                                                
-                                                                    <li className="d-flex justify-content-between mt-2 ms-0 mt-3" >
-                                                                        <p className="text-muted mb-0"><RiTimeFill className="text-primary align-middle h5 mb-0"/> Morning</p>
-                                                                        <p className="text-primary mb-0"><span className="text-dark">Time:</span>{doctorsData?.doctor_slots[0].morning_timings}</p>
-                                                                        <p>Rs {doctorsData?.doctor_slots[0].morning_slots_price}</p>
-                                                                    </li>
-                                                                    <li className="d-flex justify-content-between mt-2 ms-0 mt-3" >
-                                                                        <p className="text-muted mb-0"><RiTimeFill className="text-primary align-middle h5 mb-0"/> Afternoon</p>
-                                                                        <p className="text-primary mb-0"><span className="text-dark">Time:</span>{doctorsData?.doctor_slots[0].afternoon_timings}</p>
-                                                                        <p>Rs {doctorsData?.doctor_slots[0].afternoon_slots_price}</p>
+                                                    <div className="card border-0 p-3 pt-0 rounded shadow">
+                              <ul className="list-unstyled mb-0">
+                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
+                                <div style={{width:"25%", textAlign:"start"}}>
 
-                                                                    </li>
-                                                                    <li className="d-flex justify-content-between mt-2 ms-0 mt-3" >
-                                                                        <p className="text-muted mb-0"><RiTimeFill className="text-primary align-middle h5 mb-0"/> Evening</p>
-                                                                        <p className="text-primary mb-0"><span className="text-dark">Time:</span>{doctorsData?.doctor_slots[0].evening_timings}</p>
-                                                                        <p>Rs {doctorsData?.doctor_slots[0].evening_slots_price}</p>
+                                  <p className="text-muted mb-0">
+                                    <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
+                                    Morning
+                                  </p>
+                                  </div>
+                                  <div style={{width:"60%", textAlign:"start"}}>
 
-                                                                    </li>
-                                                                    
-                                                            </ul>
-                                                        </div>
+                                  <p className="text-primary mb-0">
+                                    <span className="text-dark">Time:</span>{" "}
+                                    {
+                                      doctorsData?.doctor_slots[0]
+                                        ?.morning_timings
+                                    }{" "}
+                                    {/* Added "?" to handle null or undefined */}
+                                  </p>
+                                  </div>
+                                  <div style={{width:"15%", textAlign:"start"}}>
+
+                                  <p>
+                                    Rs{" "}
+                                    {
+                                      doctorsData?.doctor_slots[0]
+                                        ?.morning_slots_price
+                                    }{" "}
+                                    {/* Added "?" to handle null or undefined */}
+                                  </p>
+                                  </div>
+                                </li>
+                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
+                                  <div style={{width:"25%", textAlign:"start"}}>
+                                  <p className="text-muted mb-0">
+                                    <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
+                                    Afternoon
+                                  </p>
+                                  </div>
+                                  <div style={{width:"60%", textAlign:"start"}}>
+
+                                  <p className="text-primary mb-0">
+                                    <span className="text-dark">Time:</span>{" "}
+                                    {
+                                      doctorsData?.doctor_slots[0]
+                                        ?.afternoon_timings
+                                    }{" "}
+                                    {/* Added "?" to handle null or undefined */}
+                                  </p>
+                                  </div>
+                                  <div style={{width:"15%", textAlign:"start"}}>
+
+                                  <p>
+                                    Rs{" "}
+                                    {
+                                      doctorsData?.doctor_slots[0]
+                                        ?.afternoon_slots_price
+                                    }{" "}
+                                    {/* Added "?" to handle null or undefined */}
+                                  </p>
+                                  </div>
+
+                                </li>
+                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
+                                <div style={{width:"25%", textAlign:"start"}}>
+
+                                  <p className="text-muted mb-0">
+                                    <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
+                                    Evening
+                                  </p>
+                                  </div>
+                                  <div style={{width:"60%", textAlign:"start"}}>
+
+                                  <p className="text-primary mb-0">
+                                    <span className="text-dark">Time:</span>{" "}
+                                    {
+                                      doctorsData?.doctor_slots[0]
+                                        ?.evening_timings
+                                    }{" "}
+                                    {/* Added "?" to handle null or undefined */}
+                                  </p>
+                                  </div>
+                                  <div style={{width:"15%", textAlign:"start"}}>
+
+                                  <p>
+                                    Rs{" "}
+                                    {
+                                      doctorsData?.doctor_slots[0]
+                                        ?.evening_slots_price
+                                    }{" "}
+                                    {/* Added "?" to handle null or undefined */}
+                                  </p>
+                                  </div>
+                                </li>
+                              </ul>
+                            </div>
                                                     </div>
             
                                                     <div className="col-lg-3 col-md-6 mt-4 mt-lg-0 pt-2 pt-lg-0">
@@ -482,8 +563,16 @@ export default function DrProfile(){
                     <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
                       <h5 className="">Upload doctors picture</h5>
                       <p className="text-muted mb-0">
-                        For best results, use an image at least 600px by 600px
-                        in either .jpg or .png format
+                      {isUploaded ?
+                                      <img
+                                        src={uploadedFile || ''}
+                                        className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                        style={{
+                                          objectFit:"cover"
+                                        }}
+                                        alt=""
+                                      />:"For best results, use an image at least 600px by 600px in either .jpg or .png format"
+																	}
                       </p>
                     </div>
                     <input
@@ -511,7 +600,7 @@ export default function DrProfile(){
                   </div>
                 </div>
 
-                <div className="row">
+                <div className="row mt-4">
                   <div className="col-md-12">
                     <div className="mb-3">
                       <label className="form-label">Full Name</label>
@@ -586,7 +675,7 @@ export default function DrProfile(){
                       <label className="form-label">Departments</label>
                       <select
                         className="form-select form-control"
-                        value={formValues.department}
+                        value={formValues?.department}
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -952,31 +1041,7 @@ export default function DrProfile(){
 
                                                 <div className="row">
 
-                                                    <div className="col-lg-6">
-                                                        <div className="rounded shadow mt-4">
-                                                           
-                                
-                                                            <div className="p-4">
-                                                            
-                                                                <div className="d-flex justify-content-between py-4 border-top">
-                                                                    <h6 className="mb-0 fw-normal">Doctor Is Active</h6>
-                                                                    <div className="form-check">
-                                                                        <input type="checkbox" className="form-check-input" id="customSwitch2" 
-                                                                        checked={doctorsData?.is_active}
-                                                                        onChange={(e)=>[
-                                                                            setFormValues({
-                                                                                action:"active",
-                                                                                id:doctorsData?.id,
-                                                                                type:"doctor"
-                                                                            })
-                                                                        ]}
-                                                                        />
-                                                                        <label className="form-check-label" htmlFor="customSwitch2"></label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        </div>
+                                                  
 
                                                         
                                                         <div className="col-lg-6">
@@ -1007,6 +1072,26 @@ export default function DrProfile(){
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    </div>
+                                                    <div className="col-lg-6" style={{
+                                                      display:"flex", alignItems:"center"
+                                                    }}>
+                                                    <div className="d-flex justify-content-between py-4 border-top">
+                                                                    <h6 className="mb-0 fw-normal" style={{marginRight:"1rem"}}>Doctor Is Active</h6>
+                                                                    <div className="form-check">
+                                                                        <input type="checkbox" className="form-check-input pl-4" id="customSwitch2" 
+                                                                        checked={doctorsData?.is_active}
+                                                                        onChange={(e)=>[
+                                                                            setFormValues({
+                                                                                action:"active",
+                                                                                id:doctorsData?.id,
+                                                                                type:"doctor"
+                                                                            })
+                                                                        ]}
+                                                                        />
+                                                                        <label className="form-check-label" htmlFor="customSwitch2"></label>
+                                                                    </div>
+                                                                </div>
                                                     </div>
                                                 </div>
                                             </div> </>: ''

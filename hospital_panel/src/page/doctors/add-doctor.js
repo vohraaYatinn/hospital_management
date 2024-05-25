@@ -39,6 +39,8 @@ export default function AddDoctor() {
   const openFile = () => {
     fileInputRef.current.click();
   };
+  const format = 'HH:mm';
+
 
   const [message, setMessage] = useState({
     message: "",
@@ -277,6 +279,8 @@ export default function AddDoctor() {
               />
             )}
             <div className="col-lg-12 mt-4">
+            <p style={{color:"green"}}>The Default Password of the account will be : demo@123</p>
+
               <div className="card border-0 p-4 rounded shadow">
                 <div className="row align-items-center">
                   <div className="row">
@@ -403,6 +407,8 @@ export default function AddDoctor() {
                           }));
                         }}
                       >
+                                           <option>Please Select from dropdown</option>
+
                          {allDepartments.map((item)=>{
                     return(
                         <option value={item.id}>{item.name}</option>
@@ -580,6 +586,8 @@ export default function AddDoctor() {
                     <div className="mb-3">
                       <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
+                                            format={format}
+
                       onChange={onChangeTime}
                       className="form-control"
                         
@@ -593,6 +601,8 @@ export default function AddDoctor() {
                     <div className="mb-3">
                       <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
+                                            format={format}
+
                       onChange={onChangeTimeAfternoon}
                       className="form-control"
                       />
@@ -605,6 +615,8 @@ export default function AddDoctor() {
                     <div className="mb-3">
                       <label className="form-label">Evening Timings</label>
                       <TimePicker.RangePicker
+                                            format={format}
+
                         onChange={onChangeTimeEvening}
                         className="form-control"
                       />

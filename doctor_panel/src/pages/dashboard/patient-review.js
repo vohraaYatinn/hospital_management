@@ -93,7 +93,8 @@ export default function PatientReview(){
                                         onClick={()=>{
                                             setFilterValues({
                                                 date:"",
-                                                starSearch:""
+                                                starSearch:false,
+                                                
                                             })
                                         }}
                                         style={{backgroundColor:"red"}}

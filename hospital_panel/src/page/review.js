@@ -11,6 +11,7 @@ import PatientName from "../common-components/PatientName";
 import DoctorSearch from "../common-components/DoctorsSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import { Radio } from "antd";
+import ReviewsStarSearch from "../common-components/SearchStars";
 
 export default function Review(){
     const [filters, setFilters] = useState({
@@ -84,7 +85,7 @@ export default function Review(){
 
                                     </div>}
                                     <div className="col-sm-6 col-lg-3">
-                                    <PatientName filters={filters} setFilters={setFilters} />
+                                    <ReviewsStarSearch filters={filters} setFilters={setFilters} />
                                 </div>
                                 {value4 == "doctors" &&    <div className="col-sm-6 col-lg-3">
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
@@ -109,6 +110,7 @@ export default function Review(){
                                                 department:"",
                                                 hospitalSearch:"",
                                                 doctorName:"",
+                                                starSearch:"",
                                                 patientName:""
                                             })
                                         }}
@@ -125,18 +127,22 @@ export default function Review(){
                                         <table className="table mb-0 table-center">
                                             <thead>
                                                 <tr>
-                                                <th className="border-bottom p-3" style={{minWidth:'200px'}}> {value4 == "doctors" ? "Doctor Name" : "Hospital Name"}</th>
-                                                    <th className="border-bottom p-3" style={{minWidth:'200px'}}>Patient Name</th>
-                                                    {value4 == "doctors" && <th className="border-bottom p-3" style={{minWidth:'150px'}}>Email</th>}
+                                                <th className="border-bottom p-3" style={{minWidth:'50px'}}>Sno.</th>
+                                                <th className="border-bottom p-3" style={{minWidth:'150px'}}>Date</th>
+
+                                                {value4 == "doctors" && <th className="border-bottom p-3" style={{minWidth:'200px'}}> {value4 == "doctors" ? "Doctor Name" : "Hospital Name"}</th>}
                                                     <th className="border-bottom p-3" style={{minWidth:'150px'}}>Stars</th>
                                                     <th className="border-bottom p-3" style={{minWidth:'350px'}}>Comments</th>
-                                                    <th className="border-bottom p-3" style={{minWidth:'150px'}}>Date</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 {reviewsData.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                                     return(
                                                         <tr key={index}>
+                                                                                                                        <td className="p-3">{index+1}</td>
+                                                                                                                        <td className="p-3">{changeDateFormat(item.created_at)}</td>
+
+                                                                                                                        {value4 == "doctors" &&
                                                             <td className="p-3">
                                                             <Link to="#" className="text-dark">
                                                                     <div className="d-flex align-items-center">
@@ -144,22 +150,15 @@ export default function Review(){
                                                                         <span className="ms-2">{value4 == "doctors" ?item?.doctor?.full_name: item?.hospital?.name}</span>
                                                                     </div>
                                                                 </Link>
-                                                            </td>
-                                                            <td className="p-3">
-                                                                <Link to="#" className="text-dark">
-                                                                    <div className="d-flex align-items-center">
-                                                                        <span className="ms-2">{item?.patient?.full_name}</span>
-                                                                    </div>
-                                                                </Link>
-                                                            </td>
-                                                            {value4 == "doctors" && <td className="p-3">{item?.doctor?.email}</td>}
+                                                            </td> }
+                                                          
+
                                                             <td className="p-3">
                                                                 <ul className="list-unstyled mb-0">
                                                                     {item?.reviews_star && designStarsReviews(item?.reviews_star)}
                                                                 </ul>
                                                             </td>
                                                             <td className="p-3 text-muted">{item.comment}</td>
-                                                            <td className="p-3">{changeDateFormat(item.created_at)}</td>
                                                         </tr>
                                                     )
                                                 })}

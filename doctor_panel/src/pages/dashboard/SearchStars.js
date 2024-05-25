@@ -13,12 +13,7 @@ const ReviewsStarSearch = ({ filters, setFilters }) => {
         <Select
         className='form-control'
       onChange={handleSearch}
-      value={filters?.starSearch}
       options={[
-        {
-            value: false,
-            label:"Select Rating From Below",
-          },
         {
           value: '1',
           label: <div>

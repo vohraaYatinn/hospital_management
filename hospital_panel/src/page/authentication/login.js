@@ -18,6 +18,8 @@ import { Alert } from "antd";
 
 export default function Login() {
   const [formValues, setFormValues] = useState();
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   const loginButtonRef = React.useRef(null);
 
   const [message, setMessage] = useState({
@@ -25,6 +27,9 @@ export default function Login() {
     showMessage: "",
     type: "error",
   });
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+};
   const [
     authDetailsResponse,
     authDetailsError,
@@ -60,6 +65,12 @@ export default function Login() {
       });
     }
   }, [authDetailsResponse]);
+  useEffect(() => {
+    const check_token = localStorage.getItem("storedToken")
+    if(check_token){
+      router.push("/index")
+    }
+  },[])
   return (
     <>
 
@@ -108,7 +119,7 @@ export default function Login() {
                           Password <span className="text-danger">*</span>
                         </label>
                         <input
-                          type="password"
+                         type={passwordVisible ? "text" : "password"}
                           className="form-control"
                           placeholder="Password"
                           required=""
@@ -124,6 +135,17 @@ export default function Login() {
                             }));
                           }}
                         />
+                           <button type="button" onClick={togglePasswordVisibility}
+                                                    style={{
+                                                        background: "transparent",
+                                                        border: 0,
+                                                        color: "blue",
+                                                        float: "right",
+                                                        marginBottom: "1rem",
+                                                    }}
+                                                >
+                                                    {passwordVisible ? "Hide" : "Show"}
+                                                </button>
                       </div>
                     </div>
                     {message?.showMessage && (
