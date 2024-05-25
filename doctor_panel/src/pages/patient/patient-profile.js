@@ -606,7 +606,6 @@ fontSize:"1.4rem"      }}/>
                                 className="form-control"
                                 onChange={(e)=>{
                                   setMedicationForm((prev)=>({...prev, name:e.target.value}))
-
                                 }}
                                  />
                                <label className="mt-4">Medicine Description</label>

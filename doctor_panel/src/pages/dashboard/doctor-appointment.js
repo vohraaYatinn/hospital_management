@@ -220,7 +220,7 @@ export default function DoctorAppointment(){
                                                 return(
                                                     <tr key={index}>
                                                         <th className="p-3">{item.appointment_slot}</th>
-                                                        <td className="p-3">{item?.patient?.id}</td>
+                                                        <td className="p-3">{item?.patient?.ujur_id}</td>
 
                                                         <td className="p-3" >
                                                             <Link to={item?.status == "pending" && `/patient-profile/${item?.patient?.id}/${item?.id}`} className="text-dark">

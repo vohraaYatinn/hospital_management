@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import moment from "moment";
 
 export const calculateAge = (dateOfBirth) => {
   const currentDate = new Date();
@@ -135,4 +136,8 @@ export function compareObjects(obj1, obj2) {
   }
 
   return true;
+}
+
+export const changeDateFormat = (date) =>{
+  return moment(date).format('YYYY-MM-DD')
 }

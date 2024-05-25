@@ -9,11 +9,12 @@ import client1 from '../../assets/images/client/01.jpg'
 import { patientsData } from "../../data/data";
 import useAxios from "../../network/useAxios";
 import { fetchMyDoctorReviews } from "../../urls/urls";
-import { PaginationCountList, calculateAge, designStarsReviews, getTodayDate, handlePagination } from "../../utils/commonFunctions";
+import { PaginationCountList, calculateAge, changeDateFormat, designStarsReviews, getTodayDate, handlePagination } from "../../utils/commonFunctions";
 import PatientName from "../../common-components/PatientName";
 import DateSearchComponent from "../../common-components/DateSearch";
 import { Link } from "react-router-dom";
 import { Tooltip } from 'antd';
+import ReviewsStarSearch from "../../common-components/SearchStars";
 
 
 export default function PatientReview(){
@@ -73,8 +74,16 @@ export default function PatientReview(){
                             </div>
                         </div>
                         
+                        <div className="row mt-4">
+                            <div className="col-4">
+                            <ReviewsStarSearch filters={filterValues} setFilters={setFilterValues} />
+                            </div>
+                            <div className="col-4">
+                            <DateSearchComponent filters={filterValues} setFilters={setFilterValues} />
+                            </div>
+                            </div>
                         <div className="row">
-                            <div className="row" style={{marginTop:"2rem"}}>
+                            <div className="row" style={{marginTop:"1rem"}}>
                             {/* <div className="col-4">
                                                 <PatientName filters={filterValues} setFilters={setFilterValues}/>
                                                 </div> */}
@@ -83,10 +92,8 @@ export default function PatientReview(){
                                         className="form-control btn-check-reset"
                                         onClick={()=>{
                                             setFilterValues({
-                                                status:"",
-                                                slot:"",
-                                                date:getTodayDate(),
-                                                patientName:""
+                                                date:"",
+                                                starSearch:""
                                             })
                                         }}
                                         style={{backgroundColor:"red"}}
@@ -101,20 +108,20 @@ export default function PatientReview(){
                                         <thead>
                                             <tr>
                                                 {/* <th className="border-bottom p-3">Ujur Id</th> */}
-                                                <th className="border-bottom p-3" style={{minWidth:'100px'}}>Name</th>
-                                                <th className="border-bottom p-3">Review</th>
-                                                <th className="border-bottom p-3">Rating</th>
+                                                <th className="border-bottom p-3" style={{minWidth:'100px'}}>S. No</th>
+                                                <th className="border-bottom p-3" style={{minWidth:'100px'}}>Date</th>
+                                                <th className="border-bottom p-3">Stars</th>
+                                                <th className="border-bottom p-3">Comments</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {patientReviews.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                                 return(  
                                                     <tr key={index}>
-                                                        {/* <td className="p-3">{item?.patient?.ujur_id}</td> */}
-                                                        <td className="p-3">{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</td>
-                                                        <td className="p-3">{item?.comment && item?.comment.length > 40 ? <><Tooltip placement="topRight" title={item?.comment} >{item?.comment.slice(0,40)} <span style={{color:"blue", cursor:"pointer", fontSize:"0.7rem"}}>....Read More</span> </Tooltip></>: item?.comment }</td>
+                                                        <td className="p-3">{index+1}</td>
+                                                        <td className="p-3">{changeDateFormat(item?.created_at)}</td>
                                                         <td className="p-3">{designStarsReviews(item?.reviews_star)}</td>
-
+                                                        <td className="p-3">{item?.comment && item?.comment.length > 40 ? <><Tooltip placement="topRight" title={item?.comment} >{item?.comment.slice(0,40)} <span style={{color:"blue", cursor:"pointer", fontSize:"0.7rem"}}>....Read More</span> </Tooltip></>: item?.comment }</td>
 
                                                     </tr>
                                                 )

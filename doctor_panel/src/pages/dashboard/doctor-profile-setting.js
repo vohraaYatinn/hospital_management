@@ -11,6 +11,7 @@ import { doctorChangePassword, fetchDoctorProfiles, doctorChangeProfile, handleD
 import { test_url_images } from "../../config/environment";
 import { useRouter } from "../../hooks/use-router";
 import { Alert } from 'antd';
+import sign from "../../assets/sign.png"
 
 export default function DoctorProfileSettimg() {
   const router = useRouter();
@@ -225,7 +226,7 @@ export default function DoctorProfileSettimg() {
                   <div className="row align-items-center mt-5">
                     <div className="col-lg-2 col-md-4">
                       <img
-                        src={test_url_images + doctorProfile?.signature}
+                        src={doctorProfile?.signature ? test_url_images + doctorProfile?.signature : sign}
                         className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
                         alt=""
                       />

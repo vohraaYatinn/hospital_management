@@ -157,7 +157,7 @@ useEffect(()=>{
   }}>Add New</button></> }]
 
   const updatedArray = arrayToAdd.concat(departmentsName.map(department => ({
-    value: department.id,
+    value: department.name,
     label: department.name
   })));
   setdummyHospitalData(updatedArray)
@@ -376,7 +376,15 @@ useEffect(()=>{
                       value: medication.medicationType,
                       label: medication.medicationType,
                     }}
-                    onChange={(e) => handleMedicationChange(e, "medicationType")}
+                    onChange={(e) => {handleMedicationChange(e, "medicationType")
+                    setMedication((prevMedication) => ({
+                      ...prevMedication,
+                      Strength:"",
+                      amount:"",
+                    }));
+
+
+                    }}
                     options={medicationType}
                     placeholder="Select Medicine"
                     isSearchable
