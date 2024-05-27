@@ -221,21 +221,21 @@ export default function Sidebar({ manuClass }) {
                 <li className={`${manu === "hospitals" ? "active" : ""} ms-0`}>
                   <Link to="/hospitals">Current Hospitals</Link>
                 </li>
-                <li
+                {/* <li
                   className={`${
                     manu === "add-hospital-admin" ? "active" : ""
                   } ms-0`}
                 >
                   <Link to="/add-hospital-admin">Add Hospital Admins</Link>
-                </li>
+                </li> */}
 
-                <li
+                {/* <li
                   className={`${
                     manu === "hospitals-admin" ? "active" : ""
                   } ms-0`}
                 >
                   <Link to="/hospitals-admin">All Hospital Account</Link>
-                </li>
+                </li> */}
               </ul>
             </div>
           </li>
