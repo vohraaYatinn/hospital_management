@@ -397,6 +397,7 @@ export default function DrProfile() {
               />
               <div className="mt-4 ms-3 pt-3">
                 <h5 className="mt-3 mb-1">{doctorsData?.full_name}</h5>
+                <small> ID: {doctorsData?.ujur_id}</small><br/>
                 <small>{doctorsData?.department?.name}</small>
                 <small> {" ( "}{doctorsData?.hospital?.name}{" )"}</small>
 

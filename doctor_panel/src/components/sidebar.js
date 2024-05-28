@@ -28,6 +28,8 @@ export default function Sidebar({colClass}){
                     <h5 className="mt-3 mb-1">Dr.{token?.full_name}</h5>
                     <p className="text-muted mb-0">{token?.specialization}</p>
                     <p className="text-muted mb-0">( {token?.hospital?.name} )</p>
+                    <small className="mt-3 mb-1">UJUR ID: {token?.ujur_id}</small>
+
                 </div>
 
                 <ul className="list-unstyled sidebar-nav mb-0" id="navigation23" 

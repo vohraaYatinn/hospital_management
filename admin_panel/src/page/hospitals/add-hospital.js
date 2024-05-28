@@ -27,6 +27,7 @@ export default function AddHospitalProfile() {
   const [message, setMessage] = useState({
     message: "",
     showMessage: "",
+    type:"error"
   });
 
   useEffect(() => {
@@ -35,10 +36,19 @@ export default function AddHospitalProfile() {
       setMessage({
         message: addHospitalResponse?.message,
         showMessage: true,
+        type:"success"
       });
-      // setDoctorsData(addHospitalResponse?.data);
     }
   }, [addHospitalResponse]);
+  useEffect(() => {
+    if (addHospitalError) {
+      setMessage({
+        message: addHospitalError?.response?.data?.message,
+        showMessage: true,
+        type:"error"
+      });
+    }
+  }, [addHospitalError]);
   
   const router = useNavigate();
 
@@ -163,12 +173,14 @@ export default function AddHospitalProfile() {
             <h5 className="mb-0">Add New Hospital</h5>
           </div>
 
+
           <div className="col-lg-10">
+
             {message?.showMessage && (
               <Alert
                 style={{ marginTop: "1rem" }}
                 message={message?.message}
-                type="success"
+                type={message?.type}
                 closable
                 onClose={() => {
                   setMessage({
@@ -178,7 +190,10 @@ export default function AddHospitalProfile() {
                 }}
               />
             )}
+            <p style={{color:"green"}} className="mt-2">The Default Password of the account will be : demo@123</p>
+
             <div className="rounded shadow mt-4">
+
               <div className="p-4">
           
 

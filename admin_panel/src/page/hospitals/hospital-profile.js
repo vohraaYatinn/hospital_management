@@ -248,6 +248,7 @@ const performActionRequest = () => {
 								<h5 className="mt-3 mb-1">
 									{hospitalData?.name ? hospitalData.name : "N/A"}
 								</h5>
+								<small>{hospitalData?.hospital_details_account?.[0]?.ujur_id }</small>
 								<p className="text-muted mb-0 ">
 									{hospitalData?.website}
 								</p>

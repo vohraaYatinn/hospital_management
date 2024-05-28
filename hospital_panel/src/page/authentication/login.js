@@ -95,12 +95,12 @@ export default function Login() {
                     <div className="col-lg-12">
                       <div className="mb-3">
                         <label className="form-label">
-                          Enter Email <span className="text-danger">*</span>
+                          UJUR ID <span className="text-danger">*</span>
                         </label>
                         <input
                           type="email"
                           className="form-control"
-                          placeholder="Enter Email ID"
+                          placeholder="Enter UJUR ID"
                           name="email"
                           required=""
                           onChange={(e) => {

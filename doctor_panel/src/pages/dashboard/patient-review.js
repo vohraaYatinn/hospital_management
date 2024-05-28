@@ -109,7 +109,7 @@ export default function PatientReview(){
                                         <thead>
                                             <tr>
                                                 {/* <th className="border-bottom p-3">Ujur Id</th> */}
-                                                <th className="border-bottom p-3" style={{minWidth:'100px'}}>S. No</th>
+                                                <th className="border-bottom p-3" style={{minWidth:'100px'}}>S.No</th>
                                                 <th className="border-bottom p-3" style={{minWidth:'100px'}}>Date</th>
                                                 <th className="border-bottom p-3">Stars</th>
                                                 <th className="border-bottom p-3">Comments</th>

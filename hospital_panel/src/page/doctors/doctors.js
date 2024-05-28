@@ -118,6 +118,7 @@ export default function Doctors() {
                       >
                         {item.full_name}
                       </p>
+                      <small className="speciality">ID: {item.ujur_id}</small><br/>
                       <small className="text-muted speciality">
                       {item.department?.name}
                       </small>

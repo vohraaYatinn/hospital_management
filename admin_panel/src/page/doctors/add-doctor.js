@@ -197,7 +197,7 @@ export default function AddDoctor() {
     }
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
-    } else if (values.phoneNumber.length > 10 && values.phoneNumber.length <13) {
+    } else if (!(values.phoneNumber.length > 10 && values.phoneNumber.length <13)) {
       errors.phoneNumber = "Phone number is not valid";
     }
     // if(!values.morningTime){

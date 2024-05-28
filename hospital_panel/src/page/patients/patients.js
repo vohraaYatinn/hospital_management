@@ -99,6 +99,8 @@ export default function Patients() {
                 <table className="table table-center bg-white mb-0">
                   <thead>
                     <tr>
+                    <th className="border-bottom p-3">S.No</th>
+
                       <th
                         className="border-bottom p-3"
                         style={{ minWidth: "50px" }}
@@ -128,7 +130,8 @@ export default function Patients() {
                     {patientData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                       return (
                         <tr key={index}>
-                          <th className="p-3">{item.id}</th>
+                          <th className="p-3">{index+1}</th>
+                          <th className="p-3">{item.ujur_id}</th>
                           <td className="py-3">
                             <Link to="#" className="text-dark">
                               <div className="d-flex align-items-center">
