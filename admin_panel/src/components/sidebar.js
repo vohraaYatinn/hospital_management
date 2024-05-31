@@ -84,7 +84,7 @@ export default function Sidebar({ manuClass }) {
               Dashboard
             </Link>
           </li>
-          <li
+          {/* <li
             className={`sidebar-dropdown ms-0 ${
               ["admin", "add-admin", "admin-profile", "admin-item"].includes(
                 manu
@@ -120,7 +120,7 @@ export default function Sidebar({ manuClass }) {
                 </li>
               </ul>
             </div>
-          </li>
+          </li> */}
           <li
             className={`sidebar-dropdown ms-0 ${
               [
@@ -148,7 +148,7 @@ export default function Sidebar({ manuClass }) {
           </li>
           {/* <li
             className={`sidebar-dropdown ms-0 ${
-              ["hospitals-admin", "add-hospital-admin"].includes(manu)
+              ["hospitals-admin", ""].includes(manu)
                 ? "active"
                 : ""
             }`}

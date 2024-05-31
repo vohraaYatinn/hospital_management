@@ -11,6 +11,7 @@ import Modal from "react-bootstrap/Modal";
 import { useEffect } from "react";
 import {
   addDepartmentHospital,
+  fetchDepartmentAll,
   fetchDepartmentHospital,
   fetchSoftwareDepartmentHospital,
 } from "../urls/urls";
@@ -18,11 +19,15 @@ import useAxios from "../network/useAxios";
 import { Alert } from "antd";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import { PaginationCountList, handlePagination } from "../utils/commonFunctions";
+import { useDispatch } from "react-redux";
+import { updateDepartments } from "../redux/reducers/functionalities.reducer";
 
 export default function Departments() {
   const [filters, setFilters] = useState({});
   let [show, setShow] = useState(false);
   let [showDetail, setShowDetail] = useState(false);
+  const dispatch = useDispatch();
+
   let [acceptsDepartments, setAcceptsDepartments] = useState(false);
   const [departmentsSoftware, setSoftwaresData] = useState([]);
   const [paginationNumber, setPaginationNumber] = useState({
@@ -66,6 +71,12 @@ export default function Departments() {
     fetchDepartmentFunc();
     fetchSoftwaresDepartmentFunc();
   }, [filters]);
+  const [
+    allDepartmentsResponse,
+    allDepartmentsError,
+    allDepartmentsLoading,
+    allDepartmentsFetch,
+  ] = useAxios();
   useEffect(() => {
     if (departmentsResponse?.result == "success" && departmentsResponse?.data) {
       setDepartmentValues(departmentsResponse?.data);
@@ -79,12 +90,16 @@ export default function Departments() {
       setSoftwaresData(getSoftwareDepartmentsResponse?.data);
     }
   }, [getSoftwareDepartmentsResponse]);
+  const fetchAllDepartmentsFunc = () => {
+    allDepartmentsFetch(fetchDepartmentAll());
+  };
   const [message, setMessage] = useState({
     message: "",
     showMessage: "",
   });
   useEffect(() => {
     if (addDepartmentsResponse?.result == "success") {
+      fetchAllDepartmentsFunc()
       setMessage({
         message: addDepartmentsResponse?.message,
         showMessage: true,
@@ -93,7 +108,11 @@ export default function Departments() {
       fetchDepartmentFunc();
     }
   }, [addDepartmentsResponse]);
-
+  useEffect(() => {
+    if (allDepartmentsResponse?.result == "success") {
+      dispatch(updateDepartments(allDepartmentsResponse?.data));
+    }
+  }, [allDepartmentsResponse]);
   return (
     <>
       <Wrapper>

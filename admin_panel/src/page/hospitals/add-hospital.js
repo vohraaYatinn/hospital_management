@@ -4,15 +4,18 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 import hospital from "../../assets/images/hospitals/01.jpg";
 import Wrapper from "../../components/wrapper";
 import useAxios from "../../network/useAxios";
-import { addAdminHospital } from "../../urls/urls";
+import { addAdminHospital, fetchAllHospital } from "../../urls/urls";
 import { test_url_images } from "../../config/environment";
 import { Alert } from "antd";
+import { useDispatch } from "react-redux";
+import { updateHospitals } from "../../redux/reducers/functionalities.reducer";
 
 export default function AddHospitalProfile() {
   
   // const [formValue, setFormValue] = useState([]);
   const [uploadedFile, setUploadedFile] = useState(null);
   const [uploadedFileLogo, setUploadedFileLogo] = useState(null);
+  const dispatch = useDispatch();
 
   const [formValue, setFormValue] = useState({
     phoneNumber: "+91-" // Initialize phoneNumber with '91'
@@ -24,15 +27,24 @@ export default function AddHospitalProfile() {
     addHospitalLoading,
     addHospitalFetch,
   ] = useAxios();
+  const [
+    allHospitalResponse,
+    allHospitalError,
+    allHospitalLoading,
+    allHospitalFetch,
+  ] = useAxios();
   const [message, setMessage] = useState({
     message: "",
     showMessage: "",
     type:"error"
   });
 
+  const fetchAllHospitalFunc = () => {
+    allHospitalFetch(fetchAllHospital());
+  };
   useEffect(() => {
     if (addHospitalResponse?.result == "success") {
-      router('/hospitals')
+      fetchAllHospitalFunc()
       setMessage({
         message: addHospitalResponse?.message,
         showMessage: true,
@@ -40,6 +52,13 @@ export default function AddHospitalProfile() {
       });
     }
   }, [addHospitalResponse]);
+  useEffect(() => {
+    if (allHospitalResponse?.result == "success") {
+      dispatch(updateHospitals(allHospitalResponse?.data));
+
+      router('/hospitals')
+    }
+  }, [allHospitalResponse]);
   useEffect(() => {
     if (addHospitalError) {
       setMessage({
@@ -75,7 +94,7 @@ export default function AddHospitalProfile() {
     }
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
-    } else if (values.phoneNumber.length < 11) {
+    } else if (values.phoneNumber.length != 14) {
       errors.phoneNumber = "Phone number is not valid";
     }
     return errors;
@@ -322,11 +341,11 @@ export default function AddHospitalProfile() {
                       <input
                         name="number"
                         id="number"
-                        type="number"
+                        type="text"
                         maxLength={14}
                         className="form-control"
                         placeholder="Phone no. :91"
-                        value={formValue.phoneNumber}
+                        value={formValue?.phoneNumber}
                         onChange={(e) => {
                           setFormValue((prev) => ({
                             ...prev,

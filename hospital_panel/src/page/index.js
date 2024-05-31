@@ -27,24 +27,35 @@ import {
   fetchDepartmentAll,
   genderGraphsFetch,
   graphsFetch,
-  ageGenderGraphsFetch
+  ageGenderGraphsFetch,
+  completedDoctorGraph
 } from "../urls/urls";
 import {
+  GetAllDoctors,
   updateDepartments,
   updateDoctors,
 } from "../redux/reducers/functionalities.reducer";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useAxios from "../network/useAxios";
 import { useState } from "react";
 
 export default function Index() {
   const [dashboardDetails, setDashboardDetails] = useState({});
+  const allDoctors = useSelector(GetAllDoctors);
+
   const [pieChart, setPieChart] = useState([]);
   const [genderChart, setGenderChart] = useState([]);
   const [ageChart, setAgeChart] = useState([]);
+  const [completedGraph, setCompletedGraph] = useState([]);
   const [formPie, setFormPie] = useState("week")
   const [ageGraph, setAgeGraph] = useState("Week")
   const [genderGraph, setGenderGraph] = useState("Week")
+  const [completedParam, setCompletedParam] = useState("week")
+  const [doctorSelected, setSelectedDoctor] = useState(allDoctors[0].id)
+  useEffect(()=>{
+    console.log(allDoctors)
+  },[allDoctors])
+  
   const [
     allDepartmentsResponse,
     allDepartmentsError,
@@ -87,10 +98,19 @@ export default function Index() {
     ageGraphsHospitalLoading,
     ageGraphsHospitalFetch,
   ] = useAxios();
+  const [
+    CompletedGraphsResponse,
+    CompletedGraphsError,
+    CompletedGraphsLoading,
+    CompletedGraphsFetch,
+  ] = useAxios();
   const dispatch = useDispatch();
 
   const fetchAllDashboardDetailsFunc = () => {
     dashboardDetailsFetch(fetchAdminDashboard());
+  };
+  const CompletedGraphDetailsFunc = () => {
+    CompletedGraphsFetch(completedDoctorGraph({"time":completedParam, "doctorId":doctorSelected}));
   };
   const graphsFetchHospital = () => {
     graphsDoctorsFetch(graphsFetch({"time":formPie}));
@@ -138,6 +158,10 @@ export default function Index() {
     ageGenderFunc();
   }, [genderGraph, ageGraph]);
   useEffect(() => {
+    CompletedGraphDetailsFunc()
+
+  }, [completedParam, doctorSelected]);
+  useEffect(() => {
     if (allDoctorsResponse?.result == "success") {
       dispatch(updateDoctors(allDoctorsResponse?.data));
     }
@@ -155,6 +179,11 @@ export default function Index() {
       setPieChart(graphsDoctorsResponse?.data);
     }
   }, [graphsDoctorsResponse]);
+  useEffect(() => {
+    if (CompletedGraphsResponse?.result == "success") {
+      setCompletedGraph(CompletedGraphsResponse?.data);
+    }
+  }, [CompletedGraphsResponse]);
   useEffect(() => {
     if (graphsHospitalResponse?.result == "success") {
       setGenderChart(graphsHospitalResponse?.data);
@@ -259,7 +288,7 @@ export default function Index() {
             </div>
 
             <div className="row">
-              <Charts ageChart={ageChart} genderData={genderData} pieChart={pieChart} ageGraph={ageChart} setFormPie={setFormPie} ageFilter={ageGraph} setAgeGraph={setAgeGraph} genderChart={genderChart} setGenderGraph={setGenderGraph} genderGraph={genderGraph}/>
+              <Charts ageChart={ageChart} genderData={genderData} pieChart={pieChart} ageGraph={ageChart} setFormPie={setFormPie} ageFilter={ageGraph} setAgeGraph={setAgeGraph} genderChart={genderChart} setGenderGraph={setGenderGraph} genderGraph={genderGraph} completedParam={completedParam} setCompletedParam={setCompletedParam} allDoctors={allDoctors} setSelectedDoctor={setSelectedDoctor} completedGraph={completedGraph}/>
             </div>
           </div>
         </div>

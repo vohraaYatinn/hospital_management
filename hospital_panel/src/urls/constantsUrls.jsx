@@ -36,6 +36,7 @@ export class Urls {
     static GENDER_GRAPHS_FETCH = Urls.MPHRMS_API_PREFIX + 'hospitals/gender-graphs-fetch/';
     static AGE_GRAPHS_FETCH = Urls.MPHRMS_API_PREFIX + 'hospitals/age-graphs-fetch/';
     static GRAPH_AGE_GENDER = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-patients-by-age-gender/';
+    static COMPLETED_DOCTOR_GRAPH = Urls.MPHRMS_API_PREFIX + 'hospitals/completed-doctor-graph/';
 
 
 

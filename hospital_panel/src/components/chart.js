@@ -4,13 +4,52 @@ import { useEffect } from "react";
 import Chart from 'react-apexcharts'
 
 
-export default function Charts({ageChart, genderData, pieChart, setFormPie, ageGraph, setAgeGraph, genderChart, setGenderGraph, ageFilter, genderGraph}){
+export default function Charts({ageChart, genderData, pieChart, setFormPie, ageGraph, setAgeGraph, genderChart, setGenderGraph, ageFilter, genderGraph, completedParam, setCompletedParam, allDoctors, setSelectedDoctor, completedGraph}){
 
-    let optionsAge = {
+    const lineChartOptions = {
         series: [{
-            name: 'Age',
-            data: ageChart
+          name: 'Desktops',
+          data: completedGraph
+        }],
+        chart: {
+          height: 350,
+          type: 'line',
+          zoom: {
+            enabled: false
+          }
+        },
+        dataLabels: {
+          enabled: false
+        },
+        stroke: {
+          curve: 'smooth'
+        },
+
+        grid: {
+          row: {
+            colors: ['#f3f3f3', 'transparent'], // takes an array which will be repeated on columns
+            opacity: 0.5
+          },
+        },
+        xaxis: {
+            categories: completedParam=="year"  ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] :  completedParam=="month"  ? ["Week1", "Week2", "Week3", "Week4"]:["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
+
+        }
+      };
+
+      let optionsAge = {
+        series: [{
+            name: 'Below 15',
+            data: ageChart?.before_16
         }, 
+        {
+            name: 'Between 15 & 60',
+            data: ageChart?.fifteen_60
+        },
+        {
+            name: 'Above 60',
+            data: ageChart?.after_60
+        },
     ],
         chart: {
             type: 'bar',
@@ -37,9 +76,9 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
             width: 2,
             colors: ['transparent']
         },
-        colors: ['#396cf0'],
+        colors: ['#396cf0', '#53c797', '#f1b561'],
         xaxis: {
-            categories: ['0-17', '18-35', '36-50', '51-65', '66-80', '81-100', '100+'] ,
+            categories: ageFilter=="Year"  ? ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'] :  ageFilter=="Month"  ? ["Week1", "Week2", "Week3", "Week4"]:["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"],
         },
         yaxis: {
             title: {
@@ -176,9 +215,9 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
                     <select className="form-select form-control" id="dailychart" onChange={(e)=>{
                             setAgeGraph(e.target.value)
                         }}>
-                            <option defaultValue>Week</option>
-                            <option defaultValue>Month</option>
-                            <option>Year</option>
+                            <option value={"Week"}>Week</option>
+                            <option value={"Month"}>Month</option>
+                            <option value={"Year"}>Year</option>
                         </select>
                     </div>
                 </div>
@@ -206,7 +245,7 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
 
  
 
-        <div className="col-xl-12 col-lg-12 mt-4">
+        <div className="col-xl-6 col-lg-6 mt-4">
             <div className="card shadow border-0 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
                     <h6 className="align-items-center mb-0">Patients Visit By Department</h6>
@@ -222,6 +261,33 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
                     </div>
                 </div>
                 <Chart options={options2} series={options2.series} type="pie" width='100%' height={350} />
+            </div>
+        </div>
+        <div className="col-xl-6 col-lg-6 mt-4">
+            <div className="card shadow border-0 p-4">
+                <div className="d-flex justify-content-between align-items-center mb-3">
+                    <h6 className="align-items-center mb-0">Doctor's Completed Appointments</h6>
+                    
+                    <div className="mb-0 position-relative">
+                        <select className="form-select form-control" id="dailychart" onChange={(e)=>{
+                            setSelectedDoctor(e.target.value)
+                        }}>
+                            {allDoctors.map((e)=>{
+                                return (
+                                    <option value={e.id}>{e.full_name}</option>
+                                )
+                            })}
+                        </select>
+                        <select className="form-select form-control" id="dailychart" onChange={(e)=>{
+                            setCompletedParam(e.target.value)
+                        }}>
+                        <option value={"week"}>Week</option>
+                            <option value={"month"}>Month</option>
+                            <option value={"year"}>Year</option>
+                        </select>
+                    </div>
+                </div>
+                <Chart options={lineChartOptions} series={lineChartOptions.series} type="line" width='100%' height={350} />
             </div>
         </div>
         </>

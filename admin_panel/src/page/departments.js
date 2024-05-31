@@ -11,6 +11,9 @@ import useAxios from "../network/useAxios";
 import { Alert } from 'antd';
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import { PaginationCountList, handlePagination } from "../utils/commonFunctions";
+import { updateDepartments } from "../redux/reducers/functionalities.reducer";
+import { useDispatch } from "react-redux";
+
 
 export default function Departments(){
     let [show, setShow] = useState(false);
@@ -23,6 +26,8 @@ export default function Departments(){
         departmentId:"new"
     })
     let [cancle, setCancle] = useState(false);
+    const dispatch = useDispatch();
+
     const [departmentsValues, setDepartmentValues] = useState([]);
     const [
         departmentsResponse,
@@ -42,6 +47,12 @@ export default function Departments(){
         addDepartmentssLoading,
         addDepartmentssFetch,
       ] = useAxios();
+      const [
+        allDepartmentsResponse,
+        allDepartmentsError,
+        allDepartmentsLoading,
+        allDepartmentsFetch,
+      ] = useAxios();
       const [paginationNumber, setPaginationNumber] = useState({
         from:0,
         to:10,
@@ -50,6 +61,9 @@ export default function Departments(){
     const fetchDepartmentFunc = () => {
         departmentsFetch(fetchDepartmentAll(filters))
     }
+    const fetchAllDepartmentsFunc = () => {
+        allDepartmentsFetch(fetchDepartmentAll());
+      };
     const fetchSoftwaresDepartmentFunc = () => {
         getSoftwareDepartmentssFetch(fetchSoftwareDepartmentHospital())
     }
@@ -84,6 +98,7 @@ export default function Departments(){
             setFormValues({
                 departmentId:"new"
             })
+            fetchAllDepartmentsFunc()
             fetchDepartmentFunc()
         }
         else if(addDepartmentsResponse?.result == "failure"){
@@ -94,7 +109,12 @@ export default function Departments(){
               })
         }
     },[addDepartmentsResponse])
+  useEffect(() => {
 
+    if (allDepartmentsResponse?.result == "success") {
+      dispatch(updateDepartments(allDepartmentsResponse?.data));
+    }
+  }, [allDepartmentsResponse]);
 
     return(
         <>

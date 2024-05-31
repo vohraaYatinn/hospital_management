@@ -15,6 +15,7 @@ import ReviewsStarSearch from "../common-components/SearchStars";
 
 export default function Review(){
     const [filters, setFilters] = useState({
+        starSearch:""
     })
     const [value4, setValue4] = useState('doctors');
 
@@ -84,12 +85,13 @@ export default function Review(){
                                         <DepartmentSearch filters={filters} setFilters={setFilters} />
 
                                     </div>}
-                                    <div className="col-sm-6 col-lg-3">
-                                    <ReviewsStarSearch filters={filters} setFilters={setFilters} />
-                                </div>
+                                    
                                 {value4 == "doctors" &&    <div className="col-sm-6 col-lg-3">
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>}
+                                <div className="col-sm-6 col-lg-3">
+                                    <ReviewsStarSearch filters={filters} setFilters={setFilters} />
+                                </div>
                                 <Radio.Group
         options={optionsWithDisabled}
         onChange={onChange4}

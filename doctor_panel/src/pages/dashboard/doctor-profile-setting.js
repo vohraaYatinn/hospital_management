@@ -338,12 +338,13 @@ export default function DoctorProfileSettimg() {
                               name="comments"
                               id="comments"
                               rows="4"
+                              value={formValues?.bio}
                               className="form-control"
                               onChange={(e)=>{
                                 setFormValues((prev)=>({...prev,"bio":e.target.value}))
                             }}
                             >
-                              {formValues?.bio}
+                              
                             </textarea>
                           ):  <textarea
                               name="comments"

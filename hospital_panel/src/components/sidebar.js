@@ -111,49 +111,7 @@ export default function Sidebar({ manuClass }) {
               Dashboard
             </Link>
           </li>
-          <li
-            className={`sidebar-dropdown ms-0 ${
-              ["hospitals-admin", "add-hospital-admin"].includes(manu)
-                ? "active"
-                : ""
-            }`}
-          >
-            <Link
-              to="#"
-              onClick={(e) => {
-                setSubManu(
-                  subManu === "add-hospital-admin" ? "" : "add-hospital-admin"
-                );
-              }}
-            >
-              <PiWheelchairFill className="me-2 d-inline-block mb-0 icon" />
-              Hospital Admins
-            </Link>
-            <div
-              className={`sidebar-submenu ${
-                ["hospitals-admin", "add-hospital-admin"].includes(subManu)
-                  ? "d-block"
-                  : ""
-              }`}
-            >
-              <ul>
-                <li
-                  className={`${
-                    manu === "hospitals-admin" ? "active" : ""
-                  } ms-0`}
-                >
-                  <Link to="/hospitals-admin">All Hospital Account</Link>
-                </li>
-                <li
-                  className={`${
-                    manu === "add-hospital-admin" ? "active" : ""
-                  } ms-0`}
-                >
-                  <Link to="/add-hospital-admin">Add Hospital Admins</Link>
-                </li>
-              </ul>
-            </div>
-          </li>
+
           <li
             className={`sidebar-dropdown ms-0 ${
               ["doctors", "add-doctor", "dr-profile", "doctors-item"].includes(

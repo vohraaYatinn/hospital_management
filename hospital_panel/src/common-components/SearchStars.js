@@ -7,11 +7,11 @@ const ReviewsStarSearch = ({ filters, setFilters }) => {
         setFilters((prev) => ({ ...prev, starSearch: value }))
     };
     return (
-    <div className="mb-0 position-relative">
+    <div className="mb-0 position-relative" >
 
-        <div>
+        
         <Select
-        className='form-control'
+          style={{minWidth:"10rem", minHeight:"2.2rem"}}
         defaultValue={false}
         value={filters?.starSearch}
       onChange={handleSearch}
@@ -54,7 +54,7 @@ const ReviewsStarSearch = ({ filters, setFilters }) => {
     />
             
         </div>
-    </div>
+
 
     );
 }

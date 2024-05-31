@@ -88,6 +88,9 @@ export const addHospitalAdminData = (payload_data) => {
 export const fetchAdminDashboard = (payload_data) => {
   return project.get(Urls.FETCH_HOSPITAL_ADMIN_DASHBOARD, payload_data);
 };
+export const completedDoctorGraph = (payload_data) => {
+  return project.get(Urls.COMPLETED_DOCTOR_GRAPH, payload_data);
+};
 export const addHospitalMedicine = (payload_data) => {
   return project.post(Urls.ADD_HOSPITAL_MEDICINE, payload_data);
 };

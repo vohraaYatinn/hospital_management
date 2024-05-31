@@ -239,7 +239,6 @@ export default function DoctorAppointment(){
                                                         <td className="p-3">{calculateAge(item?.patient?.date_of_birth)}</td>
                                                         <td className="p-3">{item?.patient?.gender =="M"?"Male":"Female"}</td>
                                                         <td className="p-3">{item?.patient?.district}</td>
-                                                        <td className="p-3">{item?.patient?.block}</td>
                                                         <td className={
                                                             item?.status == "canceled" ? "p-3 color-red" : (item?.status == "pending" || item?.status == "queue")? "p-3 color-yellow" : item?.status == "completed" ? "p-3 color-green" :""
                                                         }

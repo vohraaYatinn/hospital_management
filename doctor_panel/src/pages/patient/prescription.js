@@ -78,7 +78,97 @@ const doctorSignatureTextStyle = {
 };
 
 function Prescription({patient, prescription, medication, setPDFFile, generatePrescription}) {
+
   let doctor = useSelector(doctorDetails);
+
+  const [logoBase64, setLogoBase64] = useState('');
+  const [signatureBased, setSignatureBased] = useState('');
+  const [ujurBase64, setUjurBased64] = useState('');
+  const [playstore64, setplaystore64] = useState('');
+  const [barcode64, setBarcode64] = useState('');
+
+  useEffect(() => {
+    const fetchLogo = async () => {
+      try {
+        const response = await fetch(test_url_images + doctor?.hospital?.logo);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setLogoBase64(reader.result);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    const fetchLogo2 = async () => {
+      try {
+        const response = await fetch(test_url_images + doctor?.signature);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setSignatureBased(reader.result);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    const ujurBased64 = async () => {
+      try {
+        const response = await fetch(ujur_logo);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setUjurBased64(reader.result);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    const barcode64 = async () => {
+      try {
+        const response = await fetch(playstoreBar);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setBarcode64(reader.result);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+    const playstore64 = async () => {
+      try {
+        const response = await fetch(playstore);
+        const blob = await response.blob();
+        const reader = new FileReader();
+        reader.onloadend = () => {
+          setplaystore64(reader.result);
+        };
+        reader.readAsDataURL(blob);
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    };
+
+    if (doctor?.hospital?.logo) {
+      fetchLogo();
+    }
+    if(test_url_images + doctor?.signature){
+      fetchLogo2();
+    }
+    ujurBased64()
+    barcode64()
+    playstore64()
+  }, [test_url_images, doctor]);
+
+
+
+
+
 
   const [date, setDate] = useState('');
 
@@ -111,7 +201,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
     <div>
       <img
         className="hospital-logo-top-side"
-        src={test_url_images + doctor?.hospital?.logo}
+        src={logoBase64}
         alt=""
       />
     </div>
@@ -124,7 +214,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
       </div>
     </div>
     <div>
-      <img style={{height:"4rem", width:"7rem"}} src={ujur_logo} alt="" />
+      <img style={{height:"4rem", width:"7rem"}} src={ujurBase64} alt="" />
     </div>
   </section>
   <section className="middle-names-section">
@@ -333,7 +423,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
   {doctorSign &&
   <section style={{display:"flex", justifyContent:"flex-end"}}>
          <div className="absolute-sign" style={{marginTop:"2.6rem"}}>
-        <p>Doctor's Signature <img src={test_url_images + doctor?.signature} style={{height:"3rem", marginLeft:"1rem"}}/></p>
+        <p>Doctor's Signature <img src={signatureBased} style={{height:"3rem", marginLeft:"1rem"}}/></p>
       </div>
       </section>}
   <section className="green-background-color-2" style={{marginTop:doctorSign && "7rem"}}>
@@ -343,9 +433,9 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
     <div className="absolute-images-bottom">
       <div className="something mr-2" style={{marginRight:"1rem", marginTop:"0.3rem"}}>
         <p>Download UJUR</p>
-        <img className="images-low-1" src={playstore} alt="" />
+        <img className="images-low-1" src={playstore64} alt="" />
       </div>
-      <img className="images-low" src={playstoreBar}  alt="" />
+      <img className="images-low" src={barcode64}  alt="" />
     </div>
   </section>
 </div>
