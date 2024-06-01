@@ -51,9 +51,12 @@ export default function Index() {
   const [ageGraph, setAgeGraph] = useState("Week")
   const [genderGraph, setGenderGraph] = useState("Week")
   const [completedParam, setCompletedParam] = useState("week")
-  const [doctorSelected, setSelectedDoctor] = useState(allDoctors[0].id)
+  const [doctorSelected, setSelectedDoctor] = useState()
   useEffect(()=>{
-    console.log(allDoctors)
+    if(allDoctors){
+      setSelectedDoctor(allDoctors[0].id)
+
+    }
   },[allDoctors])
   
   const [

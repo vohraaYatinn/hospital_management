@@ -9,7 +9,7 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
     const lineChartOptions = {
         series: [{
           name: 'Desktops',
-          data: completedGraph
+          data: completedGraph ? completedGraph : []
         }],
         chart: {
           height: 350,
@@ -40,15 +40,15 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
       let optionsAge = {
         series: [{
             name: 'Below 15',
-            data: ageChart?.before_16
+            data: ageChart?.before_16 ? ageChart?.before_16 : []
         }, 
         {
             name: 'Between 15 & 60',
-            data: ageChart?.fifteen_60
+            data: ageChart?.fifteen_60 ? ageChart?.fifteen_60 : []
         },
         {
             name: 'Above 60',
-            data: ageChart?.after_60
+            data: ageChart?.after_60 ? ageChart?.after_60 : []
         },
     ],
         chart: {
@@ -108,10 +108,10 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
     let optionsGender = {
         series: [{
             name: 'Male',
-            data: genderData?.male_data
+            data: genderData?.male_data ? genderData?.male_data : []
         }, {
             name: 'Female',
-            data: genderData?.female_data
+            data: genderData?.female_data ? genderData?.female_data : []
         },
     ],
         chart: {
@@ -200,8 +200,8 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
                 }
             }
         },
-        series: Object.values(pieChart),
-        labels: Object.keys(pieChart),
+        series: pieChart ? Object.values(pieChart) : [],
+        labels: pieChart ? Object.keys(pieChart) : [],
     }
     
     return(
@@ -272,7 +272,7 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
                         <select className="form-select form-control" id="dailychart" onChange={(e)=>{
                             setSelectedDoctor(e.target.value)
                         }}>
-                            {allDoctors.map((e)=>{
+                            {allDoctors && allDoctors.map((e)=>{
                                 return (
                                     <option value={e.id}>{e.full_name}</option>
                                 )
