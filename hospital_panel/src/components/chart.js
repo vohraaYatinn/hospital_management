@@ -8,7 +8,7 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
 
     const lineChartOptions = {
         series: [{
-          name: 'Desktops',
+          name: 'Patients',
           data: completedGraph
         }],
         chart: {
@@ -266,9 +266,9 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
         <div className="col-xl-6 col-lg-6 mt-4">
             <div className="card shadow border-0 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h6 className="align-items-center mb-0">Doctor's Completed Appointments</h6>
+                    <h6 className="align-items-center mb-0" style={{width: "160px"}}>Doctor's Completed Appointments</h6>
                     
-                    <div className="mb-0 position-relative">
+                    <div className="mb-0 position-relative" style={{"display": "flex", "gap": "4px"}}>
                         <select className="form-select form-control" id="dailychart" onChange={(e)=>{
                             setSelectedDoctor(e.target.value)
                         }}>
