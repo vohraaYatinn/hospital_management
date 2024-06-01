@@ -54,7 +54,7 @@ export default function Index() {
   const [doctorSelected, setSelectedDoctor] = useState()
   useEffect(()=>{
     if(allDoctors){
-      setSelectedDoctor(allDoctors[0].id)
+      setSelectedDoctor(allDoctors[0]?.id)
 
     }
   },[allDoctors])
