@@ -662,7 +662,7 @@ const performActionRequest = () => {
 																				<input
 																					name="number"
 																					id="number"
-																					type="text"
+																					type="number"
 																					className="form-control"
 																					placeholder="Phone no. :"
 																					value={formValues.phoneNumber}

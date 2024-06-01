@@ -83,7 +83,7 @@ export default function Hospitals() {
                         <div className="title text-dark h5 d-block mb-0">
                           {item.name}
                         </div>
-                        <small> ID: {item?.hospital_details_account?.[0]?.ujur_id}</small>
+                        <small className="title text-dark "> ID: {item?.hospital_details_account?.[0]?.ujur_id}</small>
                         <small className="text-muted speciality mt-2 ">
                           {item.contact_number}
                         </small>
