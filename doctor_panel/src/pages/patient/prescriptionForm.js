@@ -267,7 +267,7 @@ useEffect(()=>{
     }
     else{
       let options = []
-      options.push({ value:"Add New", label: <button style={{fontWeight:"600", color:"white", background:"green",}}>Add New</button> });
+      options.push({ value:"Add New", label: <button style={{ color:"white", background:"green", width:"100%"}}>Add New</button> });
       medicines.forEach(option => {
         options.push({ value:option.name, label: option.name });
       });

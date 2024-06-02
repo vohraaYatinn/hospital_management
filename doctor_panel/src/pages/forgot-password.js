@@ -1,9 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import bg1 from '../assets/images/bg/bg-lines-one.png'
 import logoDark from '../assets/images/logo-dark.png'
-
 import {FiHome } from '../assets/icons/vander'
 import { forgotPasswordRequest } from "../urls/urls";
 import useAxios from "../network/useAxios";
@@ -73,8 +71,8 @@ export default function ForgotPassword(){
                                         <div className="col-lg-12">
                                             <p className="text-muted">Please enter your ID. Your hospital will share you a new password.</p>
                                             <div className="mb-3">
-                                                <label className="form-label">Email ID <span className="text-danger">*</span></label>
-                                                <input type="email" className="form-control" placeholder="Enter Your Email ID" name="email" required=""
+                                                <label className="form-label">UJUR ID<span className="text-danger">*</span></label>
+                                                <input type="email" className="form-control" placeholder="Enter Your UJUR ID" name="email" required=""
                                                  onChange={(e)=>{
                                                     setFormValues((prev)=>({...prev, 'email':e.target.value}))
                                                 }}

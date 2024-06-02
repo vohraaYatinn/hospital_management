@@ -115,7 +115,7 @@ export default function ResetPassword() {
                         className="border-bottom p-3"
                         style={{ minWidth: "50px" }}
                       >
-                        Id
+                        Ujur Id
                       </th>
                       <th
                         className="border-bottom p-3"
@@ -133,7 +133,7 @@ export default function ResetPassword() {
                     {requestData.map((item, index) => {
                       return (
                         <tr key={index}>
-                          <td className="p-3">{item.id}</td>
+                          <td className="p-3">{item?.ujur_id}</td>
                           <td className="py-3">
                             <Link to="#" className="text-dark">
                               <div className="d-flex align-items-center">

@@ -176,7 +176,7 @@ export default function ResetPassword() {
                     {requestData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                       return (
                         <tr key={index}>
-                          <td className="p-3">{item.id}</td>
+                          <td className="p-3">{item?.doctor?.ujur_id}</td>
                           <td className="py-3">
                             <Link to="#" className="text-dark">
                               <div className="d-flex align-items-center">

@@ -213,7 +213,7 @@ export default function PatientProfile() {
     />
     <div style={{marginLeft:"2rem"}}>
     <h5 className="mt-3 mb-1">{patientsData?.full_name && capitalizeFirst(patientsData?.full_name)}</h5>
-    <p className="text-muted mb-0">Ujur ID: {patientsData?.id} </p>
+    <p className="text-muted mb-0">Ujur ID: {patientsData?.ujur_id} </p>
     </div>
   </div>
 
@@ -238,7 +238,7 @@ export default function PatientProfile() {
       <FiUser className="align-text-bottom text-primary h5 mb-0 me-2" style={{
 fontSize:"1.4rem"      }}/>
       <h6 className="mb-0">{"Age"}</h6>
-      <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} Years </p>
+      <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} </p>
 
     </div>
     <div
