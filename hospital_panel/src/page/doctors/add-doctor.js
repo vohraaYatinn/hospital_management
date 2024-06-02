@@ -378,14 +378,19 @@ export default function AddDoctor() {
                       <input
                         name="number"
                         id="number"
-                        type="number"
+                        type="text"
+                        maxLength={14}
+
                         className="form-control"
                         value={formValues?.phoneNumber}
                         placeholder="Phone no. :"
                         onChange={(e) => {
+                          const value = e.target.value;
+                          const prefix = value.slice(0, 4);
+                          const numericPart = value.slice(4).replace(/[^0-9]/g, '');
                           setFormValues((prev) => ({
                             ...prev,
-                            phoneNumber: e.target.value,
+                            phoneNumber: prefix + numericPart,
                           }));
                         }}
                       />

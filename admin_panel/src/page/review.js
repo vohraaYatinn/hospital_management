@@ -96,7 +96,9 @@ export default function Review(){
                                 <div className="col-sm-6 col-lg-3">
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>
+                                
 }
+
                                    
                                     </div>
                                     <Radio.Group

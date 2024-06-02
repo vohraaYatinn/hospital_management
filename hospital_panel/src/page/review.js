@@ -12,6 +12,7 @@ import DoctorSearch from "../common-components/DoctorsSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import { Radio } from "antd";
 import ReviewsStarSearch from "../common-components/SearchStars";
+import DateSearchComponent from "../common-components/DateSearch";
 
 export default function Review(){
     const [filters, setFilters] = useState({
@@ -85,6 +86,9 @@ export default function Review(){
                                         <DepartmentSearch filters={filters} setFilters={setFilters} />
 
                                     </div>}
+                                    <div className="col-sm-6 col-lg-3">
+                            <DateSearchComponent filters={filters} setFilters={setFilters} />
+</div>
                                     
                                 {value4 == "doctors" &&    <div className="col-sm-6 col-lg-3">
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
@@ -92,6 +96,7 @@ export default function Review(){
                                 <div className="col-sm-6 col-lg-3">
                                     <ReviewsStarSearch filters={filters} setFilters={setFilters} />
                                 </div>
+                               
                                 <Radio.Group
         options={optionsWithDisabled}
         onChange={onChange4}
@@ -113,7 +118,8 @@ export default function Review(){
                                                 hospitalSearch:"",
                                                 doctorName:"",
                                                 starSearch:"",
-                                                patientName:""
+                                                patientName:"",
+                                                date:""
                                             })
                                         }}
                                         style={{backgroundColor:"red", textAlign:"center"}}

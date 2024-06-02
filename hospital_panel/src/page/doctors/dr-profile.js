@@ -584,7 +584,9 @@ export default function DrProfile(){
                       onChange={handleUpload}
                     />
 
-                    <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
+                    <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0" style={{
+                      display:"flex", alignItems:"center", justifyContent:"center"
+                    }}>
                       {!isUploaded && (
                         <button className="btn btn-primary" onClick={openFile}>
                           Upload
@@ -655,14 +657,19 @@ export default function DrProfile(){
                       <input
                         name="number"
                         id="number"
-                        type="number"
+                        type="text"
                         className="form-control"
                         placeholder="Phone no. :"
+                        maxLength={14}
+
                         value={formValues.phoneNumber}
                         onChange={(e) => {
+                          const value = e.target.value;
+                          const prefix = value.slice(0, 4);
+                          const numericPart = value.slice(4).replace(/[^0-9]/g, '');
                           setFormValues((prev) => ({
                             ...prev,
-                            phoneNumber: e.target.value,
+                            phoneNumber:  prefix + numericPart,
                           }));
                         }}
                       />

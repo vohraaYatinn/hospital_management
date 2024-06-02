@@ -211,6 +211,8 @@ export default function ResetPassword() {
                             )}
                           </td>
                           <td className="p-3">
+                            {item.status === "REQUESTED" &&
+                            <>
                             <Link
                               to="#"
                               className="btn btn-icon btn-pills btn-soft-success mx-1"
@@ -238,6 +240,8 @@ export default function ResetPassword() {
                             >
                               <FiTrash />
                             </Link>
+                            </>
+                            }
                           </td>
                         </tr>
                       );

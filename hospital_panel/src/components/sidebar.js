@@ -144,7 +144,7 @@ export default function Sidebar({ manuClass }) {
             >
               <ul>
                 <li className={`${manu === "doctors" ? "active" : ""} ms-0`}>
-                  <Link to="/doctors">Doctors</Link>
+                  <Link to="/doctors">Current Doctors</Link>
                 </li>
                 <li className={`${manu === "add-doctor" ? "active" : ""} ms-0`}>
                   <Link to="/add-doctor">Add Doctor</Link>
