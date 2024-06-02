@@ -335,17 +335,7 @@ export default function Appointment() {
                                                             </Link>
                                                         </td>
                                                         <td className="p-3">{item.status}</td>
-                                                        {/* <td className="text-end p-3">
-                                                            
-                                                            <Link to="#" className="btn btn-icon btn-pills btn-soft-danger" onClick={() =>
-                                                                {
-                                                                    setSelectedAppointment(item.id)
-                                                                    setCancle(!cancle)
-                                                                }
-                                                               
-                                                                
-                                                                }><AiOutlineCloseCircle /></Link>
-                                                        </td> */}
+                                                       
                                                     </tr>
                                                 )
                                             })}

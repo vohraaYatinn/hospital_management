@@ -347,9 +347,12 @@ export default function AddHospitalProfile() {
                         placeholder="Phone no. :91"
                         value={formValue?.phoneNumber}
                         onChange={(e) => {
+                          const value = e.target.value;
+                          const prefix = value.slice(0, 4);
+                          const numericPart = value.slice(4).replace(/[^0-9]/g, '');
                           setFormValue((prev) => ({
                             ...prev,
-                            phoneNumber: e.target.value,
+                            phoneNumber: prefix + numericPart,
                           }));
                         }}
                       />

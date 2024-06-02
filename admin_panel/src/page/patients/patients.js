@@ -168,7 +168,6 @@ export default function Patients(){
 
                                                     <td className="p-3">{calculateAge(item.date_of_birth)}</td>
                                                     <td className="p-3">{item.gender}</td>
-                                                    <td className="p-3">{item.address}</td>
                                                     <td className="p-3">{item.district}</td>
                                                     <td className="p-3">{item.blood_group}</td>
                                                     <td className="p-3">{item.weight}</td>

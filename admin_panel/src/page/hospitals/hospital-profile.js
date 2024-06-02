@@ -663,13 +663,19 @@ const performActionRequest = () => {
 																					name="number"
 																					id="number"
 																					type="text"
+																					maxLength={14}
 																					className="form-control"
 																					placeholder="Phone no. :"
 																					value={formValues.phoneNumber}
-																					onChange={(e)=>{
-																						setFormValues((prev)=>({...prev, 
-																							phoneNumber:e.target.value}))
-																					}}
+																					onChange={(e) => {
+																						const value = e.target.value;
+																						const prefix = value.slice(0, 4);
+																						const numericPart = value.slice(4).replace(/[^0-9]/g, '');
+																						setFormValues((prev) => ({
+																						  ...prev,
+																						  phoneNumber: prefix + numericPart,
+																						}));
+																					  }}
 																				/>
 																			</div>
 																		</div>
