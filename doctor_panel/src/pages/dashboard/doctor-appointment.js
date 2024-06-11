@@ -203,7 +203,7 @@ export default function DoctorAppointment(){
                                         <thead>
                                             <tr>
                                                 <th className="border-bottom p-3" style={{minWidth:'50px'}}>Slot Token</th>
-                                                <th className="border-bottom p-3">Ujur Id</th>
+                                                <th className="border-bottom p-3">UJUR ID</th>
                                                 <th className="border-bottom p-3" style={{minWidth:'100px'}}>Name</th>
                                                 <th className="border-bottom p-3">Age</th>
                                                 <th className="border-bottom p-3">Gender</th>

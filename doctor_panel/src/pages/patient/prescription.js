@@ -464,7 +464,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
      onClick={()=>{
       submitPrescription()
      }}
-     className="btn btn-secondary"
+     className="btn btn-primary"
      >Submit</button>
     </>
   );
