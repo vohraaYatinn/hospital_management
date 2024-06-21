@@ -229,16 +229,16 @@ export default function Departments(){
                                 <table className="table mb-0 table-center">
                                     <thead>
                                         <tr>
-                                            <th className="border-bottom p-3" style={{minWidth:'50px'}}>#</th>
-                                            <th className="border-bottom p-3" style={{minWidth:'180px'}}>Name</th>
-                                            <th className="border-bottom p-3">Department</th>
+                                            <th className="border-bottom p-3" style={{minWidth:'50px'}}>S.No</th>
+                                            <th className="border-bottom p-3" style={{minWidth:'180px'}}>Department</th>
+                                            <th className="border-bottom p-3">Description</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         {departmentsValues.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                             return(
                                                 <tr key={index}>
-                                                <td className="p-3">{item.id}</td> {/* ID */}
+                                                <td className="p-3">{index+1}</td> {/* ID */}
                                                 <td className="p-3">
                                                     <Link to="#" className="text-dark">
                                                         <div className="d-flex align-items-center">

@@ -160,7 +160,7 @@ export default function PatientProfile() {
                     alt=""
                   />
                   <h5 className="mt-3 mb-1">{patientsData?.full_name}</h5>
-                  <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)} Years old</p>
+                  <p className="text-muted mb-0">{calculateAge(patientsData?.date_of_birth)}</p>
                 </div>
 
                 <div className="list-unstyled p-4">

@@ -8,10 +8,12 @@ const ReviewsStarSearch = ({ filters, setFilters }) => {
     };
     return (
     <div className="mb-0 position-relative">
-
         <div>
         <Select
-        className='form-control'
+        style={{
+          width:"12rem",
+          height:'2.4rem'
+        }}
       onChange={handleSearch}
       value={filters?.starSearch}
       options={[

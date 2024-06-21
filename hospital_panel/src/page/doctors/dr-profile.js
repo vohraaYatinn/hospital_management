@@ -5,7 +5,7 @@ import doctor1 from '../../assets/images/client/01.jpg'
 import Wrapper from "../../components/wrapper";
 import { clientReview, companyLogo, doctorData, drTimetable, experienceData } from "../../data/data";
 import Modal from "react-bootstrap/Modal";
-
+import moment from 'moment';
 import TinySlider from "tiny-slider-react";
 import 'tiny-slider/dist/tiny-slider.css';
 
@@ -15,7 +15,7 @@ import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
 import { useRouter } from "../../hooks/use-router";
 import { addDoctorByHospital } from "../../urls/urls.jsx";
-import { Alert } from "antd";
+import { Alert, TimePicker } from "antd";
 import { GetAllDepartments } from "../../redux/reducers/functionalities.reducer.js";
 import { useSelector } from "react-redux";
 
@@ -89,6 +89,7 @@ export default function DrProfile(){
 			router.push("/doctors")
 		}
 	  }, [performEdttResponse]);
+    
     useEffect(() => {
         if(id){
             doctorProfileFetch(fetchHospitalDoctorsProfile({
@@ -96,9 +97,23 @@ export default function DrProfile(){
             }));
         }
     }, [id]);
+    const [morningTimings, setMorningTimings] = useState({
+      defaultStartTime: null,
+      defaultEndTime: null,
+    });
+    const [eveningTimings, setEveningTimings] = useState({
+      defaultStartTime: null,
+      defaultEndTime: null,
+    });
+    const [nightTimings, setNightTimings] = useState({
+      defaultStartTime: null,
+      defaultEndTime: null,
+    });
+    const [oldTimingsSlot, setOldTimingsSlot] = useState({})
     useEffect(() => {
       if (doctorProfileResponse?.result == "success" && doctorProfileResponse?.data) {
         setDoctorsData(doctorProfileResponse?.data);
+        
         setFormValues({
             fullName: doctorProfileResponse?.data?.full_name,
             email: doctorProfileResponse?.data?.email,
@@ -124,8 +139,17 @@ export default function DrProfile(){
             eveningTime: doctorProfileResponse?.data?.doctor_slots[0].evening_timings,
         })
       }
+      setOldTimingsSlot({
+        morningTime: doctorProfileResponse?.data?.doctor_slots[0].morning_timings,
+        afternoonTime: doctorProfileResponse?.data?.doctor_slots[0].afternoon_timings,
+        eveningTime: doctorProfileResponse?.data?.doctor_slots[0].evening_timings,
+
+
+      })
+
     }, [doctorProfileResponse]);
-    
+    const format = 'HH:mm';
+
     const designStarsReviews = (stars) => {
         let starsArray = [];
         for (let i = 0; i < stars; i++) {
@@ -154,12 +178,90 @@ export default function DrProfile(){
       }
       
       useEffect(()=>{
+        console.log(formValues)
         if(formValues?.action == "active"){
             performActionRequest()
         }
       },[formValues])
-
-
+      const formatTime = (time) => {
+        let [hour, minute, second] = time.split(':').map(Number);
+        let period = hour < 12 ? 'AM' : 'PM';
+        hour = hour % 12 || 12;
+    
+        return { hour, minute, period };
+      };
+      const onChangeTime = (time, timeString) => {
+        console.log(timeString)
+        if (timeString[0]!='' && timeString[1]!=''){
+          let time1 = timeString[0]
+          let time2 = timeString[1]
+          const time1Formatted = formatTime(time1);
+          const time2Formatted = formatTime(time2);    
+          const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+          console.log(finalFormat)
+          
+        setFormValues((prev) => ({
+          ...prev,
+          morningTime: finalFormat,
+        }));
+        }
+        else{
+        setFormValues((prev) => ({
+          ...prev,
+          morningTime: "",
+        }));
+        }
+    
+    
+      };
+      const onChangeTimeAfternoon = (time, timeString) => {
+        console.log(timeString)
+        if (timeString[0]!='' && timeString[1]!=''){
+          let time1 = timeString[0]
+          let time2 = timeString[1]
+          const time1Formatted = formatTime(time1);
+          const time2Formatted = formatTime(time2);    
+          const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+          console.log(finalFormat)
+          
+        setFormValues((prev) => ({
+          ...prev,
+          afternoonTime: finalFormat,
+        }));
+        }
+        else{
+        setFormValues((prev) => ({
+          ...prev,
+          afternoonTime: "",
+        }));
+        }
+    
+    
+      };
+      const onChangeTimeEvening = (time, timeString) => {
+        console.log(timeString)
+        if (timeString[0]!='' && timeString[1]!=''){
+          let time1 = timeString[0]
+          let time2 = timeString[1]
+          const time1Formatted = formatTime(time1);
+          const time2Formatted = formatTime(time2);    
+          const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+          console.log(finalFormat)
+          
+        setFormValues((prev) => ({
+          ...prev,
+          eveningTime: finalFormat,
+        }));
+        }
+        else{
+        setFormValues((prev) => ({
+          ...prev,
+          eveningTime: "",
+        }));
+        }
+    
+    
+      };
 
       const [isUploaded, setIsUploaded] = useState(false);
       const [errors, setErrors] = useState({});
@@ -584,7 +686,9 @@ export default function DrProfile(){
                       onChange={handleUpload}
                     />
 
-                    <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
+                    <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0" style={{
+                      display:"flex", alignItems:"center", justifyContent:"center"
+                    }}>
                       {!isUploaded && (
                         <button className="btn btn-primary" onClick={openFile}>
                           Upload
@@ -655,14 +759,19 @@ export default function DrProfile(){
                       <input
                         name="number"
                         id="number"
-                        type="number"
+                        type="text"
                         className="form-control"
                         placeholder="Phone no. :"
+                        maxLength={14}
+
                         value={formValues.phoneNumber}
                         onChange={(e) => {
+                          const value = e.target.value;
+                          const prefix = value.slice(0, 4);
+                          const numericPart = value.slice(4).replace(/[^0-9]/g, '');
                           setFormValues((prev) => ({
                             ...prev,
-                            phoneNumber: e.target.value,
+                            phoneNumber:  prefix + numericPart,
                           }));
                         }}
                       />
@@ -854,68 +963,59 @@ export default function DrProfile(){
                     </div>
                   </div>
 
-                  <h3>Slots</h3>
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Morning Slots</b></label>
+                    </div>
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Afternoon Slots</b></label>
+                    </div>
+                  <div className="col-md-4 mb-3">
+                  <label className="form-label"><b>Evening Slots</b></label>
+                    </div>
 
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Timings</label>
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        className="form-control"
-                        placeholder="Morning Time :"
-                        value={formValues.morningTime}
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            morningTime: e.target.value,
-                          }));
-                        }}
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                                            format={format}
+                                            onChange={onChangeTime}
+                      className="form-control"
+                        
                       />
+                      <p className="mt-1" style={{color:"red"}}>Morning Timings : {oldTimingsSlot?.morningTime}</p>
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Timings</label>
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        className="form-control"
-                        placeholder="Afternoon Time :"
-                        value={formValues.afternoonTime}
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            afternoonTime: e.target.value,
-                          }));
-                        }}
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                                            format={format}
+
+                      onChange={onChangeTimeAfternoon}
+                      className="form-control"
+                        
                       />
+                                            <p className="mt-1" style={{color:"red"}}>Afternoon Timings : {oldTimingsSlot?.afternoonTime}</p>
+
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Timings</label>
-                      <input
-                        name="name"
-                        id="name"
-                        type="text"
-                        className="form-control"
-                        placeholder="Evening Time :"
-                        value={formValues.eveningTime}
-                        onChange={(e) => {
-                          setFormValues((prev) => ({
-                            ...prev,
-                            eveningTime: e.target.value,
-                          }));
-                        }}
+                      <label className="form-label">Timings</label>
+                      <TimePicker.RangePicker
+                                            format={format}
+
+                      onChange={onChangeTimeEvening}
+                      className="form-control"
+                        
                       />
+                                            <p className="mt-1" style={{color:"red"}}>Evening Timings : {oldTimingsSlot?.eveningTime}</p>
+
                     </div>
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label"> Capacity</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="name"
                         id="name"
@@ -934,7 +1034,7 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label"> Capacity</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="name"
                         id="name"
@@ -953,7 +1053,7 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label"> Capacity</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="name"
                         id="name"
@@ -972,7 +1072,7 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
@@ -991,7 +1091,7 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
@@ -1010,7 +1110,7 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"

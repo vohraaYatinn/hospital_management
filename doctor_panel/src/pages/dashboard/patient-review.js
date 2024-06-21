@@ -75,12 +75,13 @@ export default function PatientReview(){
                         </div>
                         
                         <div className="row mt-4">
-                            <div className="col-4">
-                            <ReviewsStarSearch filters={filterValues} setFilters={setFilterValues} />
-                            </div>
-                            <div className="col-4">
+                        <div className="col-4" style={{marginLeft:"1rem"}}>
                             <DateSearchComponent filters={filterValues} setFilters={setFilterValues} />
                             </div>
+                            <div className="col-3">
+                            <ReviewsStarSearch filters={filterValues} setFilters={setFilterValues} />
+                            </div>
+                           
                             </div>
                         <div className="row">
                             <div className="row" style={{marginTop:"1rem"}}>
