@@ -861,10 +861,25 @@ export default function DrProfile() {
               <div className="card border-0 p-4 rounded shadow">
                 <div className="row align-items-center">
                   <div className="row">
+                  {isUploaded &&
+                <div className="col-lg-2 col-md-2">
+                                      <img
+                                        src={uploadedFile || ''}
+                                        className="avatar avatar-md-md rounded-pill shadow mx-auto d-block"
+                                        style={{
+                                          objectFit:"cover"
+                                        }}
+                                        alt=""
+                                      />
+																	</div>}
                     <div className="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
                       <h5 className="">Upload doctors picture</h5>
 
-                      <p className="text-muted mb-0">
+<p className="text-muted mb-0">
+                        For best results, use an image at least 600px by 600px
+                        in either .jpg or .png format
+                      </p>
+                      {/* <p className="text-muted mb-0">
                                               {isUploaded ?
                                       <img
                                         src={uploadedFile || ''}
@@ -876,7 +891,7 @@ export default function DrProfile() {
                                       />:"For best results, use an image at least 600px by 600px in either .jpg or .png format"
 																	}
                         
-                      </p>
+                      </p> */}
                     </div>
                     <input
                       type="file"

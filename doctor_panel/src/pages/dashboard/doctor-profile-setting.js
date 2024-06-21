@@ -315,18 +315,20 @@ export default function DoctorProfileSettimg() {
 
                       <div className="col-md-6">
                         <div className="mb-3">
-                          <label className="form-label">Phone no.</label>
+                          <label className="form-label">Phone no.</label><div className="input-group">
+                          <span className="input-group-text">+91</span>
                           <input
                             name="number"
                             id="number"
                             defaultValue={doctorProfile?.user?.phone}
-                            type="text"
+                            type="number"
                             className="form-control"
                             placeholder="Phone no. :"
                             onChange={(e)=>{
                                 setFormValues((prev)=>({...prev,"phoneNumber":e.target.value}))
                             }}
                           />
+                        </div>
                         </div>
                       </div>
 

@@ -9,6 +9,7 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
     const lineChartOptions = {
         series: [{
           name: 'Patients',
+
           data: completedGraph ? completedGraph : []
         }],
         chart: {
