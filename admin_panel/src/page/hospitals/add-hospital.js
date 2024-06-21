@@ -341,7 +341,7 @@ export default function AddHospitalProfile() {
                       <input
                         name="number"
                         id="number"
-                        type="text"
+                        type="number"
                         maxLength={14}
                         className="form-control"
                         placeholder="Phone no. :91"
