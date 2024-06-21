@@ -197,7 +197,8 @@ export default function AddDoctor() {
     }
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
-    } else if (!(values.phoneNumber.length > 10 && values.phoneNumber.length <13)) {
+    } else if ((values.phoneNumber.length !=14)) {
+      console.log(values.phoneNumber.length)
       errors.phoneNumber = "Phone number is not valid";
     }
     // if(!values.morningTime){
@@ -412,16 +413,21 @@ export default function AddDoctor() {
                       <input
                         name="number"
                         id="number"
-                        type="number"
+                        type="text"
+                        maxLength={14}
+
                         className="form-control"
                         value={formValues?.phoneNumber}
                         placeholder="Phone no. :"
                         onChange={(e) => {
+                          const value = e.target.value;
+                          const prefix = value.slice(0, 4);
+                          const numericPart = value.slice(4).replace(/[^0-9]/g, '');
                           setFormValues((prev) => ({
                             ...prev,
-                            phoneNumber: e.target.value,
+                            phoneNumber: prefix + numericPart,
                           }));
-                        }}
+                          }}
                       />
                       {errors.phoneNumber && (
                         <div className="text-danger">{errors.phoneNumber}</div>

@@ -124,6 +124,8 @@ export default function DrProfile() {
 
 
   };
+  const format = 'HH:mm';
+
   const onChangeTimeEvening = (time, timeString) => {
     console.log(timeString)
     if (timeString[0]!='' && timeString[1]!=''){
@@ -205,6 +207,8 @@ export default function DrProfile() {
       );
     }
   }, [id]);
+  const [oldTimingsSlot, setOldTimingsSlot] = useState({})
+
   useEffect(() => {
     if (
       doctorProfileResponse?.result == "success" &&
@@ -233,6 +237,12 @@ export default function DrProfile() {
         eveningPrice: doctorProfileResponse?.data?.doctor_slots[0]?.evening_slots_price,
         eveningSlots: doctorProfileResponse?.data?.doctor_slots[0]?.evening_slots,
         eveningTime: doctorProfileResponse?.data?.doctor_slots[0]?.evening_timings,
+    })
+    setOldTimingsSlot({
+      morningTime: doctorProfileResponse?.data?.doctor_slots[0]?.morning_timings,
+      afternoonTime: doctorProfileResponse?.data?.doctor_slots[0]?.afternoon_timings,
+      eveningTime: doctorProfileResponse?.data?.doctor_slots[0]?.evening_timings,
+
     })
     }
   }, [doctorProfileResponse]);
@@ -890,7 +900,9 @@ export default function DrProfile() {
                       onChange={handleUpload}
                     />
 
-                    <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
+                    <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0" style={{
+                      display:"flex", alignItems:"center", justifyContent:"center"
+                    }}>
                       {!isUploaded && (
                         <button className="btn btn-primary" onClick={openFile}>
                           Upload
@@ -961,14 +973,19 @@ export default function DrProfile() {
                       <input
                         name="number"
                         id="number"
-                        type="number"
+                        type="text"
                         className="form-control"
                         placeholder="Phone no. :"
+                        maxLength={14}
+
                         value={formValues.phoneNumber}
                         onChange={(e) => {
+                          const value = e.target.value;
+                          const prefix = value.slice(0, 4);
+                          const numericPart = value.slice(4).replace(/[^0-9]/g, '');
                           setFormValues((prev) => ({
                             ...prev,
-                            phoneNumber: e.target.value,
+                            phoneNumber: prefix + numericPart,
                           }));
                         }}
                       />
@@ -1176,10 +1193,14 @@ export default function DrProfile() {
                     <div className="mb-3">
                       <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
+                                                                  format={format}
+
                       onChange={onChangeTime}
                       className="form-control"
                         
                       />
+                                            <p className="mt-1" style={{color:"red"}}>Morning Timings : {oldTimingsSlot?.morningTime}</p>
+
 
                         {errors.morningTime && (
                         <div className="text-danger">{errors.morningTime}</div>
@@ -1190,10 +1211,13 @@ export default function DrProfile() {
                     <div className="mb-3">
                       <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
+                                                                                        format={format}
+
                       onChange={onChangeTimeAfternoon}
                       className="form-control"
                       />
-                   
+                                                               <p className="mt-1" style={{color:"red"}}>Afternoon Timings : {oldTimingsSlot?.afternoonTime}</p>
+
                         {errors.afternoonTime && (
                         <div className="text-danger">{errors.afternoonTime}</div>
                       )}
@@ -1203,9 +1227,12 @@ export default function DrProfile() {
                     <div className="mb-3">
                       <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
+                                                                                        format={format}
+
                         onChange={onChangeTimeEvening}
                         className="form-control"
                       />
+                                            <p className="mt-1" style={{color:"red"}}>Evening Timings : {oldTimingsSlot?.eveningTime}</p>
 
                         {errors.eveningTime && (
                         <div className="text-danger">{errors.eveningTime}</div>
@@ -1219,6 +1246,8 @@ export default function DrProfile() {
                       <input
                         name="morningSlots"
                         id="morningSlots"
+                        value={formValues.morningSlots}
+
                         type="number" // Change input type to "number"
                         // maxLength={3}
                         className="form-control"
@@ -1244,6 +1273,8 @@ export default function DrProfile() {
                         type="number" // Change input type to "number"
                         className="form-control"
                         // maxLength={3}
+                        value={formValues.afternoonSlots}
+
                         placeholder="Afternoon Capacity :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
@@ -1265,6 +1296,8 @@ export default function DrProfile() {
                         id="eveningSlots"
                         type="number" // Change input type to "number"
                         className="form-control"
+                        value={formValues.eveningSlots}
+
                         // maxLength={3}
                         placeholder="Evening Capacity :"
                         onChange={(e) => {
@@ -1290,6 +1323,8 @@ export default function DrProfile() {
                         id="name"
                         type="number"
                         className="form-control"
+                        value={formValues.morningPrice}
+
                         placeholder="Morning Price :"
                         onChange={(e) => {
                           setFormValues((prev) => ({
@@ -1311,6 +1346,8 @@ export default function DrProfile() {
                         type="number"
                         className="form-control"
                         placeholder="Afternoon Price :"
+                        value={formValues.afternoonPrice}
+
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -1331,6 +1368,8 @@ export default function DrProfile() {
                         type="number"
                         className="form-control"
                         placeholder="Evening Price :"
+                        value={formValues.eveningPrice}
+
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,

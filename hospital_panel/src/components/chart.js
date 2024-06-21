@@ -9,14 +9,18 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
     const lineChartOptions = {
         series: [{
           name: 'Patients',
-          data: completedGraph
+
+          data: completedGraph ? completedGraph : []
         }],
         chart: {
           height: 350,
           type: 'line',
           zoom: {
             enabled: false
-          }
+          },
+          toolbar: {
+            show: false // Hide the toolbar
+        }
         },
         dataLabels: {
           enabled: false
@@ -40,15 +44,15 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
       let optionsAge = {
         series: [{
             name: 'Below 15',
-            data: ageChart?.before_16
+            data: ageChart?.before_16 ? ageChart?.before_16 : []
         }, 
         {
             name: 'Between 15 & 60',
-            data: ageChart?.fifteen_60
+            data: ageChart?.fifteen_60 ? ageChart?.fifteen_60 : []
         },
         {
             name: 'Above 60',
-            data: ageChart?.after_60
+            data: ageChart?.after_60 ? ageChart?.after_60 : []
         },
     ],
         chart: {
@@ -108,10 +112,10 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
     let optionsGender = {
         series: [{
             name: 'Male',
-            data: genderData?.male_data
+            data: genderData?.male_data ? genderData?.male_data : []
         }, {
             name: 'Female',
-            data: genderData?.female_data
+            data: genderData?.female_data ? genderData?.female_data : []
         },
     ],
         chart: {
@@ -171,38 +175,26 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
         chart: {
             height: 350,
             type: 'pie',
-    
         },
         colors: ['#396cf0', '#53c797', '#f1b561', '#f0735a'],
         plotOptions: {
             pie: {
                 track: {
-                  background: '#b9c1d4',
-                  opacity: 0.5,            
+                    background: '#b9c1d4',
+                    opacity: 0.5,            
                 },
                 dataLabels: {
-                    name: {
-                        fontSize: '22px',
-                    },
-                    value: {
-                        fontSize: '16px',
-                        color: '#8997bd',
-                    },
-                    total: {
-                        show: true,
-                        label: 'Total',
-                        color: '#8997bd',
-                        formatter: function (w) {
-                            // By default this function returns the average of all series. The below is just an example to show the use of custom formatter function
-                            return 249
-                        }
-                    }
+                    enabled: false, // Disable data labels to hide percentages
                 }
             }
         },
-        series: Object.values(pieChart),
-        labels: Object.keys(pieChart),
-    }
+        dataLabels: {
+            enabled: false, // Ensure data labels are completely disabled
+        },
+        series: pieChart ? Object.values(pieChart) : [],
+        labels: pieChart ? Object.keys(pieChart) : [],
+    };
+    
     
     return(
         <>
@@ -266,19 +258,19 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
         <div className="col-xl-6 col-lg-6 mt-4">
             <div className="card shadow border-0 p-4">
                 <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h6 className="align-items-center mb-0" style={{width: "160px"}}>Doctor's Completed Appointments</h6>
+                    <h6 className="align-items-center mb-0">Doctor's Performance</h6>
                     
-                    <div className="mb-0 position-relative" style={{"display": "flex", "gap": "4px"}}>
+                    <div className="mb-0 position-relative d-flex">
                         <select className="form-select form-control" id="dailychart" onChange={(e)=>{
                             setSelectedDoctor(e.target.value)
                         }}>
-                            {allDoctors.map((e)=>{
+                            {allDoctors && allDoctors.map((e)=>{
                                 return (
                                     <option value={e.id}>{e.full_name}</option>
                                 )
                             })}
                         </select>
-                        <select className="form-select form-control" id="dailychart" onChange={(e)=>{
+                        <select className="form-select form-control ml-4" id="dailychart" onChange={(e)=>{
                             setCompletedParam(e.target.value)
                         }}>
                         <option value={"week"}>Week</option>

@@ -52,7 +52,7 @@ export default function Login() {
         }
         else if (authDetailsResponse?.result == "failure") {
             setMessage({
-                message: "The email or password entered is invalid",
+                message: "The Id or password entered is invalid",
                 showMessage: true,
                 type: "error"
             })

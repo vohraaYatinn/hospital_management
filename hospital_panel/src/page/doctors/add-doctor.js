@@ -179,33 +179,7 @@ export default function AddDoctor() {
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
     } 
-    // if(!values.morningTime){
-    //   errors.morningTime = "Morning time is required"
-    // }
-    // if(!values.afternoonTime){
-    //   errors.afternoonTime = "Afternoon time is required"
-    // }
-    // if(!values.eveningTime){
-    //   errors.eveningTime = "Evening time is required"
-    // }
-    // if(!values.morningSlots){
-    //   errors.morningSlots = "Morning slot is required"
-    // }
-    // if(!values.afternoonSlots){
-    //   errors.afternoonSlots = "Afternoon slot is required"
-    // }
-    // if(!values.eveningSlots){
-    //   errors.eveningSlots = "Evening slot is required"
-    // }
-    // if(!values.morningPrice){
-    //   errors.morningPrice = "Morning slot price is required"
-    // }
-    // if(!values.afternoonPrice){
-    //   errors.afternoonPrice = "Afternoon slot price is required"
-    // }
-    // if(!values.eveningPrice){
-    //   errors.eveningPrice = "Evening slot price is required"
-    // }
+
     return errors;
   };
 
@@ -378,14 +352,19 @@ export default function AddDoctor() {
                       <input
                         name="number"
                         id="number"
-                        type="number"
+                        type="text"
+                        maxLength={14}
+
                         className="form-control"
                         value={formValues?.phoneNumber}
                         placeholder="Phone no. :"
                         onChange={(e) => {
+                          const value = e.target.value;
+                          const prefix = value.slice(0, 4);
+                          const numericPart = value.slice(4).replace(/[^0-9]/g, '');
                           setFormValues((prev) => ({
                             ...prev,
-                            phoneNumber: e.target.value,
+                            phoneNumber: prefix + numericPart,
                           }));
                         }}
                       />
@@ -613,7 +592,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Timings</label>
+                      <label className="form-label">Timings</label>
                       <TimePicker.RangePicker
                                             format={format}
 
@@ -648,7 +627,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Capacity</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="name"
                         id="name"
@@ -669,7 +648,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Capacity</label>
+                      <label className="form-label">Capacity</label>
                       <input
                         name="name"
                         id="name"
@@ -690,7 +669,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Morning Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
@@ -711,7 +690,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Afternoon Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"
@@ -732,7 +711,7 @@ export default function AddDoctor() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Evening Price</label>
+                      <label className="form-label">Price</label>
                       <input
                         name="name"
                         id="name"

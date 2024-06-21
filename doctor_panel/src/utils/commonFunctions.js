@@ -7,20 +7,31 @@ export const calculateAge = (dateOfBirth) => {
 
   // Check if dateOfBirth is a valid date and not in the future
   if (isNaN(birthDate) || birthDate > currentDate) {
-    return 0; // or throw an error, or return a message indicating an invalid date
+    return 'Invalid date'; // or throw an error, or return a message indicating an invalid date
   }
 
   let age = currentDate.getFullYear() - birthDate.getFullYear();
+  let monthDifference = currentDate.getMonth() - birthDate.getMonth();
+  let dayDifference = currentDate.getDate() - birthDate.getDate();
 
-  if (
-    currentDate.getMonth() < birthDate.getMonth() ||
-    (currentDate.getMonth() === birthDate.getMonth() && currentDate.getDate() < birthDate.getDate())
-  ) {
+  // Adjust for the birth month and day
+  if (monthDifference < 0 || (monthDifference === 0 && dayDifference < 0)) {
     age--;
+    monthDifference += 12;
   }
 
-  return age;
+  // If the patient is less than 1 year old, return the age in months
+  if (age < 1) {
+    if (dayDifference < 0) {
+      monthDifference--;
+    }
+    return `${monthDifference} months old`;
+  }
+
+
+  return `${age} years old`;
 };
+
 
 
 export const PaginationCountList = (handlePagination, pageArray, data, setPaginationNumber) => {
