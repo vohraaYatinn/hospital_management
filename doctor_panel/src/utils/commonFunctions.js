@@ -25,11 +25,11 @@ export const calculateAge = (dateOfBirth) => {
     if (dayDifference < 0) {
       monthDifference--;
     }
-    return `${monthDifference} months old`;
+    return `${monthDifference} Mnts`;
   }
 
 
-  return `${age} years old`;
+  return `${age} Yrs`;
 };
 
 

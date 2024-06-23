@@ -7,6 +7,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
@@ -18,4 +19,7 @@ code {
 }
 .ant-drawer-body{
   overflow: auto;
+}
+.pres_new{
+  min-height: 100vh;
 }
