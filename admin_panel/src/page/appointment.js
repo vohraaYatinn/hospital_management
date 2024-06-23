@@ -21,6 +21,7 @@ import StatusSearch from "../common-components/StatusSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import HospitalNameSearch from "../common-components/HospitalName";
 import { Alert } from "antd";
+import InvoiceUjur from "./InvoiceUjur";
 
 
 export default function Appointment() {
@@ -38,6 +39,8 @@ export default function Appointment() {
         to:10,
         currentTab:1
     })
+    const [invoiceShow, setInvoiceShow] = useState(false)
+    const [selectedData, setSelectedData] = useState(false)
     const [
         appointmentsCancelResponse,
         appointmentsCancelError,
@@ -299,12 +302,15 @@ export default function Appointment() {
                                                 <th className="border-bottom p-3" style={{ minWidth: '100px' }}>Slot No.</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '180px' }}>Ujur Id</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '180px' }}>Name</th>
+                                                <th className="border-bottom p-3" style={{ minWidth: '180px' }}>Phone Number</th>
                                                 <th className="border-bottom p-3">Age</th>
                                                 <th className="border-bottom p-3">Gender</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '150px' }}>Date</th>
                                                 <th className="border-bottom p-3">Time</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '200px' }}>Doctor</th>
                                                 <th className="border-bottom p-3">Status</th>
+                                                <th className="border-bottom p-3">Payment Status</th>
+                                                <th className="border-bottom p-3">Payment Mode</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '150px' }}></th>
                                             </tr>
                                         </thead>
@@ -322,6 +328,8 @@ export default function Appointment() {
                                                                 </div>
                                                             </Link>
                                                         </td>
+                                                        <td className="p-3">{item.patient.user.phone}</td>
+
                                                         <td className="p-3">{calculateAge(item.patient.date_of_birth)}</td>
                                                         <td className="p-3">{item.patient.gender}</td>
                                                         <td className="p-3">{moment(item.date_appointment).format('YYYY-MM-DD')}</td>
@@ -335,6 +343,15 @@ export default function Appointment() {
                                                             </Link>
                                                         </td>
                                                         <td className="p-3">{item.status}</td>
+                                                        <td className="p-3">{item.payment_status}</td>
+                                                        <td className="p-3">{item.payment_mode}</td>
+                                                        <td className="p-3"><button 
+                                                        onClick={()=>{
+                                                            setInvoiceShow(true)
+                                                        }}
+                                                        className="btn btn-primary" style={{
+                                                            color:"white"
+                                                        }}>Invoice</button></td>
                                                        
                                                     </tr>
                                                 )
@@ -426,6 +443,8 @@ export default function Appointment() {
                         </div>
                     </Modal.Body>
                 </Modal>
+                <InvoiceUjur show={invoiceShow} setShow={setInvoiceShow}/>
+
                 <Modal show={cancle} onHide={() => setCancle(!cancle)} animation={false} centered>
                     <Modal.Body>
                         <div className="modal-body py-5">
