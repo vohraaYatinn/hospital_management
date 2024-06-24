@@ -24,6 +24,7 @@ export class Urls {
     static FETCH_HOSPITAL_DEPARTMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-departments-for-hospitals/';
     static FETCH_HOSPITAL_ALL_DEPARMENTS = Urls.MPHRMS_API_PREFIX + 'admin/fetch-all-department-or-hospitals/';
     static FETCH_HOSPITAL_ALL_APPOINTMENTS = Urls.MPHRMS_API_PREFIX + 'admin/fetch-appointments-for-all-admin/';
+    static FETCH_REVENUE_ALL_APPOINTMENTS = Urls.MPHRMS_API_PREFIX + 'admin/fetch-revenue-for-all-admin/';
     static FETCH_HOSPITAL_APPOINTMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-appointments-for-hospitals/';
     static FETCH_SOFTWARE_DEPARTMENTS = Urls.MPHRMS_API_PREFIX + 'hospitals/fetch-software-department/';
     static ADD_DEPARTMENTS_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'hospitals/add-department-hospital/';

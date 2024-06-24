@@ -8,7 +8,7 @@ import Wrapper from "../components/wrapper";
 import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircleSolid } from '../assets/icons/vander'
 
 import Modal from 'react-bootstrap/Modal';
-import { CancelAppointmentAdmin, fetchAppointmentsAllHospital } from "../urls/urls";
+import { CancelAppointmentAdmin, fetchRevenueAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
@@ -23,9 +23,14 @@ import HospitalNameSearch from "../common-components/HospitalName";
 import { Alert } from "antd";
 import InvoiceUjur from "./InvoiceUjur";
 import PaymentStatusSearch from "../common-components/PaymentStatus";
+import {
+    LiaFunnelDollarSolid,
+    LiaMoneyBillAlt,
+    LiaUndoAltSolid
+  } from "../assets/icons/vander";
+import DateRange from "../common-components/DateRange";
 
-
-export default function Appointment() {
+export default function RevenueTab() {
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
     let [acceptsAppointment, setAcceptsAppointment] = useState(false);
@@ -70,6 +75,11 @@ export default function Appointment() {
     const cancelGivenAppointment = () => {
         appointmentsCancelFetch(CancelAppointmentAdmin({appointmentId:selectedAppointment}));
       };
+    const [panels, setPanels] = useState({
+        hospital_revenue:"",
+        booking_fees:"",
+        refunds:"",
+    })
     let [cancle, setCancle] = useState(false);
     const [
         appointmentsResponse,
@@ -83,16 +93,39 @@ export default function Appointment() {
         type: "success",
       });
     const fetchAppointmentsData = () => {
-        appointmentsFetch(fetchAppointmentsAllHospital(filters))
+        appointmentsFetch(fetchRevenueAllHospital(filters))
     }
     useEffect(() => {
         fetchAppointmentsData()
     }, [filters])
     useEffect(() => {
-        if (appointmentsResponse?.result == "success" && appointmentsResponse?.data) {
-            setAppointmentsData(appointmentsResponse?.data)
+        if (appointmentsResponse?.result === "success" && appointmentsResponse?.data) {
+            const { booking_sum, booking_doctor_fees, refunds_amount } = appointmentsResponse.data.reduce(
+                (acc, object) => {
+                    if (object.payment_status === "Paid") {
+                        const bookingAmount = parseFloat(object?.revenues[0]?.booking_amount || 0);
+                        const doctorFees = parseFloat(object?.revenues[0]?.doctor_fees || 0);
+                        acc.booking_sum += bookingAmount;
+                        acc.booking_doctor_fees += doctorFees;
+                    }
+                    if(object.payment_status === "Refund"){
+                        const bookingAmount = parseFloat(object?.revenues[0]?.booking_amount || 0);
+                        const doctorFees = parseFloat(object?.revenues[0]?.doctor_fees || 0);
+                        acc.refunds_amount += (bookingAmount + doctorFees);
+                    }
+                    return acc;
+                },
+                { booking_sum: 0, booking_doctor_fees: 0, refunds_amount:0 }
+            );
+    
+            setPanels({
+                booking_fees: booking_sum?.toFixed(2),
+                hospital_revenue: booking_doctor_fees?.toFixed(2),
+                refunds: refunds_amount?.toFixed(2)
+            });
+            setAppointmentsData(appointmentsResponse.data);
         }
-    }, [appointmentsResponse])
+    }, [appointmentsResponse]);
     useEffect(() => {
         if (
           appointmentsCancelResponse?.result == "success"
@@ -115,7 +148,7 @@ export default function Appointment() {
                     <div className="layout-specing">
                         <div className="row">
                             <div className="col-xl-9 col-lg-6 col-md-4">
-                                <h5 className="mb-0">Appointment</h5>
+                                <h5 className="mb-0">Revenue Tab</h5>
                                 {/* <nav aria-label="breadcrumb" className="d-inline-block mt-2">
                                     <ul className="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
                                         <li className="breadcrumb-item">UJUR </li>
@@ -250,27 +283,11 @@ export default function Appointment() {
                         <div className="row">
                             <div className="row" style={{ marginTop: "1rem" }}>
                                 <div className="col-sm-6 col-lg-3">
-                                    <PatientName filters={filters} setFilters={setFilters} />
+                                    <DateRange filters={filters} setFilters={setFilters} />
                                 </div>
                                 <div className="col-sm-6 col-lg-3">
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>
-                                <div className="col-sm-6 col-lg-3">
-                                    <DateSearchComponent filters={filters} setFilters={setFilters} />
-                                </div>
-                                <div className="col-sm-6 col-lg-3">
-                                    <AppointmentSlots filters={filters} setFilters={setFilters} />
-                                </div>
-                                </div>
-                                <div className="row" style={{ marginTop: "1rem" }}>
-                                    <div className="col-sm-6 col-lg-3">
-                                        <StatusSearch filters={filters} setFilters={setFilters} statusSearch={searchStatusConstants} />
-
-                                    </div>
-                                    <div className="col-sm-6 col-lg-3">
-                                        <PaymentStatusSearch filters={filters} setFilters={setFilters} />
-
-                                    </div>
                                     <div className="col-sm-6 col-lg-3">
                                         <HospitalNameSearch filters={filters} setFilters={setFilters} />
 
@@ -291,7 +308,10 @@ export default function Appointment() {
                                                 date:"",
                                                 doctorName:"",
                                                 patientName:"",
-                                                paymentStatus:""
+                                                paymentStatus:"",
+                                                datetimeSearch:"",
+                                                startDate:"",
+                                                endDate:""
                                             })
                                         }}
                                         style={{backgroundColor:"red"}}
@@ -300,33 +320,76 @@ export default function Appointment() {
                                     </div>
 
                             </div>
+                            
+            <div className="row">
+              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+                <div className="card features feature-primary rounded border-0 shadow p-4">
+                  <div className="d-flex align-items-center">
+                    <div className="icon text-center rounded-md">
+                      <LiaFunnelDollarSolid className="h3 mb-0" />
+                    </div>
+                    <div className="flex-1 ms-2">
+                      <h5 className="mb-0">Rs {panels?.hospital_revenue}</h5>
+                      <p className="text-muted mb-0">Hospital Revenue</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+                <div className="card features feature-primary rounded border-0 shadow p-4">
+                  <div className="d-flex align-items-center">
+                    <div className="icon text-center rounded-md">
+                <LiaMoneyBillAlt className="h3 mb-0" />
+                    </div>
+                    <div className="flex-1 ms-2">
+                      <h5 className="mb-0">Rs {panels?.booking_fees}</h5>
+
+                      <p className="text-muted mb-0">Booking Fees</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xl-4 col-lg-4 col-md-4 mt-4">
+                <div className="card features feature-primary rounded border-0 shadow p-4">
+                  <div className="d-flex align-items-center">
+                    <div className="icon text-center rounded-md">
+                <LiaUndoAltSolid className="h3 mb-0" />
+                    </div>
+                    <div className="flex-1 ms-2">
+                      <h5 className="mb-0">Rs {panels?.refunds}</h5>
+
+                      <p className="text-muted mb-0">Refunds</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+           
+
+
+            </div>
                             <div className="col-12 mt-4">
                                 <div className="table-responsive bg-white shadow rounded">
                                     <table className="table mb-0 table-center">
                                         <thead>
                                             <tr>
-                                                <th className="border-bottom p-3" style={{ minWidth: '100px' }}>Slot No.</th>
-                                                <th className="border-bottom p-3" style={{ minWidth: '180px' }}>Ujur Id</th>
+                                                <th className="border-bottom p-3" >S.No</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '180px' }}>Name</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '180px' }}>Phone Number</th>
-                                                <th className="border-bottom p-3">Age</th>
-                                                <th className="border-bottom p-3">Gender</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '150px' }}>Date</th>
                                                 <th className="border-bottom p-3">Time</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '200px' }}>Doctor</th>
                                                 <th className="border-bottom p-3">Status</th>
-                                                <th className="border-bottom p-3">Payment Status</th>
                                                 <th className="border-bottom p-3">Payment Mode</th>
-                                                <th className="border-bottom p-3" style={{ minWidth: '150px' }}></th>
+                                                <th className="border-bottom p-3">Hospital Fee</th>
+                                                <th className="border-bottom p-3">Booking Fee</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                                                 return (
                                                     <tr key={index}>
-                                                        <th className="p-3">{item.appointment_slot}</th>
-                                                        <th className="p-3">{item.patient.ujur_id}</th>
-                                                        
+                                                        <td className="p-3">{index+1}</td>
+
                                                         <td className="p-3">
                                                             <Link to="#" className="text-dark">
                                                                 <div className="d-flex align-items-center">
@@ -336,8 +399,6 @@ export default function Appointment() {
                                                         </td>
                                                         <td className="p-3">{item.patient.user.phone}</td>
 
-                                                        <td className="p-3">{calculateAge(item.patient.date_of_birth)}</td>
-                                                        <td className="p-3">{item.patient.gender}</td>
                                                         <td className="p-3">{moment(item.date_appointment).format('YYYY-MM-DD')}</td>
                                                         <td className="p-3">{item.slot}</td>
                                                         <td className="p-3">
@@ -349,15 +410,10 @@ export default function Appointment() {
                                                             </Link>
                                                         </td>
                                                         <td className="p-3">{item.status}</td>
-                                                        <td className="p-3">{item.payment_status}</td>
                                                         <td className="p-3">{item.payment_mode}</td>
-                                                        <td className="p-3"><button 
-                                                        onClick={()=>{
-                                                            setInvoiceShow(true)
-                                                        }}
-                                                        className="btn btn-primary" style={{
-                                                            color:"white"
-                                                        }}>Invoice</button></td>
+                                                        <td className="p-3">Rs {item?.revenues[0]?.doctor_fees}</td>
+                                                        <td className="p-3">Rs {item?.revenues[0]?.booking_amount}</td>
+                                                      
                                                        
                                                     </tr>
                                                 )

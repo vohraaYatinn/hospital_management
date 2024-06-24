@@ -84,6 +84,9 @@ export const fetchAppointmentsHospital = (payload_data) => {
 export const fetchAppointmentsAllHospital = (payload_data) => {
   return project.get(Urls.FETCH_HOSPITAL_ALL_APPOINTMENTS, payload_data);
 };
+export const fetchRevenueAllHospital = (payload_data) => {
+  return project.get(Urls.FETCH_REVENUE_ALL_APPOINTMENTS, payload_data);
+};
 export const fetchSoftwareDepartmentHospital = (payload_data) => {
   return project.get(Urls.FETCH_SOFTWARE_DEPARTMENTS, payload_data);
 };

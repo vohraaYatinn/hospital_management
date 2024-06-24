@@ -676,6 +676,12 @@ const performActionRequest = () => {
 																						  phoneNumber: prefix + numericPart,
 																						}));
 																					  }}
+																					  onKeyDown={(e) => {
+																						// Prevent backspace from deleting the prefix
+																						if (e.keyCode === 8 && e.target.selectionStart <= 4) {
+																						  e.preventDefault();
+																						}
+																					  }}
 																				/>
 																			</div>
 																		</div>

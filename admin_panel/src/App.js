@@ -72,6 +72,7 @@ import AddHospitalAccount from "./page/hospitalaccounts/add-hospital-admin";
 import HospitalAdmins from "./page/hospitalaccounts/hospital-admins";
 import AdminReviews from "./page/AdminReviews";
 import PromoCodes from "./page/promocode";
+import RevenueTab from "./page/revenueTab";
 
 function App() {
   return (
@@ -80,6 +81,7 @@ function App() {
     <Route path="/admin-reviews" element={<Index/>}/>
     <Route path="/admin-dashboard" element={<Index/>}/>
     <Route path="/index" element={<Index/>}/>
+    <Route path="/revenue-tab" element={<RevenueTab/>}/>
     <Route path="/appointment" element={<Appointment/>}/>
     <Route path="/admin-reviews" element={<AdminReviews/>}/>
     <Route path="/departments" element={<Departments/>}/>

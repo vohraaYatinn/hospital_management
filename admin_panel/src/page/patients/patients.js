@@ -139,6 +139,7 @@ export default function Patients(){
                                             <th className="border-bottom p-3" style={{minWidth:'50px'}}>S.No</th>
                                             <th className="border-bottom p-3" style={{minWidth:'50px'}}>UJUR ID</th>
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Name</th>
+                                            <th className="border-bottom p-3" style={{minWidth:'180px'}}>Phone</th>
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Email</th>
                                             <th className="border-bottom p-3">Age</th>
                                             <th className="border-bottom p-3">Gender</th>
@@ -164,6 +165,7 @@ export default function Patients(){
                                                             </div>
                                                         </Link>
                                                     </td>
+                                                    <td className="p-3">{item.user.phone}</td>
                                                     <td className="p-3">{item.user.email}</td>
 
                                                     <td className="p-3">{calculateAge(item.date_of_birth)}</td>

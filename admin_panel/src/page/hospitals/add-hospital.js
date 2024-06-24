@@ -18,7 +18,7 @@ export default function AddHospitalProfile() {
   const dispatch = useDispatch();
 
   const [formValue, setFormValue] = useState({
-    phoneNumber: "+91-" // Initialize phoneNumber with '91'
+    phoneNumber: "+91-" 
   });
   const [errors, setErrors] = useState({});
   const [
@@ -86,6 +86,9 @@ export default function AddHospitalProfile() {
     }
     if (!values.hospitalName) {
       errors.hospitalName = "Hospital is required!";
+    }
+    if (!values.yearsofestablishment) {
+      errors.yearsofestablishment = "years of establishment is required!";
     }
     if (!values.email) {
       errors.email = "Email is required!";
@@ -341,7 +344,7 @@ export default function AddHospitalProfile() {
                       <input
                         name="number"
                         id="number"
-                        type="number"
+                        type="text"
                         maxLength={14}
                         className="form-control"
                         placeholder="Phone no. :91"
@@ -354,6 +357,12 @@ export default function AddHospitalProfile() {
                             ...prev,
                             phoneNumber: prefix + numericPart,
                           }));
+                        }}
+                        onKeyDown={(e) => {
+                          // Prevent backspace from deleting the prefix
+                          if (e.keyCode === 8 && e.target.selectionStart <= 4) {
+                            e.preventDefault();
+                          }
                         }}
                       />
                       {errors.phoneNumber && (
@@ -384,6 +393,26 @@ export default function AddHospitalProfile() {
                   </div>
 
                   <div className="col-md-12">
+                    <div className="mb-3">
+                      <label className="form-label">Years of Establishment </label>
+                      <input
+                        name="address"
+                        id="address"
+                        type="number"
+                        rows="2"
+                        className="form-control"
+                        placeholder="No. of Years :"
+                        onChange={(e) => {
+                          setFormValue((prev) => ({
+                            ...prev,
+                            yearsofestablishment: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.yearsofestablishment && (
+                        <div className="text-danger">{errors.yearsofestablishment}</div>
+                      )}
+                    </div>
                     <div className="mb-3">
                       <label className="form-label">Hospital Address</label>
                       <textarea
