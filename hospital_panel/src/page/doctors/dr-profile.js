@@ -774,6 +774,12 @@ export default function DrProfile(){
                             phoneNumber:  prefix + numericPart,
                           }));
                         }}
+                        onKeyDown={(e) => {
+                          // Prevent backspace from deleting the prefix
+                          if (e.keyCode === 8 && e.target.selectionStart <= 4) {
+                            e.preventDefault();
+                          }
+                        }}
                       />
                       {errors.phoneNumber && (
                         <div className="text-danger">{errors.phoneNumber}</div>

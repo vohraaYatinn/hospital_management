@@ -534,6 +534,7 @@ export default function LabReports() {
                         >
                           Name
                         </th>
+                        <th className="border-bottom p-3">Phone</th>
                         <th className="border-bottom p-3">Age</th>
                         <th className="border-bottom p-3">Gender</th>
                         <th
@@ -570,6 +571,9 @@ export default function LabReports() {
                                   </span>
                                 </div>
                               </Link>
+                            </td>
+                            <td className="p-3">
+                              {item.patient?.user?.phone}
                             </td>
                             <td className="p-3">
                               {calculateAge(item.patient.date_of_birth)}

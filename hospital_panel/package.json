@@ -30,7 +30,9 @@
     "sass": "^1.69.5",
     "simplebar-react": "^3.2.4",
     "tiny-slider-react": "^0.5.7",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "html2pdf.js": "^0.10.1"
+
   },
   "scripts": {
     "start": "react-scripts start",

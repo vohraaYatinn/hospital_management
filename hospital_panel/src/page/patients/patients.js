@@ -113,6 +113,8 @@ export default function Patients() {
                       >
                         Name
                       </th>
+                      <th className="border-bottom p-3">Phone</th>
+
                       <th className="border-bottom p-3">Age</th>
                       <th className="border-bottom p-3">Gender</th>
                       {/* <th className="border-bottom p-3">Address</th> */}
@@ -141,8 +143,12 @@ export default function Patients() {
                             </Link>
                           </td>
                           <td className="p-3">
+                            {item?.user?.phone}
+                          </td>
+                          <td className="p-3">
                             {calculateAge(item.date_of_birth)}
                           </td>
+                         
                           <td className="p-3">{item.gender}</td>
                           <td className="p-3">{item.district}</td>
                           {/* <td className="p-3">{item.address}</td> */}

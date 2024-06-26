@@ -4,7 +4,7 @@ const convertToPDF = (htmlContent, fileName) => {
 
   const pdfOptions = {
     margin: 10,
-    filename: "Prescription",
+    filename: "Invoice",
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' },

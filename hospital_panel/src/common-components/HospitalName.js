@@ -6,7 +6,6 @@ const HospitalNameSearch = ({ filters, setFilters}) => {
     const handleSearch = (e) => {
         setFilters((prev) => ({ ...prev, hospitalSearch: e.target.value }))
     };
-    const allHospitals = useSelector(GetAllHospitals);
 
     return (
         <div className="mb-0 position-relative">
@@ -16,7 +15,7 @@ const HospitalNameSearch = ({ filters, setFilters}) => {
                 value={filters.hospitalSearch}
             >
                 <option value={""}>Search By Hospital</option>
-                {allHospitals.map((item)=>{
+                {[].map((item)=>{
                     return(
                         <option value={item.id}>{item.name}</option>
 

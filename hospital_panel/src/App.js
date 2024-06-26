@@ -68,6 +68,7 @@ import Logout from "./page/logout";
 import HospitalAdmins from "./page/hospitalaccounts/hospital-admins";
 import AddHospitalAccount from "./page/hospitalaccounts/add-hospital-admin";
 import LabReports from "./page/LabReports";
+import RevenueTab from "./page/revenueTab";
 
 function App() {
   return (
@@ -82,6 +83,7 @@ function App() {
         />
         <Route path="/lab-tests" element={<LabReports />} />
         <Route path="/appointment" element={<Appointment />} />
+        <Route path="/revenue-tab" element={<RevenueTab/>}/>
         <Route path="/departments" element={<Departments />} />
         <Route path="/medicines" element={<Medicines />} />
         <Route path="/refers-to" element={<Refersto />} />

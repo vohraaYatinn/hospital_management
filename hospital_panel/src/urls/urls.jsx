@@ -115,3 +115,9 @@ export const genderGraphsFetch = (payload_data) => {
 export const ageGenderGraphsFetch = (payload_data) => {
   return project.get(Urls.GRAPH_AGE_GENDER, payload_data);
 };
+export const HospitalAppointmentAction = (payload_data) => {
+  return project.post(Urls.HOSPITAL_APPOINTMENT_ACTION, payload_data);
+};
+export const fetchRevenueAllHospital = (payload_data) => {
+  return project.get(Urls.FETCH_REVENUE_ALL_APPOINTMENTS, payload_data);
+};

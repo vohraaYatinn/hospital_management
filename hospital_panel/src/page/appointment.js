@@ -14,7 +14,7 @@ import {
 } from "../assets/icons/vander";
 
 import Modal from "react-bootstrap/Modal";
-import { CancelAppointmentHospital, fetchAppointmentsHospital } from "../urls/urls";
+import { CancelAppointmentHospital, HospitalAppointmentAction, ageGenderGraphsFetch, fetchAppointmentsHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
 import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
@@ -26,6 +26,7 @@ import AppointmentSlots from "../common-components/SlotsSearch";
 import StatusSearch from "../common-components/StatusSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import { Alert } from "antd";
+import InvoiceUjur from "./InvoiceUjur";
 
 
 export default function Appointment() {
@@ -38,13 +39,31 @@ export default function Appointment() {
   const [filters, setFilters] = useState({
     date: getTodayDate()
   });
+  const [invoiceShow, setInvoiceShow] = useState(false)
+
+
+
   const [paginationNumber, setPaginationNumber] = useState({
     from:0,
     to:10,
     currentTab:1
 })
+const [formActionApi, setFormActionApi] = useState({})
+const hospitalActionFunc = () => {
+  hospitalAppointmentsActionFetch(HospitalAppointmentAction(formActionApi));
+}
+  useEffect(()=>{
+    if(formActionApi?.action){
+      hospitalActionFunc()
+    }
+  },[formActionApi])
 
-
+  const [
+    hospitalAppointmentsActionResponse,
+    hospitalAppointmentsActionError,
+    hospitalAppointmentsActionLoading,
+    hospitalAppointmentsActionFetch,
+  ] = useAxios();
   const [
     appointmentsResponse,
     appointmentsError,
@@ -75,6 +94,7 @@ export default function Appointment() {
       name: "Canceled",
     },
   ];
+
   const [message, setMessage] = useState({
     message: "",
     showMessage: "",
@@ -89,6 +109,12 @@ export default function Appointment() {
   useEffect(() => {
     fetchAppointmentsData();
   }, [filters]);
+  useEffect(() => {
+    if(hospitalAppointmentsActionResponse?.result == "success"){
+      setShowDetail(false)
+      fetchAppointmentsData();
+    }
+  }, [hospitalAppointmentsActionResponse]);
   useEffect(() => {
     if (
       appointmentsResponse?.result == "success" &&
@@ -449,6 +475,7 @@ export default function Appointment() {
                         >
                           Name
                         </th>
+                        <th className="border-bottom p-3">Phone</th>
                         <th className="border-bottom p-3">Age</th>
                         <th className="border-bottom p-3">Gender</th>
                         <th
@@ -465,6 +492,10 @@ export default function Appointment() {
                           Doctor
                         </th>
                         <th className="border-bottom p-3">Status</th>
+                        <th className="border-bottom p-3">Payment Status</th>
+                        <th className="border-bottom p-3">Payment Mode</th>
+                        <th className="border-bottom p-3">Payment Action</th>
+                        <th className="border-bottom p-3">Invoice</th>
                         <th
                           className="border-bottom p-3"
                           style={{ minWidth: "150px" }}
@@ -486,6 +517,8 @@ export default function Appointment() {
                                 </div>
                               </Link>
                             </td>
+                            <td className="p-3">{item.patient.user.phone}</td>
+
                             <td className="p-3">
                               {calculateAge(item.patient.date_of_birth)}
                             </td>
@@ -514,6 +547,28 @@ export default function Appointment() {
                               </Link>
                             </td>
                             <td className="p-3">{item.status}</td>
+                            <td className="p-3">{item.payment_status}</td>
+                            <td className="p-3">{item.payment_mode}</td>
+
+                            <td className="p-3">
+                              <button className="btn btn-primary" 
+                              disabled={item.status == "cancel"}
+                              onClick={()=>{
+                                setFormActionApi({
+                                  selectedAppointment:item.id
+                                })
+                                setShowDetail(!showDetail)
+                              }}
+                              >ACTION</button>
+                            </td>
+                            <td className="p-3"><button 
+                                                        onClick={()=>{
+                                                          setSelectedAppointment(item)
+                                                          setInvoiceShow(true)
+                                                        }}
+                                                        className="btn btn-primary" style={{
+                                                            color:"white"
+                                                        }}>Invoice</button></td>
                             <td className="p-3">
                             {
                                   item.lab_report &&  <Link
@@ -572,59 +627,65 @@ export default function Appointment() {
           centered
         >
           <Modal.Header closeButton>
-            <Modal.Title className="h5">Appointment Detail</Modal.Title>
+            <Modal.Title className="h5">Payment Status</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <div className="modal-body p-3 pt-4">
-              <div className="d-flex align-items-center">
-                <img
-                  src={client1}
-                  className="avatar avatar-small rounded-pill"
-                  alt=""
-                />
-                <h5 className="mb-0 ms-3">Howard Tanner</h5>
-              </div>
-              <ul className="list-unstyled mb-0 d-md-flex justify-content-between mt-4">
+            <div className="modal-body p-3" style={{
+              display:"flex",
+              alignItems:"center",
+              justifyContent:"center"
+            }}>
+          
+              <ul className="list-unstyled mb-0 d-md-flex justify-content-between">
                 <li>
                   <ul className="list-unstyled mb-0">
                     <li className="d-flex ms-0">
-                      <h6>Age:</h6>
-                      <p className="text-muted ms-2">25 year old</p>
+                    <p className="text-muted ms-2"><button className="btn btn-primary" 
+                    style={{
+                      minWidth:"15rem"
+                    }}
+                    onClick={()=>{
+                      setFormActionApi((prev)=>({...prev, action:"Paid"}))
+
+                    }}
+                    >PAID</button></p>
+
                     </li>
 
                     <li className="d-flex ms-0">
-                      <h6>Gender:</h6>
-                      <p className="text-muted ms-2">Male</p>
+                    <p className="text-muted ms-2"><button className="btn btn-primary" style={{
+                      minWidth:"15rem"
+                    }}
+                    onClick={()=>{
+                      setFormActionApi((prev)=>({...prev, action:"Not Paid"}))
+
+                    }}
+                    >NOT PAID</button></p>
+
                     </li>
 
                     <li className="d-flex ms-0">
-                      <h6 className="mb-0">Department:</h6>
-                      <p className="text-muted ms-2 mb-0">Cardiology</p>
+                    <p className="text-muted ms-2"><button className="btn btn-danger"
+                    onClick={()=>{
+                      setFormActionApi((prev)=>({...prev, action:"cancel"}))
+
+                    }}
+                    style={{
+                      minWidth:"15rem"
+                    }}>CANCEL APPOINTMENT</button></p>
+
                     </li>
+
                   </ul>
                 </li>
                 <li>
-                  <ul className="list-unstyled mb-0">
-                    <li className="d-flex ms-0">
-                      <h6>Date:</h6>
-                      <p className="text-muted ms-2">20th Dec 2020</p>
-                    </li>
-
-                    <li className="d-flex ms-0">
-                      <h6>Time:</h6>
-                      <p className="text-muted ms-2">11:00 AM</p>
-                    </li>
-
-                    <li className="d-flex ms-0">
-                      <h6 className="mb-0">Doctor:</h6>
-                      <p className="text-muted ms-2 mb-0">Dr. Calvin Carlo</p>
-                    </li>
-                  </ul>
                 </li>
               </ul>
             </div>
           </Modal.Body>
         </Modal>
+        <InvoiceUjur show={invoiceShow} setShow={setInvoiceShow} appointmentDetails={selectedAppointment}/>
+
         <Modal
           show={acceptsAppointment}
           onHide={() => setAcceptsAppointment(!acceptsAppointment)}
