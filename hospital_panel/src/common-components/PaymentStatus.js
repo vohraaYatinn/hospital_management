@@ -1,6 +1,4 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { GetAllHospitals } from '../redux/reducers/functionalities.reducer';
 
 const PaymentStatusSearch = ({ filters, setFilters}) => {
     const handleSearch = (e) => {

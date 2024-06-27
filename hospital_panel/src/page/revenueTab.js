@@ -22,13 +22,13 @@ import DepartmentSearch from "../common-components/DepartmentSearch";
 import HospitalNameSearch from "../common-components/HospitalName";
 import { Alert } from "antd";
 import InvoiceUjur from "./InvoiceUjur";
-import PaymentStatusSearch from "../common-components/PaymentStatus";
 import {
     LiaFunnelDollarSolid,
     LiaMoneyBillAlt,
     LiaUndoAltSolid
   } from "../assets/icons/vander";
 import DateRange from "../common-components/DateRange";
+import PaymentStatusSearch from "../common-components/PaymentStatus.js";
 
 export default function RevenueTab() {
     let [show, setShow] = useState(false);
@@ -282,6 +282,9 @@ export default function RevenueTab() {
                             <div className="row" style={{ marginTop: "1rem" }}>
                                 <div className="col-sm-6 col-lg-3">
                                     <DateRange filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                    <PaymentStatusSearch filters={filters} setFilters={setFilters} />
                                 </div>
                                 <div className="col-sm-6 col-lg-3">
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
