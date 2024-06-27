@@ -6,7 +6,7 @@ const PaymentStatusSearch = ({ filters, setFilters}) => {
     const handleSearch = (e) => {
         setFilters((prev) => ({ ...prev, paymentStatus: e.target.value }))
     };
-    const allHospitals = ["Paid", "Not Paid", "Refunded"]
+    const allHospitals = ["Paid", "Not Paid", "Refund"]
 
     return (
         <div className="mb-0 position-relative">

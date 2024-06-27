@@ -353,6 +353,8 @@ export default function Appointment() {
                                                         <td className="p-3">{item.payment_mode}</td>
                                                         <td className="p-3"><button 
                                                         onClick={()=>{
+                                                            setSelectedAppointment(item)
+
                                                             setInvoiceShow(true)
                                                         }}
                                                         className="btn btn-primary" style={{
@@ -449,7 +451,7 @@ export default function Appointment() {
                         </div>
                     </Modal.Body>
                 </Modal>
-                <InvoiceUjur show={invoiceShow} setShow={setInvoiceShow}/>
+                <InvoiceUjur show={invoiceShow} setShow={setInvoiceShow} appointmentDetails={selectedAppointment}/>
 
                 <Modal show={cancle} onHide={() => setCancle(!cancle)} animation={false} centered>
                     <Modal.Body>

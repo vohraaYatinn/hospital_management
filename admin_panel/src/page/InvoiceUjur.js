@@ -3,10 +3,16 @@ import { Modal, Button, Table } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "./invoice.css"
 import logoDark from '../assets/images/logo-dark.png'
+import convertToPDF from '../utils/convertToPdf';
+import moment from 'moment';
 
 const InvoiceModal = ({ show,setShow, invoice }) => {
     const handleClose = () =>{
         setShow(false)
+    }
+    const handleDownload = () => {
+      const check_html = document.getElementById('invoice-container')
+      convertToPDF(check_html,"Invoice")
     }
   return (
     <Modal show={show} onHide={handleClose}>
@@ -14,18 +20,19 @@ const InvoiceModal = ({ show,setShow, invoice }) => {
         <Modal.Title>Invoice #{invoice.id}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-    
-      <div className="container invoice-container" id="invoice-container">
+    {invoice &&
+      <div className="container invoice-container" id="invoice-container" style={{
+        overflow:'auto'
+      }}>
   <div className="row invoice-header">
 
   <div className="col-sm-6">
       <h1>INVOICE</h1>
       <p>
-        Invoice #: 001234
+        Invoice #: {invoice.id}
         <br />
-        Date: 2024-06-23
+        Date: {moment(invoice?.appointment?.date_appointment).format("DD, MM, YYYY")}
         <br />
-        Due Date: 2024-07-23
       </p>
     </div>
     <div className="col-sm-6 text-right">
@@ -38,25 +45,21 @@ const InvoiceModal = ({ show,setShow, invoice }) => {
     <div className="col-sm-6">
       <h5>Bill To:</h5>
       <p>
-        John Doe
+        {invoice?.appointment?.patient?.full_name}
         <br />
-        789 Patient Rd.
+        {invoice?.appointment?.patient?.block}
         <br />
-        Healthville, PT 12345
-        <br />
-        Phone: (987) 654-3210
-        <br />
-        Email: johndoe@example.com
+        {invoice?.appointment?.patient?.district}
       </p>
     </div>
     <div className="col-sm-6 text-right">
-      <h5>Patient Details:</h5>
+      <h5>Appointment Details:</h5>
       <p>
-        Patient ID: 6789
+        Appointment ID: {invoice?.appointment?.id}
         <br />
-        Date of Admission: 2024-06-20
-        <br />
-        Date of Discharge: 2024-06-22
+        Booking Date: {moment(invoice?.appointment?.date_appointment).format("dddd, MMM D, YYYY")}
+
+        
       </p>
     </div>
   </div>
@@ -66,17 +69,15 @@ const InvoiceModal = ({ show,setShow, invoice }) => {
         <thead className="thead-light">
           <tr>
             <th>Description</th>
-            <th>Quantity</th>
-            <th>Unit Cost</th>
-            <th>Total</th>
+            <th>Doctor fees</th>
+            <th>Booking charges</th>
           </tr>
         </thead>
         <tbody>
           <tr>
-            <td>Consultation Fee</td>
-            <td>1</td>
-            <td>$100</td>
-            <td>$100</td>
+            <td>Consultation Fee<br/>({invoice?.hospital})</td>
+            <td>Rs {(parseFloat(invoice?.items[0]?.quantity) - parseFloat(invoice?.items[0]?.quantity)*0.18).toFixed(2)}</td>
+            <td>Rs {(parseFloat(invoice?.items[0]?.price) - parseFloat(invoice?.items[0]?.price*0.18)).toFixed(2)}</td>
           </tr>
 
         </tbody>
@@ -86,13 +87,13 @@ const InvoiceModal = ({ show,setShow, invoice }) => {
             <th colSpan={3} className="text-right">
               Tax (18%)
             </th>
-            <th>$61</th>
+            <th>Rs {((parseFloat(invoice?.items[0]?.quantity) + parseFloat(invoice?.items[0]?.price )) * 0.18 ).toFixed(2)}</th>
           </tr>
           <tr>
             <th colSpan={3} className="text-right">
               Total
             </th>
-            <th>$671</th>
+            <th>Rs {(parseFloat(invoice?.items[0]?.quantity) + parseFloat(invoice?.items[0]?.price)).toFixed(2)}</th>
           </tr>
         </tfoot>
       </table>
@@ -106,28 +107,33 @@ const InvoiceModal = ({ show,setShow, invoice }) => {
   <img src={logoDark} alt="Hospital Logo" class="watermark"/>
 
 </div>
+}
       </Modal.Body>
       <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>
-          Close
+        <Button variant="primary" onClick={()=>{
+          handleDownload()
+        }}>
+          Download Invoice
         </Button>
       </Modal.Footer>
     </Modal>
   );
 };
 
-const InvoiceUjur = ({show, setShow}) => {
+const InvoiceUjur = ({show, setShow, appointmentDetails}) => {
 
+  console.log(appointmentDetails)
   const invoice = {
-    id: '12345',
-    customerName: 'John Doe',
+    appointment:appointmentDetails,
+    hospital:appointmentDetails?.doctor?.hospital?.name,
+    id: '00'+appointmentDetails?.id,
+    customerName: appointmentDetails?.patient?.full_name,
     date: '2024-06-23',
     items: [
-      { name: 'Item 1', quantity: 2, price: 10.0 },
-      { name: 'Item 2', quantity: 1, price: 20.0 },
-      { name: 'Item 3', quantity: 5, price: 5.0 },
+      { name: 'Item 1', quantity: appointmentDetails?.revenues?.[0]?.doctor_fees, price: appointmentDetails?.revenues?.[0]?.booking_amount },
     ],
   };
+
 
 
   return (
