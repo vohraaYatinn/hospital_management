@@ -29,6 +29,7 @@ import {
     LiaUndoAltSolid
   } from "../assets/icons/vander";
 import DateRange from "../common-components/DateRange";
+import PaymentModeSearch from "../common-components/PaymentMode";
 
 export default function RevenueTab() {
     let [show, setShow] = useState(false);
@@ -102,16 +103,16 @@ export default function RevenueTab() {
         if (appointmentsResponse?.result === "success" && appointmentsResponse?.data) {
             const { booking_sum, booking_doctor_fees, refunds_amount } = appointmentsResponse.data.reduce(
                 (acc, object) => {
-                    if (object.payment_status === "Paid") {
-                        const bookingAmount = parseFloat(object?.revenues[0]?.booking_amount || 0);
-                        const doctorFees = parseFloat(object?.revenues[0]?.doctor_fees || 0);
-                        acc.booking_sum += bookingAmount;
-                        acc.booking_doctor_fees += doctorFees;
-                    }
                     if(object.payment_status === "Refund"){
                         const bookingAmount = parseFloat(object?.revenues[0]?.booking_amount || 0);
                         const doctorFees = parseFloat(object?.revenues[0]?.doctor_fees || 0);
                         acc.refunds_amount += (bookingAmount + doctorFees);
+                    }
+                    else{
+                        const bookingAmount = parseFloat(object?.revenues[0]?.booking_amount || 0);
+                        const doctorFees = parseFloat(object?.revenues[0]?.doctor_fees || 0);
+                        acc.booking_sum += bookingAmount;
+                        acc.booking_doctor_fees += doctorFees;
                     }
                     return acc;
                 },
@@ -293,9 +294,18 @@ export default function RevenueTab() {
 
                                     </div>
                                     <div className="col-sm-6 col-lg-3">
+                                        <PaymentStatusSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-3 mt-3">
+                                        <PaymentModeSearch filters={filters} setFilters={setFilters} />
+
+                                    </div>
+                                    <div className="col-sm-6 col-lg-3">
                                         {/* <DepartmentSearch filters={filters} setFilters={setFilters} /> */}
 
                                     </div>
+                                    <div className="row">
                                     <div className="col-sm-6 col-lg-3 mt-4">
                                        <button
                                         className="form-control btn-check-reset"
@@ -311,12 +321,14 @@ export default function RevenueTab() {
                                                 paymentStatus:"",
                                                 datetimeSearch:"",
                                                 startDate:"",
-                                                endDate:""
+                                                endDate:"",
+                                                paymentMode:""
                                             })
                                         }}
                                         style={{backgroundColor:"red"}}
                                        >Reset</button>
 
+                                    </div>
                                     </div>
 
                             </div>

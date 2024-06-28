@@ -13,13 +13,7 @@ import useAxios from "../network/useAxios";
 import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
-import PatientName from "../common-components/PatientName";
-import DateSearchComponent from "../common-components/DateSearch";
-import AppointmentSlots from "../common-components/SlotsSearch";
 import DoctorSearch from "../common-components/DoctorsSearch";
-import StatusSearch from "../common-components/StatusSearch";
-import DepartmentSearch from "../common-components/DepartmentSearch";
-import HospitalNameSearch from "../common-components/HospitalName";
 import { Alert } from "antd";
 import InvoiceUjur from "./InvoiceUjur";
 import {
@@ -29,6 +23,7 @@ import {
   } from "../assets/icons/vander";
 import DateRange from "../common-components/DateRange";
 import PaymentStatusSearch from "../common-components/PaymentStatus.js";
+import PaymentModeSearch from "../common-components/PaymentMode.js";
 
 export default function RevenueTab() {
     let [show, setShow] = useState(false);
@@ -100,22 +95,25 @@ export default function RevenueTab() {
         if (appointmentsResponse?.result === "success" && appointmentsResponse?.data) {
             const { booking_sum, booking_doctor_fees, refunds_amount } = appointmentsResponse.data.reduce(
                 (acc, object) => {
-                    if (object.payment_status === "Paid") {
-                        const bookingAmount = parseFloat(object?.revenues[0]?.booking_amount || 0);
-                        const doctorFees = parseFloat(object?.revenues[0]?.doctor_fees || 0);
-                        acc.booking_sum += bookingAmount;
-                        acc.booking_doctor_fees += doctorFees;
-                    }
+                   
                     if(object.payment_status === "Refund"){
                         const bookingAmount = parseFloat(object?.revenues[0]?.booking_amount || 0);
                         const doctorFees = parseFloat(object?.revenues[0]?.doctor_fees || 0);
                         acc.refunds_amount += (bookingAmount + doctorFees);
                     }
+                    else{
+                        const bookingAmount = parseFloat(object?.revenues[0]?.booking_amount || 0);
+                        const doctorFees = parseFloat(object?.revenues[0]?.doctor_fees || 0);
+                        acc.booking_sum += bookingAmount;
+                        acc.booking_doctor_fees += doctorFees;
+                    }
                     return acc;
                 },
                 { booking_sum: 0, booking_doctor_fees: 0, refunds_amount:0 }
             );
-    
+            console.log(booking_sum?.toFixed(2))
+            console.log(booking_doctor_fees?.toFixed(2))
+            console.log(refunds_amount?.toFixed(2))
             setPanels({
                 booking_fees: booking_sum?.toFixed(2),
                 hospital_revenue: booking_doctor_fees?.toFixed(2),
@@ -287,10 +285,13 @@ export default function RevenueTab() {
                                     <PaymentStatusSearch filters={filters} setFilters={setFilters} />
                                 </div>
                                 <div className="col-sm-6 col-lg-3">
+                                    <PaymentModeSearch filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>
                                     
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3 mt-3">
                                        <button
                                         className="form-control btn-check-reset"
                                         onClick={()=>{
@@ -305,7 +306,8 @@ export default function RevenueTab() {
                                                 paymentStatus:"",
                                                 datetimeSearch:"",
                                                 startDate:"",
-                                                endDate:""
+                                                endDate:"",
+                                                paymentMode:""
                                             })
                                         }}
                                         style={{backgroundColor:"red", textAlign:"center"}}
