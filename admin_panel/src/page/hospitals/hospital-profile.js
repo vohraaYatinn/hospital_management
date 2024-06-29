@@ -62,6 +62,7 @@ const performActionRequest = () => {
 	const [hospitalData, setHospitalData] = useState([])
 	const fileInputRef = React.useRef(null);
 	const fileInputLogoRef = React.useRef(null);
+	const [errors, setErrors] = useState({});
 
 	const [reviewsData, setReviews] = useState([])
 	const [
@@ -151,8 +152,45 @@ const performActionRequest = () => {
 		));
 	  }, []);
 
+	  const validate = (values) => {
+		const errors = {};
+		const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+	
+		if (!values.website) {
+		  // errors.website = "Website is required!";
+		}
+		// if (!values.description) {
+		//   errors.description = "Description is required!";
+		// }
+		if (!values.address) {
+		  errors.address = "Address is required!";
+		}
+		if (!values.hospitalName) {
+		  errors.hospitalName = "Hospital is required!";
+		}
+		if (!values.yearsofestablishment) {
+		  errors.yearsofestablishment = "years of establishment is required!";
+		}
+		if (!values.email) {
+		  errors.email = "Email is required!";
+		} else if (!regex.test(values.email)) {
+		  errors.email = "This is not a valid email format!";
+		}
+		if (!values.phoneNumber) {
+		  errors.phoneNumber = "Phone number is required";
+		} else if (values.phoneNumber.length != 14) {
+		  errors.phoneNumber = "Phone number is not valid";
+		}
+		return errors;
+	  };
+
 	  const EditHospitalProfileFunction = () => {
-		hospitalsEditFetch(fetchHospitalEditProfile({...formValues, hospitalId:id}))
+		const errors = validate(formValues);
+    if (Object.keys(errors).length !== 0) {
+      setErrors(errors);
+    } else {
+	  hospitalsEditFetch(fetchHospitalEditProfile({...formValues, hospitalId:id}))
+    }
 	  }
 	  useEffect(() => {
 		if (hospitalsResponse?.result == "success" && hospitalsResponse?.data) {
@@ -185,6 +223,7 @@ const performActionRequest = () => {
 		<Wrapper>
 			        <input
           type="file"
+		  accept=".png, .jpg, .jpeg"
           ref={fileInputRef}
           style={{ display: "none" }}
           onChange={handleUpload}
@@ -615,10 +654,11 @@ const performActionRequest = () => {
 																				</label>
 																				<input
           type="file"
+		  accept=".png, .jpg, .jpeg"
           ref={fileInputLogoRef}
           style={{ display: "none" }}
           onChange={handleUploadLogo}
-        />
+		  />
 																				<input
 																					name="name"
 																					id="name"
@@ -629,8 +669,11 @@ const performActionRequest = () => {
 																					onChange={(e)=>{
 																						setFormValues((prev)=>({...prev, 
 																							hospital_name:e.target.value}))
-																					}}
+																						}}
 																				/>
+																				{errors.hospitalName && (
+			  <div className="text-danger">{errors.hospitalName}</div>
+			)}
 																			</div>
 																		</div>
 
@@ -651,6 +694,9 @@ const performActionRequest = () => {
 																							email:e.target.value}))
 																					}}
 																				/>
+																				{errors.email && (
+			  <div className="text-danger">{errors.email}</div>
+			)}
 																			</div>
 																		</div>
 
@@ -683,6 +729,9 @@ const performActionRequest = () => {
 																						}
 																					  }}
 																				/>
+																				{errors.phoneNumber && (
+			  <div className="text-danger">{errors.phoneNumber}</div>
+			)}
 																			</div>
 																		</div>
 																		<div className="col-md-6">
@@ -722,6 +771,9 @@ const performActionRequest = () => {
 																							address:e.target.value}))
 																					}}
 																					></textarea>
+																					{errors.address && (
+			  <div className="text-danger">{errors.address}</div>
+			)}
 																			</div>
 																		</div>
 																		<div className="col-md-12">

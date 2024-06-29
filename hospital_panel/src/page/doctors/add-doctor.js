@@ -279,6 +279,7 @@ export default function AddDoctor() {
                     <input
                       type="file"
                       ref={fileInputRef}
+                       accept=".png, .jpg, .jpeg"
                       style={{ display: "none" }}
                       onChange={handleUpload}
                     />
