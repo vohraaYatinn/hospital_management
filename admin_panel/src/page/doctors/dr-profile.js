@@ -292,17 +292,10 @@ export default function DrProfile() {
     speed: 400,
     gutter: 16,
   };
-  const editDoctor = () =>{
-    performEdttFetch(editDoctorProfile({...formValues, doctor_id:id}))
-  }
-
-        const submitValues = () => {
-        const errors = validate(formValues);
-        if (Object.keys(errors).length !== 0) {
-          setErrors(errors);
-        } else {
-          doctorProfileFetch(addDoctorByHospital(formValues));
-        }
+  
+  const submitValues = () => {
+    
+    doctorProfileFetch(addDoctorByHospital(formValues));
       };
       const validate = (values) => {
         const errors = {};
@@ -343,6 +336,14 @@ export default function DrProfile() {
           errors.phoneNumber = "Phone number is not valid";
         }
         return errors;
+      }
+      const editDoctor = () =>{
+        const errors = validate(formValues);
+            if (Object.keys(errors).length !== 0) {
+              setErrors(errors);
+            } else {
+              performEdttFetch(editDoctorProfile({...formValues, doctor_id:id}))
+            }
       }
       useEffect(() => {
         if (performEdttResponse?.result == "success") {
@@ -898,6 +899,7 @@ export default function DrProfile() {
                       ref={fileInputRef}
                       style={{ display: "none" }}
                       onChange={handleUpload}
+                      accept=".png, .jpg, .jpeg"
                     />
 
                     <div className="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0" style={{

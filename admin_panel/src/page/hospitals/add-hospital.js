@@ -109,7 +109,6 @@ export default function AddHospitalProfile() {
       setErrors(errors);
     } else {
       addHospitalFetch(addAdminHospital(formValue));
-      
     }
   };
   const fileInputRef = React.useRef(null);
@@ -181,12 +180,14 @@ export default function AddHospitalProfile() {
         <input
           type="file"
           ref={fileInputRef}
+          accept=".png, .jpg, .jpeg"
           style={{ display: "none" }}
           onChange={handleUpload}
         />
         <input
           type="file"
           ref={fileInputLogoRef}
+          accept=".png, .jpg, .jpeg"
           style={{ display: "none" }}
           onChange={handleUploadLogo}
         />

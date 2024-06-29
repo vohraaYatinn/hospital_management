@@ -76,9 +76,7 @@ export default function DrProfile(){
     const performActionRequest = () => {
       performActionFetch(handleDelete(formValues))
     }
-    const editDoctor = () =>{
-      performEdttFetch(editDoctorProfile({...formValues, doctor_id:id}))
-    }
+    
     useEffect(() => {
 		if (performActionResponse?.result == "success") {
 			router.push("/doctors")
@@ -341,13 +339,18 @@ export default function DrProfile(){
       };
     
       const submitValues = () => {
+        
+          doctorProfileFetch(addDoctorByHospital(formValues));
+        };
+
+      const editDoctor = () =>{
         const errors = validate(formValues);
         if (Object.keys(errors).length !== 0) {
           setErrors(errors);
         } else {
-          doctorProfileFetch(addDoctorByHospital(formValues));
+        performEdttFetch(editDoctorProfile({...formValues, doctor_id:id}))
         }
-      };
+      }
       useEffect(() => {
         console.log(doctorProfileResponse);
         console.log(doctorProfileError);
@@ -683,6 +686,7 @@ export default function DrProfile(){
                       type="file"
                       ref={fileInputRef}
                       style={{ display: "none" }}
+                      accept=".png, .jpg, .jpeg"
                       onChange={handleUpload}
                     />
 
