@@ -10,7 +10,7 @@ import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircl
 import Modal from 'react-bootstrap/Modal';
 import { CancelAppointmentAdmin, fetchAppointmentsAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, capitalizeFirstChar, checkAppointmentStatus, checkPaymentStatus, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -23,6 +23,7 @@ import HospitalNameSearch from "../common-components/HospitalName";
 import { Alert } from "antd";
 import InvoiceUjur from "./InvoiceUjur";
 import PaymentStatusSearch from "../common-components/PaymentStatus";
+import PaymentModeSearch from "../common-components/PaymentMode";
 
 
 export default function Appointment() {
@@ -62,9 +63,13 @@ export default function Appointment() {
             name: "Past"
         },
         {
-            value: "canceled",
+            value: "cancel",
             name: "Canceled"
         },
+        {
+            value: "queue",
+            name: "Queued",
+          },
 
     ]
     const cancelGivenAppointment = () => {
@@ -271,12 +276,11 @@ export default function Appointment() {
                                         <PaymentStatusSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
+                                <div className="col-sm-6 col-lg-3">
+                                    <PaymentModeSearch filters={filters} setFilters={setFilters} />
+                                </div>
                                     <div className="col-sm-6 col-lg-3">
                                         <HospitalNameSearch filters={filters} setFilters={setFilters} />
-
-                                    </div>
-                                    <div className="col-sm-6 col-lg-3">
-                                        {/* <DepartmentSearch filters={filters} setFilters={setFilters} /> */}
 
                                     </div>
                                     <div className="col-sm-6 col-lg-3 mt-4">
@@ -291,7 +295,8 @@ export default function Appointment() {
                                                 date:"",
                                                 doctorName:"",
                                                 patientName:"",
-                                                paymentStatus:""
+                                                paymentStatus:"",
+                                                paymentMode:""
                                             })
                                         }}
                                         style={{backgroundColor:"red"}}
@@ -334,7 +339,11 @@ export default function Appointment() {
                                                                 </div>
                                                             </Link>
                                                         </td>
-                                                        <td className="p-3">{item.patient.user.phone}</td>
+                                                        <td className="p-3"
+                                                         style={{
+                                                            textWrap:"nowrap"
+                                                          }}
+                                                        >{item.patient.user.phone}</td>
 
                                                         <td className="p-3">{calculateAge(item.patient.date_of_birth)}</td>
                                                         <td className="p-3">{item.patient.gender}</td>
@@ -348,8 +357,8 @@ export default function Appointment() {
                                                                 </div>
                                                             </Link>
                                                         </td>
-                                                        <td className="p-3">{item.status}</td>
-                                                        <td className="p-3">{item.payment_status}</td>
+                                                        <td className="p-3">{checkAppointmentStatus(item.status)}</td>
+                                                        <td className="p-3">{checkPaymentStatus(item.payment_status)}</td>
                                                         <td className="p-3">{item.payment_mode}</td>
                                                         <td className="p-3"><button 
                                                         onClick={()=>{

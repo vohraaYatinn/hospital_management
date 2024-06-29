@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import convertToPDF from '../../utils/convertToPdf';
 import { test_url_images } from '../../config/environment';
-import { calculateAge, capitalizeFirst, checkNotNull } from '../../utils/commonFunctions';
+import { calculateAge, capitalizeFirst, capitalizeFirstChar, checkNotNull } from '../../utils/commonFunctions';
 import "../../newcss.css"
 import ujur_logo from "../../../src/assets/images/logo-dark.png"
 import playstoreBar from "../../assets/play-store.jpg"
@@ -228,7 +228,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
       <p style={{marginTop:"-1rem"}}><b>Age:</b>  {calculateAge(patient?.date_of_birth)}</p>
       <p style={{marginTop:"-1rem"}}><b>Sex:</b> {patient?.gender}</p>
       <p style={{marginTop:"-1rem"}}><b>
-        Address:</b>  {patient?.address}
+      District:</b>  {capitalizeFirstChar(patient?.district)}
       </p>
     </div>
   </section>

@@ -179,6 +179,10 @@ export default function AddDoctor() {
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
     } 
+    else if(values.phoneNumber.length != 14){
+      errors.phoneNumber = "Invalid Phone Number +91-xxxxxxxxxx";
+
+    }
 
     return errors;
   };
@@ -375,7 +379,7 @@ export default function AddDoctor() {
                           }
                         }}
                       />
-                      {errors.phoneNumber && (
+                  {errors.phoneNumber && (
                         <div className="text-danger"> {errors.phoneNumber}</div>
                       )}
                     </div>

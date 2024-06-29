@@ -1,10 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-
-import client1 from "../assets/images/client/01.jpg";
-
 import Wrapper from "../components/wrapper";
-
 import {
   FiEye,
   MdOutlineCheckCircleOutline,
@@ -12,11 +8,10 @@ import {
   LiaTimesCircleSolid,
   AiOutlineFileExcel,
 } from "../assets/icons/vander";
-
 import Modal from "react-bootstrap/Modal";
 import { CancelAppointmentHospital, HospitalAppointmentAction, ageGenderGraphsFetch, fetchAppointmentsHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, capitalizeFirstChar, checkAppointmentStatus, checkPaymentStatus, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -24,9 +19,10 @@ import DoctorSearch from "../common-components/DoctorsSearch";
 import DateSearchComponent from "../common-components/DateSearch";
 import AppointmentSlots from "../common-components/SlotsSearch";
 import StatusSearch from "../common-components/StatusSearch";
-import DepartmentSearch from "../common-components/DepartmentSearch";
 import { Alert } from "antd";
 import InvoiceUjur from "./InvoiceUjur";
+import PaymentStatusSearch from "../common-components/PaymentStatus";
+import PaymentModeSearch from "../common-components/PaymentMode";
 
 
 export default function Appointment() {
@@ -90,8 +86,12 @@ const hospitalActionFunc = () => {
       name: "Past",
     },
     {
-      value: "canceled",
+      value: "cancel",
       name: "Canceled",
+    },
+    {
+      value: "queue",
+      name: "Queued",
     },
   ];
 
@@ -425,6 +425,12 @@ const hospitalActionFunc = () => {
                     statusSearch={searchStatusConstants}
                   />
                 </div>
+                <div className="col-sm-6 col-lg-3">
+                                    <PaymentStatusSearch filters={filters} setFilters={setFilters} />
+                                </div>
+                                <div className="col-sm-6 col-lg-3">
+                                    <PaymentModeSearch filters={filters} setFilters={setFilters} />
+                                </div>
                 {/* <div className="col-sm-6 col-lg-3">
                   <DepartmentSearch filters={filters} setFilters={setFilters} />
                 </div> */}
@@ -440,6 +446,9 @@ const hospitalActionFunc = () => {
                         date: "",
                         doctorName: "",
                         patientName: "",
+                        paymentStatus:"",
+                        paymentMode:"",
+
                       });
                     }}
                     style={{
@@ -517,7 +526,9 @@ const hospitalActionFunc = () => {
                                 </div>
                               </Link>
                             </td>
-                            <td className="p-3">{item.patient.user.phone}</td>
+                            <td className="p-3" style={{
+                              textWrap:"nowrap"
+                            }}>{item.patient.user.phone}</td>
 
                             <td className="p-3">
                               {calculateAge(item.patient.date_of_birth)}
@@ -546,20 +557,20 @@ const hospitalActionFunc = () => {
                                 </div>
                               </Link>
                             </td>
-                            <td className="p-3">{item.status}</td>
-                            <td className="p-3">{item.payment_status}</td>
+                            <td className="p-3">{checkAppointmentStatus(item.status)}</td>
+                            <td className="p-3">{checkPaymentStatus(item.payment_status)}</td>
                             <td className="p-3">{item.payment_mode}</td>
 
                             <td className="p-3">
                               <button className="btn btn-primary" 
-                              disabled={item.status == "cancel"}
+                              disabled={item.status == "cancel" || (item.payment_status == "Paid")}
                               onClick={()=>{
                                 setFormActionApi({
                                   selectedAppointment:item.id
                                 })
                                 setShowDetail(!showDetail)
                               }}
-                              >ACTION</button>
+                              >Action</button>
                             </td>
                             <td className="p-3"><button 
                                                         onClick={()=>{

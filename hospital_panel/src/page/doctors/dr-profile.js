@@ -929,13 +929,13 @@ export default function DrProfile(){
                   </div> */}
                   <div className="col-md-12">
                     <div className="mb-3">
-                      <label className="form-label">address</label>
+                      <label className="form-label">Address</label>
                       <input
                         name="name"
                         id="name"
                         type="text"
                         className="form-control"
-                        placeholder="address :"
+                        placeholder="Address :"
                         value={formValues.address}
                         onChange={(e) => {
                           setFormValues((prev) => ({

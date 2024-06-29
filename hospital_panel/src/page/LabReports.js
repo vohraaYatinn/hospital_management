@@ -80,7 +80,7 @@ export default function LabReports() {
       name: "Past",
     },
     {
-      value: "canceled",
+      value: "cancel",
       name: "Canceled",
     },
   ];
@@ -572,7 +572,11 @@ export default function LabReports() {
                                 </div>
                               </Link>
                             </td>
-                            <td className="p-3">
+                            <td className="p-3"
+                            style={{
+                              textWrap:"nowrap"
+                            }}
+                            >
                               {item.patient?.user?.phone}
                             </td>
                             <td className="p-3">

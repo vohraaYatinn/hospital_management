@@ -24,7 +24,7 @@ import { Alert } from "antd";
 import InvoiceUjur from "./InvoiceUjur";
 import PaymentStatusSearch from "../common-components/PaymentStatus";
 import {
-    LiaFunnelDollarSolid,
+    LiaRupeeSignSolid,
     LiaMoneyBillAlt,
     LiaUndoAltSolid
   } from "../assets/icons/vander";
@@ -338,7 +338,7 @@ export default function RevenueTab() {
                 <div className="card features feature-primary rounded border-0 shadow p-4">
                   <div className="d-flex align-items-center">
                     <div className="icon text-center rounded-md">
-                      <LiaFunnelDollarSolid className="h3 mb-0" />
+                      <LiaRupeeSignSolid className="h3 mb-0" />
                     </div>
                     <div className="flex-1 ms-2">
                       <h5 className="mb-0">Rs {panels?.hospital_revenue}</h5>
@@ -409,7 +409,11 @@ export default function RevenueTab() {
                                                                 </div>
                                                             </Link>
                                                         </td>
-                                                        <td className="p-3">{item.patient.user.phone}</td>
+                                                        <td className="p-3"
+                                                         style={{
+                                                            textWrap:"nowrap"
+                                                          }}
+                                                        >{item.patient.user.phone}</td>
 
                                                         <td className="p-3">{moment(item.date_appointment).format('YYYY-MM-DD')}</td>
                                                         <td className="p-3">{item.slot}</td>

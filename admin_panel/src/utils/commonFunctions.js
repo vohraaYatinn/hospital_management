@@ -83,3 +83,36 @@ export const getTodayDate = () => {
   const day = String(today.getDate()).padStart(2, '0');
   return `${year}-${month}-${day}`;
 };
+
+export const capitalizeFirstChar = (string) => {
+  if(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  else{
+    return ""
+  }
+};
+
+
+export const checkPaymentStatus = (status) => {
+ 
+  const values = {
+    "Paid":"Paid",
+    "Not Paid":"Not Paid",
+    "Refund": "Refunded"
+  }
+  return values?.[status] || "N/A"
+
+};
+
+export const checkAppointmentStatus = (status) => {
+  const values = {
+    "completed":"Completed",
+    "pending":"Pending",
+    "past": "Past",
+    "cancel": "Canceled",
+    "queue":"Queued"
+  }
+  return values?.[status] || "N/A"
+
+};

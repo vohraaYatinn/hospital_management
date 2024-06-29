@@ -32,7 +32,7 @@ import { isNumber } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import { GetHospitalDetails } from "../redux/reducers/functionalities.reducer";
 import { IoChatbubbleEllipsesOutline, IoDocumentTextOutline } from "react-icons/io5";
-import { FaDollarSign } from "react-icons/fa6";
+import { FaIndianRupeeSign } from "react-icons/fa6";
 
 export default function Sidebar({ manuClass }) {
   const [manu, setManu] = useState("");
@@ -162,7 +162,7 @@ export default function Sidebar({ manuClass }) {
           </li>
           <li className={`${manu === "revenue-tab" ? "active" : ""} ms-0`}>
             <Link to="/revenue-tab">
-              <FaDollarSign className="me-2 d-inline-block mb-0 icon" />
+              <FaIndianRupeeSign className="me-2 d-inline-block mb-0 icon" />
               Revenue
             </Link>
           </li>

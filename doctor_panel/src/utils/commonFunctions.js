@@ -152,3 +152,13 @@ export function compareObjects(obj1, obj2) {
 export const changeDateFormat = (date) =>{
   return moment(date).format('YYYY-MM-DD')
 }
+
+
+export const capitalizeFirstChar = (string) => {
+  if(string){
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+  else{
+    return ""
+  }
+};

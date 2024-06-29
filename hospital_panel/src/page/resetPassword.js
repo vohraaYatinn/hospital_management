@@ -130,6 +130,7 @@ export default function ResetPassword() {
               <div className="col-sm-6 col-lg-3">
                 <DepartmentSearch filters={filters} setFilters={setFilters} />
               </div>
+
               <div className="col-sm-6 col-lg-3">
                 <button
                   className="form-control btn-check-reset"

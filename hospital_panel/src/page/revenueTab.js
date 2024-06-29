@@ -5,7 +5,7 @@ import client1 from "../assets/images/client/01.jpg"
 
 import Wrapper from "../components/wrapper";
 
-import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircleSolid } from '../assets/icons/vander'
+import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircleSolid, LiaRupeeSignSolid } from '../assets/icons/vander'
 
 import Modal from 'react-bootstrap/Modal';
 import { fetchRevenueAllHospital } from "../urls/urls";
@@ -322,7 +322,7 @@ export default function RevenueTab() {
                 <div className="card features feature-primary rounded border-0 shadow p-4">
                   <div className="d-flex align-items-center">
                     <div className="icon text-center rounded-md">
-                      <LiaFunnelDollarSolid className="h3 mb-0" />
+                      <LiaRupeeSignSolid className="h3 mb-0" />
                     </div>
                     <div className="flex-1 ms-2">
                       <h5 className="mb-0">Rs {panels?.hospital_revenue}</h5>
@@ -393,7 +393,11 @@ export default function RevenueTab() {
                                                                 </div>
                                                             </Link>
                                                         </td>
-                                                        <td className="p-3">{item.patient.user.phone}</td>
+                                                        <td className="p-3"
+                                                        style={{
+                                                            textWrap:"nowrap"
+                                                          }}
+                                                       >{item.patient.user.phone}</td>
 
                                                         <td className="p-3">{moment(item.date_appointment).format('YYYY-MM-DD')}</td>
                                                         <td className="p-3">{item.slot}</td>

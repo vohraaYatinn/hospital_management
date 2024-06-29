@@ -514,16 +514,30 @@ fontSize:"1.4rem"      }}/>
                                     >
                                       Report
                                     </div>
-                                    <div className="col-8" style={{ display: "flex", flexDirection: "column" }}>
+                                    {item.lab_report ?
+                                    <>
+                                    <div className="col-4" style={{ display: "flex", flexDirection: "column" }}>
                                       {item.doctor_instruction}
                                       <span className="mb-0 mt-2" style={{ fontWeight: "600" }}>Dr. {item?.doctor?.full_name} - {moment(item?.date_appointment).format('YYYY-MM-DD')}</span>
 
                                     </div>
-                                    {
-                                  item.lab_report &&  <button style={{background:"rgb(56,108,240)", color:"white"}} onClick={() => {
-                                    window.open(test_url_images + item.lab_report, '_blank');
-                                  }}>Lab Report</button>
-                                }
+                                    <div className="col-4" style={{ background: "green", color: "white", height: "4rem", alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }}
+                                      onClick={() => {
+                                        window.open(test_url_images + item.lab_report, '_blank');
+
+                                      }}
+                                    >
+                                      Lab Report
+                                    </div>
+                                    </>:
+ <div className="col-8" style={{ display: "flex", flexDirection: "column" }}>
+ {item.doctor_instruction}
+ <span className="mb-0 mt-2" style={{ fontWeight: "600" }}>Dr. {item?.doctor?.full_name} - {moment(item?.date_appointment).format('YYYY-MM-DD')}</span>
+
+</div>
+                              }
+
+                                 
 
                                     
                                   </div>

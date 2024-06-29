@@ -45,6 +45,7 @@ export default function HospitalProfile() {
 		website: "",
 		address: "",
 		description: "",
+		years_of_establishment:""
 	});
 	let [show, setShow] = useState(false);
 	const [uploadedFileLogo, setUploadedFileLogo] = useState(null);
@@ -165,11 +166,11 @@ const performActionRequest = () => {
 		if (!values.address) {
 		  errors.address = "Address is required!";
 		}
-		if (!values.hospitalName) {
-		  errors.hospitalName = "Hospital is required!";
+		if (!values.hospital_name) {
+		  errors.hospital_name = "Hospital is required!";
 		}
-		if (!values.yearsofestablishment) {
-		  errors.yearsofestablishment = "years of establishment is required!";
+		if (!values.years_of_establishment) {
+		  errors.years_of_establishment = "years of establishment is required!";
 		}
 		if (!values.email) {
 		  errors.email = "Email is required!";
@@ -204,6 +205,7 @@ const performActionRequest = () => {
 			website: hospitalsResponse?.data?.website,
 			phoneNumber: hospitalsResponse?.data?.contact_number,
 			googleMap: hospitalsResponse?.data?.google_link,
+			years_of_establishment: hospitalsResponse?.data?.years_of_establishment,
 		  })
 		}
 	  }, [hospitalsResponse]);
@@ -671,8 +673,8 @@ const performActionRequest = () => {
 																							hospital_name:e.target.value}))
 																						}}
 																				/>
-																				{errors.hospitalName && (
-			  <div className="text-danger">{errors.hospitalName}</div>
+																				{errors.hospital_name && (
+			  <div className="text-danger">{errors.hospital_name}</div>
 			)}
 																			</div>
 																		</div>
@@ -753,7 +755,31 @@ const performActionRequest = () => {
 																				/>
 																			</div>
 																		</div>
+																		<div className="col-md-12">
+                    <div className="mb-3">
+                      <label className="form-label">Years of Establishment </label>
+                      <input
+                        name="address"
+                        id="address"
+						value={formValues.years_of_establishment}
 
+                        type="number"
+                        rows="2"
+                        className="form-control"
+                        placeholder="No. of Years :"
+                        onChange={(e) => {
+							setFormValues((prev) => ({
+                            ...prev,
+                            years_of_establishment: e.target.value,
+                          }));
+                        }}
+                      />
+                      {errors.years_of_establishment && (
+                        <div className="text-danger">{errors.years_of_establishment}</div>
+                      )}
+                    </div>
+
+                  </div>
 																		<div className="col-md-12">
 																			<div className="mb-3">
 																				<label className="form-label">

@@ -6,7 +6,7 @@ const PaymentStatusSearch = ({ filters, setFilters}) => {
     const handleSearch = (e) => {
         setFilters((prev) => ({ ...prev, paymentStatus: e.target.value }))
     };
-    const allHospitals = ["Paid", "Not Paid", "Refund"]
+    const allHospitals = [{value:"Paid",Label:"Paid"},{value:"Not Paid",Label:"Not Paid"},{value:"Refund",Label:"Refunded"}]
 
     return (
         <div className="mb-0 position-relative">
@@ -18,7 +18,7 @@ const PaymentStatusSearch = ({ filters, setFilters}) => {
                 <option value={""}>Search By Payment Status</option>
                 {allHospitals.map((item)=>{
                     return(
-                        <option value={item}>{item}</option>
+                        <option value={item.value}>{item.Label}</option>
 
                     )
                 })}
