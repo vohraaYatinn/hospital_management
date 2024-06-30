@@ -197,7 +197,7 @@ export default function AddDoctor() {
     }
     if (!values.phoneNumber) {
       errors.phoneNumber = "Phone number is required";
-    } else if ((values.phoneNumber.length !=10)) {
+    } else if ((values.phoneNumber.length !=14)) {
       console.log(values.phoneNumber.length)
       errors.phoneNumber = "Phone number is not valid";
     }
