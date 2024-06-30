@@ -132,3 +132,4 @@ export const fetchPromoCode = (payload_data) => {
 export const deletePromoCode = (payload_data) => {
   return project.post(Urls.DELETE_PROMO_CODE, payload_data);
 };
+

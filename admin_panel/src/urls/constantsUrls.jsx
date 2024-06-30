@@ -43,4 +43,5 @@ export class Urls {
     static ADD_PROMO_CODE = Urls.MPHRMS_API_PREFIX + 'admin/add-promo-code/';
     static VIEW_PROMO_CODE = Urls.MPHRMS_API_PREFIX + 'admin/view-promo-code/';
     static DELETE_PROMO_CODE = Urls.MPHRMS_API_PREFIX + 'admin/delete-promo-code/';
+
 }

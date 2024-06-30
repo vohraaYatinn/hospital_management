@@ -327,7 +327,7 @@ export default function DoctorProfileSettimg() {
                             name="email"
                             className="form-control"
                             placeholder="Your email :"
-                            defaultValue={doctorProfile?.user?.email}
+                            defaultValue={doctorProfile?.email}
                             onChange={(e)=>{
                                 setFormValues((prev)=>({...prev,"email":e.target.value}))
                             }}

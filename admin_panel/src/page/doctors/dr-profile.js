@@ -16,7 +16,7 @@ import TinySlider from "tiny-slider-react";
 import "tiny-slider/dist/tiny-slider.css";
 
 import { RiTimeFill, FiPhone, FiMail } from "../../assets/icons/vander";
-import { addDoctorByHospital, editDoctorProfile, fetchHospitalDoctorsProfile, handleDelete } from "../../urls/urls";
+import { addDoctorByHospital, editDoctorProfile, fetchDepartmentHospital, fetchHospitalDoctorsProfile, handleDelete } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { test_url_images } from "../../config/environment";
 import { designStarsReviews } from "../../utils/commonFunctions";
@@ -100,6 +100,22 @@ export default function DrProfile() {
 
 
   };
+  const [
+    fetchAllDepartmentResponse,
+    fetchAllDepartmentError,
+    fetchAllDepartmentLoading,
+    fetchAllDepartmentFetch,
+  ] = useAxios();
+
+  const [allDepartments, setAllDepartments] = useState([])
+
+  useEffect(()=>{
+    if(fetchAllDepartmentResponse?.result == "success"){
+      setAllDepartments(fetchAllDepartmentResponse?.data )
+    }
+  },[fetchAllDepartmentResponse])
+
+
   const onChangeTimeAfternoon = (time, timeString) => {
     console.log(timeString)
     if (timeString[0]!='' && timeString[1]!=''){
@@ -159,7 +175,6 @@ export default function DrProfile() {
     // Reset edit mode
     setEditMode(false);
   };
-  const allDepartments = useSelector(GetAllDepartments);
 
   const handleUpload = (e) => {
     const file = e.target.files[0];
@@ -246,6 +261,12 @@ export default function DrProfile() {
     })
     }
   }, [doctorProfileResponse]);
+  useEffect(()=>{
+    if(doctorProfileResponse?.result){
+      fetchAllDepartmentFetch(fetchDepartmentHospital({hospitalId:doctorProfileResponse?.data?.hospital?.id}))
+
+    }
+},[doctorProfileResponse]);
 
   const [formValuesForDelete, setFormValuesForDelete] = useState({
 
@@ -1008,7 +1029,7 @@ export default function DrProfile() {
                       <label className="form-label">Departments</label>
                       <select
                         className="form-select form-control"
-                        value={formValues.department}
+                        value={formValues?.department?.id}
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -1018,7 +1039,7 @@ export default function DrProfile() {
                       >
                            {allDepartments.map((item)=>{
                     return(
-                        <option value={item.id}>{item.name}</option>
+                      <option value={item?.department?.id}>{item?.department?.name}</option>
                     )
                 })}
                       </select>

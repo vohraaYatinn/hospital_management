@@ -476,7 +476,7 @@ export default function AddHospitalProfile() {
                   </div>
                 </div>
 
-                <button className="btn btn-primary" onClick={addHospitalFunc}>
+                <button className="btn btn-primary" onClick={addHospitalFunc} >
                   Add Hospital
                 </button>
               </div>

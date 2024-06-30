@@ -4,7 +4,7 @@ import Wrapper from "../../components/wrapper";
 
 import doctor from "../../assets/images/doctors/01.jpg";
 import useAxios from "../../network/useAxios";
-import { addDoctorByAdmin, fetchAllHospital } from "../../urls/urls.jsx";
+import { addDoctorByAdmin, fetchAllHospital, fetchDepartmentHospital } from "../../urls/urls.jsx";
 import { Alert } from "antd";
 // import { TimePicker } from 'antd';
 import { TimePicker } from "antd";
@@ -14,8 +14,8 @@ import { useSelector } from "react-redux";
 
 export default function AddDoctor() {
   const router = useRouter();
-  const allDepartments = useSelector(GetAllDepartments);
-
+  // const allDepartments = useSelector(GetAllDepartments);
+const [allDepartments, setAllDepartments] = useState([])
   const [formValues, setFormValues] = useState({
     phoneNumber:"+91-"
   });
@@ -124,6 +124,24 @@ export default function AddDoctor() {
     doctorProfileLoading,
     doctorProfileFetch,
   ] = useAxios();
+  const [
+    fetchAllDepartmentResponse,
+    fetchAllDepartmentError,
+    fetchAllDepartmentLoading,
+    fetchAllDepartmentFetch,
+  ] = useAxios();
+  useEffect(()=>{
+    if(formValues?.HospitalsId){
+      fetchAllDepartmentFetch(fetchDepartmentHospital({hospitalId:formValues?.HospitalsId}))
+    }
+  },[formValues?.HospitalsId])
+  useEffect(()=>{
+    console.log("sdasdasdasd")
+    console.log(formValues?.HospitalsId)
+    if(fetchAllDepartmentResponse?.result == "success"){
+      setAllDepartments(fetchAllDepartmentResponse?.data )
+    }
+  },[fetchAllDepartmentResponse])
   const openFile = () => {
     fileInputRef.current.click();
   };
@@ -447,11 +465,14 @@ export default function AddDoctor() {
                       <select
                         className="form-select form-control"
                         onChange={(e) => {
+                          setAllDepartments([])
                           setFormValues((prev) => ({
                             ...prev,
                             HospitalsId: e.target.value,
+                            department:""
                           }));
-                        }}
+                        }
+                      }
                       >
                         <option value="">Select Hospital</option>
 
@@ -469,6 +490,7 @@ export default function AddDoctor() {
                       <label className="form-label">Departments</label>
                       <select
                         className="form-select form-control"
+                        disabled={!formValues?.HospitalsId}
                         onChange={(e) => {
                           setFormValues((prev) => ({
                             ...prev,
@@ -478,9 +500,9 @@ export default function AddDoctor() {
                       >
                    <option>Please Select from dropdown</option>
 
-                    {allDepartments.map((item)=>{
+                    {allDepartments && allDepartments.map((item)=>{
                     return(
-                        <option value={item.id}>{item.name}</option>
+                        <option value={item?.department?.id}>{item?.department?.name}</option>
                     )
                 })}
                       </select>
