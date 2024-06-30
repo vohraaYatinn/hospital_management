@@ -322,7 +322,7 @@ export default function DoctorDashBoard() {
                                                                                     background: "#f0735a",
                                                                                     color: "white"
                                                                                 }}>
-                                            <h6 className="mb-0 ">Canceled<br/>Appointment</h6>
+                                            <h6 className="mb-0 ">Cancelled<br/>Appointment</h6>
                                             <h6 className="mb-0" style={{opacity:"80%"}}>{dashboardDataPatients?.canceled_appointments_count} </h6>
                                         </div>
       

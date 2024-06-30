@@ -77,8 +77,12 @@ export default function DoctorAppointment(){
             name: "Pending"
         },
         {
-            value: "canceled",
-            name: "Canceled"
+            value: "cancel",
+            name: "Cancelled"
+        },
+        {
+            value: "queue",
+            name: "Queued"
         },
     ]
     const searchSlotConstants = [
@@ -240,7 +244,7 @@ export default function DoctorAppointment(){
                                                         <td className="p-3">{item?.patient?.gender =="M"?"Male":"Female"}</td>
                                                         <td className="p-3">{item?.patient?.district}</td>
                                                         <td className={
-                                                            item?.status == "canceled" ? "p-3 color-red" : (item?.status == "pending" || item?.status == "queue")? "p-3 color-yellow" : item?.status == "completed" ? "p-3 color-green" :""
+                                                            item?.status == "cancel" ? "p-3 color-red" : (item?.status == "pending" || item?.status == "queue")? "p-3 color-yellow" : item?.status == "completed" ? "p-3 color-green" :""
                                                         }
                                                         >{item?.status}</td>
                                                         <td className={

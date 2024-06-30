@@ -54,13 +54,13 @@ export default function AdminReviews() {
             name: "Pending"
         },
         {
-            value: "past",
-            name: "Past"
+            value: "cancel",
+            name: "Cancelled"
         },
         {
-            value: "canceled",
-            name: "Canceled"
-        },
+            value: "queue",
+            name: "Queued",
+          },
 
     ]
     const cancelGivenAppointment = () => {

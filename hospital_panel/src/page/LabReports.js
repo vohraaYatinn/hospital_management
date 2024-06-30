@@ -81,7 +81,7 @@ export default function LabReports() {
     },
     {
       value: "cancel",
-      name: "Canceled",
+      name: "Cancelled",
     },
   ];
   const [message, setMessage] = useState({

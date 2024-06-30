@@ -219,7 +219,7 @@ export default function Charts({data, time_period_dict}){
             <div className="col-xl-3 col-lg-6 mt-4">
                 <div className="card shadow border-0 p-4">
                     <div className="d-flex justify-content-between mb-3">
-                        <h6 className="align-items-center mb-0">Canceled<br/>Appointment </h6>
+                        <h6 className="align-items-center mb-0">Cancelled<br/>Appointment </h6>
                     </div>
                     <Chart options={options4} series={options4.series} type="area" width='100%' height={90}/>
                 </div>

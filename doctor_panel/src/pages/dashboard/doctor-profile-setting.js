@@ -25,6 +25,8 @@ export default function DoctorProfileSettimg() {
     fetchDoctorProfileLoading,
     fetchDoctorProfileFetch,
   ] = useAxios();
+  const [errors, setErrors] = useState({});
+
   const [
     changeProfileResponse,
     changeProfileError,
@@ -148,8 +150,28 @@ export default function DoctorProfileSettimg() {
   const changePasswordFunction = () => {
     changePasswordFetch(doctorChangePassword(changePassword));
   };
+  const validate = (values) => {
+    const errors = {};
+    const regex = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/i;
+    if (values?.email && !regex.test(values.email)) {
+      errors.email = "This is not a valid email format!";
+    }
+    if (values?.phoneNumber && values.phoneNumber.length !=14) {
+      console.log(values.phoneNumber.length)
+      errors.phoneNumber = "Phone number is not valid";
+    }
+
+    return errors;
+  };
+
   const changeProfileFunction = () => {
-    changeProfileFetch(doctorChangeProfile(formValues));
+      const errors = validate(formValues);
+      if (Object.keys(errors).length !== 0) {
+        setErrors(errors);
+      } else {
+        setErrors({});
+        changeProfileFetch(doctorChangeProfile(formValues));
+      }
   };
   useEffect(()=>{
     if(changePasswordResponse?.result == "success"){
@@ -310,25 +332,44 @@ export default function DoctorProfileSettimg() {
                                 setFormValues((prev)=>({...prev,"email":e.target.value}))
                             }}
                           />
+                           {errors.email && (
+                        <div className="text-danger">{errors.email}</div>
+                      )}
                         </div>
+                       
                       </div>
 
                       <div className="col-md-6">
                         <div className="mb-3">
                           <label className="form-label">Phone no.</label><div className="input-group">
-                          <span className="input-group-text">+91</span>
                           <input
-                            name="number"
+                            name="text"
                             id="number"
                             defaultValue={doctorProfile?.user?.phone}
-                            type="number"
+                            type="text"
+                            maxLength={14}
                             className="form-control"
                             placeholder="Phone no. :"
-                            onChange={(e)=>{
-                                setFormValues((prev)=>({...prev,"phoneNumber":e.target.value}))
-                            }}
+                            onChange={(e) => {
+                              const value = e.target.value;
+                              const prefix = value.slice(0, 4);
+                              const numericPart = value.slice(4).replace(/[^0-9]/g, '');
+                              setFormValues((prev) => ({
+                                ...prev,
+                                phoneNumber: prefix + numericPart,
+                              }));
+                              }}
+                              onKeyDown={(e) => {
+                                // Prevent backspace from deleting the prefix
+                                if (e.keyCode === 8 && e.target.selectionStart <= 4) {
+                                  e.preventDefault();
+                                }
+                              }}
                           />
                         </div>
+                        {errors.phoneNumber && (
+                        <div className="text-danger">{errors.phoneNumber}</div>
+                      )}
                         </div>
                       </div>
 

@@ -87,7 +87,7 @@ const hospitalActionFunc = () => {
     },
     {
       value: "cancel",
-      name: "Canceled",
+      name: "Cancelled",
     },
     {
       value: "queue",

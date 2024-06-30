@@ -10,7 +10,7 @@ import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircl
 import Modal from 'react-bootstrap/Modal';
 import { CancelAppointmentAdmin, fetchRevenueAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, checkAppointmentStatus, checkPaymentStatus, getTodayDate, handlePagination } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -64,13 +64,13 @@ export default function RevenueTab() {
             name: "Pending"
         },
         {
-            value: "past",
-            name: "Past"
+            value: "cancel",
+            name: "Cancelled"
         },
         {
-            value: "canceled",
-            name: "Canceled"
-        },
+            value: "queue",
+            name: "Queued",
+          },
 
     ]
     const cancelGivenAppointment = () => {
@@ -370,7 +370,7 @@ export default function RevenueTab() {
                     <div className="flex-1 ms-2">
                       <h5 className="mb-0">Rs {panels?.refunds}</h5>
 
-                      <p className="text-muted mb-0">Refunds</p>
+                      <p className="text-muted mb-0">Refunded</p>
                     </div>
                   </div>
                 </div>
@@ -391,6 +391,7 @@ export default function RevenueTab() {
                                                 <th className="border-bottom p-3">Time</th>
                                                 <th className="border-bottom p-3" style={{ minWidth: '200px' }}>Doctor</th>
                                                 <th className="border-bottom p-3">Status</th>
+                                                <th className="border-bottom p-3">Payment Status</th>
                                                 <th className="border-bottom p-3">Payment Mode</th>
                                                 <th className="border-bottom p-3">Hospital Fee</th>
                                                 <th className="border-bottom p-3">Booking Fee</th>
@@ -425,7 +426,8 @@ export default function RevenueTab() {
                                                                 </div>
                                                             </Link>
                                                         </td>
-                                                        <td className="p-3">{item.status}</td>
+                                                        <td className="p-3">{checkAppointmentStatus(item.status)}</td>
+                                                        <td className="p-3">{checkPaymentStatus(item.payment_status)}</td>
                                                         <td className="p-3">{item.payment_mode}</td>
                                                         <td className="p-3">Rs {item?.revenues[0]?.doctor_fees}</td>
                                                         <td className="p-3">Rs {item?.revenues[0]?.booking_amount}</td>

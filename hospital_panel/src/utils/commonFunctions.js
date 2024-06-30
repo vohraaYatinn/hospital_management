@@ -110,7 +110,7 @@ export const getTodayDate = () => {
       "completed":"Completed",
       "pending":"Pending",
       "past": "Past",
-      "cancel": "Canceled",
+      "cancel": "Cancelled",
       "queue":"Queued"
     }
     return values?.[status] || "N/A"

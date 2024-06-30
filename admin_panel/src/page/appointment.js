@@ -59,12 +59,8 @@ export default function Appointment() {
             name: "Pending"
         },
         {
-            value: "past",
-            name: "Past"
-        },
-        {
             value: "cancel",
-            name: "Canceled"
+            name: "Cancelled"
         },
         {
             value: "queue",

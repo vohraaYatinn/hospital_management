@@ -142,7 +142,9 @@ export default function Patients() {
                               </div>
                             </Link>
                           </td>
-                          <td className="p-3">
+                          <td className="p-3" style={{
+                            textWrap:"nowrap"
+                          }}>
                             {item?.user?.phone}
                           </td>
                           <td className="p-3">

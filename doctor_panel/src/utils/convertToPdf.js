@@ -1,6 +1,7 @@
 import html2pdf from 'html2pdf.js';
 
 const convertToPDF = (htmlContent, fileName) => {
+
   const pdfOptions = {
     margin: 0,  // Remove margins
     filename: fileName || "Prescription",  // Use the provided file name or default to "Prescription"
@@ -10,8 +11,15 @@ const convertToPDF = (htmlContent, fileName) => {
   };
 
   // Inline style to remove padding and margin from the HTML content
-  htmlContent.style.margin = '0';
-  htmlContent.style.padding = '0';
+  try{
+    htmlContent.style.margin = '0';
+    htmlContent.style.padding = '0';
+  }
+  catch{
+    
+  }
+
+  
 
   html2pdf().from(htmlContent).set(pdfOptions).save();
 };

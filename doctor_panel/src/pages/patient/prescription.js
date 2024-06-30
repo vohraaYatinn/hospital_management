@@ -219,8 +219,12 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
   </section>
   <section className="middle-names-section">
     <div className="flexible-items" style={{marginTop:"1rem"}}>
-      <p>{doctor?.full_name}</p>
-      <p>Date: {getCurrentDate()}</p>
+      <p style={{
+        fontWeight:700
+      }}>Dr. {doctor?.full_name}</p>
+      <p style={{
+        fontWeight:700
+      }}>Date: {getCurrentDate()}</p>
     </div>
     <p style={{marginTop:"-1rem"}}>{doctor?.specialization}</p>
     <div className="flexible-items-2">

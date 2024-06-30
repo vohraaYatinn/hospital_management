@@ -602,7 +602,7 @@ export default function DrProfile(){
                                 
                                                             <div className="card-body p-0 mt-4">
                                                                 <h5 className="title fw-bold">Phone</h5>
-                                                                <Link to="tel:+152534-468-854" className="link">{doctorsData?.user?.phone}</Link>
+                                                                <Link className="link">{doctorsData?.user?.phone}</Link>
                                                             </div>
                                                         </div>
                                                     </div>

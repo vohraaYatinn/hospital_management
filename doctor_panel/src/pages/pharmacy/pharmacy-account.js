@@ -143,7 +143,7 @@ export default function PharmacyAccount(){
                                                 <tr>
                                                     <td className="p-3">8008</td>
                                                     <td className="p-3">4th November 2020</td>
-                                                    <td className="text-danger p-3">Canceled</td>
+                                                    <td className="text-danger p-3">Cancelled</td>
                                                     <td className="p-3">$ 800 <span className="text-muted">for 1item</span></td>
                                                     <td className="p-3"><Link to="#" className="text-primary">View <i className="uil uil-arrow-right"></i></Link></td>
                                                 </tr>
