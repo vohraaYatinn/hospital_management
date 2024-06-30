@@ -332,7 +332,7 @@ export default function DrProfile() {
         }
         if (!values.phoneNumber) {
           errors.phoneNumber = "Phone number is required";
-        } else if (values.phoneNumber.length < 11) {
+        } else if (values.phoneNumber.length != 14) {
           errors.phoneNumber = "Phone number is not valid";
         }
         return errors;
