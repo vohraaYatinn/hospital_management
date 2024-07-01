@@ -96,6 +96,7 @@ export default function Departments() {
   const [message, setMessage] = useState({
     message: "",
     showMessage: "",
+    type:"success"
   });
   useEffect(() => {
     if (addDepartmentsResponse?.result == "success") {
@@ -103,11 +104,27 @@ export default function Departments() {
       setMessage({
         message: addDepartmentsResponse?.message,
         showMessage: true,
+        type:"success"
+
       });
       setShow(!show);
       fetchDepartmentFunc();
     }
   }, [addDepartmentsResponse]);
+  useEffect(() => {
+    if (addDepartmentssError) {
+      fetchAllDepartmentsFunc()
+      setMessage({
+        message: addDepartmentssError?.response?.data?.message,
+        showMessage: true,
+        type:"error"
+
+
+      });
+      setShow(!show);
+      fetchDepartmentFunc();
+    }
+  }, [addDepartmentssError]);
   useEffect(() => {
     if (allDepartmentsResponse?.result == "success") {
       dispatch(updateDepartments(allDepartmentsResponse?.data));
@@ -261,12 +278,13 @@ export default function Departments() {
                 <Alert
                   style={{ marginTop: "1rem" }}
                   message={message?.message}
-                  type="success"
+                  type={message?.type}
                   closable
                   onClose={() => {
                     setMessage({
                       message: "",
                       showMessage: false,
+                      type:"success"
                     });
                   }}
                 />
