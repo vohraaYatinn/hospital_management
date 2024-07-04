@@ -342,11 +342,11 @@ export default function DoctorProfileSettimg() {
                       <div className="col-md-6">
                         <div className="mb-3">
                           <label className="form-label">Phone no.</label><div className="input-group">
-                          <input
-                            name="text"
-                            id="number"
+                          {/* <input
+                        name="number"
+                        id="number"
+                        type="text"
                             defaultValue={doctorProfile?.user?.phone}
-                            type="text"
                             maxLength={14}
                             className="form-control"
                             placeholder="Phone no. :"
@@ -362,14 +362,43 @@ export default function DoctorProfileSettimg() {
                                 ...prev,
                                 phoneNumber: prefix + numericPart,
                               }));
-                              }}
-                              onKeyDown={(e) => {
-                                // Prevent backspace from deleting the prefix
-                                if (e.keyCode === 8 && e.target.selectionStart <= 4) {
-                                  e.preventDefault();
-                                }
-                              }}
-                          />
+                            }}
+                            onKeyDown={(e) => {
+                              // Prevent backspace from deleting the prefix
+                              if (e.keyCode === 8 && e.target.selectionStart <= 4) {
+                                e.preventDefault();
+                              }
+                            }}
+                          /> */}
+                                                <input
+                        name="number"
+                        id="number"
+                        type="text"
+                        maxLength={14}
+
+                        className="form-control"
+                        value={formValues?.phoneNumber || doctorProfile?.user?.phone}
+                        placeholder="Phone no. :"
+                        onChange={(e) => {
+                          const value = e.target.value;
+                          // Ensure the prefix is always present
+                          const prefix = '+91-';
+                          let numericPart = value.slice(prefix.length).replace(/[^0-9]/g, '');
+                          if (numericPart.length > 10) {
+                            numericPart = numericPart.slice(0, 10);
+                          }
+                          setFormValues((prev) => ({
+                            ...prev,
+                            phoneNumber: prefix + numericPart,
+                          }));
+                        }}
+                          onKeyDown={(e) => {
+                            // Prevent backspace from deleting the prefix
+                            if (e.keyCode === 8 && e.target.selectionStart <= 4) {
+                              e.preventDefault();
+                            }
+                          }}
+                      />
                         </div>
                         {errors.phoneNumber && (
                         <div className="text-danger">{errors.phoneNumber}</div>
