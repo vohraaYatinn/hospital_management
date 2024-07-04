@@ -17,7 +17,7 @@ const InvoiceModal = ({ show,setShow, invoice }) => {
   return (
     <Modal show={show} onHide={handleClose}>
       <Modal.Header closeButton>
-        <Modal.Title>Invoice #{invoice.id}</Modal.Title>
+        <Modal.Title>Invoice No. {invoice.id}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
     {invoice &&
@@ -29,7 +29,7 @@ const InvoiceModal = ({ show,setShow, invoice }) => {
   <div className="col-sm-6">
       <h1>INVOICE</h1>
       <p>
-        Invoice #: {invoice.id}
+      Invoice No.: {invoice.id}
         <br />
         Date: {moment(invoice?.appointment?.date_appointment).format("DD - MM - YYYY")}
         <br />
