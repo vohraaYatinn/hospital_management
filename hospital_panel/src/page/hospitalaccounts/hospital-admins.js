@@ -112,7 +112,7 @@ export default function HospitalAdmins(){
                                             <th className="border-bottom p-3">Email</th>
                                             <th className="border-bottom p-3">Hospital</th>
                                             <th className="border-bottom p-3">Created At</th>
-                                            <th className="border-bottom p-3">Action</th>
+                                            <th className="border-bottom p-3">Change Password</th>
                                         </tr>
                                     </thead>
                                     <tbody>
