@@ -31,7 +31,7 @@ const InvoiceModal = ({ show,setShow, invoice }) => {
       <p>
         Invoice #: {invoice.id}
         <br />
-        Date: {moment(invoice?.appointment?.date_appointment).format("DD, MM, YYYY")}
+        Date: {moment(invoice?.appointment?.date_appointment).format("DD - MM - YYYY")}
         <br />
       </p>
     </div>
