@@ -138,7 +138,7 @@ export default function Review(){
                                                 <tr>
                                                     <th className="border-bottom p-3" style={{minWidth:'200px'}}> {value4 == "doctors" ? "Doctor Name" : "Hospital Name"}</th>
                                                     <th className="border-bottom p-3" style={{minWidth:'200px'}}>Patient Name</th>
-                                                    <th className="border-bottom p-3" style={{minWidth:'150px'}}>Email</th>
+                                                    <th className="border-bottom p-3" style={{minWidth:'150px'}}>Phone</th>
                                                     <th className="border-bottom p-3" style={{minWidth:'150px'}}>Stars</th>
                                                     <th className="border-bottom p-3" style={{minWidth:'350px'}}>Comments</th>
                                                     <th className="border-bottom p-3" style={{minWidth:'150px'}}>Date</th>
@@ -163,7 +163,9 @@ export default function Review(){
                                                                     </div>
                                                                 </Link>
                                                             </td>
-                                                            <td className="p-3">{value4=="doctors" ? item?.doctor?.email :item?.hospital?.email }</td>
+                                                            <td className="p-3" style={{
+                                                                textWrap:"nowrap"
+                                                            }}>{ item?.patient?.user?.phone}</td>
                                                             <td className="p-3">
                                                                 <ul className="list-unstyled mb-0">
                                                                     {item?.reviews_star && designStarsReviews(item?.reviews_star)}

@@ -343,29 +343,38 @@ export default function AddHospitalProfile() {
                     <div className="mb-3">
                       <label className="form-label">Hospital Phone no.</label>
                       <input
-                        name="number"
-                        id="number"
-                        type="text"
-                        maxLength={14}
-                        className="form-control"
-                        placeholder="Phone no. :91"
-                        value={formValue?.phoneNumber}
-                        onChange={(e) => {
-                          const value = e.target.value;
-                          const prefix = value.slice(0, 4);
-                          const numericPart = value.slice(4).replace(/[^0-9]/g, '');
-                          setFormValue((prev) => ({
-                            ...prev,
-                            phoneNumber: prefix + numericPart,
-                          }));
-                        }}
-                        onKeyDown={(e) => {
-                          // Prevent backspace from deleting the prefix
-                          if (e.keyCode === 8 && e.target.selectionStart <= 4) {
-                            e.preventDefault();
-                          }
-                        }}
-                      />
+      name="number"
+      id="number"
+      type="text"
+      maxLength={14}
+      className="form-control"
+      placeholder="Phone no. +91-"
+      value={formValue?.phoneNumber}
+      
+      onChange={(e) => {
+        const value = e.target.value;
+        // Ensure the prefix is always present
+        const prefix = '+91-';
+        let numericPart = value.slice(prefix.length).replace(/[^0-9]/g, '');
+        if (numericPart.length > 10) {
+          numericPart = numericPart.slice(0, 10);
+        }
+        setFormValue((prev) => ({
+          ...prev,
+          phoneNumber: prefix + numericPart,
+        }));
+      }}
+      onKeyDown={(e) => {
+        // Prevent backspace from deleting the prefix
+        if (e.keyCode === 8 && e.target.selectionStart <= 4) {
+          e.preventDefault();
+        }
+        // Prevent cursor from moving to the left of the prefix
+        if (e.keyCode === 37 && e.target.selectionStart <= 4) {
+          e.preventDefault();
+        }
+      }}
+    />
                       {errors.phoneNumber && (
                         <div className="text-danger">{errors.phoneNumber}</div>
                       )}

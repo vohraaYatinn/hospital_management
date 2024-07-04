@@ -25,7 +25,7 @@ export const calculateAge = (dateOfBirth) => {
     if (dayDifference < 0) {
       monthDifference--;
     }
-    return `${monthDifference} Mnts`;
+    return `${monthDifference} Mon`;
   }
 
 

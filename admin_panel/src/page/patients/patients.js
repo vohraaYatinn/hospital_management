@@ -11,7 +11,6 @@ import useAxios from "../../network/useAxios";
 import { PaginationCountList, calculateAge, handlePagination } from "../../utils/commonFunctions";
 import moment from "moment";
 import PatientName from "../../common-components/PatientName";
-import DoctorSearch from "../../common-components/DoctorsSearch";
 
 import {
     LiaTimesCircleSolid,
@@ -108,12 +107,6 @@ export default function Patients(){
                                 <div className="col-sm-6 col-lg-3">
                                     <PatientName filters={filters} setFilters={setFilters} />
                                 </div>
-                                <div className="col-sm-6 col-lg-3">
-                                    <DoctorSearch filters={filters} setFilters={setFilters} />
-                                </div>
-                            
-                                    </div>
-                                    <div className="row" style={{ marginTop: "1rem" }}>
 
                                     <div className="col-sm-6 col-lg-3">
                                        <button
@@ -129,8 +122,8 @@ export default function Patients(){
                                         style={{backgroundColor:"red"}}
                                        >Reset</button>
 
-                                    </div>
-                                </div>
+                                </div>                                    </div>
+
                         <div className="col-12 mt-4">
                             <div className="table-responsive shadow rounded">
                                 <table className="table table-center bg-white mb-0">
@@ -146,9 +139,9 @@ export default function Patients(){
                                             {/* <th className="border-bottom p-3">Address</th> */}
                                             <th className="border-bottom p-3">District</th>
                                             <th className="border-bottom p-3">Blood Group</th>
-                                            <th className="border-bottom p-3">Weight (Kg)</th>
+                                            <th className="border-bottom p-3">Block</th>
                                             <th className="border-bottom p-3">Created At</th>
-                                            <th className="border-bottom p-3" style={{minWidth:'100px'}}></th>
+                                            <th className="border-bottom p-3" style={{minWidth:'100px'}}>Change Password</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -173,8 +166,12 @@ export default function Patients(){
                                                     <td className="p-3">{item.district}</td>
                                                     {/* <td className="p-3">{item.address}</td> */}
                                                     <td className="p-3">{item.blood_group}</td>
-                                                    <td className="p-3">{item.weight}</td>
-                                                    <td className="p-3">{moment(item.created_at).format('YYYY-MM-DD')}</td>
+                                                    <td className="p-3" style={{
+                                                        textWrap:"nowrap"
+                                                    }}>{item.block}</td>
+                                                    <td className="p-3" style={{
+                                                        textWrap:"nowrap"
+                                                    }}>{moment(item.created_at).format('YYYY-MM-DD')}</td>
                                                     <td className="p-3">{
                                                            <Link
                                                            to="#"

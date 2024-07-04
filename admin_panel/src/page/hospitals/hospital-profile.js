@@ -717,8 +717,12 @@ const performActionRequest = () => {
 																					value={formValues.phoneNumber}
 																					onChange={(e) => {
 																						const value = e.target.value;
-																						const prefix = value.slice(0, 4);
-																						const numericPart = value.slice(4).replace(/[^0-9]/g, '');
+																						// Ensure the prefix is always present
+																						const prefix = '+91-';
+																						let numericPart = value.slice(prefix.length).replace(/[^0-9]/g, '');
+																						if (numericPart.length > 10) {
+																						  numericPart = numericPart.slice(0, 10);
+																						}
 																						setFormValues((prev) => ({
 																						  ...prev,
 																						  phoneNumber: prefix + numericPart,

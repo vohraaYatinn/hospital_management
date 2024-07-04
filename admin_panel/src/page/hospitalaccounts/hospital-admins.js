@@ -172,7 +172,7 @@ export default function HospitalAdmins(){
                                             <th className="border-bottom p-3" style={{minWidth:'180px'}}>Hospital Name</th>
                                             <th className="border-bottom p-3">Email</th>
                                             <th className="border-bottom p-3">Date</th>
-                                            <th className="border-bottom p-3">Options</th>
+                                            <th className="border-bottom p-3">Change Password</th>
                                         </tr>
                                     </thead>
                                     <tbody>

@@ -88,26 +88,21 @@ export default function TopHeader({ toggle, setToggle }) {
               />
             </span>
           </Link>
-          <Link
-            onClick={() => setToggle(!toggle)}
-            className="btn btn-icon btn-pills btn-soft-primary ms-2"
-            to="#"
-          >
-            <FaBars />
-          </Link>
+          
         </div>
 
             <div className="dropdown dropdown-primary">
               <button
                 type="button"
-                className="btn btn-pills btn-soft-primary dropdown-toggle p-0"
+                className="btn btn-icon btn-pills btn-soft-primary ms-2"
                 onClick={() => setUserModal(!userModal)}
               >
-                <img
+                <FaBars />
+                {/* <img
                   src={doctor1}
                   className="avatar avatar-ex-small rounded-circle"
                   alt=""
-                />
+                /> */}
               </button>
               <div
               ref={dropdownRef}

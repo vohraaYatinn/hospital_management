@@ -237,51 +237,64 @@ export default function Charts({ageChart, genderData, pieChart, setFormPie, ageG
 
  
 
-        <div className="col-xl-6 col-lg-6 mt-4">
-            <div className="card shadow border-0 p-4">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h6 className="align-items-center mb-0">Patients Visit By Department</h6>
-                    
-                    <div className="mb-0 position-relative">
-                        <select className="form-select form-control" id="dailychart" onChange={(e)=>{
-                            setFormPie(e.target.value)
-                        }}>
+      
+    <div className="col-xl-6 col-lg-6 mt-4" style={{
+        height:"500px"
+    }}>
+        <div className="card shadow border-0 p-4 h-100" style={{
+            display:"flex",
+
+        }}>
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <h6 className="align-items-center mb-0">Patients Visit By Department</h6>
+                <div className="mb-0 position-relative">
+                    <select className="form-select form-control" id="dailychart" onChange={(e)=>{
+                        setFormPie(e.target.value)
+                    }}>
                         <option value={"week"}>Week</option>
-                            <option value={"month"}>Month</option>
-                            <option value={"year"}>Year</option>
-                        </select>
-                    </div>
+                        <option value={"month"}>Month</option>
+                        <option value={"year"}>Year</option>
+                    </select>
                 </div>
-                <Chart options={options2} series={options2.series} type="pie" width='100%' height={350} />
             </div>
+            
+            <Chart options={options2} series={options2.series} type="pie" width='100%' height={350} style={{
+                marginTop:"2rem"
+            }} />
         </div>
-        <div className="col-xl-6 col-lg-6 mt-4">
-            <div className="card shadow border-0 p-4">
-                <div className="d-flex justify-content-between align-items-center mb-3">
-                    <h6 className="align-items-center mb-0">Doctor's Performance</h6>
-                    
-                    <div className="mb-0 position-relative d-flex">
-                        <select className="form-select form-control" id="dailychart" onChange={(e)=>{
-                            setSelectedDoctor(e.target.value)
-                        }}>
-                            {allDoctors && allDoctors.map((e)=>{
-                                return (
-                                    <option value={e.id}>{e.full_name}</option>
-                                )
-                            })}
-                        </select>
-                        <select className="form-select form-control ml-4" id="dailychart" onChange={(e)=>{
-                            setCompletedParam(e.target.value)
-                        }}>
+    </div>
+    <div className="col-xl-6 col-lg-6 mt-4" 
+    style={{
+        height:"500px"
+    }}
+    >
+        <div className="card shadow border-0 p-4 h-100">
+            <div className="d-flex justify-content-between align-items-center mb-3">
+                <h6 className="align-items-center mb-0">Doctor's Performance</h6>
+                <div className="mb-0 position-relative d-flex">
+                    <select className="form-select form-control" id="dailychart" onChange={(e)=>{
+                        setSelectedDoctor(e.target.value)
+                    }}>
+                        {allDoctors && allDoctors.map((e)=>{
+                            return (
+                                <option value={e.id}>{e.full_name}</option>
+                            )
+                        })}
+                    </select>
+                    <select className="form-select form-control ml-4" id="dailychart" onChange={(e)=>{
+                        setCompletedParam(e.target.value)
+                    }}>
                         <option value={"week"}>Week</option>
-                            <option value={"month"}>Month</option>
-                            <option value={"year"}>Year</option>
-                        </select>
-                    </div>
+                        <option value={"month"}>Month</option>
+                        <option value={"year"}>Year</option>
+                    </select>
                 </div>
-                <Chart options={lineChartOptions} series={lineChartOptions.series} type="line" width='100%' height={350} />
             </div>
+            <Chart options={lineChartOptions} series={lineChartOptions.series} type="line" width='100%' height={350} />
         </div>
+    </div>
+
+
         </>
     )
 }

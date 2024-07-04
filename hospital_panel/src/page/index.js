@@ -269,7 +269,7 @@ export default function Index() {
                     <div className="flex-1 ms-2">
                       <h5 className="mb-0">{dashboardDetails?.admin}</h5>
 
-                      <p className="text-muted mb-0">Total Admins</p>
+                      <p className="text-muted mb-0">Average Reviews</p>
                     </div>
                   </div>
                 </div>

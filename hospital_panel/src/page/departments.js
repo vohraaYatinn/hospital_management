@@ -193,9 +193,7 @@ export default function Departments() {
                                       }));
                                     }}
                                   >
-                                    <option value="new">
-                                      Add New Department
-                                    </option>
+                                  
                                     {departmentsSoftware.map((items) => {
                                       return (
                                         <option value={items.id}>
@@ -207,52 +205,8 @@ export default function Departments() {
                                 </div>
                               </div>
 
-                              <div className="col-lg-12">
-                                <div className="mb-3">
-                                  <label className="form-label">
-                                    Add New Department{" "}
-                                    <span className="text-danger">*</span>
-                                  </label>
-                                  <input
-                                    name="department"
-                                    id="comments"
-                                    rows="4"
-                                    className="form-control"
-                                    placeholder="New Department Name :"
-                                    disabled={formValues?.departmentId != "new"}
-                                    onChange={(e) => {
-                                      setFormValues((prev) => ({
-                                        ...prev,
-                                        departmentName: e.target.value,
-                                      }));
-                                    }}
-                                  ></input>
-                                </div>
-                              </div>
-                              <div className="col-lg-12">
-                                <div className="mb-3">
-                                  <label className="form-label">
-                                    Description{" "}
-                                    {/* <span className="text-danger">*</span> */}
-                                  </label>
-                                  <textarea
-                                    name="comments"
-                                    id="comments"
-                                    rows="4"
-                                    className="form-control"
-                                    placeholder="Your Message :"
-                                    disabled={formValues?.departmentId != "new"}
-                                    onChange={(e) => {
-                                      setFormValues((prev) => ({
-                                        ...prev,
-                                        departmentComments: e.target.value,
-                                      }));
-                                    }}
-                                  ></textarea>
-                                </div>
-                              </div>
 
-                              <div className="col-lg-12">
+                              <div className="col-lg-12 mt-4">
                                 <div className="d-grid">
                                   <button
                                     type="submit"

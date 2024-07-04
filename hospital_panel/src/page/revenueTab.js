@@ -33,7 +33,6 @@ export default function RevenueTab() {
     const [selectedAppointment, setSelectedAppointment]= useState()
 
     const [filters, setFilters] = useState({
-        "date":getTodayDate()
     })
     const [paginationNumber, setPaginationNumber] = useState({
         from:0,

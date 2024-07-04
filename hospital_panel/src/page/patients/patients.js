@@ -13,7 +13,6 @@ import { fetchPatientsHospitals } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { PaginationCountList, calculateAge, handlePagination } from "../../utils/commonFunctions";
 import moment from "moment";
-import DoctorSearch from "../../common-components/DoctorsSearch";
 import DepartmentSearch from "../../common-components/DepartmentSearch";
 import PatientName from "../../common-components/PatientName";
 
@@ -68,9 +67,7 @@ export default function Patients() {
               <div className="col-sm-6 col-lg-3">
                 <PatientName filters={filters} setFilters={setFilters} />
               </div>
-              <div className="col-sm-6 col-lg-3">
-                <DoctorSearch filters={filters} setFilters={setFilters} />
-              </div>
+             
               <div className="col-sm-6 col-lg-3">
                 <DepartmentSearch filters={filters} setFilters={setFilters} />
               </div>
@@ -120,7 +117,7 @@ export default function Patients() {
                       {/* <th className="border-bottom p-3">Address</th> */}
                       <th className="border-bottom p-3">District</th>
                       <th className="border-bottom p-3">Blood Group</th>
-                      <th className="border-bottom p-3">Weight (Kg)</th>
+                      <th className="border-bottom p-3">Block</th>
                       <th className="border-bottom p-3">Created At</th>
                       <th
                         className="border-bottom p-3"
@@ -155,8 +152,14 @@ export default function Patients() {
                           <td className="p-3">{item.district}</td>
                           {/* <td className="p-3">{item.address}</td> */}
                           <td className="p-3">{item.blood_group}</td>
-                          <td className="p-3">{item.weight}</td>
-                          <td className="p-3">
+                          <td className="p-3" style={{
+                            textWrap:"nowrap"
+                          }}>{item.block}</td>
+                          <td className="p-3"
+                          style={{
+                            textWrap:"nowrap"
+                          }}
+                          >
                             {moment(item.created_at).format("YYYY-MM-DD")}
                           </td>
                         </tr>
