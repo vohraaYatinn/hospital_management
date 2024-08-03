@@ -195,7 +195,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
     <>
     <div style={prescriptionStyle} id="pres_new">
     <div>
-  <section className="green-background-color-1" style={{
+  <section className="green-background-color-1" id="header" style={{
     display:"flex", alignItems:"center", justifyContent:"space-around"
   }}>
     <div>
@@ -429,7 +429,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         <p>Doctor's Signature <img src={signatureBased} style={{height:"3rem", marginLeft:"1rem"}}/></p>
       </div>
       </section>}
-  <section className="green-background-color-2" style={{marginTop:doctorSign && "7rem"}}>
+  <section className="green-background-color-2" id="footer" style={{marginTop:doctorSign && "7rem"}}>
     <div className="text-bottom">
       <p>www.ujurcare.com || support @ujurcare.com</p>
     </div>
