@@ -17,8 +17,6 @@ import { test_url_images } from "../../config/environment";
 import convertToPDF from "../../utils/convertToPdf";
 import { Alert } from "antd";
 
-
-
 export default function DoctorAppointment(){
     const [appointmentsResponse, appointmentsError, appointmentsLoading, appointmentsFetch] = useAxios();
     const [changeQueueResponse, changeQueueError, changeQueueLoading, changeQueueFetch] = useAxios();
@@ -31,6 +29,7 @@ export default function DoctorAppointment(){
       });
     let [show, setShow] = useState(false);
     const [htmlDataS, setHTMLData] = useState('');
+    const [selectedData, setSelectedData] = useState('');
 
     const [appointmentData, setAppointmentData] = useState([])
     const [filterValues, setFilterValues] = useState({});
@@ -267,6 +266,7 @@ export default function DoctorAppointment(){
                                                         onClick={()=>{
                                                             setShow(true)
                                                             setHTMLData(item.pdf_content)
+                                                            setSelectedData(item)
                                                         }}
                                                         >View</button>}</td>
                             <td className="p-3">
@@ -305,8 +305,7 @@ export default function DoctorAppointment(){
      className="btn btn-primary"
      style={{marginRight:"1rem" , marginTop:"2rem"}}
      onClick={()=>{
-       convertToPDF(        htmlDataS
-,"Prescription"        )
+        window.open(test_url_images + selectedData.prescription, '_blank');
      }}
      >Download</button>
                             </Modal.Body>

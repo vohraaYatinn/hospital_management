@@ -30,7 +30,7 @@ import { test_url_images } from "../../config/environment";
 export default function PatientProfile() {
   const { id, appointment } = useParams()
   const dispatch = useDispatch();
-
+  const [pdfGenerateDownload, setPdfGenerateDownload] = useState(false)
   const [patientProfileResponse, patientProfileError, patientProfileLoading, patientProfileFetch] = useAxios();
   const [uploadDocumentResponse, uploadDocumentError, uploadDocumentLoading, uploadDocumentFetch] = useAxios();
   const [addNewResponse, addNewError, addNewLoading, addNewFetch] = useAxios();
@@ -61,7 +61,8 @@ export default function PatientProfile() {
       uploadDocumentFetch(uploadDocumentPrescription({
         htmlContent: htmlContent.innerHTML,
         appointmentDetails: appointment,
-        doctorComment: doctorComment
+        doctorComment: doctorComment,
+        pdf:pdfGenerateDownload
       })
       )
     }
@@ -472,7 +473,7 @@ fontSize:"1.4rem"      }}/>
                                 </Modal.Title>
                               </Modal.Header>
                               <Modal.Body>
-                                <Prescription patient={patientsData} medication={medication} prescription={prescription} setPDFFile={setPDFFile} generatePrescription={generatePrescription} />
+                                <Prescription patient={patientsData} medication={medication} prescription={prescription} setPDFFile={setPDFFile} generatePrescription={generatePrescription} setPdfGenerateDownload={setPdfGenerateDownload} pdfGenerateDownload={pdfGenerateDownload} />
                               </Modal.Body>
                             </Modal>
                             <Modal

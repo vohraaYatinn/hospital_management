@@ -1,8 +1,35 @@
 import html2pdf from 'html2pdf.js';
 import html2canvas from 'html2canvas';
+import { test_url } from '../config/environment';
 
-const convertToPDF = async (htmlContent, fileName) => {
-  
+
+const uploadPDF = async (pdfBlob, fileName, headerElement, footerElement, setPdfGenerateDownload) => {
+  try {
+    const formData = new FormData();
+    // formData.append('file', pdfBlob, fileName);
+    // console.log(pdfBlob)
+    // const response = await fetch(test_url+"api/v2/doctors/upload-prescription/", {
+    //   method: 'POST',
+    //   body: formData
+    // });
+
+    setPdfGenerateDownload(pdfBlob)
+
+    headerElement.style.display = '';
+    footerElement.style.display = '';
+
+    // if (!response.ok) {
+    //   throw new Error('Failed to upload PDF');
+    // }
+    
+    // return await response.json();  // Assuming your backend responds with JSON
+  } catch (error) {
+    console.error('Error uploading PDF:', error);
+  }
+};
+
+
+const convertToPDFAndBackend = async (htmlContent, fileName, setPdfGenerateDownload) => {
   const pdfOptions = {
     margin: [40, 10, 40, 10],  // Margins: [top, left, bottom, right]
     filename: "Prescription.pdf",
@@ -52,11 +79,14 @@ const convertToPDF = async (htmlContent, fileName) => {
   }
 
   // Save the PDF
-  adjustedPdf.save("Prescription.pdf");
-  
+  const pdfBlob = adjustedPdf.output('blob');
+  await uploadPDF(pdfBlob, fileName,headerElement, footerElement , setPdfGenerateDownload);
+
+
+  // Upload the PDF to the backend
+
   // Restore header and footer visibility
-  headerElement.style.display = '';
-  footerElement.style.display = '';
+
 };
 
-export default convertToPDF;
+export default convertToPDFAndBackend;

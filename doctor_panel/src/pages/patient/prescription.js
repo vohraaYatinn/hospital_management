@@ -8,6 +8,7 @@ import playstoreBar from "../../assets/play-store.jpg"
 import playstore from "../../assets/playstore.png"
 import { useSelector } from 'react-redux';
 import { doctorDetails } from '../../redux/reducers/functionalities.reducer';
+import convertToPDFAndBackend from '../../utils/convertToPdfAndBackend';
 
 const prescriptionStyle = {
   fontFamily: 'Arial, sans-serif',
@@ -77,16 +78,23 @@ const doctorSignatureTextStyle = {
   margin: '0',
 };
 
-function Prescription({patient, prescription, medication, setPDFFile, generatePrescription}) {
+function Prescription({patient, prescription, medication, setPDFFile, generatePrescription, setPdfGenerateDownload, pdfGenerateDownload}) {
 
   let doctor = useSelector(doctorDetails);
-
+  const [disableTrue, setDisableTrue] = useState(false)
   const [logoBase64, setLogoBase64] = useState('');
   const [signatureBased, setSignatureBased] = useState('');
   const [ujurBase64, setUjurBased64] = useState('');
   const [playstore64, setplaystore64] = useState('');
   const [barcode64, setBarcode64] = useState('');
+  useEffect(()=>{
+    if(pdfGenerateDownload){
+      setDisableTrue(false)
+      submitPrescription()
 
+    }
+
+  },[pdfGenerateDownload])
   useEffect(() => {
     const fetchLogo = async () => {
       try {
@@ -459,13 +467,17 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
      className="btn btn-primary"
      style={{marginRight:"1rem"}}
      onClick={()=>{
-       convertToPDF(        document.getElementById('pres_new')
-,"Prescription"        )
+      
+       convertToPDF(document.getElementById('pres_new')
+,"Prescription"  )
      }}
      >Download</button>
      <button
-     onClick={()=>{
-      submitPrescription()
+     disabled={disableTrue}
+     onClick={async()=>{
+      setDisableTrue(true)
+      await convertToPDFAndBackend(document.getElementById('pres_new')
+      ,"Prescription", setPdfGenerateDownload  )
      }}
      className="btn btn-primary"
      >Submit</button>

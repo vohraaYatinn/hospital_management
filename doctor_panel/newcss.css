@@ -50,10 +50,10 @@ body{
     padding-bottom: 12px;
 }
 .names-address-section{
+    min-height: 25rem;
     border-top: 0.5px solid black;
     border: 0.5px solid black;
     display: flex;
-    min-height: 35rem;
 }
 .right-side-border{
     border-right: 0.5px solid black;

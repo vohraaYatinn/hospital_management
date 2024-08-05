@@ -46,7 +46,7 @@ export const fetchPatientProfile = (payload_data) => {
   return project.get(Urls.DOCTOR_PATIENT_PROFILE_GET, payload_data);
 };
 export const uploadDocumentPrescription = (payload_data) => {
-  return project.post(Urls.UPLOAD_DOCUMENT_PRESCRIPTION, payload_data);
+  return project.multiPartFormData(Urls.UPLOAD_DOCUMENT_PRESCRIPTION, payload_data);
 };
 export const doctorLeaveFunction = (payload_data) => {
   return project.get(Urls.DOCTOR_FETCH_LEAVE, payload_data);

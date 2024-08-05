@@ -47,7 +47,7 @@ body{
     flex-direction: column;
 }
 .names-address-section{
-    min-height: 35rem;
+    min-height: 25rem;
     border-top: 0.5px solid black;
     border: 0.5px solid black;
     display: flex;
