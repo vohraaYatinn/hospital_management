@@ -96,3 +96,14 @@ body{
 .something{
     text-align: center;
 }
+
+
+
+.element-to-avoid-break {
+    page-break-inside: avoid;
+  }
+
+
+
+
+  
