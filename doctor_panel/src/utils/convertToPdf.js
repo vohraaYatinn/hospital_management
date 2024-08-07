@@ -4,7 +4,7 @@ import html2canvas from 'html2canvas';
 const convertToPDF = async (htmlContent, fileName) => {
   
   const pdfOptions = {
-    margin: [40, 10, 40, 10],  // Margins: [top, left, bottom, right]
+    margin: [30, 10, 40, 10],  // Margins: [top, left, bottom, right]
     filename: "Prescription.pdf",
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
@@ -43,13 +43,31 @@ const convertToPDF = async (htmlContent, fileName) => {
   const adjustedPdf = await html2pdf().from(htmlContent).set(pdfOptions).toPdf().get('pdf');
 
   // Add header and footer to each page
+  const margin = 15.2;
+
   for (let i = 1; i <= totalPages; i++) {
     adjustedPdf.setPage(i);
+    
     // Add header
-    adjustedPdf.addImage(headerImgData, 'PNG', 0, 0, pageWidth, headerHeight);
+      adjustedPdf.addImage(headerImgData, 'PNG', 0, 0, pageWidth, headerHeight);
+    
+    // Add line below header with margins
+    adjustedPdf.setLineWidth(0.2); // Set the line width (adjust as needed)
+    if(i != 1){
+      adjustedPdf.line(margin, headerHeight + 10, pageWidth - margin, headerHeight + 10); // Draw the line below the header with margins
+    }
+    
     // Add footer
     adjustedPdf.addImage(footerImgData, 'PNG', 0, pageHeight - footerHeight, pageWidth, footerHeight);
+    
+    // Add line above footer with margins
+    if(i != totalPages){
+      adjustedPdf.line(margin, pageHeight - footerHeight - 10, pageWidth - margin, pageHeight - footerHeight - 10); // Draw the line above the footer with margins
+    }
   }
+  
+  
+  
 
   // Save the PDF
   adjustedPdf.save("Prescription.pdf");

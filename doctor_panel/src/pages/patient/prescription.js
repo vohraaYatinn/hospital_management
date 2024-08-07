@@ -170,8 +170,10 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
       <img style={{height:"4rem", width:"7rem"}} src={ujurBase64} alt="" />
     </div>
   </section>
-  <section className="middle-names-section">
-    <div className="flexible-items" style={{marginTop:"1rem"}}>
+  <section className="middle-names-section" style={{
+    pageBreakInside:"avoid"
+  }}>
+    <div className="flexible-items" style={{marginTop:"0rem"}}>
       <p style={{
         fontWeight:700
       }}>Dr. {doctor?.full_name}</p>
