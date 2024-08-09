@@ -247,7 +247,6 @@ useEffect(()=>{
       medicineName: "",
       dosage: "",
       timings: "BF",
-      comments: "",
       duration: "day",
     });
   };

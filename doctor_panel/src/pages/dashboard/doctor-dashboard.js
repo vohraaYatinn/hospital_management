@@ -17,6 +17,7 @@ import { calculateAge } from "../../utils/commonFunctions";
 import { useDispatch } from "react-redux";
 import { updateMedicines } from "../../redux/reducers/functionalities.reducer";
 import ab from "../../assets/profile.png"
+import AppointmentSlots from "../../common-components/SlotsSearch";
 
 
 export default function DoctorDashBoard() {
@@ -45,14 +46,15 @@ export default function DoctorDashBoard() {
     useEffect(() => {
             dashboardDataFetch(fetchDoctorDashboard({time:radio}))
     }, [radio])
+    const getTodayDate = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const month = String(today.getMonth() + 1).padStart(2, '0');
+        const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
+      };
     useEffect(() => {
-        const getTodayDate = () => {
-          const today = new Date();
-          const year = today.getFullYear();
-          const month = String(today.getMonth() + 1).padStart(2, '0');
-          const day = String(today.getDate()).padStart(2, '0');
-          return `${year}-${month}-${day}`;
-        };
+
     
         setFilters((prevFilters) => ({
           ...prevFilters,
@@ -119,8 +121,8 @@ export default function DoctorDashBoard() {
                                 </div>
                             <div className="row">
                                 <div className="col-xl-3 col-lg-3 col-md-3 mt-1 mt-sm-0 " >
-                                    <label style={{marginTop:'1.3rem'}}>Appointment Dates</label>
-                                    <DateSearchComponent filters={filters} setFilters={setFilters} ref={dateRef}
+                                    <label style={{marginTop:'1.5rem'}}>{getTodayDate()}</label>
+                                    <AppointmentSlots filters={filters} setFilters={setFilters} ref={dateRef}
                                     onClick={()=>{
                                         dateRef.current.click()
                                     }}

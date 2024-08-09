@@ -210,7 +210,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
   </section>
   <section>
     <div className="names-address-section">
-    <div className="watermark">UJUR</div> 
+    <div className="watermark" id="watermark">UJUR</div> 
       <div className="right-side-border">
       {prescription?.symptoms.length >0 &&
               <div className="col-md-12 mt-4">
