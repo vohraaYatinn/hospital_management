@@ -501,7 +501,9 @@ fontSize:"1.4rem"      }}/>
 
 
                           <div className="row">
-                            <div className="col-lg-12 col-12 mt-4">
+                            <div className="col-lg-12 col-12 mt-4" style={{
+                              minHeight:"15rem"
+                            }}>
                               {patientsData?.appointments.map((item, index) => {
                                 return (
                                   <div className="row rounded shadow" style={{ margin: "1rem", marginBottom: "2rem" }}>
