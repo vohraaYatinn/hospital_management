@@ -245,7 +245,7 @@ export default function PromoCodes(){
                                         {departmentsValues.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                             return(
                                                 <tr key={index}>
-                                                <td className="p-3">{index+1}</td> {/* ID */}
+                                                <td className="p-3">{paginationNumber.from+index+1}</td> {/* ID */}
                                                 <td className="p-3">
                                                     <Link to="#" className="text-dark">
                                                         <div className="d-flex align-items-center">

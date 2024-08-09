@@ -401,7 +401,7 @@ export default function RevenueTab() {
                                             {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                                                 return (
                                                     <tr key={index}>
-                                                        <td className="p-3">{index+1}</td>
+                                                        <td className="p-3">{paginationNumber.from+index+1}</td>
 
                                                         <td className="p-3">
                                                             <Link to="#" className="text-dark">

@@ -120,7 +120,7 @@ export default function PatientReview(){
                                             {patientReviews.slice(paginationNumber.from, paginationNumber.to).map((item, index) =>{
                                                 return(  
                                                     <tr key={index}>
-                                                        <td className="p-3">{index+1}</td>
+                                                        <td className="p-3">{paginationNumber.from+index+1}</td>
                                                         <td className="p-3">{changeDateFormat(item?.created_at)}</td>
                                                         <td className="p-3">{designStarsReviews(item?.reviews_star)}</td>
                                                         <td className="p-3">{item?.comment && item?.comment.length > 40 ? <><Tooltip placement="topRight" title={item?.comment} >{item?.comment.slice(0,40)} <span style={{color:"blue", cursor:"pointer", fontSize:"0.7rem"}}>....Read More</span> </Tooltip></>: item?.comment }</td>

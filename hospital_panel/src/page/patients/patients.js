@@ -129,7 +129,7 @@ export default function Patients() {
                     {patientData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                       return (
                         <tr key={index}>
-                          <th className="p-3">{index+1}</th>
+                          <th className="p-3">{paginationNumber.from+index+1}</th>
                           <th className="p-3">{item.ujur_id}</th>
                           <td className="py-3">
                             <Link to="#" className="text-dark">
