@@ -2,10 +2,9 @@ import html2pdf from 'html2pdf.js';
 import html2canvas from 'html2canvas';
 
 const convertToPDF = async (htmlContent, fileName) => {
-  
   const pdfOptions = {
-    margin: [30, 10, 40, 10],  // Margins: [top, left, bottom, right]
-    filename: "Prescription.pdf",
+    margin: [40, 0, 40, 0],  // Initial margins: [top, left, bottom, right]
+    filename: fileName || "Prescription.pdf",
     image: { type: 'jpeg', quality: 0.98 },
     html2canvas: { scale: 2 },
     jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
@@ -37,41 +36,34 @@ const convertToPDF = async (htmlContent, fileName) => {
   // Adjust margins to account for header and footer
   const contentMarginTop = headerHeight + 10;  // Space for header + extra margin
   const contentMarginBottom = footerHeight + 10;  // Space for footer + extra margin
-  pdfOptions.margin = [contentMarginTop, 10, contentMarginBottom, 10];
+  pdfOptions.margin = [contentMarginTop, 0, contentMarginBottom, 0];
 
   // Regenerate PDF with adjusted margins
   const adjustedPdf = await html2pdf().from(htmlContent).set(pdfOptions).toPdf().get('pdf');
 
-  // Add header and footer to each page
+  // Add lines and then add header and footer to each page
   const margin = 15.2;
 
   for (let i = 1; i <= totalPages; i++) {
     adjustedPdf.setPage(i);
-    
-    // Add header
-      adjustedPdf.addImage(headerImgData, 'PNG', 0, 0, pageWidth, headerHeight);
-    
-    // Add line below header with margins
+
+    const leftMargin = 50; // Adjust this value for your desired left margin
+    const startY = (i === 1) ? 109 : 40;  // Start at 120 on the first page, and 40 on subsequent pages
+
+    // Draw the line first
     adjustedPdf.setLineWidth(0.2); // Set the line width (adjust as needed)
-    if(i != 1){
-      adjustedPdf.line(margin, headerHeight + 10, pageWidth - margin, headerHeight + 10); // Draw the line below the header with margins
-    }
-    
+    adjustedPdf.line(margin + leftMargin, startY, margin + leftMargin, pageHeight - footerHeight);
+
+    // Add header
+    adjustedPdf.addImage(headerImgData, 'PNG', 0, 0, pageWidth, headerHeight);
+
     // Add footer
     adjustedPdf.addImage(footerImgData, 'PNG', 0, pageHeight - footerHeight, pageWidth, footerHeight);
-    
-    // Add line above footer with margins
-    if(i != totalPages){
-      adjustedPdf.line(margin, pageHeight - footerHeight - 10, pageWidth - margin, pageHeight - footerHeight - 10); // Draw the line above the footer with margins
-    }
   }
-  
-  
-  
 
   // Save the PDF
-  adjustedPdf.save("Prescription.pdf");
-  
+  adjustedPdf.save(pdfOptions.filename);
+
   // Restore header and footer visibility
   headerElement.style.display = '';
   footerElement.style.display = '';

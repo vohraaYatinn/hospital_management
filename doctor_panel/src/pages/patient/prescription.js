@@ -158,7 +158,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         alt=""
       />
     </div>
-    <div className="top-heading-name-ss">
+    <div className="top-heading-name-ss" >
       <h4>{doctor?.hospital?.name}</h4>
       <h6>{doctor?.hospital?.address}</h6>
       <div>
@@ -183,16 +183,34 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
     </div>
     <p style={{marginTop:"-1rem"}}>{doctor?.specialization}</p>
     <div className="flexible-items-2">
-      <p ><b>Name:</b> {patient?.full_name}</p>
-      <p style={{marginTop:"-1rem"}}><b>Age:</b>  {calculateAge(patient?.date_of_birth)}</p>
-      <p style={{marginTop:"-1rem"}}><b>Sex:</b> {patient?.gender}</p>
-      <p style={{marginTop:"-1rem"}}><b>
+      <div className='row' style={{
+        display:"flex"
+      }}>
+      <p className='col-8'><b>Name:</b> {patient?.full_name}</p>
+      <p className='col-4' style={{
+        textAlignLast:"end"
+      }}><b>Phone:</b>  {patient?.user?.phone}</p>
+      </div>
+      <div className='row' style={{
+        display:"flex",
+        marginTop:"-1rem"
+      }}>
+              <p className='col-4'><b>Age:</b>  {calculateAge(patient?.date_of_birth)}</p>
+
+      <p className='col-4' style={{
+        textAlign:"center"
+      }}><b>Sex:</b> {patient?.gender}</p>
+      <p className='col-4' style={{
+        textAlignLast:"end"
+      }}><b>
       District:</b>  {capitalizeFirstChar(patient?.district)}
       </p>
+      </div>
     </div>
   </section>
   <section>
     <div className="names-address-section">
+    <div className="watermark">UJUR</div> 
       <div className="right-side-border">
       {prescription?.symptoms.length >0 &&
               <div className="col-md-12 mt-4">

@@ -26,6 +26,7 @@ body{
 }
 .top-heading-name-ss{
   padding-top: 8px;
+  text-align: center;
 }
 .ujur-logo-ss{
     height: 100px;
@@ -54,6 +55,7 @@ body{
     border-top: 0.5px solid black;
     border: 0.5px solid black;
     display: flex;
+    border-left: 0rem !important;
 }
 .right-side-border{
     border-right: 0.5px solid black;

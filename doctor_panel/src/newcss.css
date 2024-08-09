@@ -20,6 +20,8 @@ body{
 }
 .top-heading-name-ss{
   padding-top: 8px;
+  text-align: center;
+
 }
 .ujur-logo-ss{
     height: 100px;
@@ -51,11 +53,16 @@ body{
     border-top: 0.5px solid black;
     border: 0.5px solid black;
     display: flex;
+    border-left: 0rem !important;
+    border-right: 0rem !important;
+    border-bottom: 0rem !important;
 }
 .right-side-border{
-    border-right: 0.5px solid black;
+    /* border-right: 0.5px solid black; */
     padding: 10px;
     padding-bottom: 5rem;
+    width: 30%;
+    text-wrap: wrap;
 }
 .ul-list-dot{
     padding-left: 20px;
@@ -107,3 +114,26 @@ body{
 
 
   
+  .names-address-section {
+    position: relative;
+  }
+  
+  .watermark {
+    position: absolute;
+    font-family: system-ui;
+    top: 15%;
+    left: 13%;
+    transform: rotate(-30deg);
+    font-size: 13rem;
+    color: rgba(0, 0, 0, 0.031);
+    z-index: 1;
+    pointer-events: none;
+    white-space: nowrap;
+    font-weight: 800;
+}
+  
+  .right-side-border,
+  .left-border-section {
+    position: relative; /* Ensure these are positioned relative so the watermark remains underneath the content */
+    z-index: 2; /* Content stays on top of the watermark */
+  }
