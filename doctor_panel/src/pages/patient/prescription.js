@@ -211,11 +211,11 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
   <section>
     <div className="names-address-section">
     <div className="watermark" id="watermark">UJUR</div> 
-      <div className="right-side-border">
+      <div className="right-side-border element-to-avoid-break" id="right-side-border">
       {prescription?.symptoms.length >0 &&
               <div className="col-md-12 mt-4">
           <p style={patientInfoTextStyle}><strong>Chief Query</strong></p>
-           <ul className='pres-ul-detail'>
+           <ul className='pres-ul-detail ' >
             {prescription?.symptoms.map((med, index) => (
               <li key={index}>
                 {med.symptoms} X {med.dosage} per {med.duration}
@@ -226,9 +226,9 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         </div>
         }
                 {Object.keys(prescription?.examination).length >0 &&
-        <div className="col-md-12 mt-4">
+        <div className="col-md-12 mt-4 element-to-avoid-break">
           <p style={patientInfoTextStyle}><strong>General Examination</strong></p>
-           <ul className='pres-ul-detail'>
+           <ul className='pres-ul-detail '>
           {Object.keys(prescription.examination).map((med, index) => (
       prescription.examination[med] != "" && med != "DBP" &&
       <>
@@ -263,7 +263,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         </div>
         }
         {Object.keys(prescription?.systemic).length>0 &&
-        <div className="col-md-12 mt-4">
+        <div className="col-md-12 mt-4 element-to-avoid-break">
                     <p style={patientInfoTextStyle}><strong>Systemic Examination</strong></p>
 
            <ul className='pres-ul-detail'>
@@ -280,7 +280,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         }
 
         {prescription?.provisionalDiagnosis!="" &&
-        <div className="col-md-12 mt-4">
+        <div className="col-md-12 mt-4 element-to-avoid-break">
                               <p style={patientInfoTextStyle}><strong>Provisional Diagnosis</strong></p>
 
           
@@ -300,7 +300,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         </div>}
 
         {prescription?.labReports.length > 0 ? (
-          <div className="col-md-12 mt-4">
+          <div className="col-md-12 mt-4 element-to-avoid-break">
          <p style={patientInfoTextStyle}><strong>Recommended Test</strong></p>
 
              <ul className='pres-ul-detail'>
@@ -320,10 +320,10 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
          
 
         {prescription?.instructions.length > 0 ? (
-          <div className="col-md-12 mt-4">
+          <div className="col-md-12 mt-4 element-to-avoid-break">
           <p style={patientInfoTextStyle}><strong>Instructions</strong></p>
 
-             <ul className='pres-ul-detail'>
+             <ul className='pres-ul-detail '>
               {prescription?.instructions[0] && prescription.instructions[0].split("•").map((med, index) => (
                 med != "" && 
                 <li key={index}>
@@ -340,7 +340,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           ""
         )}
         {prescription?.referTo.length > 0 ? (
-          <div className="col-md-12 mt-4">
+          <div className="col-md-12 mt-4 element-to-avoid-break" >
                       <p style={patientInfoTextStyle}><strong>Refer To</strong></p>
 
              <ul className='pres-ul-detail'>
@@ -360,10 +360,10 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
           ""
         )}
 {medication?.nextVisit &&
-                <div className="col-md-12 mt-4">
+                <div className="col-md-12 mt-4 element-to-avoid-break">
                                      <p style={patientInfoTextStyle}><strong>Next Visit</strong></p>
 
-           <ul className='pres-ul-detail'>
+           <ul className='pres-ul-detail '>
             {medication?.nextVisit} Days
           </ul>
         </div>}
@@ -373,7 +373,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         <div className="rx-top">
           <h4>Rx</h4>
           {prescription?.medications.length > 0 &&
-        <div className="col-md-12 mt-4">
+        <div className="col-md-12 mt-4 element-to-avoid-break">
                    <p style={patientInfoTextStyle}><strong>Prescribed Medications</strong></p>
 
            <ul className='pres-ul-detail'>
@@ -397,8 +397,8 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
     
   </section>
   {doctorSign &&
-  <section style={{display:"flex", justifyContent:"flex-end"}}>
-         <div className="absolute-sign" style={{marginTop:"2.6rem"}}>
+  <section style={{display:"flex", justifyContent:"flex-end"}} >
+         <div className="absolute-sign" style={{marginTop:"2.6rem"}} id="doctor_sign">
         <p>Doctor's Signature <img src={signatureBased} style={{height:"3rem", marginLeft:"1rem"}}/></p>
       </div>
       </section>}

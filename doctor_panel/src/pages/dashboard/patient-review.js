@@ -130,7 +130,7 @@ export default function PatientReview(){
                                             })}
                                         </tbody>
                                     </table>
-                                </div>
+                                </div>  
                         
                             </div>
                         </div>

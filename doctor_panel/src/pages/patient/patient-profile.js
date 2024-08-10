@@ -497,9 +497,7 @@ fontSize:"1.4rem"      }}/>
                       {activeSubIndex === 2 &&
                         <div
                           className={`tab-pane fade show active`}
-                        >
-
-
+                      >          
                           <div className="row">
                             <div className="col-lg-12 col-12 mt-4" style={{
                               minHeight:"15rem"
