@@ -53,6 +53,23 @@ export default function DoctorDashBoard() {
         const day = String(today.getDate()).padStart(2, '0');
         return `${year}-${month}-${day}`;
       };
+      const getTodayDateString = () => {
+        const today = new Date();
+        const year = today.getFullYear();
+        const monthNames = ["January", "February", "March", "April", "May", "June", 
+                            "July", "August", "September", "October", "November", "December"];
+        const month = monthNames[today.getMonth()];
+        const day = today.getDate();
+      
+        const getOrdinalSuffix = (n) => {
+          const s = ["th", "st", "nd", "rd"];
+          const v = n % 100;
+          return n + (s[(v - 20) % 10] || s[v] || s[0]);
+        };
+      
+        return `${getOrdinalSuffix(day)} ${month}, ${year}`;
+      };
+      
     useEffect(() => {
 
     
@@ -121,7 +138,7 @@ export default function DoctorDashBoard() {
                                 </div>
                             <div className="row">
                                 <div className="col-xl-3 col-lg-3 col-md-3 mt-1 mt-sm-0 " >
-                                    <label style={{marginTop:'1.5rem'}}>{getTodayDate()}</label>
+                                    <label style={{marginTop:'1.5rem'}}>{getTodayDateString()}</label>
                                     <AppointmentSlots filters={filters} setFilters={setFilters} ref={dateRef}
                                     onClick={()=>{
                                         dateRef.current.click()
