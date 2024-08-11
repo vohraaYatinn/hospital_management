@@ -226,9 +226,9 @@ export default function DoctorAppointment(){
                                                         <td className="p-3">{item?.patient?.ujur_id}</td>
 
                                                         <td className="p-3" >
-                                                            <Link to={item?.status == "pending" && `/patient-profile/${item?.patient?.id}/${item?.id}`} className="text-dark">
+                                                            <Link to={(item?.status == "pending" || item?.status == "queue") && `/patient-profile/${item?.patient?.id}/${item?.id}`} className="text-dark">
                                                                 <div className="d-flex align-items-center">
-                                                                    {item?.status != "pending" ?
+                                                                    {!(item?.status == "pending" || item?.status == "queue") ?
                                                                     
                                                                     <span className="ms-2" style={{color:"black"}}>{item?.patient?.full_name && item?.patient?.full_name.charAt(0).toUpperCase() + item?.patient?.full_name.slice(1)}</span>
 

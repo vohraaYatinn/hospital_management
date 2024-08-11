@@ -24,8 +24,44 @@ export default function DoctorDashBoard() {
     const dispatch = useDispatch();
 
     const [filters, setFilters] = useState({
+        slots:"",
         date:""
     })
+    useEffect(() => {
+        const updateSlots = () => {
+            const currentHour = new Date().getHours();
+
+            let slot = '';
+            if (currentHour >= 5 && currentHour < 12) {
+                slot = 'morning';
+            } else if (currentHour >= 12 && currentHour < 17) {
+                slot = 'afternoon';
+            } else {
+                slot = 'evening';
+            }
+
+            setFilters(prevFilters => ({
+                ...prevFilters,
+                slots: slot
+            }));
+        };
+
+        updateSlots();
+    }, []); 
+    const searchSlotConstants = [
+        {
+            value: "morning",
+            name: "Morning"
+        },
+        {
+            value: "afternoon",
+            name: "Afternoon"
+        },
+        {
+            value: "evening",
+            name: "Evening"
+        }
+    ]
     const [dashboardData, setDashboardData] = useState([])
     const [dashboardDataTime, setDashboardTimeData] = useState([])
     const [dashboardDataPatients, setDashboardDataPatients] = useState([])
