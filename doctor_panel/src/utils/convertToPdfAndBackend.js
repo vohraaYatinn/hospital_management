@@ -99,7 +99,7 @@ const convertToPDFAndBackend = async (htmlContent, fileName, setPdfGenerateDownl
     adjustedPdf.setPage(i);
 
     const leftMargin = 50; // Adjust this value for your desired left margin
-    const startY = (i === 1) ? 96 : 40;  // Start at 120 on the first page, and 40 on subsequent pages
+    const startY = (i === 1) ? headerHeight+48 : 40;  // Start at 120 on the first page, and 40 on subsequent pages
     adjustedPdf.setLineWidth(0.2); // Set the line width (adjust as needed)
     const rightMargin = 50;
     if(i==1){
@@ -109,7 +109,7 @@ const convertToPDFAndBackend = async (htmlContent, fileName, setPdfGenerateDownl
 
     // Draw the line first
 
-    adjustedPdf.line(margin + leftMargin, headerHeight+48, margin + leftMargin, pageHeight - footerHeight);
+    adjustedPdf.line(margin + leftMargin, startY, margin + leftMargin, pageHeight - footerHeight);
 
     // Add header
     adjustedPdf.addImage(headerImgData, 'PNG', 0, 0, pageWidth, headerHeight);
