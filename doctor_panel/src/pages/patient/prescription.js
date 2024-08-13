@@ -211,7 +211,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
     </div>
   </section>
   <section>
-    <div className="names-address-section">
+    <div className="names-address-section" id="names-address-section">
     <div className="watermark" id="watermark">UJUR</div> 
       <div className="right-side-border element-to-avoid-break" id="right-side-border">
       {prescription?.symptoms.length >0 &&

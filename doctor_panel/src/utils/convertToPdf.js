@@ -15,8 +15,9 @@ const convertToPDF = async (htmlContent, fileName) => {
   const headerElement = document.getElementById('header');
   const footerElement = document.getElementById('footer');
   const rightBorder = document.getElementById('right-side-border');
+  const nameAddress = document.getElementById('names-address-section');
     // Render doctor's signature to an image using html2canvas
-    const doctorSignElement = document.getElementById('doctor_sign');
+  const doctorSignElement = document.getElementById('doctor_sign');
 
 
   
@@ -48,6 +49,7 @@ const convertToPDF = async (htmlContent, fileName) => {
   headerElement.style.display = 'none';
   footerElement.style.display = 'none';
   rightBorder.style.border = 'none';
+  nameAddress.style.border = 'none';
 
   // Convert HTML content to PDF
   const pdf = await html2pdf().from(htmlContent).set(pdfOptions).toPdf().get('pdf');
@@ -70,10 +72,16 @@ const convertToPDF = async (htmlContent, fileName) => {
     adjustedPdf.setPage(i);
 
     const leftMargin = 50; // Adjust this value for your desired left margin
-    const startY = (i === 1) ? 99 : 40;  // Start at 120 on the first page, and 40 on subsequent pages
+    const startY = (i === 1) ? 103 : 40;  // Start at 120 on the first page, and 40 on subsequent pages
+    adjustedPdf.setLineWidth(0.2); // Set the line width (adjust as needed)
+    const rightMargin = 50;
+    if(i==1){
+      const secondLineX = 150; // X-coordinate for the second vertical line
+      adjustedPdf.line(0, startY, pageWidth, startY);     }
+
 
     // Draw the line first
-    adjustedPdf.setLineWidth(0.2); // Set the line width (adjust as needed)
+
     adjustedPdf.line(margin + leftMargin, startY, margin + leftMargin, pageHeight - footerHeight);
 
     // Add header
@@ -95,6 +103,7 @@ const convertToPDF = async (htmlContent, fileName) => {
   headerElement.style.display = '';
   footerElement.style.display = '';
   rightBorder.style.borderRight = '1px solid';
+  nameAddress.style.borderTop = '1px solid';
 
 };
 
