@@ -201,9 +201,11 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         textAlign:"center"
       }}><b>Sex:</b> {patient?.gender}</p>
       <p className='col-4' style={{
-        textAlignLast:"end"
+        textAlignLast:"start",
+        position:"relative",
+        left:"2rem"
       }}><b>
-      District:</b>  {capitalizeFirstChar(patient?.district)}
+      Location:</b>  {capitalizeFirstChar(patient?.district)}
       </p>
       </div>
     </div>
