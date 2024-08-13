@@ -83,9 +83,9 @@ const convertToPDFAndBackend = async (htmlContent, fileName, setPdfGenerateDownl
   const pageWidth = pdf.internal.pageSize.width;
 
   // Adjust margins to account for header and footer
-  const contentMarginTop = headerHeight + 10;  // Space for header + extra margin
+  const contentMarginTop = headerHeight;  // Space for header + extra margin
   const contentMarginBottom = footerHeight;  // Space for footer + extra margin
-  pdfOptions.margin = [contentMarginTop, 0, contentMarginBottom, 0];
+  pdfOptions.margin = [contentMarginTop +5, 0, contentMarginBottom+4, 0];
 
   // Regenerate PDF with adjusted margins
   const adjustedPdf = await html2pdf().from(htmlContent).set(pdfOptions).toPdf().get('pdf');
@@ -97,7 +97,7 @@ const convertToPDFAndBackend = async (htmlContent, fileName, setPdfGenerateDownl
     adjustedPdf.setPage(i);
 
     const leftMargin = 50; // Adjust this value for your desired left margin
-    const startY = (i === 1) ? 103 : 40;  // Start at 120 on the first page, and 40 on subsequent pages
+    const startY = (i === 1) ? 109 : 40;  // Start at 120 on the first page, and 40 on subsequent pages
 
     // Draw the line first
     adjustedPdf.setLineWidth(0.2); // Set the line width (adjust as needed)
