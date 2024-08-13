@@ -104,12 +104,12 @@ const convertToPDFAndBackend = async (htmlContent, fileName, setPdfGenerateDownl
     const rightMargin = 50;
     if(i==1){
       const secondLineX = 150; // X-coordinate for the second vertical line
-      adjustedPdf.line(0, startY, pageWidth, startY);     }
+      adjustedPdf.line(0, headerHeight+48, pageWidth, headerHeight+48);     }
 
 
     // Draw the line first
 
-    adjustedPdf.line(margin + leftMargin, startY, margin + leftMargin, pageHeight - footerHeight);
+    adjustedPdf.line(margin + leftMargin, headerHeight+48, margin + leftMargin, pageHeight - footerHeight);
 
     // Add header
     adjustedPdf.addImage(headerImgData, 'PNG', 0, 0, pageWidth, headerHeight);
@@ -122,6 +122,7 @@ const convertToPDFAndBackend = async (htmlContent, fileName, setPdfGenerateDownl
       adjustedPdf.addImage(doctorSignImgData, 'PNG', pageWidth - signatureWidth - 10, signYPosition, signatureWidth, signatureHeight); // Adjusted width and height
     }
   }
+
   // Save the PDF
   const pdfBlob = adjustedPdf.output('blob');
   await uploadPDF(pdfBlob, fileName,headerElement, footerElement , setPdfGenerateDownload);

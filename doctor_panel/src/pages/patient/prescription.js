@@ -158,9 +158,18 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
         alt=""
       />
     </div>
-    <div className="top-heading-name-ss" >
+    <div className="top-heading-name-ss" 
+    style={{
+      display:"flex",
+      alignItems:"center",
+      flexDirection:"column",
+      maxWidth:"60%"
+    }}>
       <h4>{doctor?.hospital?.name}</h4>
-      <h6>{doctor?.hospital?.address}</h6>
+      <h6 style={{
+        maxWidth:"100%",
+        textAlign:"center"
+      }}>{doctor?.hospital?.address}</h6>
       <div>
         <p>Phone: {doctor?.hospital?.contact_number}</p>
         <p style={{marginTop:"-1rem"}}>Email: {doctor?.hospital?.email}</p>
