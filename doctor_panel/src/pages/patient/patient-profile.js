@@ -8,12 +8,12 @@ import Modal from "react-bootstrap/Modal";
 import ScrollTop from "../../components/scrollTop";
 import Prescription from "./prescription";
 import DoctorPrescriptionForm from "./prescriptionForm";
-import { Drawer, Input, Radio, Space } from "antd";
+import { Button, Drawer, Input, Radio, Space } from "antd";
 import DoctorInspectForm from "./doctorInspectForm";
 import DoctorExaminationForm from "./doctorExaminationForm";
 import DoctorInvestigationForm from "./investigationForm";
 import { useRouter } from "../../hooks/use-router";
-import { addNewMedicinesByDoctor, fetchDoctorMedicinesDashboard, fetchPatientProfile, uploadDocumentPrescription, fetchDepartmentHospital } from "../../urls/urls";
+import { addNewMedicinesByDoctor, fetchDoctorMedicinesDashboard, fetchPatientProfile, uploadDocumentPrescription, fetchDepartmentHospital, changePrescriptionMethod } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { calculateAge, capitalizeFirst } from "../../utils/commonFunctions";
 import { FiUser, FiTrash2 } from "react-icons/fi";
@@ -22,17 +22,20 @@ import { GiMedicalDrip, GiTreasureMap } from "react-icons/gi";
 import moment from "moment";
 import PrescriptionHistory from "./prescriptionHistory";
 import BulletTextbox from "../../common-components/BulletTextBox";
-import { updateMedicines } from "../../redux/reducers/functionalities.reducer";
-import { useDispatch } from "react-redux";
+import { doctorDetails, updateDoctor, updateMedicines } from "../../redux/reducers/functionalities.reducer";
+import { useDispatch, useSelector } from "react-redux";
 import { test_url_images } from "../../config/environment";
 
 
 export default function PatientProfile() {
   const { id, appointment } = useParams()
+  let doctorRedux = useSelector(doctorDetails);
+
   const dispatch = useDispatch();
   const [pdfGenerateDownload, setPdfGenerateDownload] = useState(false)
   const [patientProfileResponse, patientProfileError, patientProfileLoading, patientProfileFetch] = useAxios();
   const [uploadDocumentResponse, uploadDocumentError, uploadDocumentLoading, uploadDocumentFetch] = useAxios();
+  const [changePrescriptionMethodResponse, changePrescriptionMethodError, changePrescriptionMethodLoading, changePrescriptionMethodFetch] = useAxios();
   const [addNewResponse, addNewError, addNewLoading, addNewFetch] = useAxios();
   const [medicinesResponse, medicinesError, medicinesLoading, medicinesFetch] = useAxios();
   const [departmentResponse, departmentError, departmentLoading, departmentFetch] = useAxios();
@@ -56,13 +59,27 @@ export default function PatientProfile() {
     }
   }, [id])
 
+  const changePrescriptionMethodFunction = (value) => {
+    setPrescriptionMethodTemp(value)
+    changePrescriptionMethodFetch(changePrescriptionMethod({
+      method:value
+    }))
+  }
   const generatePrescription = (htmlContent, doctorComment) => {
-    if (htmlContent) {
+    if (htmlContent && prescriptionMethod=="digital") {
       uploadDocumentFetch(uploadDocumentPrescription({
         htmlContent: htmlContent.innerHTML,
         appointmentDetails: appointment,
         doctorComment: doctorComment,
-        pdf:pdfGenerateDownload
+        pdf:pdfGenerateDownload,
+        prescriptionMethod:prescriptionMethod
+      })
+      )
+    }
+    else if(prescriptionMethod == "manual"){
+      uploadDocumentFetch(uploadDocumentPrescription({
+        appointmentDetails: appointment,
+        prescriptionMethod:prescriptionMethod
       })
       )
     }
@@ -78,6 +95,13 @@ export default function PatientProfile() {
       setDepartmentNames(departmentResponse?.data)
     }
   },[departmentResponse])
+  useEffect(()=>{
+    if(changePrescriptionMethodResponse?.result == "success"){
+      dispatch(updateDoctor(changePrescriptionMethodResponse?.data))
+      setPrescriptionMethod(prescriptionMethodTemp);
+
+    }
+  },[changePrescriptionMethodResponse])
   useEffect(()=>{
     if(medicinesResponse?.result == "success"){
       dispatch(updateMedicines(medicinesResponse?.data))
@@ -97,7 +121,22 @@ export default function PatientProfile() {
       router.push("/doctor-appointment")
     }
   }, [uploadDocumentResponse])
+  const [prescriptionMethod, setPrescriptionMethod] = useState(doctorRedux?.prescription_mode);
+  const [prescriptionMethodTemp, setPrescriptionMethodTemp] = useState(doctorRedux?.prescription_mode);
 
+  const optionsWithDisabled = [
+    {
+      label: 'Digital Prescription',
+      value: 'digital',
+    },
+    {
+      label: 'Manual Prescription',
+      value: 'manual',
+    }
+  ];
+  const onChangePrescriptionMethod = ({ target: { value } }) => {
+    changePrescriptionMethodFunction(value)
+  };
   let [activeIndex, setActiveIndex] = useState(1);
   let [activeSubIndex, setActiveSubIndex] = useState(1);
   let [show, setShow] = useState(false);
@@ -344,6 +383,7 @@ fontSize:"1.4rem"      }}/>
 
             <div className="col-lg-8 col-md-6 mt-4 mt-sm-0 pt-2 pt-sm-0">
               <div className="card border-0 shadow overflow-issue">
+              {prescriptionMethod == "digital" &&
                 <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                   <li className="nav-item">
                     <Link
@@ -396,9 +436,13 @@ fontSize:"1.4rem"      }}/>
                       </div>
                     </Link>
                   </li>
-                </ul>
+                        </ul>}
 
-                <div className="tab-content p-4 ">
+                <div className="tab-content p-4 "
+                style={{
+                  minHeight:prescriptionMethod == "manual" && "15rem"
+                }}
+                >
                   {activeIndex === 1 ? (
                     <div className="tab-pane fade show active">
                       <div className="card border-0 shadow overflow-issue check-card-width">
@@ -450,6 +494,7 @@ fontSize:"1.4rem"      }}/>
                          }}
                          >View Attached Patient Document</button>} 
 
+{prescriptionMethod == "digital" &&
                           <div className="row">
                             <div className="col-lg-12 col-12 mt-4">
                               <DoctorInspectForm
@@ -492,6 +537,8 @@ fontSize:"1.4rem"      }}/>
                               </Modal.Body>
                             </Modal>
                           </div>
+
+}
                         </div>
                       }
                       {activeSubIndex === 2 &&
@@ -505,11 +552,13 @@ fontSize:"1.4rem"      }}/>
                               {patientsData?.appointments.map((item, index) => {
                                 return (
                                   <div className="row rounded shadow" style={{ margin: "1rem", marginBottom: "2rem" }}>
-                                    <div className="col-4" style={{ background: "rgb(56,108,240)", color: "white", height: "4rem", alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }}
+                                    <div className="col-4" style={{ background: item?.prescription ? "rgb(56,108,240)" : "rgb(162 184 241)", color: "white", height: "4rem", alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }}
+                                      disabled={!item.prescription}
                                       onClick={() => {
-                                        setShow(true)
-                                        setHTMLData(item.pdf_content)
-                                        console.log(item.pdf_content)
+                                        if(item.prescription){
+                                          window.open(test_url_images + item.prescription, '_blank');
+
+                                        }
 
                                       }}
                                     >
@@ -815,21 +864,62 @@ fontSize:"1.4rem"      }}/>
                 </div>
               </div>
             </div>
-            <div className="col-md-6 col-lg-4"
+          
+
+
+
+
+            <div  className="col-md-6 col-lg-4">
+            <Radio.Group
+            style={{
+              marginBottom:"1rem",
+            }}
+        options={optionsWithDisabled}
+        onChange={onChangePrescriptionMethod}
+        value={prescriptionMethod}
+        optionType="button"
+        buttonStyle="solid"
+      />
+       {prescriptionMethod == "manual" &&
+      <div
+      style={{
+        display:"flex",
+        flexDirection:"column"
+      }}
+      >
+    <Button type="primary" onClick={generatePrescription} style={{
+      marginBottom:"0.4rem",
+      padding:"2rem"
+    }}>Complete Appointment</Button>
+    <Button
+    onClick={()=>{
+      router.push("/doctor-appointment")
+    }}
+    >Back to Appointment Screen</Button>
+
+        </div>}
+       {prescriptionMethod == "digital" &&
+            <div
             style={{
               border: "0.1px solid",
-              padding: "1rem"
-          
+              padding: "1rem",
+              background:prescriptionMethod == "manual" && "rgb(246 246 246)",
+              cursor:prescriptionMethod == "manual" && "not-allowed"
+
             }}
             >
               <div style={{
                 display:"flex",
                 justifyContent:"space-between",
                 alignItems:"center"
+
               }}>
             <h3 
             className="font-presc"
             >Prescription</h3>
+            
+            {prescriptionMethod == "digital" &&
+
             <button className="btn btn-primary"
         style={{
           position:"relative",
@@ -842,7 +932,7 @@ fontSize:"1.4rem"      }}/>
         showNewPrescriptionDrawer()
       }}
     >Submit</button>
-
+    }
               </div>
               <div style={{
                 display:"flex",
@@ -850,7 +940,9 @@ fontSize:"1.4rem"      }}/>
                 height: "90%",
                 justifyContent: "space-between"
               }}>
-<div>
+<div style={{
+  minHeight: "20vh"
+}}>
 {prescription.symptoms.length > 0 &&
           <div className="col-md-12 mt-4 row">
             <div className="col-md-12" style={{ fontWeight: "800" }}>
@@ -1241,6 +1333,8 @@ fontSize:"1.4rem"      }}/>
           </div>}
 </div>
 <div>
+{prescriptionMethod == "digital" &&
+
 <button className="btn btn-primary"
         style={{
           position:"relative",
@@ -1253,10 +1347,11 @@ fontSize:"1.4rem"      }}/>
         setActiveSubIndex(1)
         showNewPrescriptionDrawer()
       }}
-    >Submit</button>
+    >Submit</button>}
 </div>
 </div>
        
+            </div>}
             </div>
             
           </div>

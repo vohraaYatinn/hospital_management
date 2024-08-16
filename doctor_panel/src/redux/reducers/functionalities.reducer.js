@@ -9,8 +9,10 @@ const functionalitiesSlice = createSlice({
         showNavbar: false,
         token: false,
         doctor:{},
-        medicines:{}
+        medicines:{},
+        
     },
+
 
   },
   reducers: {

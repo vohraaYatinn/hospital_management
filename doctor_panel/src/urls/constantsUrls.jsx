@@ -24,6 +24,7 @@ export class Urls {
     static ADD_MEDICINES_DOCTOR = Urls.MPHRMS_API_PREFIX + 'doctors/add-medicines-doctor/';
     static FETCH_DEPARTMENT_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'doctors/fetch-department-hospital/';
     static CHANGE_STATUS_TO_QUEUE = Urls.MPHRMS_API_PREFIX + 'doctors/change-status-to-queue/';
+    static CHANGE_PRESCRIPTION_METHOD = Urls.MPHRMS_API_PREFIX + 'doctors/change-prescription-mode/';
 
 
 }

@@ -72,3 +72,6 @@ export const fetchDepartmentHospital = (payload_data) => {
 export const changeQueueStatus = (payload_data) => {
   return project.post(Urls.CHANGE_STATUS_TO_QUEUE, payload_data);
 };
+export const changePrescriptionMethod = (payload_data) => {
+  return project.post(Urls.CHANGE_PRESCRIPTION_METHOD, payload_data);
+};

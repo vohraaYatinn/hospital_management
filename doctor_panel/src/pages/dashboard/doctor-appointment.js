@@ -28,7 +28,7 @@ export default function DoctorAppointment(){
         type: "",
       });
     let [show, setShow] = useState(false);
-    const [htmlDataS, setHTMLData] = useState('');
+    const [htmlDataS, setHTMLData] = useState('Not Available');
     const [selectedData, setSelectedData] = useState('');
 
     const [appointmentData, setAppointmentData] = useState([])
@@ -214,7 +214,7 @@ export default function DoctorAppointment(){
                                                 {/* <th className="border-bottom p-3">Block</th> */}
                                                 <th className="border-bottom p-3">Status</th>
                                                 <th className="border-bottom p-3">Action</th>
-                                                <th className="border-bottom p-3">Report</th>
+                                                <th className="border-bottom p-3 text-center">Report</th>
                                                 <th className="border-bottom p-3">Lab Report</th>
                                             </tr>
                                         </thead>
@@ -260,21 +260,40 @@ export default function DoctorAppointment(){
                                                             
                                                             
                                                             </td>
-                                                        <td className="p-3">{item?.pdf_content && <button style={{
+                                                        <td className="p-3" style={{
+                                                            display:"flex",
+                                                            flexDirection:"column",
+                                                            alignItems:"center",
+                                                            justifyContent:"center"
+                                                        }}>{item?.prescription && <button style={{
                                                                 background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem", width:"4rem", borderRadius:"100px"
                                                         }}
                                                         onClick={()=>{
-                                                            setShow(true)
-                                                            setHTMLData(item.pdf_content)
-                                                            setSelectedData(item)
+                                                            if(item?.prescription_method == "digital"){
+                                                                setShow(true)
+                                                                setHTMLData(item.pdf_content)
+                                                                setSelectedData(item)
+                                                            }
+                                                            else{
+                                                                window.open(test_url_images + item.prescription, '_blank');
+                                                            }
+                                                          
                                                         }}
-                                                        >View</button>}</td>
+                                                        >View</button>}
+                                                       {(item?.prescription_method == "manual" && item?.prescription )&&<p style={{
+                                                        margin:"0rem",
+                                                        fontSize:"0.8rem",
+                                                        textAlign:"center",
+                                                        color:"#ff9700"
+                                                       }}>( Manual )</p>}
+                                                        </td>
                             <td className="p-3">
                             {
                                   item.lab_report &&  <button
                                   style={{marginRight:"1rem",  borderRadius:"100px",color:"black" ,background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem",width:"4rem", border:"2px solid black"}}
                                   className="btn btn-icon "
                                   onClick={() => {
+                                
                                     window.open(test_url_images + item.lab_report, '_blank');
                                   }}
                                 >View
