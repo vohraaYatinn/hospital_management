@@ -870,7 +870,7 @@ fontSize:"1.4rem"      }}/>
 
 
             <div  className="col-md-6 col-lg-4">
-            <Radio.Group
+            {/* <Radio.Group
             style={{
               marginBottom:"1rem",
             }}
@@ -879,7 +879,7 @@ fontSize:"1.4rem"      }}/>
         value={prescriptionMethod}
         optionType="button"
         buttonStyle="solid"
-      />
+      /> */}
        {prescriptionMethod == "manual" &&
       <div
       style={{
@@ -889,9 +889,13 @@ fontSize:"1.4rem"      }}/>
       >
     <Button type="primary" onClick={generatePrescription} style={{
       marginBottom:"0.4rem",
-      padding:"2rem"
+      padding:"2rem",
+      fontSize:"1.3rem"
     }}>Complete Appointment</Button>
     <Button
+    style={{
+      fontSize:"0.9rem"
+    }}
     onClick={()=>{
       router.push("/doctor-appointment")
     }}

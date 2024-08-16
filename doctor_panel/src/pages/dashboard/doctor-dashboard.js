@@ -8,25 +8,46 @@ import ScrollTop from "../../components/scrollTop";
 import { FiCalendar, FiArrowRight, RiCalendar2Line, GiAbstract020 } from '../../assets/icons/vander'
 import { useRouter } from "../../hooks/use-router";
 import useAxios from "../../network/useAxios";
-import { fetchDoctorDashboard, fetchDoctorMedicinesDashboard, fetchDoctorPatientsDashboard } from "../../urls/urls";
+import { changePrescriptionMethod, fetchDoctorDashboard, fetchDoctorMedicinesDashboard, fetchDoctorPatientsDashboard } from "../../urls/urls";
 import moment from 'moment';
 import { Radio } from 'antd';
+import { ExclamationCircleFilled } from '@ant-design/icons';
+
 import DateSearchComponent from "../../common-components/DateSearch";
 import { test_url_images } from "../../config/environment";
 import { calculateAge } from "../../utils/commonFunctions";
-import { useDispatch } from "react-redux";
-import { updateMedicines } from "../../redux/reducers/functionalities.reducer";
+import { useDispatch, useSelector } from "react-redux";
+import { doctorDetails, updateDoctor, updateMedicines } from "../../redux/reducers/functionalities.reducer";
 import ab from "../../assets/profile.png"
 import AppointmentSlots from "../../common-components/SlotsSearch";
+import { Button, Modal, Space } from 'antd';
 
+const { confirm } = Modal;
 
 export default function DoctorDashBoard() {
     const dispatch = useDispatch();
+    let doctorRedux = useSelector(doctorDetails);
 
     const [filters, setFilters] = useState({
         slots:"",
         date:""
     })
+    const [prescriptionMethod, setPrescriptionMethod] = useState(doctorRedux?.prescription_mode);
+    const [prescriptionMethodTemp, setPrescriptionMethodTemp] = useState(doctorRedux?.prescription_mode);
+
+    const showConfirm = () => {
+        confirm({
+          title: `Do you want to switch prescription method to ${prescriptionMethodTemp}?`,
+          icon: <ExclamationCircleFilled />,
+          content: `Clicking on yes will switch your prescription mode to ${prescriptionMethodTemp}`,
+          onOk() {
+            changePrescriptionMethodFunction(prescriptionMethodTemp)
+          },
+          onCancel() {
+            setPrescriptionMethodTemp(doctorRedux?.prescription_mode)
+          },
+        });
+      };
     useEffect(() => {
         const updateSlots = () => {
             const currentHour = new Date().getHours();
@@ -65,12 +86,24 @@ export default function DoctorDashBoard() {
     const [dashboardData, setDashboardData] = useState([])
     const [dashboardDataTime, setDashboardTimeData] = useState([])
     const [dashboardDataPatients, setDashboardDataPatients] = useState([])
+    const [changePrescriptionMethodResponse, changePrescriptionMethodError, changePrescriptionMethodLoading, changePrescriptionMethodFetch] = useAxios();
+
     const [dashboardDataResponse, dashboardDataError, dashboardDataLoading, dashboardDataFetch] = useAxios();
     const [dashboardDataPatientResponse, dashboardDataPatientError, dashboardDataPatientLoading, dashboardDataPatientFetch] = useAxios();
     const [medicinesResponse, medicinesError, medicinesLoading, medicinesFetch] = useAxios();
     const dateRef = useRef(null);
     const [radio, setRadio] = useState('Week');
 
+    const optionsWithDisabled = [
+        {
+          label: 'Digital Prescription',
+          value: 'digital',
+        },
+        {
+          label: 'Manual Prescription',
+          value: 'manual',
+        }
+      ];
     useEffect(() => {
         if(filters?.date){
             dashboardDataPatientFetch(fetchDoctorPatientsDashboard(filters))
@@ -104,6 +137,24 @@ export default function DoctorDashBoard() {
         };
       
         return `${getOrdinalSuffix(day)} ${month}, ${year}`;
+      };
+      const changePrescriptionMethodFunction = (value) => {
+        setPrescriptionMethodTemp(value)
+        changePrescriptionMethodFetch(changePrescriptionMethod({
+          method:value
+        }))
+      }
+      useEffect(()=>{
+        if(prescriptionMethodTemp != prescriptionMethod){
+            showConfirm()
+
+        }
+
+      },[prescriptionMethodTemp])
+      const onChangePrescriptionMethod = ({ target: { value } }) => {
+        console.log(value)
+        setPrescriptionMethodTemp(value)
+
       };
       
     useEffect(() => {
@@ -152,6 +203,13 @@ export default function DoctorDashBoard() {
       const onChangeRadio = ({ target: { value } }) => {
         setRadio(value);
       };
+      useEffect(()=>{
+        if(changePrescriptionMethodResponse?.result == "success"){
+          dispatch(updateDoctor(changePrescriptionMethodResponse?.data))
+          setPrescriptionMethod(prescriptionMethodTemp);
+    
+        }
+      },[changePrescriptionMethodResponse])
 
     return (
         <>
@@ -175,11 +233,29 @@ export default function DoctorDashBoard() {
                             <div className="row">
                                 <div className="col-xl-3 col-lg-3 col-md-3 mt-1 mt-sm-0 " >
                                     <label style={{marginTop:'1.5rem'}}>{getTodayDateString()}</label>
-                                    <AppointmentSlots filters={filters} setFilters={setFilters} ref={dateRef}
+                                    <div style={{
+                                        display:"flex",
+                                        width:"40rem",
+                                        alignItems:"center"
+                                    }}>
+                                        
+                                    <AppointmentSlots  filters={filters} setFilters={setFilters} ref={dateRef}
                                     onClick={()=>{
                                         dateRef.current.click()
                                     }}
                                     />
+                                                <Radio.Group
+            style={{
+              marginLeft:"1rem",
+              
+            }}
+        options={optionsWithDisabled}
+        onChange={onChangePrescriptionMethod}
+        value={prescriptionMethod}
+        optionType="button"
+        buttonStyle="solid"
+      />
+</div>
 
                                 </div>
                             </div>
