@@ -260,12 +260,16 @@ export default function DoctorAppointment(){
                                                             
                                                             
                                                             </td>
-                                                        <td className="p-3" style={{
+                                                        <td className="p-3" style={
+                                                            item?.prescription &&
+                                                            {
                                                             display:"flex",
                                                             flexDirection:"column",
                                                             alignItems:"center",
                                                             justifyContent:"center"
-                                                        }}>{item?.prescription && <button style={{
+                                                        }
+                                                    
+                                                    }>{item?.prescription && <button style={{
                                                                 background: "rgb(56, 108, 240)", color:"white", padding:"0.3rem", width:"4rem", borderRadius:"100px"
                                                         }}
                                                         onClick={()=>{
