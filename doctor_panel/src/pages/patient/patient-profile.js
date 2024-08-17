@@ -123,7 +123,12 @@ export default function PatientProfile() {
   }, [uploadDocumentResponse])
   const [prescriptionMethod, setPrescriptionMethod] = useState(doctorRedux?.prescription_mode);
   const [prescriptionMethodTemp, setPrescriptionMethodTemp] = useState(doctorRedux?.prescription_mode);
-
+  useEffect(()=>{
+    if(doctorRedux?.prescription_mode){
+      setPrescriptionMethodTemp(doctorRedux?.prescription_mode)
+      setPrescriptionMethod(doctorRedux?.prescription_mode)
+    }
+  },[doctorRedux])
   const optionsWithDisabled = [
     {
       label: 'Digital Prescription',
@@ -890,11 +895,19 @@ fontSize:"1.4rem"      }}/>
     <Button type="primary" onClick={generatePrescription} style={{
       marginBottom:"0.4rem",
       padding:"2rem",
-      fontSize:"1.3rem"
+      fontSize:"1.3rem",
+      display:"flex",
+      alignItems:"center",
+      justifyContent:"center"
     }}>Complete Appointment</Button>
     <Button
     style={{
-      fontSize:"0.9rem"
+      marginBottom:"0.4rem",
+      padding:"2rem",
+      fontSize:"1.2rem",
+      display:"flex",
+      alignItems:"center",
+      justifyContent:"center"
     }}
     onClick={()=>{
       router.push("/doctor-appointment")
