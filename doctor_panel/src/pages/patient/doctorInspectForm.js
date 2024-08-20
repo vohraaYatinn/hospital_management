@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
@@ -44,6 +44,8 @@ function DoctorInspectForm({
   setPrescription,
   medication,
   setMedication,
+  vomitData,
+  addNewVomit
 }) {
   let [editProfile, setEditProfile] = useState(false)
 
@@ -51,10 +53,16 @@ const [options, setOptions] = useState([
   { value: "", label: <><button style={{width:"100%", background:"green", color:"white"}} onClick={()=>{
     setEditProfile(true)
   }}>Add New</button></> },
-  { value: "fever", label: "Fever" },
-  { value: "vomit", label: "Vomit" },
-  { value: "chestpain", label: "Chest Pain" },
+  ...vomitData
 ]);
+useEffect(()=>{
+  setOptions([
+    { value: "", label: <><button style={{width:"100%", background:"green", color:"white"}} onClick={()=>{
+      setEditProfile(true)
+    }}>Add New</button></> },
+    ...vomitData
+  ])
+},[vomitData])
   const handleMedicationChange = (e, name = false) => {
 
     if (e?.target) {
@@ -166,7 +174,7 @@ const [options, setOptions] = useState([
                                 <div className="col-sm-12">
                                     <input type="submit" id="submit" name="send" className="btn btn-primary" value="Add"
                                     onClick={()=>{
-                                      setOptions([...options,{value:newSymptom, label:newSymptom}])
+                                      addNewVomit(newSymptom)
                                       setEditProfile(false)
 
                                     }

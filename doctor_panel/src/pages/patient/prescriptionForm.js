@@ -140,7 +140,8 @@ function DoctorPrescriptionForm({
   medication,
   setMedication,
   onNewshowNewMedicinesShow,
-  departmentsName
+  departmentsName,
+  addNewDepartment
 }) {
   let [editProfile, setEditProfile] = useState(false)
   let [editRefer, setEditRefer] = useState(false)
@@ -312,7 +313,8 @@ useEffect(()=>{
                                 <div className="col-sm-12">
                                     <input type="submit" id="submit" name="send" className="btn btn-primary" value="Add"
                                     onClick={()=>{
-                                      setdummyHospitalData([...dummyHospitalData,{value:newRefer, label:newRefer}])
+                                      addNewDepartment(newRefer)
+                                      // setdummyHospitalData([...dummyHospitalData,{value:newRefer, label:newRefer}])
                                       setEditRefer(false)
 
                                     }

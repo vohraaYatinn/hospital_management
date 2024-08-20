@@ -25,6 +25,11 @@ export class Urls {
     static FETCH_DEPARTMENT_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'doctors/fetch-department-hospital/';
     static CHANGE_STATUS_TO_QUEUE = Urls.MPHRMS_API_PREFIX + 'doctors/change-status-to-queue/';
     static CHANGE_PRESCRIPTION_METHOD = Urls.MPHRMS_API_PREFIX + 'doctors/change-prescription-mode/';
+    static GET_CHIEF_QUERY = Urls.MPHRMS_API_PREFIX + 'doctors/get-cheif-query/';
+    static CHANGE_CHIEF_QUERY = Urls.MPHRMS_API_PREFIX + 'doctors/change-cheif-query/';
+    static GET_LAB_TESTS = Urls.MPHRMS_API_PREFIX + 'doctors/get-lab-test/';
+    static CHANGE_LAB_TESTS = Urls.MPHRMS_API_PREFIX + 'doctors/change-lab-test/';
+    static ADD_DEPARTMENTS_HOSPITAL = Urls.MPHRMS_API_PREFIX + 'doctors/add-department-doctor/';
 
 
 }

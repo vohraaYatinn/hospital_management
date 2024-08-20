@@ -13,7 +13,7 @@ import DoctorInspectForm from "./doctorInspectForm";
 import DoctorExaminationForm from "./doctorExaminationForm";
 import DoctorInvestigationForm from "./investigationForm";
 import { useRouter } from "../../hooks/use-router";
-import { addNewMedicinesByDoctor, fetchDoctorMedicinesDashboard, fetchPatientProfile, uploadDocumentPrescription, fetchDepartmentHospital, changePrescriptionMethod } from "../../urls/urls";
+import { addNewMedicinesByDoctor, fetchDoctorMedicinesDashboard, fetchPatientProfile, uploadDocumentPrescription, fetchDepartmentHospital, changePrescriptionMethod, getChiefQuery, ChangeCheifQuery, getLabTests, ChangeLabTests, addDepartmentHospital } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
 import { calculateAge, capitalizeFirst } from "../../utils/commonFunctions";
 import { FiUser, FiTrash2 } from "react-icons/fi";
@@ -33,18 +33,24 @@ export default function PatientProfile() {
 
   const dispatch = useDispatch();
   const [pdfGenerateDownload, setPdfGenerateDownload] = useState(false)
+  const [getQueryResponse, getQueryError, getQueryLoading, getQueryFetch] = useAxios();
+  const [addNewVomitResponse, addNewVomitError, addNewVomitLoading, addNewVomitFetch] = useAxios();
+  const [addNewDepartmentResponse, addNewDepartmentError, addNewDepartmentLoading, addNewDepartmentFetch] = useAxios();
   const [patientProfileResponse, patientProfileError, patientProfileLoading, patientProfileFetch] = useAxios();
   const [uploadDocumentResponse, uploadDocumentError, uploadDocumentLoading, uploadDocumentFetch] = useAxios();
   const [changePrescriptionMethodResponse, changePrescriptionMethodError, changePrescriptionMethodLoading, changePrescriptionMethodFetch] = useAxios();
   const [addNewResponse, addNewError, addNewLoading, addNewFetch] = useAxios();
   const [medicinesResponse, medicinesError, medicinesLoading, medicinesFetch] = useAxios();
   const [departmentResponse, departmentError, departmentLoading, departmentFetch] = useAxios();
+  const [AddNewLabTestResponse, AddNewLabTestError, AddNewLabTestLoading, AddNewLabTestFetch] = useAxios();
 
   const router = useRouter();
   const [patientsData, setPatientsData] = useState([])
+  const [vomitData, setVomitData] = useState([])
+  const [LabTestsState, setLabTestsState] = useState([])
   const [departmentsName, setDepartmentNames] = useState([])
-  const [filterValues, setFilterValues] = useState({});
-  const [pdfFile, setPDFFile] = useState(null);
+  const [filterValues, setFilterValues] = useState({})
+  const [pdfFile, setPDFFile] = useState(null)
   const [medicationNewName, setMedicationForm] = useState({
     name:"",
     description:""
@@ -58,6 +64,28 @@ export default function PatientProfile() {
       ))
     }
   }, [id])
+  useEffect(() => {
+      getQueryFetch(getChiefQuery())
+  }, [addNewVomitResponse, AddNewLabTestResponse])
+
+  const addNewVomit = (data) =>{
+    addNewVomitFetch(ChangeCheifQuery({label:data}))
+  }
+  const addNewDepartment = (data) =>{
+    addNewDepartmentFetch(addDepartmentHospital({label:data}))
+  }
+  const NewLabTestFunction = (data) =>{
+    AddNewLabTestFetch(ChangeLabTests({label:data}))
+  }
+  useEffect(() => {
+    if(getQueryResponse?.data){
+      console.log(getQueryResponse?.data)
+      setVomitData(getQueryResponse?.data)
+    }
+    if(getQueryResponse?.lab_tests){
+      setLabTestsState(getQueryResponse?.lab_tests)
+    }
+  }, [getQueryResponse])
 
   const changePrescriptionMethodFunction = (value) => {
     setPrescriptionMethodTemp(value)
@@ -167,7 +195,7 @@ export default function PatientProfile() {
 
   useEffect(() => {
     fetchHospitalDepartments()
-  }, []);
+  }, [addNewDepartmentResponse]);
 
   const [medication, setMedication] = useState({
     medicineName: "",
@@ -508,6 +536,8 @@ fontSize:"1.4rem"      }}/>
                                 setPrescription={setPrescription}
                                 medication={chiefQuery}
                                 setMedication={setChiefQuery}
+                                vomitData={vomitData}
+                                addNewVomit={addNewVomit}
                               />
                             </div>
 
@@ -764,6 +794,8 @@ fontSize:"1.4rem"      }}/>
                                 medication={labTests}
                                 setMedication={setLabTests}
                                 activeSubIndex={activeSubIndex}
+                                LabTestsState={LabTestsState}
+                                NewLabTestFunction={NewLabTestFunction}
                               />
                             </div>
                           </div>
@@ -787,6 +819,7 @@ fontSize:"1.4rem"      }}/>
                                 setMedication={setMedication}
                                 activeSubIndex={activeSubIndex}
                                 onNewshowNewMedicinesShow={onNewshowNewMedicinesShow}
+                                addNewDepartment={addNewDepartment}
                               />
                             </div>
                           </div>

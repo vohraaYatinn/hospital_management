@@ -75,3 +75,18 @@ export const changeQueueStatus = (payload_data) => {
 export const changePrescriptionMethod = (payload_data) => {
   return project.post(Urls.CHANGE_PRESCRIPTION_METHOD, payload_data);
 };
+export const getChiefQuery = (payload_data) => {
+  return project.get(Urls.GET_CHIEF_QUERY, payload_data);
+};
+export const ChangeCheifQuery = (payload_data) => {
+  return project.post(Urls.CHANGE_CHIEF_QUERY, payload_data);
+};
+export const getLabTests = (payload_data) => {
+  return project.get(Urls.GET_LAB_TESTS, payload_data);
+};
+export const ChangeLabTests = (payload_data) => {
+  return project.post(Urls.CHANGE_LAB_TESTS, payload_data);
+};
+export const addDepartmentHospital = (payload_data) => {
+  return project.post(Urls.ADD_DEPARTMENTS_HOSPITAL, payload_data);
+};

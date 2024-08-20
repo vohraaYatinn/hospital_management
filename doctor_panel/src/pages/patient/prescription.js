@@ -36,9 +36,7 @@ function Prescription({patient, prescription, medication, setPDFFile, generatePr
     if(pdfGenerateDownload){
       setDisableTrue(false)
       submitPrescription()
-
     }
-
   },[pdfGenerateDownload])
   useEffect(() => {
     const fetchLogo = async () => {
