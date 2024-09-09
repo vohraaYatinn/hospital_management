@@ -470,7 +470,7 @@ const hospitalActionFunc = () => {
                           className="border-bottom p-3"
                           style={{ minWidth: "50px" }}
                         >
-                          Slot No
+                          Token No.
                         </th>
                         <th
                           className="border-bottom p-3"
@@ -493,7 +493,7 @@ const hospitalActionFunc = () => {
                         >
                           Date
                         </th>
-                        <th className="border-bottom p-3">Time</th>
+                        <th className="border-bottom p-3">Slot</th>
                         <th
                           className="border-bottom p-3"
                           style={{ minWidth: "200px" }}
