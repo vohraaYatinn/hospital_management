@@ -9,7 +9,7 @@ import client1 from '../../assets/images/client/01.jpg'
 import { patientsData } from "../../data/data";
 import useAxios from "../../network/useAxios";
 import { fetchMyDoctorReviews } from "../../urls/urls";
-import { PaginationCountList, calculateAge, changeDateFormat, designStarsReviews, getTodayDate, handlePagination } from "../../utils/commonFunctions";
+import { PaginationCountList, calculateAge, changeDateFormat, designStarsReviews, getTodayDate, handlePagination, useIsMobile } from "../../utils/commonFunctions";
 import PatientName from "../../common-components/PatientName";
 import DateSearchComponent from "../../common-components/DateSearch";
 import { Link } from "react-router-dom";
@@ -18,6 +18,8 @@ import ReviewsStarSearch from "../../common-components/SearchStars";
 
 
 export default function PatientReview(){
+    const isMobile = useIsMobile();
+
     let [show, setShow] = useState('')
     const [patientReviews, setpatientReviews] = useState([])
     const [reviewCounts, setReviewCounts] = useState({})
@@ -74,11 +76,13 @@ export default function PatientReview(){
                             </div>
                         </div>
                         
-                        <div className="row mt-4">
-                        <div className="col-4" style={{marginLeft:"1rem"}}>
+                        <div className="row " style={{
+                            marginTop: !isMobile && "1.8rem"
+                        }}>
+                        <div className="col-sm-12 col-md-4 col-lg- mb-2" style={{marginLeft:!isMobile && "1rem"}}>
                             <DateSearchComponent filters={filterValues} setFilters={setFilterValues} />
                             </div>
-                            <div className="col-3">
+                            <div className="col-sm-12 col-md-3 col-lg-3 mb-2">
                             <ReviewsStarSearch filters={filterValues} setFilters={setFilterValues} />
                             </div>
                            
@@ -121,8 +125,12 @@ export default function PatientReview(){
                                                 return(  
                                                     <tr key={index}>
                                                         <td className="p-3">{paginationNumber.from+index+1}</td>
-                                                        <td className="p-3">{changeDateFormat(item?.created_at)}</td>
-                                                        <td className="p-3">{designStarsReviews(item?.reviews_star)}</td>
+                                                        <td className="p-3" style={{
+                                                            textWrap:"nowrap"
+                                                        }}>{changeDateFormat(item?.created_at)}</td>
+                                                        <td className="p-3" style={{
+                                                            textWrap:"nowrap"
+                                                        }}>{designStarsReviews(item?.reviews_star)}</td>
                                                         <td className="p-3">{item?.comment && item?.comment.length > 40 ? <><Tooltip placement="topRight" title={item?.comment} >{item?.comment.slice(0,40)} <span style={{color:"blue", cursor:"pointer", fontSize:"0.7rem"}}>....Read More</span> </Tooltip></>: item?.comment }</td>
 
                                                     </tr>

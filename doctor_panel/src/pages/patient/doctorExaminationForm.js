@@ -3,7 +3,7 @@ import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
 import { Input } from "antd";
-import { checkNotNull } from "../../utils/commonFunctions";
+import { checkNotNull, useIsMobile } from "../../utils/commonFunctions";
 
 const optionsDosagePulse = Array.from({ length: 151 }, (_, index) => ({
   value: (index + 50).toString(),
@@ -230,6 +230,7 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
     e.preventDefault();
   };
   let [activeIndex, setActiveIndex] = useState(1)
+  const isMobile = useIsMobile();
 
 
   return (
@@ -266,7 +267,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                       />
                     </div>
                   </div>
-                  <div className="row mt-4">
+                  <div className="row" style={{
+                    marginTop:!isMobile && "2rem"
+                  }}>
                     <div className="col-md-2 mb-2 mt-4">
                       <div
                         style={{
@@ -274,8 +277,10 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                         }}
                       >
                         BP</div></div>
-                    <div className="col-md-10 row">
-                      <div className="col-5">
+                    <div className="col-md-10 row" style={{
+                        marginTop:isMobile && "0.5rem"
+                    }}>
+                      <div className="col-lg-5 col-sm-12 col-md-5">
                         <label>SBP</label>
                         <Select
                           name="dosage"
@@ -291,7 +296,7 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                           required
                         />
                       </div>
-                      <div className="col-5">
+                      <div className="col-lg-5 col-sm-12 col-md-5">
                         <label>DBP</label>
 
                         <Select
@@ -399,10 +404,10 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                           fontWeight: "600"
                         }}
                       >
-                        Temp</div>
+                        Temp {isMobile && <span>{"(° F}"}</span>}</div>
                     </div>
                     <div className="col-md-10 row">
-                      <div className="col-5">
+                      <div className="col-md-5 col-lg-5 col-sm-12">
                         <label>Value</label>
                         <Select
                           name="dosage"
@@ -418,7 +423,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                           required
                         />
                       </div>
-                      <div className="col-5">
+                      <div className="col-md-5 col-lg-5 col-sm-2" style={{
+                        marginTop:isMobile && "1rem"
+                      }}>
                         <label>Decimal</label>
 
                         <Select
@@ -439,9 +446,12 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                           required
                         />
                       </div>
-                      <div className="col-2 " style={{ marginTop: "2.4rem" }}>
+                      {
+                        !isMobile &&   <div className="col-2 " style={{ marginTop: "2.4rem" }}>
                         <label>° F</label>
                       </div>
+                      }
+                    
 
                     </div>
                   </div>
@@ -497,7 +507,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
 
                     </div>
                     <div className="col-md-10 row">
-                      <div className="col-5">
+                      <div className="col-md-5 col-lg-5 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                         <label>CVS</label>
 
                         <Select
@@ -522,7 +534,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                         />
                       </div>
                       {systemic.CVS && (systemic.CVS.includes("-") ? systemic.CVS.split("-")[0] == "Abnormal" : systemic.CVS == "Abnormal" ) &&
-                        <div className="col-5">
+                        <div className="col-md-5 col-lg-5 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                           <label>Type</label>
 
                           <Select
@@ -565,7 +579,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                     <div className="col-md-4 mb-2">
                     </div>
                     <div className="col-md-10 row">
-                      <div className="col-5">
+                      <div className="col-md-5 col-lg-5 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                         <label>Respiratory</label>
 
                         <Select
@@ -591,7 +607,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                       </div>
 
                       {systemic.Respiratory && (systemic.Respiratory.includes("-") ? systemic.Respiratory.split("-")[0] == "Abnormal" : systemic.Respiratory == "Abnormal" ) &&
-                        <div className="col-5">
+                        <div className="col-md-5 col-lg-5 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                           <label>Type</label>
 
                           <Select
@@ -636,7 +654,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                     </div>
 
                     <div className="col-md-10 row">
-                      <div className="col-5">
+                      <div className="col-md-5 col-lg-5 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                         <label>Abdominal</label>
                         <Select
                           name="dosage"
@@ -662,7 +682,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
 
                       {systemic.Abdominal && (systemic.Abdominal.includes("-") ? systemic.Abdominal.split("-")[0] == "Tenderness" : systemic.Abdominal == "Tenderness" ) &&
 
-                        <div className="col-5">
+                        <div className="col-md-5 col-lg-5 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                           <label>Type</label>
 
                           <Select
@@ -733,7 +755,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                     </div>
 
                     <div className="col-md-10 row">
-                      <div className="col-5">
+                      <div className="col-md-5 col-lg-5 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                         <label>Gynic</label>
                         <Select
                           name="dosage"
@@ -758,7 +782,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                         />
                       </div>
                       {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Ongoing" : systemic.Gynic == "Ongoing") && 
-                                                <div className="col-3">
+                                                <div className="col-md-3 col-lg-3 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                                                 <label>Type</label>
                     
                                                 <Select
@@ -792,7 +818,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
 
                       {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Stopped Since" ||  systemic.Gynic.split("-")[0] == "Menopause" : systemic.Gynic == "Stopped Since" || systemic.Gynic == "Menopause"  )  &&
                         <>
-                          <div className="col-3">
+                          <div className="col-md-3 col-lg-3 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                             <label>{"Duration"}</label>
 
                             <Select
@@ -817,7 +845,9 @@ let fieldsToFilter = ['CvsType', 'RespiratoryType', 'AbdominalExtend', 'GynicTyp
                             />
                           </div>
                           {systemic.Gynic && (systemic.Gynic.includes("-") ? systemic.Gynic.split("-")[0] == "Stopped Since" ||  systemic.Gynic.split("-")[0] == "Menopause" : systemic.Gynic == "Stopped Since"  || systemic.Gynic == "Menopause" )  &&
-                            <div className="col-3">
+                            <div className="col-md-3 col-lg-3 col-sm-12" style={{
+                        marginBottom:isMobile && "0.4rem"
+                      }}>
                               <label>W/M</label>
 
                               <Select

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import moment from "moment";
+import { useEffect, useState } from "react";
 
 export const calculateAge = (dateOfBirth) => {
   const currentDate = new Date();
@@ -161,4 +162,21 @@ export const capitalizeFirstChar = (string) => {
   else{
     return ""
   }
+};
+
+export const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return isMobile;
 };

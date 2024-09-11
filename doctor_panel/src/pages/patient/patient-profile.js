@@ -15,7 +15,7 @@ import DoctorInvestigationForm from "./investigationForm";
 import { useRouter } from "../../hooks/use-router";
 import { addNewMedicinesByDoctor, fetchDoctorMedicinesDashboard, fetchPatientProfile, uploadDocumentPrescription, fetchDepartmentHospital, changePrescriptionMethod, getChiefQuery, ChangeCheifQuery, getLabTests, ChangeLabTests, addDepartmentHospital } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
-import { calculateAge, capitalizeFirst } from "../../utils/commonFunctions";
+import { calculateAge, capitalizeFirst, useIsMobile } from "../../utils/commonFunctions";
 import { FiUser, FiTrash2 } from "react-icons/fi";
 import { RiMindMap, RiNodeTree, RiScales2Fill, RiWeiboFill } from "react-icons/ri";
 import { GiMedicalDrip, GiTreasureMap } from "react-icons/gi";
@@ -30,6 +30,7 @@ import { test_url_images } from "../../config/environment";
 export default function PatientProfile() {
   const { id, appointment } = useParams()
   let doctorRedux = useSelector(doctorDetails);
+  const isMobile = useIsMobile();
 
   const dispatch = useDispatch();
   const [pdfGenerateDownload, setPdfGenerateDownload] = useState(false)
@@ -269,7 +270,7 @@ export default function PatientProfile() {
       />
 
       <section className="bg-hero" style={{
-            marginTop: "-3rem"
+            marginTop: isMobile ? "2rem" : "-3rem"
       }}>
         <div className="container-modified">
         <div className="row mt-lg-5">
@@ -297,7 +298,7 @@ export default function PatientProfile() {
 
 </div> 
 <div className="col-md-6 col-lg-8 shadow" style={{display:"flex", alignItems:"center"}}>
-<div className="list-unstyled p-4" style={{display:"flex", justifyContent:"space-around", fontWeight:600, width:"100%"}}>
+<div className="list-unstyled p-4" style={{display:"flex", justifyContent:"space-around", fontWeight:600, width:"100%" , flexDirection:isMobile && "column"}}>
     <div
       className="d-flex align-items-center mt-3"
       style={{
@@ -478,7 +479,12 @@ fontSize:"1.4rem"      }}/>
                 >
                   {activeIndex === 1 ? (
                     <div className="tab-pane fade show active">
-                      <div className="card border-0 shadow overflow-issue check-card-width">
+                      <div className="card border-0 shadow overflow-issue check-card-width"
+                      style={{
+                        width:isMobile && "100%",
+                        marginTop:isMobile && "1rem"
+                      }}
+                      >
                         <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                           <li className="nav-item">
                             <Link
@@ -586,8 +592,8 @@ fontSize:"1.4rem"      }}/>
                             }}>
                               {patientsData?.appointments.map((item, index) => {
                                 return (
-                                  <div className="row rounded shadow" style={{ margin: "1rem", marginBottom: "2rem" }}>
-                                    <div className="col-4" style={{ background: item?.prescription ? "rgb(56,108,240)" : "rgb(162 184 241)", color: "white", height: "4rem", alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }}
+                                  <div className="row rounded shadow" style={{ margin: "1rem", marginBottom: "2rem", display:isMobile && "flex", flexDirection:isMobile &&"column" }}>
+                                    <div className="col-lg-4 col-md-4 col-sm-12" style={{ background: item?.prescription ? "rgb(56,108,240)" : "rgb(162 184 241)", color: "white", height: "4rem", alignItems: "center", display: "flex", justifyContent: "center", cursor: "pointer" }}
                                       disabled={!item.prescription}
                                       onClick={() => {
                                         if(item.prescription){
@@ -601,7 +607,7 @@ fontSize:"1.4rem"      }}/>
                                     </div>
                                     {item.lab_report ?
                                     <>
-                                    <div className="col-4" style={{ display: "flex", flexDirection: "column" }}>
+                                    <div className="col-sm-4 col-lg-4 col-sm-12" style={{ display: "flex", flexDirection: "column" }}>
                                       {item.doctor_instruction}
                                       <span className="mb-0 mt-2" style={{ fontWeight: "600" }}>Dr. {item?.doctor?.full_name} - {moment(item?.date_appointment).format('YYYY-MM-DD')}</span>
 
@@ -615,7 +621,7 @@ fontSize:"1.4rem"      }}/>
                                       Lab Report
                                     </div>
                                     </>:
- <div className="col-8" style={{ display: "flex", flexDirection: "column" }}>
+ <div className="col-lg-8 col-md-8 col-sm-12" style={{ display: "flex", flexDirection: "column", border:isMobile && "0.5px solid" }}>
  {item.doctor_instruction}
  <span className="mb-0 mt-2" style={{ fontWeight: "600" }}>Dr. {item?.doctor?.full_name} - {moment(item?.date_appointment).format('YYYY-MM-DD')}</span>
 
@@ -835,7 +841,12 @@ fontSize:"1.4rem"      }}/>
                   )}
                   {activeIndex === 3 ? (
                     <div className="tab-pane fade show active">
-                      <div className="card border-0 shadow overflow-issue check-card-width">
+                      <div className="card border-0 shadow overflow-issue check-card-width"
+                        style={{
+                          width:isMobile && "100%",
+                          marginTop:isMobile && "1rem"
+                        }}
+                      >
                         <ul className="nav nav-pills nav-justified flex-column flex-sm-row rounded-0 shadow overflow-hidden bg-light mb-0">
                           <li className="nav-item">
                             <Link

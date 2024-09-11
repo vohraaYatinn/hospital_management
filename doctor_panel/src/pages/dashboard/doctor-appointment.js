@@ -7,7 +7,7 @@ import ScrollTop from "../../components/scrollTop";
 import useAxios from "../../network/useAxios";
 import { changeQueueStatus, fetchDoctorAppointments } from "../../urls/urls";
 import { useRouter } from "../../hooks/use-router";
-import { PaginationCountList, calculateAge, handlePagination } from "../../utils/commonFunctions";
+import { PaginationCountList, calculateAge, handlePagination, useIsMobile } from "../../utils/commonFunctions";
 import DateSearchComponent from "../../common-components/DateSearch";
 import StatusSearch from "../../common-components/StatusSearch";
 import PatientName from "../../common-components/PatientName";
@@ -18,6 +18,8 @@ import convertToPDF from "../../utils/convertToPdf";
 import { Alert } from "antd";
 
 export default function DoctorAppointment(){
+    const isMobile = useIsMobile();
+
     const [appointmentsResponse, appointmentsError, appointmentsLoading, appointmentsFetch] = useAxios();
     const [changeQueueResponse, changeQueueError, changeQueueLoading, changeQueueFetch] = useAxios();
     const router = useRouter();
@@ -169,21 +171,21 @@ export default function DoctorAppointment(){
                         </div>
                         
                         <div className="row">
-                            <div className="row" style={{marginTop:"2rem"}}>
-                            <div className="col-3">
+                            <div className="row" style={{marginTop:isMobile?"0.3rem" :"2rem"}}>
+                            <div className="col-md-3 col-lg-3 col-sm-12 mb-2">
                                                 <PatientName filters={filterValues} setFilters={setFilterValues}/>
                                                 </div>
-                            <div className="col-3">
+                            <div className="col-md-3 col-lg-3 col-sm-12  mb-2">
                                                 <StatusSearch filters={filterValues} setFilters={setFilterValues} statusSearch={searchStatusConstants} name={"status"}/>
                                                 </div>
-                                                <div className="col-3">
+                                                <div className="col-md-3 col-lg-3 col-sm-12  mb-2">
                                                 <StatusSearch filters={filterValues} setFilters={setFilterValues} statusSearch={searchSlotConstants} name={"slot"}/>
                                                 </div>
-                                                <div className="col-3">
+                                                <div className="col-md-3 col-lg-3 col-sm-12  mb-2">
                                                 <DateSearchComponent filters={filterValues} setFilters={setFilterValues} label={false}/>
                                                 </div>
                                                 <div className="row mt-3">
-                                                <div className="col-3">
+                                                <div className="col-md-3 col-lg-3 col-sm-4 mb-2">
                                        <button
                                         className="form-control btn-check-reset"
                                         onClick={()=>{

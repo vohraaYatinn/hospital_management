@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
-import { checkNotAllNull } from "../../utils/commonFunctions";
+import { checkNotAllNull, useIsMobile } from "../../utils/commonFunctions";
 import Modal from 'react-bootstrap/Modal';
 
 const optionsDosage = [
@@ -47,6 +47,8 @@ function DoctorInspectForm({
   vomitData,
   addNewVomit
 }) {
+  const isMobile = useIsMobile();
+
   let [editProfile, setEditProfile] = useState(false)
 
 const [options, setOptions] = useState([
@@ -208,7 +210,7 @@ useEffect(()=>{
                     required
                   />
                 </div>
-                                  <div className="col-md-2">
+                                  <div className="col-md-2 mb-2">
                                   <label className="form-label">Duration</label>
 
 
@@ -232,7 +234,7 @@ useEffect(()=>{
                     required
                   />
                 </div>
-                <div className="col-md-3" style={{ marginLeft: "1rem" }}>
+                <div className="col-md-3" style={{ marginLeft:!isMobile && "1rem" }}>
                 <label className="form-label">D/W/M</label>
 
                   <Select

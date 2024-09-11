@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Select from "react-select";
 import AddComments from "../../components/dashboard/addComments";
 import { Link } from "react-router-dom";
-import { checkNotAllNull, compareObjects, getCurrentDate } from "../../utils/commonFunctions";
+import { checkNotAllNull, compareObjects, getCurrentDate, useIsMobile } from "../../utils/commonFunctions";
 import BulletTextbox from "../../common-components/BulletTextBox";
 import { useSelector } from 'react-redux';
 import { medicinesDetails, updateMedicines } from "../../redux/reducers/functionalities.reducer";
@@ -143,6 +143,8 @@ function DoctorPrescriptionForm({
   departmentsName,
   addNewDepartment
 }) {
+  const isMobile = useIsMobile();
+
   let [editProfile, setEditProfile] = useState(false)
   let [editRefer, setEditRefer] = useState(false)
   const [newRefer, setNewRefer] = useState()
@@ -526,7 +528,7 @@ useEffect(()=>{
                     required
                   />
                 </div>
-              <div className="col-md-3 mt-2" style={{ marginLeft: "1rem" }}>
+              <div className="col-md-3 mt-2" style={{ marginLeft: !isMobile && "1rem" }}>
               <label className="form-label">D/W/M</label>
                   <Select
                     style={{ height: "2rem" }}

@@ -21,9 +21,12 @@ import {
 import { useSelector } from "react-redux";
 import { doctorDetails } from "../redux/reducers/functionalities.reducer";
 import { test_url_images } from "../config/environment";
+import { useIsMobile } from "../utils/commonFunctions";
 
 export default function Navbar({ navDark, containerClass }) {
   let token = useSelector(doctorDetails);
+  const isMobile = useIsMobile();
+
   let [show, setShow] = useState(false);
   let [scroll, setScroll] = useState(false);
   let [isMenu, setisMenu] = useState(false);
@@ -68,14 +71,20 @@ export default function Navbar({ navDark, containerClass }) {
 
   }, []);
   useEffect(()=>{
-    console.log(manu)
-  },[manu])
+    let elem = document.getElementById("navigation23")
+    if(elem){
+      elem.style.display = "none"
+
+    }
+  },[])
+
+
 
   let toggleMenu = () => {
     setisMenu(!isMenu);
     let elem = document.getElementById("navigation23")
     if (elem) {
-      if (elem.style.display == "none"){
+      if (elem.style.display == "none" && !isMenu){
         elem.style.display = "block"
       }
       else{
@@ -90,6 +99,9 @@ export default function Navbar({ navDark, containerClass }) {
     <header
       id="topnav"
       className={`${scroll ? "nav-sticky" : ""} navigation sticky`}
+      style={{
+        maxWidth:"100vw"
+      }}
     >
       <div className={containerClass}>
         <div>
@@ -146,7 +158,7 @@ export default function Navbar({ navDark, containerClass }) {
             </Link>
           )}
         </div>
-
+        {list_to_show_hamburger.includes(manu) &&
         <div className="menu-extras">
           <div className="menu-item">
             <a
@@ -161,7 +173,7 @@ export default function Navbar({ navDark, containerClass }) {
               </div>
             </a>
           </div>
-        </div>
+        </div>}
 
         <ul className="dropdowns list-inline mb-0">
           <li className="list-inline-item mb-0 ms-1">
@@ -173,11 +185,16 @@ export default function Navbar({ navDark, containerClass }) {
           </Offcanvas>
           <li className="list-inline-item mb-0 ms-1">
       <div className="dropdown dropdown-primary" style={{ display: "flex", gap: "1rem" }}>
-        {!list_to_show_hamburger.includes(manu) &&
+        {!isMobile && !list_to_show_hamburger.includes(manu) &&
           <div className="flex-1 ms-2">
             <span className="d-block" style={{ fontWeight: "600", marginBottom: "0rem !important" }}>Dr {token?.full_name}</span>
             <small className="text-muted">{token?.specialization}</small>
-          </div>}
+          </div>
+          
+          }
+
+          {!isMobile &&
+          <>
         <button
           type="button"
           className={`btn btn-pills btn-soft-primary dropdown-toggle p-0 ${list_to_show_hamburger.includes(manu) && "classic-nav-width"}`}
@@ -219,6 +236,8 @@ export default function Navbar({ navDark, containerClass }) {
             Logout
           </Link>
         </div>
+        </>
+}
       </div>
     </li>
         </ul>

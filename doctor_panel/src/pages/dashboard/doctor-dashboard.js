@@ -15,7 +15,7 @@ import { ExclamationCircleFilled } from '@ant-design/icons';
 
 import DateSearchComponent from "../../common-components/DateSearch";
 import { test_url_images } from "../../config/environment";
-import { calculateAge } from "../../utils/commonFunctions";
+import { calculateAge, useIsMobile } from "../../utils/commonFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import { doctorDetails, updateDoctor, updateMedicines } from "../../redux/reducers/functionalities.reducer";
 import ab from "../../assets/profile.png"
@@ -27,6 +27,7 @@ const { confirm } = Modal;
 export default function DoctorDashBoard() {
     const dispatch = useDispatch();
     let doctorRedux = useSelector(doctorDetails);
+    const isMobile = useIsMobile();
 
     const [filters, setFilters] = useState({
         slots:"",
@@ -223,11 +224,16 @@ export default function DoctorDashBoard() {
                             <Chart data={dashboardData} time_period_dict={dashboardDataTime} />
 
                             <div className="row mt-4">
+                                {!isMobile &&
                             <div className="col-9" >
-                            </div>
+                            </div>}
 
                             <div className="col-3" >
-                            <Radio.Group options={optionsRadio} onChange={onChangeRadio} value={radio} optionType="button" />
+                            <Radio.Group options={optionsRadio} onChange={onChangeRadio} value={radio} optionType="button" 
+                            style={{
+                                display:isMobile && "flex"
+                            }}
+                            />
                                 </div>
                                 </div>
                             <div className="row">
@@ -235,7 +241,7 @@ export default function DoctorDashBoard() {
                                     <label style={{marginTop:'1.5rem'}}>{getTodayDateString()}</label>
                                     <div style={{
                                         display:"flex",
-                                        width:"40rem",
+                                        width:isMobile ? "100vw" :"40rem",
                                         alignItems:"center"
                                     }}>
                                         
