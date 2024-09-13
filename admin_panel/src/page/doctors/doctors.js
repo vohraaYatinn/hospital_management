@@ -20,9 +20,11 @@ import DateSearchComponent from "../../common-components/DateSearch";
 import DoctorSearch from "../../common-components/DoctorsSearch";
 import PatientName from "../../common-components/PatientName";
 import { useRouter } from "../../hooks/use-router";
+import { useIsMobile } from "../../utils/commonFunctions";
 
 export default function Doctors() {
   const router = useRouter();
+  const isMobile = useIsMobile()
 
   const [doctorsData, setDoctorsData] = useState([]);
   const [
@@ -69,14 +71,20 @@ export default function Doctors() {
                     </div>
                     <div className="row" style={{ marginTop: "1rem" }}>
 
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{
+                                  marginBottom:isMobile && "1rem"
+                                }}>
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{
+                                  marginBottom:isMobile && "1rem"
+                                }}>
                                         <HospitalNameSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3" style={{
+                                  marginBottom:isMobile && "1rem"
+                                }}>
                                         <DepartmentSearch filters={filters} setFilters={setFilters} />
 
                                     </div>

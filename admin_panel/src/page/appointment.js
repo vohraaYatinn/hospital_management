@@ -10,7 +10,7 @@ import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircl
 import Modal from 'react-bootstrap/Modal';
 import { CancelAppointmentAdmin, fetchAppointmentsAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { PaginationCountList, calculateAge, capitalizeFirstChar, checkAppointmentStatus, checkPaymentStatus, getTodayDate, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, capitalizeFirstChar, checkAppointmentStatus, checkPaymentStatus, getTodayDate, handlePagination, useIsMobile } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -27,6 +27,8 @@ import PaymentModeSearch from "../common-components/PaymentMode";
 
 
 export default function Appointment() {
+    const isMobile = useIsMobile()
+
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
     let [acceptsAppointment, setAcceptsAppointment] = useState(false);
@@ -249,17 +251,17 @@ export default function Appointment() {
                       />
                     )}
                         <div className="row">
-                            <div className="row" style={{ marginTop: "1rem" }}>
-                                <div className="col-sm-6 col-lg-3">
+                            <div className="row" style={{ marginTop: !isMobile && "1rem" }}>
+                                <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                     <PatientName filters={filters} setFilters={setFilters} />
                                 </div>
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                     <DateSearchComponent filters={filters} setFilters={setFilters} />
                                 </div>
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                     <AppointmentSlots filters={filters} setFilters={setFilters} />
                                 </div>
                                 </div>
@@ -268,14 +270,14 @@ export default function Appointment() {
                                         <StatusSearch filters={filters} setFilters={setFilters} statusSearch={searchStatusConstants} />
 
                                     </div>
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                         <PaymentStatusSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                     <PaymentModeSearch filters={filters} setFilters={setFilters} />
                                 </div>
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                         <HospitalNameSearch filters={filters} setFilters={setFilters} />
 
                                     </div>

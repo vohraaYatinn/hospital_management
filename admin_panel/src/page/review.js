@@ -6,7 +6,7 @@ import Wrapper from "../components/wrapper";
 import useAxios from "../network/useAxios";
 import { fetchAllHospital, fetchAllHospitalsReviews, fetchAllReviews } from "../urls/urls";
 import { test_url_images } from "../config/environment";
-import { PaginationCountList, changeDateFormat, designStarsReviews, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, changeDateFormat, designStarsReviews, handlePagination, useIsMobile } from "../utils/commonFunctions";
 import PatientName from "../common-components/PatientName";
 import DoctorSearch from "../common-components/DoctorsSearch";
 import HospitalNameSearch from "../common-components/HospitalName";
@@ -14,6 +14,8 @@ import DepartmentSearch from "../common-components/DepartmentSearch";
 import { Radio } from "antd";
 
 export default function Review(){
+    const isMobile = useIsMobile()
+
     const [filters, setFilters] = useState({
     })
     const [value4, setValue4] = useState('doctors');
@@ -79,22 +81,30 @@ export default function Review(){
                     <div className="row" style={{ marginTop: "1rem" }}>
                           
                                 
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{
+                                            marginBottom:isMobile && "1rem"
+                                        }}>
                                         <HospitalNameSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
                                     {value4 == "doctors" &&
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3" style={{
+                                        marginBottom:isMobile && "1rem"
+                                    }}>
                                         <DepartmentSearch filters={filters} setFilters={setFilters} />
                                     
                                     </div>
                                     }
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3" style={{
+                                            marginBottom:isMobile && "1rem"
+                                        }}>
                                     <PatientName filters={filters} setFilters={setFilters} />
                                 </div>
                                 {value4 == "doctors" &&
                                 <div className="col-sm-6 col-lg-3">
-                                    <DoctorSearch filters={filters} setFilters={setFilters} />
+                                    <DoctorSearch filters={filters} setFilters={setFilters} style={{
+                                            marginBottom:isMobile && "1rem"
+                                        }}/>
                                 </div>
                                 
 }

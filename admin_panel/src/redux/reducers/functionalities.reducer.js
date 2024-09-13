@@ -14,8 +14,8 @@ const functionalitiesSlice = createSlice({
 
   },
   reducers: {
-    updateNavbar(state) {
-      state.functionalities.showNavbar = !state.functionalities.showNavbar
+    updateNavbar(state, payload) {
+      state.functionalities.showNavbar = payload
     },
     updateToken(state, payload) {
       state.functionalities.token = payload.payload

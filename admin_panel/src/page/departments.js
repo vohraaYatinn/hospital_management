@@ -10,12 +10,14 @@ import { addDepartmentAdmin, addDepartmentHospital, fetchDepartmentAll, fetchSof
 import useAxios from "../network/useAxios";
 import { Alert } from 'antd';
 import DepartmentSearch from "../common-components/DepartmentSearch";
-import { PaginationCountList, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, handlePagination, useIsMobile } from "../utils/commonFunctions";
 import { updateDepartments } from "../redux/reducers/functionalities.reducer";
 import { useDispatch } from "react-redux";
 
 
 export default function Departments(){
+    const isMobile = useIsMobile()
+
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
     const [filters, setFilters] = useState({
@@ -193,8 +195,10 @@ export default function Departments(){
                     <div className="row">
                     <div className="row" style={{ marginTop: "1rem" }}>
 
-                                    <div className="col-sm-6 col-lg-3">
-                                        <DepartmentSearch filters={filters} setFilters={setFilters} />
+                                    <div className="col-sm-6 col-lg-3" style={{
+                                            marginBottom:isMobile && "1rem"
+                                        }}>
+                                        <DepartmentSearch filters={filters} setFilters={setFilters}  />
 
                                     </div>
                                     <div className="col-sm-6 col-lg-3">

@@ -10,7 +10,7 @@ import { FiEye, MdOutlineCheckCircleOutline, AiOutlineCloseCircle, LiaTimesCircl
 import Modal from 'react-bootstrap/Modal';
 import { CancelAppointmentAdmin, fetchRevenueAllHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { PaginationCountList, calculateAge, checkAppointmentStatus, checkPaymentStatus, getTodayDate, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, checkAppointmentStatus, checkPaymentStatus, getTodayDate, handlePagination, useIsMobile } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -32,6 +32,8 @@ import DateRange from "../common-components/DateRange";
 import PaymentModeSearch from "../common-components/PaymentMode";
 
 export default function RevenueTab() {
+    const isMobile = useIsMobile()
+
     let [show, setShow] = useState(false);
     let [showDetail, setShowDetail] = useState(false);
     let [acceptsAppointment, setAcceptsAppointment] = useState(false);
@@ -283,21 +285,21 @@ export default function RevenueTab() {
                     )}
                         <div className="row">
                             <div className="row" style={{ marginTop: "1rem" }}>
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                     <DateRange filters={filters} setFilters={setFilters} />
                                 </div>
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                         <HospitalNameSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3" style={{ marginTop: isMobile && "1rem" }}>
                                         <PaymentStatusSearch filters={filters} setFilters={setFilters} />
 
                                     </div>
-                                    <div className="col-sm-6 col-lg-3 mt-3">
+                                    <div className="col-sm-6 col-lg-3 mt-3" style={{ marginTop: isMobile && "1rem" }}>
                                         <PaymentModeSearch filters={filters} setFilters={setFilters} />
 
                                     </div>

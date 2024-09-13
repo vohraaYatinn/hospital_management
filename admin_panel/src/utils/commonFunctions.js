@@ -1,4 +1,5 @@
 import moment from "moment";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 export function isNumber(value) {
@@ -115,4 +116,21 @@ export const checkAppointmentStatus = (status) => {
   }
   return values?.[status] || "N/A"
 
+};
+
+export const useIsMobile = () => {
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    };
+
+    window.addEventListener('resize', handleResize);
+
+    // Cleanup event listener on unmount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  return isMobile;
 };

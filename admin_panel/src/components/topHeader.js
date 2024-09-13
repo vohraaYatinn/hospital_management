@@ -21,12 +21,15 @@ import SimpleBar from "simplebar-react";
 
 import Offcanvas from "react-bootstrap/Offcanvas";
 import PersonChatTwo from "./personChatTwo";
+import { useIsMobile } from "../utils/commonFunctions";
 
 export default function TopHeader({ toggle, setToggle }) {
+  const isMobile = useIsMobile()
   let [countryModal, setCountryModal] = useState(false);
   let [mailModal, setMailModal] = useState(false);
   let [userModal, setUserModal] = useState(false);
   let [show, setShow] = useState(false);
+  const navbarRef = useRef(null);
 
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
@@ -67,8 +70,9 @@ export default function TopHeader({ toggle, setToggle }) {
     };
   }, []);
 
+
   return (
-    <div className="top-header">
+    <div className="top-header" >
       <div className="header-bar d-flex justify-content-between border-bottom">
         <div className="d-flex align-items-center">
           <Link to="#" className="logo-icon">
@@ -95,7 +99,24 @@ export default function TopHeader({ toggle, setToggle }) {
               <button
                 type="button"
                 className="btn btn-icon btn-pills btn-soft-primary ms-2"
-                onClick={() => setUserModal(!userModal)}
+                onClick={() => {
+                if(isMobile){
+                  const nav = document.getElementById("sidebar")
+                  if(!show){
+                    nav.style.left = 0
+                    setShow(true)
+                  }
+                  else{
+                    nav.style.left = "-300px"
+                    setShow(false)
+                  }
+                 
+                }
+                else{
+                  setUserModal(!userModal)}
+
+                }
+                }
               >
                 <FaBars />
                 {/* <img
