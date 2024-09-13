@@ -1239,7 +1239,8 @@ export default function DrProfile() {
                   </div>
 
                   <h3>Slots</h3>
-
+                  {!isMobile &&
+<>
                   <div className="col-md-4 mb-3">
                   <label className="form-label"><b>Morning Slots</b></label>
                     </div>
@@ -1249,9 +1250,11 @@ export default function DrProfile() {
                   <div className="col-md-4 mb-3">
                   <label className="form-label"><b>Evening Slots</b></label>
                     </div>
+                    </>
+}
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
+                    <label className="form-label">{!isMobile ? "Timings" : "Morning Timings"}</label>
                       <TimePicker.RangePicker
                                                                   format={format}
 
@@ -1269,7 +1272,7 @@ export default function DrProfile() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
+                    <label className="form-label">{!isMobile ? "Timings" : "Afternoon Timings"}</label>
                       <TimePicker.RangePicker
                                                                                         format={format}
 
@@ -1285,7 +1288,7 @@ export default function DrProfile() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
+                    <label className="form-label">{!isMobile ? "Timings" : "Evening Timings"}</label>
                       <TimePicker.RangePicker
                                                                                         format={format}
 
@@ -1302,7 +1305,7 @@ export default function DrProfile() {
 
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
+                    <label className="form-label">{!isMobile ? "Capacity" : "Morning Capacity"}</label>
                       <input
                         name="morningSlots"
                         id="morningSlots"
@@ -1326,7 +1329,7 @@ export default function DrProfile() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
+                    <label className="form-label">{!isMobile ? "Capacity" : "Afternoon Capacity"}</label>
                       <input
                         name="afternoonSlots"
                         id="afternoonSlots"
@@ -1350,7 +1353,7 @@ export default function DrProfile() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
+                    <label className="form-label">{!isMobile ? "Capacity" : "Evening Capacity"}</label>
                       <input
                         name="eveningSlots"
                         id="eveningSlots"
@@ -1377,7 +1380,7 @@ export default function DrProfile() {
 
                 <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
+                    <label className="form-label">{!isMobile ? "Price" : "Morning Price"}</label>
                       <input
                         name="name"
                         id="name"
@@ -1399,7 +1402,7 @@ export default function DrProfile() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
+                    <label className="form-label">{!isMobile ? "Price" : "Afternoon Price"}</label>
                       <input
                         name="name"
                         id="name"
@@ -1421,7 +1424,7 @@ export default function DrProfile() {
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
+                    <label className="form-label">{!isMobile ? "Price" : "Evening Price"}</label>
                       <input
                         name="name"
                         id="name"

@@ -11,8 +11,10 @@ import { TimePicker } from "antd";
 import { useRouter } from "../../hooks/use-router.js";
 import { GetAllDepartments } from "../../redux/reducers/functionalities.reducer.js";
 import { useSelector } from "react-redux";
+import { useIsMobile } from "../../utils/commonFunctions.js";
 
 export default function AddDoctor() {
+  const isMobile = useIsMobile()
   const router = useRouter();
   // const allDepartments = useSelector(GetAllDepartments);
 const [allDepartments, setAllDepartments] = useState([])
@@ -668,7 +670,8 @@ const [allDepartments, setAllDepartments] = useState([])
                   </div>
 
                   {/* <h3>Slots</h3> */}
-
+                  {!isMobile &&
+<>
                   <div className="col-md-4 mb-3">
                   <label className="form-label"><b>Morning Slots</b></label>
                     </div>
@@ -678,10 +681,12 @@ const [allDepartments, setAllDepartments] = useState([])
                   <div className="col-md-4 mb-3">
                   <label className="form-label"><b>Evening Slots</b></label>
                     </div>
+                    </>
+}
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
-                      <TimePicker.RangePicker
+                    <label className="form-label">{!isMobile ? "Timings" : "Morning Timings"}</label>
+                    <TimePicker.RangePicker
                       format={format}
                       onChange={onChangeTime}
                       className="form-control"
@@ -695,8 +700,8 @@ const [allDepartments, setAllDepartments] = useState([])
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
-                      <TimePicker.RangePicker
+                    <label className="form-label">{!isMobile ? "Timings" : "Afternoon Timings"}</label>
+                    <TimePicker.RangePicker
                                             format={format}
 
                       onChange={onChangeTimeAfternoon}
@@ -710,8 +715,8 @@ const [allDepartments, setAllDepartments] = useState([])
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
-                      <TimePicker.RangePicker
+                    <label className="form-label">{!isMobile ? "Timings" : "Afternoon Timings"}</label>
+                    <TimePicker.RangePicker
                                             format={format}
 
                         onChange={onChangeTimeEvening}
@@ -726,8 +731,8 @@ const [allDepartments, setAllDepartments] = useState([])
 
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Capacity" : "Morning Capacity"}</label>
+                    <input
                         name="morningSlots"
                         id="morningSlots"
                         type="number" // Change input type to "number"
@@ -748,8 +753,8 @@ const [allDepartments, setAllDepartments] = useState([])
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Capacity" : "Afternoon Capacity"}</label>
+                    <input
                         name="afternoonSlots"
                         id="afternoonSlots"
                         type="number" // Change input type to "number"
@@ -770,8 +775,8 @@ const [allDepartments, setAllDepartments] = useState([])
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Capacity" : "Evening Capacity"}</label>
+                    <input
                         name="eveningSlots"
                         id="eveningSlots"
                         type="number" // Change input type to "number"
@@ -793,8 +798,8 @@ const [allDepartments, setAllDepartments] = useState([])
 
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Price" : "Morning Price"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="number"
@@ -813,8 +818,8 @@ const [allDepartments, setAllDepartments] = useState([])
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Price" : "Afternoon Price"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="number"
@@ -833,8 +838,8 @@ const [allDepartments, setAllDepartments] = useState([])
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Price" : "Evening Price"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="number"
