@@ -6,7 +6,7 @@ import Wrapper from "../components/wrapper";
 import useAxios from "../network/useAxios";
 import { fetchAllHospital, fetchAllHospitalReviews, fetchAllReviews, fetchselfHospitalReviews } from "../urls/urls";
 import { test_url_images } from "../config/environment";
-import { PaginationCountList, changeDateFormat, designStarsReviews, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, changeDateFormat, designStarsReviews, handlePagination, useIsMobile } from "../utils/commonFunctions";
 import PatientName from "../common-components/PatientName";
 import DoctorSearch from "../common-components/DoctorsSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
@@ -15,6 +15,7 @@ import ReviewsStarSearch from "../common-components/SearchStars";
 import DateSearchComponent from "../common-components/DateSearch";
 
 export default function Review(){
+    const isMobile = useIsMobile()
     const [filters, setFilters] = useState({
         starSearch:""
     })
@@ -82,18 +83,26 @@ export default function Review(){
                     <div className="row" style={{ marginTop: "1rem" }}>
                           
                                 
-                    {value4 == "doctors" && <div className="col-sm-6 col-lg-3">
+                    {value4 == "doctors" && <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                                         <DepartmentSearch filters={filters} setFilters={setFilters} />
 
                                     </div>}
-                                    <div className="col-sm-6 col-lg-3">
+                                    <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                             <DateSearchComponent filters={filters} setFilters={setFilters} />
 </div>
                                     
-                                {value4 == "doctors" &&    <div className="col-sm-6 col-lg-3">
+                                {value4 == "doctors" &&    <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                                     <DoctorSearch filters={filters} setFilters={setFilters} />
                                 </div>}
-                                <div className="col-sm-6 col-lg-3">
+                                <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                                     <ReviewsStarSearch filters={filters} setFilters={setFilters} />
                                 </div>
                                

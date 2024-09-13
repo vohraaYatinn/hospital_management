@@ -18,11 +18,13 @@ import { addDoctorByHospital } from "../../urls/urls.jsx";
 import { Alert, TimePicker } from "antd";
 import { GetAllDepartments } from "../../redux/reducers/functionalities.reducer.js";
 import { useSelector } from "react-redux";
+import { useIsMobile } from "../../utils/commonFunctions.js";
 
 
 export default function DrProfile(){
     const router = useRouter();
     const [uploadedFile, setUploadedFile] = useState(null);
+    const isMobile = useIsMobile()
 
     let params = useParams();
     let id = params.id
@@ -497,8 +499,14 @@ export default function DrProfile(){
                                                     <div className="col-lg-6 col-md-12">
                                                     <div className="card border-0 p-3 pt-0 rounded shadow">
                               <ul className="list-unstyled mb-0">
-                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
-                                <div style={{width:"25%", textAlign:"start"}}>
+                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3"
+                                style={{
+                                  flexDirection: isMobile && "column",
+                                  alignItems: isMobile && "center"
+
+                                }}
+                                >
+                                <div style={{width:"25%", textAlign:isMobile?"center": "start"}}>
 
                                   <p className="text-muted mb-0">
                                     <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
@@ -507,7 +515,9 @@ export default function DrProfile(){
                                   </div>
                                   <div style={{width:"60%", textAlign:"start"}}>
 
-                                  <p className="text-primary mb-0">
+                                  <p className="text-primary mb-0" style={{
+                                    textWrap:"nowrap"
+                                  }}>
                                     <span className="text-dark">Time:</span>{" "}
                                     {
                                       doctorsData?.doctor_slots[0]
@@ -518,7 +528,9 @@ export default function DrProfile(){
                                   </div>
                                   <div style={{width:"15%", textAlign:"start"}}>
 
-                                  <p>
+                                  <p style={{
+                                    textWrap:"nowrap"
+                                  }}>
                                     Rs{" "}
                                     {
                                       doctorsData?.doctor_slots[0]
@@ -528,8 +540,14 @@ export default function DrProfile(){
                                   </p>
                                   </div>
                                 </li>
-                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
-                                  <div style={{width:"25%", textAlign:"start"}}>
+                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3"
+                                style={{
+                                  flexDirection: isMobile && "column",
+                                  alignItems: isMobile && "center"
+
+                                }}
+                                >
+                                  <div style={{width:"25%", textAlign:isMobile?"center": "start"}}>
                                   <p className="text-muted mb-0">
                                     <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
                                     Afternoon
@@ -537,7 +555,9 @@ export default function DrProfile(){
                                   </div>
                                   <div style={{width:"60%", textAlign:"start"}}>
 
-                                  <p className="text-primary mb-0">
+                                  <p className="text-primary mb-0" style={{
+                                    textWrap:"nowrap"
+                                  }}>
                                     <span className="text-dark">Time:</span>{" "}
                                     {
                                       doctorsData?.doctor_slots[0]
@@ -548,7 +568,9 @@ export default function DrProfile(){
                                   </div>
                                   <div style={{width:"15%", textAlign:"start"}}>
 
-                                  <p>
+                                  <p style={{
+                                    textWrap:"nowrap"
+                                  }}>
                                     Rs{" "}
                                     {
                                       doctorsData?.doctor_slots[0]
@@ -559,8 +581,14 @@ export default function DrProfile(){
                                   </div>
 
                                 </li>
-                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3">
-                                <div style={{width:"25%", textAlign:"start"}}>
+                                <li className="d-flex justify-content-between mt-2 ms-0 mt-3"
+                                style={{
+                                  flexDirection: isMobile && "column",
+                                  alignItems: isMobile && "center"
+
+                                }}
+                                >
+                                <div style={{width:"25%", textAlign:isMobile?"center": "start"}}>
 
                                   <p className="text-muted mb-0">
                                     <RiTimeFill className="text-primary align-middle h5 mb-0" />{" "}
@@ -569,7 +597,9 @@ export default function DrProfile(){
                                   </div>
                                   <div style={{width:"60%", textAlign:"start"}}>
 
-                                  <p className="text-primary mb-0">
+                                  <p className="text-primary mb-0" style={{
+                                    textWrap:"nowrap"
+                                  }}>
                                     <span className="text-dark">Time:</span>{" "}
                                     {
                                       doctorsData?.doctor_slots[0]
@@ -580,7 +610,9 @@ export default function DrProfile(){
                                   </div>
                                   <div style={{width:"15%", textAlign:"start"}}>
 
-                                  <p>
+                                  <p style={{
+                                    textWrap:"nowrap"
+                                  }}>
                                     Rs{" "}
                                     {
                                       doctorsData?.doctor_slots[0]
@@ -969,7 +1001,8 @@ export default function DrProfile(){
                       )}
                     </div>
                   </div>
-
+                  {!isMobile &&
+                  <>
                   <div className="col-md-4 mb-3">
                   <label className="form-label"><b>Morning Slots</b></label>
                     </div>
@@ -979,11 +1012,12 @@ export default function DrProfile(){
                   <div className="col-md-4 mb-3">
                   <label className="form-label"><b>Evening Slots</b></label>
                     </div>
+                    </>}
 
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
-                      <TimePicker.RangePicker
+                    <label className="form-label">{!isMobile ? "Timings" : "Morning Timings"}</label>
+                    <TimePicker.RangePicker
                                             format={format}
                                             onChange={onChangeTime}
                       className="form-control"
@@ -994,8 +1028,8 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
-                      <TimePicker.RangePicker
+                    <label className="form-label">{!isMobile ? "Timings" : "Afternoon Timings"}</label>
+                    <TimePicker.RangePicker
                                             format={format}
 
                       onChange={onChangeTimeAfternoon}
@@ -1008,8 +1042,8 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Timings</label>
-                      <TimePicker.RangePicker
+                    <label className="form-label">{!isMobile ? "Timings" : "Evening Timings"}</label>
+                    <TimePicker.RangePicker
                                             format={format}
 
                       onChange={onChangeTimeEvening}
@@ -1022,8 +1056,8 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Capacity" : "Morning Capacity"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="text"
@@ -1041,8 +1075,8 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Capacity" : "Afternoon Capacity"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="text"
@@ -1060,8 +1094,8 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Capacity</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Capacity" : "Evening Capacity"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="text"
@@ -1079,8 +1113,8 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Price" : "Morning Price"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="text"
@@ -1098,8 +1132,8 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Price" : "Afternoon Price"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="text"
@@ -1117,8 +1151,8 @@ export default function DrProfile(){
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                      <label className="form-label">Price</label>
-                      <input
+                    <label className="form-label">{!isMobile ? "Price" : "Evening Price"}</label>
+                    <input
                         name="name"
                         id="name"
                         type="text"

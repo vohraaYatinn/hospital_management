@@ -11,12 +11,13 @@ import Modal from "react-bootstrap/Modal";
 import { useEffect } from "react";
 import { fetchPatientsHospitals } from "../../urls/urls";
 import useAxios from "../../network/useAxios";
-import { PaginationCountList, calculateAge, handlePagination } from "../../utils/commonFunctions";
+import { PaginationCountList, calculateAge, handlePagination, useIsMobile } from "../../utils/commonFunctions";
 import moment from "moment";
 import DepartmentSearch from "../../common-components/DepartmentSearch";
 import PatientName from "../../common-components/PatientName";
 
 export default function Patients() {
+  const isMobile = useIsMobile()
   const [filters, setFilters] = useState({});
   let [viewProfile, setViewProfile] = useState(false);
   let [editProfile, setEditProfile] = useState(false);
@@ -64,11 +65,15 @@ export default function Patients() {
 
           <div className="row">
             <div className="row" style={{ marginTop: "1rem" }}>
-              <div className="col-sm-6 col-lg-3">
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem"
+              }}>
                 <PatientName filters={filters} setFilters={setFilters} />
               </div>
              
-              <div className="col-sm-6 col-lg-3">
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem"
+              }}>
                 <DepartmentSearch filters={filters} setFilters={setFilters} />
               </div>
               <div className="col-sm-6 col-lg-3">

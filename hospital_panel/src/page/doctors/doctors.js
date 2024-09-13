@@ -16,8 +16,10 @@ import DoctorSearch from "../../common-components/DoctorsSearch";
 import DepartmentSearch from "../../common-components/DepartmentSearch";
 
 import dummy from "../../assets/images/doctors/dummy.jpg";
+import { useIsMobile } from "../../utils/commonFunctions";
 
 export default function Doctors() {
+  const isMobile = useIsMobile()
   const [doctorsData, setDoctorsData] = useState([]);
   const [filters, setFilters] = useState({});
   const [
@@ -61,10 +63,14 @@ export default function Doctors() {
             </div>
           </div>
           <div className="row" style={{ marginTop: "1rem" }}>
-            <div className="col-sm-6 col-lg-3">
+            <div className="col-sm-6 col-lg-3" style={{
+              marginBottom:isMobile && "1rem"
+            }}>
               <DoctorSearch filters={filters} setFilters={setFilters} />
             </div>
-            <div className="col-sm-6 col-lg-3">
+            <div className="col-sm-6 col-lg-3" style={{
+              marginBottom:isMobile && "1rem"
+            }}>
               <DepartmentSearch filters={filters} setFilters={setFilters} />
             </div>
             <div className="col-sm-6 col-lg-3">

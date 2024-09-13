@@ -14,9 +14,10 @@ import { changeResetPassword, fetchResetPasswords } from "../urls/urls";
 import { test_url_images } from "../config/environment";
 import DoctorSearch from "../common-components/DoctorsSearch";
 import DepartmentSearch from "../common-components/DepartmentSearch";
-import { PaginationCountList, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, handlePagination, useIsMobile } from "../utils/commonFunctions";
 
 export default function ResetPassword() {
+  const isMobile = useIsMobile()
   let [editProfile, setEditProfile] = useState(false);
   let [show, setShow] = useState(false);
   const [requestData, setRequestData] = useState([]);
@@ -124,10 +125,14 @@ export default function ResetPassword() {
 
           <div className="row">
             <div className="row" style={{ marginTop: "1rem" }}>
-              <div className="col-sm-6 col-lg-3">
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem"
+              }}>
                 <DoctorSearch filters={filters} setFilters={setFilters} />
               </div>
-              <div className="col-sm-6 col-lg-3">
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem"
+              }}>
                 <DepartmentSearch filters={filters} setFilters={setFilters} />
               </div>
 

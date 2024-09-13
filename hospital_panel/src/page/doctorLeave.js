@@ -20,9 +20,10 @@ import { test_url_images } from "../config/environment";
 import { Button } from "antd";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import DoctorSearch from "../common-components/DoctorsSearch";
-import { PaginationCountList, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, handlePagination, useIsMobile } from "../utils/commonFunctions";
 
 export default function DoctorLeave() {
+  const isMobile = useIsMobile()
   let [editProfile, setEditProfile] = useState(false);
   let [show, setShow] = useState(false);
   const [formValues, setFormValues] = useState({});
@@ -123,10 +124,14 @@ export default function DoctorLeave() {
 
           <div className="row">
             <div className="row" style={{ marginTop: "1rem" }}>
-              <div className="col-sm-6 col-lg-3">
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem"
+              }}>
                 <DoctorSearch filters={filters} setFilters={setFilters} />
               </div>
-              <div className="col-sm-6 col-lg-3">
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem"
+              }}>
                 <DepartmentSearch filters={filters} setFilters={setFilters} />
               </div>
               <div className="col-sm-6 col-lg-3">

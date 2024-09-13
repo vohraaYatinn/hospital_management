@@ -18,7 +18,7 @@ import {
 import Modal from "react-bootstrap/Modal";
 import { CancelAppointmentHospital, UploadLabReport, fetchAppointmentsHospital } from "../urls/urls";
 import useAxios from "../network/useAxios";
-import { PaginationCountList, calculateAge, getTodayDate, handlePagination } from "../utils/commonFunctions";
+import { PaginationCountList, calculateAge, getTodayDate, handlePagination, useIsMobile } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import moment from "moment";
 import PatientName from "../common-components/PatientName";
@@ -30,6 +30,7 @@ import DepartmentSearch from "../common-components/DepartmentSearch";
 import { Alert } from "antd";
 
 export default function LabReports() {
+  const isMobile = useIsMobile()
   let [show, setShow] = useState(false);
   let [showDetail, setShowDetail] = useState(false);
   let [acceptsAppointment, setAcceptsAppointment] = useState(false);
@@ -460,24 +461,32 @@ export default function LabReports() {
 
             <div className="row">
               <div className="row" style={{ marginTop: "1rem" }}>
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                   <PatientName filters={filters} setFilters={setFilters} />
                 </div>
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                   <DoctorSearch filters={filters} setFilters={setFilters} />
                 </div>
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                   <DateSearchComponent
                     filters={filters}
                     setFilters={setFilters}
                   />
                 </div>
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-3" >
                   <AppointmentSlots filters={filters} setFilters={setFilters} />
                 </div>
               </div>
               <div className="row" style={{ marginTop: "1rem" }}>
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                   <StatusSearch
                     filters={filters}
                     setFilters={setFilters}
@@ -487,7 +496,9 @@ export default function LabReports() {
                 {/* <div className="col-sm-6 col-lg-3">
                   <DepartmentSearch filters={filters} setFilters={setFilters} />
                 </div> */}
-                <div className="col-sm-6 col-lg-3">
+                <div className="col-sm-6 col-lg-3" style={{
+                  marginBottom:isMobile && "1rem"
+                }}>
                   <button
                     className="form-control btn-check-reset"
                     onClick={() => {
