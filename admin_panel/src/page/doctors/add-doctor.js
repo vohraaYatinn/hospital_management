@@ -715,7 +715,7 @@ const [allDepartments, setAllDepartments] = useState([])
                   </div>
                   <div className="col-md-4">
                     <div className="mb-3">
-                    <label className="form-label">{!isMobile ? "Timings" : "Afternoon Timings"}</label>
+                    <label className="form-label">{!isMobile ? "Timings" : "Evening Timings"}</label>
                     <TimePicker.RangePicker
                                             format={format}
 
