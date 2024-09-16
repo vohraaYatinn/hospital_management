@@ -71,11 +71,14 @@ export default function Navbar({ navDark, containerClass }) {
 
   }, []);
   useEffect(()=>{
-    let elem = document.getElementById("navigation23")
-    if(elem){
-      elem.style.display = "none"
-
+    if(isMobile){
+      let elem = document.getElementById("navigation23")
+      if(elem){
+        elem.style.display = "none"
+  
+      }
     }
+
   },[])
 
 
