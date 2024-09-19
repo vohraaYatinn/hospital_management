@@ -165,7 +165,7 @@ export const capitalizeFirstChar = (string) => {
 };
 
 export const useIsMobile = () => {
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 600);
 
   useEffect(() => {
     const handleResize = () => {

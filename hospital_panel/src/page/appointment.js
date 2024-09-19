@@ -486,7 +486,7 @@ const hospitalActionFunc = () => {
                           className="border-bottom p-3"
                           style={{ minWidth: "50px" }}
                         >
-                          Token No.
+                         Token no.
                         </th>
                         <th
                           className="border-bottom p-3"
@@ -679,17 +679,7 @@ const hospitalActionFunc = () => {
 
                     </li>
 
-                    <li className="d-flex ms-0">
-                    <p className="text-muted ms-2"><button className="btn btn-primary" style={{
-                      minWidth:"15rem"
-                    }}
-                    onClick={()=>{
-                      setFormActionApi((prev)=>({...prev, action:"Not Paid"}))
-
-                    }}
-                    >NOT PAID</button></p>
-
-                    </li>
+                   
 
                     <li className="d-flex ms-0">
                     <p className="text-muted ms-2"><button className="btn btn-danger"

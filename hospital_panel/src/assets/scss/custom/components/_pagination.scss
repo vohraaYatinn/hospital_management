@@ -41,13 +41,3 @@
         }
     }
 }
-.pagination {
-    overflow: auto;
-    width: 90%;
-    scrollbar-width: none; /* For Firefox */
-    -ms-overflow-style: none; /* For Internet Explorer and Edge */
-}
-
-.pagination::-webkit-scrollbar {
-    display: none; /* For Chrome, Safari, and Opera */
-}

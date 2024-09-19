@@ -37,31 +37,69 @@ export const designStarsReviews = (stars) => {
 }
 
 export const PaginationCountList = (handlePagination, pageArray, data, setPaginationNumber) => {
-  let list = [
-  <li className="page-item"><Link className="page-link" to="#" aria-label="Previous" onClick={() => {
-    if(pageArray.currentTab != 1){
-      handlePagination(pageArray.currentTab - 1, setPaginationNumber)
+  const totalPages = Math.ceil(data.length / 10);
+  const currentSet = Math.ceil(pageArray.currentTab / 5); // Determine the current set of pages
+  const startPage = (currentSet - 1) * 5 + 1; // Start of the current set
+  const endPage = Math.min(currentSet * 5, totalPages); // End of the current set
 
-    }
-  }}>Prev</Link></li>
-  ];
-  for (let index = 0; (index < data.length / 10 ); index++) {
+  let list = [];
+
+  // Conditionally render the "Prev 10" button
+  if (pageArray.currentTab > 10) {
     list.push(
-      <li key={index} onClick={() => {
-        handlePagination(index + 1, setPaginationNumber)
-      }} className={`page-item ${(index + 1 == pageArray.currentTab) && "active"}`}>
-        <Link className="page-link" to="#">{index + 1}</Link>
+      <li className="page-item" key="prev10">
+        <Link className="page-link" to="#" aria-label="Prev 10" onClick={() => {
+          handlePagination(Math.max(pageArray.currentTab - 10, 1), setPaginationNumber);
+        }}>Prev 10</Link>
       </li>
     );
   }
-  list.push(<li className="page-item"><Link className="page-link" to="#" aria-label="Next"
-    onClick={() => {
-      if(!(pageArray.currentTab + 1 > data.length / 10)){
-        handlePagination(pageArray.currentTab + 1, setPaginationNumber)
 
-      }
-    }}
-  >Next</Link></li>)
+  // "Prev" button
+  list.push(
+    <li className="page-item" key="prev">
+      <Link className="page-link" to="#" aria-label="Previous" onClick={() => {
+        if (pageArray.currentTab > 1) {
+          handlePagination(pageArray.currentTab - 1, setPaginationNumber);
+        }
+      }}>Prev</Link>
+    </li>
+  );
+
+  // Page number buttons
+  for (let index = startPage; index <= endPage; index++) {
+    list.push(
+      <li key={index} onClick={() => {
+        handlePagination(index, setPaginationNumber);
+      }} className={`page-item ${(index === pageArray.currentTab) && "active"}`}>
+        <Link className="page-link" to="#">{index}</Link>
+      </li>
+    );
+  }
+
+  // "Next" button
+  if (endPage < totalPages) {
+    list.push(
+      <li className="page-item" key="next">
+        <Link className="page-link" to="#" aria-label="Next" onClick={() => {
+          if (pageArray.currentTab < totalPages) {
+            handlePagination(pageArray.currentTab + 1, setPaginationNumber);
+          }
+        }}>Next</Link>
+      </li>
+    );
+  }
+
+  // Conditionally render the "Skip 10" button
+  if (pageArray.currentTab + 10 <= totalPages) {
+    list.push(
+      <li className="page-item" key="skip10">
+        <Link className="page-link" to="#" aria-label="Skip 10" onClick={() => {
+          handlePagination(Math.min(pageArray.currentTab + 10, totalPages), setPaginationNumber);
+        }}>Skip 10</Link>
+      </li>
+    );
+  }
 
   return list;
 };
