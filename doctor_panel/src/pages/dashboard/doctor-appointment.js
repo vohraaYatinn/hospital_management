@@ -212,7 +212,7 @@ export default function DoctorAppointment(){
                                                 <th className="border-bottom p-3" style={{minWidth:'100px'}}>Name</th>
                                                 <th className="border-bottom p-3">Age</th>
                                                 <th className="border-bottom p-3">Gender</th>
-                                                <th className="border-bottom p-3" >District</th>
+                                                <th className="border-bottom p-3" >Block</th>
                                                 {/* <th className="border-bottom p-3">Block</th> */}
                                                 <th className="border-bottom p-3">Status</th>
                                                 <th className="border-bottom p-3">Action</th>
