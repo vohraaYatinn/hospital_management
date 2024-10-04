@@ -484,7 +484,7 @@ const hospitalActionFunc = () => {
                       <tr>
                         <th
                           className="border-bottom p-3"
-                          style={{ minWidth: "50px" }}
+                          style={{ minWidth: "50px", textWrap:"nowrap" }}
                         >
                          Token no.
                         </th>
@@ -500,6 +500,17 @@ const hospitalActionFunc = () => {
                         >
                           Name
                         </th>
+                        <th className="border-bottom p-3">Status</th>
+                        <th className="border-bottom p-3 text-nowrap ">Payment Status</th>
+                        <th className="border-bottom p-3 text-nowrap ">Payment Mode</th>
+                        <th className="border-bottom p-3 text-nowrap ">Payment Action</th>
+                        <th className="border-bottom p-3">Slot</th>
+                        <th
+                          className="border-bottom p-3"
+                          style={{ minWidth: "200px" }}
+                        >
+                          Doctor
+                        </th>
                         <th className="border-bottom p-3">Phone</th>
                         <th className="border-bottom p-3">Age</th>
                         <th className="border-bottom p-3">Gender</th>
@@ -509,17 +520,8 @@ const hospitalActionFunc = () => {
                         >
                           Date
                         </th>
-                        <th className="border-bottom p-3">Slot</th>
-                        <th
-                          className="border-bottom p-3"
-                          style={{ minWidth: "200px" }}
-                        >
-                          Doctor
-                        </th>
-                        <th className="border-bottom p-3">Status</th>
-                        <th className="border-bottom p-3">Payment Status</th>
-                        <th className="border-bottom p-3">Payment Mode</th>
-                        <th className="border-bottom p-3">Payment Action</th>
+                        
+
                         <th className="border-bottom p-3">Invoice</th>
                         <th
                           className="border-bottom p-3"
@@ -542,18 +544,20 @@ const hospitalActionFunc = () => {
                                 </div>
                               </Link>
                             </td>
-                            <td className="p-3" style={{
-                              textWrap:"nowrap"
-                            }}>{item.patient.user.phone}</td>
+                            <td className="p-3">{checkAppointmentStatus(item.status)}</td>
+                            <td className="p-3">{checkPaymentStatus(item.payment_status)}</td>
+                            <td className="p-3">{item.payment_mode}</td>
 
                             <td className="p-3">
-                              {calculateAge(item.patient.date_of_birth)}
-                            </td>
-                            <td className="p-3">{item.patient.gender}</td>
-                            <td className="p-3">
-                              {moment(item.date_appointment).format(
-                                "YYYY-MM-DD"
-                              )}
+                              <button className="btn btn-primary" 
+                              disabled={item.status == "cancel" || (item.payment_status == "Paid")}
+                              onClick={()=>{
+                                setFormActionApi({
+                                  selectedAppointment:item.id
+                                })
+                                setShowDetail(!showDetail)
+                              }}
+                              >Action</button>
                             </td>
                             <td className="p-3">{item.slot}</td>
                             <td className="p-3">
@@ -573,21 +577,22 @@ const hospitalActionFunc = () => {
                                 </div>
                               </Link>
                             </td>
-                            <td className="p-3">{checkAppointmentStatus(item.status)}</td>
-                            <td className="p-3">{checkPaymentStatus(item.payment_status)}</td>
-                            <td className="p-3">{item.payment_mode}</td>
+                            <td className="p-3" style={{
+                              textWrap:"nowrap"
+                            }}>{item.patient.user.phone}</td>
 
                             <td className="p-3">
-                              <button className="btn btn-primary" 
-                              disabled={item.status == "cancel" || (item.payment_status == "Paid")}
-                              onClick={()=>{
-                                setFormActionApi({
-                                  selectedAppointment:item.id
-                                })
-                                setShowDetail(!showDetail)
-                              }}
-                              >Action</button>
+                              {calculateAge(item.patient.date_of_birth)}
                             </td>
+                            <td className="p-3">{item.patient.gender}</td>
+                            <td className="p-3">
+                              {moment(item.date_appointment).format(
+                                "YYYY-MM-DD"
+                              )}
+                            </td>
+                 
+
+                           
                             <td className="p-3"><button 
                                                         onClick={()=>{
                                                           setSelectedAppointment(item)
