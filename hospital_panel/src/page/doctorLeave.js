@@ -11,6 +11,7 @@ import {
   BsPencil,
   FiTrash,
   FiToggleRight,
+  FiArrowDown,
 } from "../assets/icons/vander";
 
 import Modal from "react-bootstrap/Modal";
@@ -21,13 +22,33 @@ import { Button } from "antd";
 import DepartmentSearch from "../common-components/DepartmentSearch";
 import DoctorSearch from "../common-components/DoctorsSearch";
 import { PaginationCountList, handlePagination, useIsMobile } from "../utils/commonFunctions";
+import MonthDropSearch from "../common-components/MonthDropSearch";
+import YearDropdownSearch from "../common-components/YearDropdownSearch";
+import StatusSearch from "../common-components/StatusSearch";
 
 export default function DoctorLeave() {
   const isMobile = useIsMobile()
   let [editProfile, setEditProfile] = useState(false);
   let [show, setShow] = useState(false);
   const [formValues, setFormValues] = useState({});
-  const [filters, setFilters] = useState({});
+  const [filters, setFilters] = useState({
+    sort:true
+  });
+  const searchStatusConstants = [
+    {
+        value: "Waiting for approval",
+        name: "Waiting for approval"
+    },
+    {
+        value: "APPROVED",
+        name: "Approved"
+    },
+    {
+        value: "REJECTED",
+        name: "Rejected"
+    },
+
+]
   const [requestData, setRequestData] = useState([]);
   const [
     leaveDoctorResponse,
@@ -106,7 +127,13 @@ export default function DoctorLeave() {
         <div className="layout-specing">
           <div className="d-md-flex justify-content-between">
             <h5 className="mb-0">Doctor Leaves</h5>
+<button style={{
+  background:"transparent",
+  padding:"0.4rem",
 
+}}  onClick={()=>{
+  setFilters((prev)=>({...prev, sort:!filters?.sort}))
+}}>Sort <FiArrowDown/></button>
             {/* <nav
               aria-label="breadcrumb"
               className="d-inline-block mt-4 mt-sm-0"
@@ -132,7 +159,23 @@ export default function DoctorLeave() {
               <div className="col-sm-6 col-lg-3" style={{
                 marginBottom:isMobile && "1rem"
               }}>
+                <StatusSearch filters={filters} setFilters={setFilters} statusSearch={searchStatusConstants}/>
+              </div>
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem"
+              }}>
                 <DepartmentSearch filters={filters} setFilters={setFilters} />
+              </div>
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem"
+              }}>
+                <MonthDropSearch filters={filters} setFilters={setFilters} />
+              </div>
+              <div className="col-sm-6 col-lg-3" style={{
+                marginBottom:isMobile && "1rem",
+                marginTop:"1rem"
+              }}>
+                <YearDropdownSearch filters={filters} setFilters={setFilters} />
               </div>
               <div className="col-sm-6 col-lg-3">
                 <button
@@ -140,12 +183,17 @@ export default function DoctorLeave() {
                   onClick={() => {
                     setFilters({
                       department: "",
+                      sort:true,
+                      doctorName:"",
+                      month:'',
+                      year:'',
                     });
                   }}
                   style={{
                     backgroundColor: "red",
                     width: "100px",
                     textAlign: "center",
+                    marginTop:"1rem"
                   }}
                 >
                   Reset
@@ -161,6 +209,12 @@ export default function DoctorLeave() {
                         className="border-bottom p-3"
                         style={{ minWidth: "50px" }}
                       >
+                       S NO.
+                      </th>
+                      <th
+                        className="border-bottom p-3"
+                        style={{ minWidth: "50px" }}
+                      >
                         UJUR ID
                       </th>
                       <th
@@ -169,7 +223,11 @@ export default function DoctorLeave() {
                       >
                         Name
                       </th>
-                      <th className="border-bottom p-3">Dates</th>
+                      <th className="border-bottom p-3" style={{
+                        display:"flex",
+                        alignContent:"center",
+                        justifyContent:"space-around",
+                      }}>From | To</th>
 
                       <th className="border-bottom p-3">Comments</th>
                       <th className="border-bottom p-3">Status</th>
@@ -184,6 +242,7 @@ export default function DoctorLeave() {
                     {requestData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                       return (
                         <tr key={index}>
+                          <th className="p-3">{index+paginationNumber.from+1}</th>
                           <th className="p-3">{item?.doctor?.ujur_id}</th>
                           <td className="py-3">
                             <Link to="#" className="text-dark">

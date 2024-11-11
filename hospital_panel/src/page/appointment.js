@@ -7,6 +7,8 @@ import {
   AiOutlineCloseCircle,
   LiaTimesCircleSolid,
   AiOutlineFileExcel,
+  LiaSignOutAltSolid,
+  LiaSortNumericDownSolid,
 } from "../assets/icons/vander";
 import Modal from "react-bootstrap/Modal";
 import { CancelAppointmentHospital, HospitalAppointmentAction, ageGenderGraphsFetch, fetchAppointmentsHospital } from "../urls/urls";
@@ -23,6 +25,8 @@ import { Alert } from "antd";
 import InvoiceUjur from "./InvoiceUjur";
 import PaymentStatusSearch from "../common-components/PaymentStatus";
 import PaymentModeSearch from "../common-components/PaymentMode";
+import { Spin } from 'antd';
+import { Skeleton } from 'antd';
 
 
 export default function Appointment() {
@@ -35,6 +39,7 @@ export default function Appointment() {
   const [selectedAppointment, setSelectedAppointment]= useState()
   let [cancle, setCancle] = useState(false);
   const [filters, setFilters] = useState({
+    sort:true,
     date: getTodayDate()
   });
   const [invoiceShow, setInvoiceShow] = useState(false)
@@ -464,6 +469,8 @@ const hospitalActionFunc = () => {
                         patientName: "",
                         paymentStatus:"",
                         paymentMode:"",
+                        sort:true,
+
 
                       });
                     }}
@@ -486,7 +493,11 @@ const hospitalActionFunc = () => {
                           className="border-bottom p-3"
                           style={{ minWidth: "50px", textWrap:"nowrap" }}
                         >
-                         Token no.
+                         Token no.  <LiaSortNumericDownSolid  
+                         onClick={()=>{
+                          setFilters((prev)=>({...prev, sort:!filters?.sort }))
+                         }}
+                         className="me-2 d-inline-block mb-0 icon upside-down-icon" />
                         </th>
                         <th
                           className="border-bottom p-3"
@@ -530,7 +541,28 @@ const hospitalActionFunc = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
+                      {appointmentsLoading ?
+                      <>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+                            <td>       <Skeleton active/>                            </td>
+
+                           
+
+                      
+                      </>
+                      :appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                         return (
                           <tr key={index}>
                             <th className="p-3">{item?.appointment_slot}</th>

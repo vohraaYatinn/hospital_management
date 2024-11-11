@@ -94,6 +94,11 @@ export default function Appointment() {
     useEffect(() => {
         if (appointmentsResponse?.result == "success" && appointmentsResponse?.data) {
             setAppointmentsData(appointmentsResponse?.data)
+           setPaginationNumber({
+                from:0,
+                to:10,
+                currentTab:1
+            })
         }
     }, [appointmentsResponse])
     useEffect(() => {
@@ -324,7 +329,7 @@ export default function Appointment() {
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            {appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
+                                            {appointmentData.length > 10 ? appointmentData.slice(paginationNumber.from, paginationNumber.to).map((item, index) => {
                                                 return (
                                                     <tr key={index}>
                                                         <th className="p-3">{item.appointment_slot}</th>
@@ -370,7 +375,59 @@ export default function Appointment() {
                                                        
                                                     </tr>
                                                 )
-                                            })}
+                                            })
+                                        :
+                                        appointmentData.map((item, index) => {
+                                            return (
+                                                <tr key={index}>
+                                                    <th className="p-3">{item.appointment_slot}</th>
+                                                    <th className="p-3">{item.patient.ujur_id}</th>
+                                                    
+                                                    <td className="p-3">
+                                                        <Link to="#" className="text-dark">
+                                                            <div className="d-flex align-items-center">
+                                                                <span className="ms-2">{item.patient.full_name}</span>
+                                                            </div>
+                                                        </Link>
+                                                    </td>
+                                                    <td className="p-3"
+                                                     style={{
+                                                        textWrap:"nowrap"
+                                                      }}
+                                                    >{item.patient.user.phone}</td>
+
+                                                    <td className="p-3">{calculateAge(item.patient.date_of_birth)}</td>
+                                                    <td className="p-3">{item.patient.gender}</td>
+                                                    <td className="p-3">{moment(item.date_appointment).format('YYYY-MM-DD')}</td>
+                                                    <td className="p-3">{item.slot}</td>
+                                                    <td className="p-3">
+                                                        <Link to="#" className="text-dark">
+                                                            <div className="d-flex align-items-center">
+                                                                <img src={test_url_images + item.doctor.profile_picture} className="avatar avatar-md-sm rounded-circle border shadow" alt="" style={{objectFit:"cover"}}/>
+                                                                <span className="ms-2">{item.doctor.full_name}</span>
+                                                            </div>
+                                                        </Link>
+                                                    </td>
+                                                    <td className="p-3">{checkAppointmentStatus(item.status)}</td>
+                                                    <td className="p-3">{checkPaymentStatus(item.payment_status)}</td>
+                                                    <td className="p-3">{item.payment_mode}</td>
+                                                    <td className="p-3"><button 
+                                                    onClick={()=>{
+                                                        setSelectedAppointment(item)
+
+                                                        setInvoiceShow(true)
+                                                    }}
+                                                    className="btn btn-primary" style={{
+                                                        color:"white"
+                                                    }}>Invoice</button></td>
+                                                   
+                                                </tr>
+                                            )
+                                        })
+                                        
+                                        
+                                        }
+                                           
                                         </tbody>
                                     </table>
                                 </div>

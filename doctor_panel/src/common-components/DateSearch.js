@@ -17,7 +17,11 @@ const DateSearchComponent = ({ filters, setFilters }) => {
     return (
         <div className="mb-0 position-relative" >
         <div>
-        <DatePicker className="form-control" value={filters?.date && dayjs(filters?.date, dateFormat)} onChange={onChange} />
+        <DatePicker className="form-control" value={filters?.date && dayjs(filters?.date, dateFormat)} onChange={onChange}
+        
+        readOnly
+        onFocus={(e) => e.target.blur()}
+        />
 
             {/* <input
             className="form-control"

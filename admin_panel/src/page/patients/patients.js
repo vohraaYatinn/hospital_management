@@ -53,6 +53,11 @@ export default function Patients(){
     useEffect(()=>{
         if(patientListResponse?.result == "success"){
             setPatientsData(patientListResponse?.data)
+            setPaginationNumber({
+                from:0,
+                to:10,
+                currentTab:1
+            })
         }
     },[patientListResponse])
     const [message, setMessage] = useState({

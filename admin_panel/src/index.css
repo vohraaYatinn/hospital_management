@@ -9,3 +9,6 @@
 .div-div-check-show{
     display: block !important;
 }
+.upside-down-icon:hover{
+    cursor:pointer
+ }

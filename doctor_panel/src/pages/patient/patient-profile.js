@@ -393,9 +393,9 @@ fontSize:"1.4rem"      }}/>
               fontSize:"1.4rem"
             }}
             />
-      <h6 className="mb-0">{"District"}</h6>
+      <h6 className="mb-0">{"Block"}</h6>
 
-      <p className="text-muted mb-0 ms-2">{patientsData?.district && capitalizeFirst(patientsData?.district)}</p>
+      <p className="text-muted mb-0 ms-2">{patientsData?.block && capitalizeFirst(patientsData?.block)}</p>
     </div>
 
   </div>

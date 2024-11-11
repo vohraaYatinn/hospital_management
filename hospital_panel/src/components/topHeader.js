@@ -6,6 +6,7 @@ import logoLight from "../assets/images/logo-light.png";
 import logoIcon from "../assets/images/logo-icon.png";
 import country1 from "../assets/images/language/american.png";
 import doctor1 from "../assets/images/doctors/01.jpg";
+import { useSelector } from 'react-redux';
 
 import {
   FaBars,
@@ -23,6 +24,8 @@ import Offcanvas from "react-bootstrap/Offcanvas";
 import PersonChatTwo from "./personChatTwo";
 import { useRef } from "react";
 import { useIsMobile } from "../utils/commonFunctions";
+import { test_url_images } from "../config/environment";
+import { GetHospitalDetails } from "../redux/reducers/functionalities.reducer";
 
 export default function TopHeader({ toggle, setToggle }) {
   const isMobile = useIsMobile()
@@ -46,7 +49,20 @@ export default function TopHeader({ toggle, setToggle }) {
   }, []);
   let handleClose = () => setShow(false);
   let handleShow = () => setShow(true);
-
+  const [hospital_details, setHospitalImage] = useState("")
+  let redux_image = useSelector(GetHospitalDetails);
+  let local_redux_image = localStorage.getItem("hospitalLogo")
+  useEffect(()=>{
+    if (redux_image != ""){
+      console.log(redux_image)
+      setHospitalImage(redux_image)
+    } 
+    else{
+      if (local_redux_image){
+        setHospitalImage(local_redux_image)
+      }
+    }
+  },[])
   useEffect(() => {
     const handleclose = () => {
       setCountryModal(false);
@@ -73,12 +89,26 @@ export default function TopHeader({ toggle, setToggle }) {
                 className="logo-light-mode"
                 alt=""
               />
+          
               <img
                 src={logoLight}
                 height="22"
                 className="logo-dark-mode"
                 alt=""
               />
+            </span>
+          </Link>
+          <Link to="#" className="logo-icon">
+            <img  src={test_url_images+hospital_details} height="30" className="small" alt="" style={{
+              marginLeft:"1rem"
+            }} />
+            <span className="big">
+            <img
+              src={test_url_images+hospital_details}
+              style={{height:"3rem", marginLeft:"1rem", width:"3rem", objectFit:"cover"}}
+              className="logo-light-mode"
+              alt=""
+            />
             </span>
           </Link>
         

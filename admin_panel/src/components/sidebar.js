@@ -23,16 +23,18 @@ import {
   PiTreeStructureFill,
   MdOutlineReviews,
   LiaPercentageSolid,
+  LiaSignOutAltSolid,
 } from "../assets/icons/vander";
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
-import { isNumber } from "../utils/commonFunctions";
+import { isNumber, useIsMobile } from "../utils/commonFunctions";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 
 export default function Sidebar({ manuClass }) {
   const [manu, setManu] = useState("");
   const [subManu, setSubManu] = useState("");
   const location = useLocation();
+  const isMobile = useIsMobile()
 
   useEffect(() => {
     let current = location.pathname.substring(
@@ -360,6 +362,14 @@ export default function Sidebar({ manuClass }) {
               Promo Code
             </Link>
           </li>
+          {isMobile &&
+          <li className={`${manu === "promocode" ? "active" : ""} ms-0`}>
+            <Link to="/logout">
+              <LiaSignOutAltSolid     className="me-2 d-inline-block mb-0 icon" />
+              Logout
+            </Link>
+          </li>
+          }
 
           {/* <li className={`${manu === "reset-password" ? "active" : ""} ms-0`}><Link to="/reset-password"><RiStethoscopeLine className="me-2 d-inline-block mb-0 icon"/>Reset Password</Link></li> */}
 

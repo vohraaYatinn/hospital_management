@@ -24,17 +24,20 @@ import {
   FaPills,
   PiTreeStructureFill,
   PiWheelchairMotionFill,
+  LiaSignOutAltSolid,
 } from "../assets/icons/vander";
 
 import SimpleBar from "simplebar-react";
 import "simplebar-react/dist/simplebar.min.css";
-import { isNumber } from "../utils/commonFunctions";
+import { isNumber, useIsMobile } from "../utils/commonFunctions";
 import { test_url_images } from "../config/environment";
 import { GetHospitalDetails } from "../redux/reducers/functionalities.reducer";
 import { IoChatbubbleEllipsesOutline, IoDocumentTextOutline } from "react-icons/io5";
 import { FaIndianRupeeSign } from "react-icons/fa6";
 
 export default function Sidebar({ manuClass }) {
+  const isMobile = useIsMobile()
+
   const [manu, setManu] = useState("");
   const [subManu, setSubManu] = useState("");
   const location = useLocation();
@@ -89,7 +92,7 @@ export default function Sidebar({ manuClass }) {
             />
             <img
               src={test_url_images+hospital_details}
-              style={{height:"4rem"}}
+              style={{height:"3rem", marginLeft:"1rem", width:"3rem", objectFit:"cover"}}
               className="logo-light-mode"
               alt=""
             />
@@ -99,6 +102,7 @@ export default function Sidebar({ manuClass }) {
               className="logo-dark-mode"
               alt=""
             />
+            
             <span className="sidebar-colored">
               <img src={logoLight} height="22" alt="" />
             </span>
@@ -254,7 +258,14 @@ export default function Sidebar({ manuClass }) {
               Reset Password
             </Link>
           </li>
-
+          {isMobile &&
+          <li className={`${manu === "promocode" ? "active" : ""} ms-0`}>
+            <Link to="/logout">
+              <LiaSignOutAltSolid     className="me-2 d-inline-block mb-0 icon" />
+              Logout
+            </Link>
+          </li>
+          }
           {/* <li className={`sidebar-dropdown ms-0 ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(manu)? "active" : ""}`}>
                             <Link to="#" onClick={(e)=>{setSubManu(subManu === 'auth-item' ? '' : 'auth-item')}}><BiLogOutCircle className="me-2 d-inline-block mb-0 icon"/>Authentication</Link>
                             <div className={`sidebar-submenu ${["login","signup",'forgot-password',"lock-screen", "auth-item"].includes(subManu)? "d-block" : ""}`}>

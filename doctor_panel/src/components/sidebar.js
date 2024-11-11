@@ -4,7 +4,7 @@ import { Link, useLocation} from "react-router-dom";
 import bg1 from '../assets/images/doctors/profile-bg.jpg'
 import dr1 from '../assets/images/doctors/01.jpg'
 
-import {RiAirplayLine,RiCalendarCheckLine,RiTimerLine, RiPagesLine,RiMailUnreadLine,RiUser2Line,RiUserSettingsLine,RiEmpathizeLine,RiChat1Line,RiChatVoiceLine,RiLoginCircleLine, RiDeviceRecoverLine} from '../assets/icons/vander'
+import {RiAirplayLine,RiCalendarCheckLine,RiTimerLine, RiPagesLine,RiMailUnreadLine,RiUser2Line,RiUserSettingsLine,RiEmpathizeLine,RiChat1Line,RiChatVoiceLine,RiLoginCircleLine, RiDeviceRecoverLine, RiLogoutBoxRLine} from '../assets/icons/vander'
 import { useSelector } from "react-redux";
 import { doctorDetails } from "../redux/reducers/functionalities.reducer";
 import { test_url_images } from "../config/environment";
@@ -43,6 +43,7 @@ export default function Sidebar({colClass}){
                     {/* <li className={`${location.pathname === '/doctor-profile'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-profile" className="navbar-link"><RiUser2Line className="align-middle navbar-icon"/> Profile</Link></li> */}
                     {/* <li className={`${location.pathname === '/patient-list'? 'active' : ''} navbar-item mb-2`}><Link to="/patient-list" className="navbar-link"><RiEmpathizeLine className="align-middle navbar-icon"/> Patients</Link></li> */}
                     <li className={`${location.pathname === '/patient-review'? 'active' : ''} navbar-item mb-2`}><Link to="/patient-review" className="navbar-link"><RiChat1Line className="align-middle navbar-icon"/> Reviews</Link></li>
+                    <li className={`${location.pathname === '/logout'? 'active' : ''} navbar-item mb-2`}><Link to="/logout" className="navbar-link"><RiLogoutBoxRLine className="align-middle navbar-icon"/> Logout</Link></li>
                     {/* <li className={`${location.pathname === '/doctor-chat'? 'active' : ''} navbar-item mb-2`}><Link to="/doctor-chat" className="navbar-link"><RiChatVoiceLine className="align-middle navbar-icon"/> Chat</Link></li> */}
                     {/* <li className={`${location.pathname === '/login'? 'active' : ''} navbar-item mb-2`}><Link to="/login" className="navbar-link"><RiLoginCircleLine className="align-middle navbar-icon"/> Login</Link></li>
                     <li className="navbar-item"><Link to="/forgot-password" className="navbar-link"><RiDeviceRecoverLine className="align-middle navbar-icon"/> Forgot Password</Link></li> */}

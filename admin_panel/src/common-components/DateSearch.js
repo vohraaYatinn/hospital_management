@@ -24,6 +24,8 @@ const DateSearchComponent = ({ filters, setFilters }) => {
                     placeholder="Select Date"
                     value={filters?.date ? dayjs(filters?.date, dateFormat) : ""}
                     onChange={handleSearch}
+                    readOnly
+                    onFocus={(e) => e.target.blur()}
  />
 
      
