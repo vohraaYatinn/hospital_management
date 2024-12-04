@@ -22,89 +22,113 @@ const [allDepartments, setAllDepartments] = useState([])
     phoneNumber:"+91-"
   });
 
-  const format = 'HH:mm';
 
-  const formatTime = (time) => {
-    let [hour, minute, second] = time.split(':').map(Number);
-    let period = hour < 12 ? 'AM' : 'PM';
-    hour = hour % 12 || 12;
-
-    return { hour, minute, period };
-  };
 
   const [uploadedFile, setUploadedFile] = useState(null);
+
+
+  const format = 'HH:mm';
+
+
+  const formatTime = (time) => {
+    let [hour, minute] = time.split(':').map(Number);
+    let period = hour < 12 ? 'AM' : 'PM';
+    hour = hour % 12 || 12;
+    return { hour, minute, period };
+  };
+  
   const onChangeTime = (time, timeString) => {
-    console.log(timeString)
-    if (timeString[0]!='' && timeString[1]!=''){
-      let time1 = timeString[0]
-      let time2 = timeString[1]
+    console.log(timeString);
+    if (timeString[0] !== '' && timeString[1] !== '') {
+      let time1 = timeString[0];
+      let time2 = timeString[1];
+  
       const time1Formatted = formatTime(time1);
-      const time2Formatted = formatTime(time2);    
-      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
-      console.log(finalFormat)
+      let time2Formatted = formatTime(time2);
+  
+      // Check if the first time is AM and second time hour is less than the first time hour, assume it's PM
+      if (time1Formatted.period === 'AM' && parseInt(time2.split(':')[0]) < parseInt(time1.split(':')[0])) {
+        time2Formatted.period = 'PM';
+      }
       
-    setFormValues((prev) => ({
-      ...prev,
-      morningTime: finalFormat,
-    }));
+      // Format the output
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time1Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+  
+      console.log(finalFormat);
+  
+      setFormValues((prev) => ({
+        ...prev,
+        morningTime: finalFormat,
+      }));
+    } else {
+      setFormValues((prev) => ({
+        ...prev,
+        morningTime: "",
+      }));
     }
-    else{
-    setFormValues((prev) => ({
-      ...prev,
-      morningTime: "",
-    }));
-    }
-
-
   };
+
   const onChangeTimeAfternoon = (time, timeString) => {
-    console.log(timeString)
-    if (timeString[0]!='' && timeString[1]!=''){
-      let time1 = timeString[0]
-      let time2 = timeString[1]
+    console.log(timeString);
+    if (timeString[0] !== '' && timeString[1] !== '') {
+      let time1 = timeString[0];
+      let time2 = timeString[1];
+  
       const time1Formatted = formatTime(time1);
-      const time2Formatted = formatTime(time2);    
-      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
-      console.log(finalFormat)
-      
-    setFormValues((prev) => ({
-      ...prev,
-      afternoonTime: finalFormat,
-    }));
+      let time2Formatted = formatTime(time2);
+  
+      // Handle AM/PM transition for afternoon
+      if (time1Formatted.period === 'AM' && parseInt(time2.split(':')[0]) < parseInt(time1.split(':')[0])) {
+        time2Formatted.period = 'PM';
+      }
+  
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time1Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+  
+      console.log(finalFormat);
+  
+      setFormValues((prev) => ({
+        ...prev,
+        afternoonTime: finalFormat,
+      }));
+    } else {
+      setFormValues((prev) => ({
+        ...prev,
+        afternoonTime: "",
+      }));
     }
-    else{
-    setFormValues((prev) => ({
-      ...prev,
-      afternoonTime: "",
-    }));
-    }
-
-
   };
+  
   const onChangeTimeEvening = (time, timeString) => {
-    console.log(timeString)
-    if (timeString[0]!='' && timeString[1]!=''){
-      let time1 = timeString[0]
-      let time2 = timeString[1]
+    console.log(timeString);
+    if (timeString[0] !== '' && timeString[1] !== '') {
+      let time1 = timeString[0];
+      let time2 = timeString[1];
+  
       const time1Formatted = formatTime(time1);
-      const time2Formatted = formatTime(time2);    
-      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
-      console.log(finalFormat)
-      
-    setFormValues((prev) => ({
-      ...prev,
-      eveningTime: finalFormat,
-    }));
+      let time2Formatted = formatTime(time2);
+  
+      // Handle AM/PM transition for evening
+      if (time1Formatted.period === 'AM' && parseInt(time2.split(':')[0]) < parseInt(time1.split(':')[0])) {
+        time2Formatted.period = 'PM';
+      }
+  
+      const finalFormat = `${time1Formatted.hour.toString().padStart(2, '0')}:${time1Formatted.minute.toString().padStart(2, '0')}${time1Formatted.period} - ${time2Formatted.hour.toString().padStart(2, '0')}:${time2Formatted.minute.toString().padStart(2, '0')}${time2Formatted.period}`;
+  
+      console.log(finalFormat);
+  
+      setFormValues((prev) => ({
+        ...prev,
+        eveningTime: finalFormat,
+      }));
+    } else {
+      setFormValues((prev) => ({
+        ...prev,
+        eveningTime: "",
+      }));
     }
-    else{
-    setFormValues((prev) => ({
-      ...prev,
-      eveningTime: "",
-    }));
-    }
-
-
   };
+  
+
   const [isUploaded, setIsUploaded] = useState(false);
   const fileInputRef = React.useRef(null);
   const [errors, setErrors] = useState({});
